@@ -26,7 +26,7 @@ development:
   encoding: unicode
   database: kville_dev
   pool: 5
-  username: user
+  username: kville
   password: password
 
 test:
@@ -34,5 +34,5 @@ test:
   encoding: unicode
   database: kville_test
   pool: 5
-  username: user
+  username: kville
   password: password
