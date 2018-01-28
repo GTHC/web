@@ -1,16 +1,27 @@
 import React from 'react';
-import { LocaleProvider, Button, Slider } from 'antd';
-import enUS from 'antd/lib/locale-provider/en_US';
 import { render } from 'react-dom';
-import 'antd/dist/antd.css';
+import { Button, Container, Header } from 'semantic-ui-react'
+import 'semantic-ui-css/semantic.min.css';
 
 const root = document.getElementById('root');
+
+const App = () => (
+  <Container>
+    <Header as='h1'>Hello world!</Header>
+
+    <Button
+      content='Discover docs'
+      href='http://react.semantic-ui.com'
+      icon='github'
+      labelPosition='left'
+    />
+  </Container>
+)
+
 document.addEventListener('DOMContentLoaded', () => {
   render(
     <div>
-      ressdf
-      <Button type="primary">Primary</Button>
-      <Slider defaultValue={30} disabled={false} />
+      <App/>
     </div>, root,
   );
 });
