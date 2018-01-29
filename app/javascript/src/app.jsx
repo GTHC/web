@@ -18,10 +18,10 @@ import App from './containers/App'
 // CSS/styling
 import 'semantic-ui-css/semantic.min.css';
 
-// import * as allReducers from './reducers';
+import * as allReducers from './reducers';
 
 const reducers = combineReducers({
-  // ...allReducers,
+  ...allReducers,
   router: routerReducer,
 });
 
