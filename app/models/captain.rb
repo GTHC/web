@@ -1,3 +1,4 @@
 class Captain < ApplicationRecord
-  belongs_to :team
+  belongs_to :user
+  has_one :team
 end
