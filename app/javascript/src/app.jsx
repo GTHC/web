@@ -12,6 +12,11 @@ import { createDevTools } from 'redux-devtools';
 import LogMonitor from 'redux-devtools-log-monitor';
 import DockMonitor from 'redux-devtools-dock-monitor';
 
+// redux persist
+import { persistStore, persistCombineReducers } from 'redux-persist';
+import storage from 'redux-persist/es/storage';
+import { PersistGate } from 'redux-persist/es/integration/react';
+
 // containers
 import App from './containers/App'
 
@@ -20,10 +25,17 @@ import 'semantic-ui-css/semantic.min.css';
 
 import * as allReducers from './reducers';
 
-const reducers = combineReducers({
+const config = {
+  key: 'kville',
+  storage,
+};
+
+const reducer = combineReducers({
   ...allReducers,
   router: routerReducer,
 });
+
+const reducers = persistCombineReducers(config, reducer);
 
 const history = createHistory();
 const middleware = routerMiddleware(history);
@@ -53,17 +65,20 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const store = createStore(reducers, enhancer);
+const persistor = persistStore(store);
 
 class Kville extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div>
-          <App history={history} />
-          { process.env.NODE_ENV === 'development' ?
-            <DevTools /> : null
-          }
-        </div>
+        <PersistGate persistor={persistor}>
+          <div>
+            <App history={history} />
+            { process.env.NODE_ENV === 'development' ?
+              <DevTools /> : null
+            }
+          </div>
+        </PersistGate>
       </Provider>
     );
   }

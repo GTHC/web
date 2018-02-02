@@ -5199,6 +5199,10 @@ redux-devtools@^3.4.1:
     prop-types "^15.5.7"
     redux-devtools-instrument "^1.0.1"
 
+redux-persist@^5.6.6:
+  version "5.6.6"
+  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-5.6.6.tgz#e3024a6c46b5d1c18cf5743a60b27fd5a1923942"
+
 redux-search@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/redux-search/-/redux-search-2.4.0.tgz#da21448b2d0c6508324cf4f93f66f6c6170df00d"
