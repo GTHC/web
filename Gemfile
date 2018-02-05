@@ -45,7 +45,9 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
-  # run servers with foreman
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'foreman'
 end
 
@@ -64,4 +66,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # for seeds.rb
 gem 'faker'
 
-gem 'bcrypt', '3.1.11', platforms: [:ruby, :x64_mingw] 
+gem 'bcrypt', '3.1.11', platforms: [:ruby, :x64_mingw]

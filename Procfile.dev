@@ -1,2 +1,4 @@
-web-backend: rails s
-webpack-frontend: yarn start
+web-backend: bundle exec rails s
+webpack-frontend: ruby bin\webpack-dev-server
+
+# watcher: ./bin/webpack-watcher
