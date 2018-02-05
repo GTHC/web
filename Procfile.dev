@@ -1,0 +1,2 @@
+web-backend: rails s
+webpack-frontend: yarn start
