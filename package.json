@@ -31,6 +31,7 @@
     "webpack-dev-server": "^2.11.1"
   },
   "scripts": {
-    "start": "ruby bin\\webpack-dev-server"
+    "start": "foreman start -f Procfile.dev",
+    "webpacker": "ruby bin\\webpack-dev-server"
   }
 }

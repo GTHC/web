@@ -1,4 +1,2 @@
-web-backend: bundle exec rails s
+backend: bundle exec puma -p $PORT
 webpack-frontend: ruby bin\webpack-dev-server
-
-# watcher: ./bin/webpack-watcher
