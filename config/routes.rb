@@ -15,5 +15,4 @@ Rails.application.routes.draw do
       resources :users, :captains
     end
   end
-  end
 end
