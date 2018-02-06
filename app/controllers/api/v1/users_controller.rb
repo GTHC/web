@@ -1,4 +1,4 @@
-class Api::V1::UsersController < ApplicationController
+class Api::V1::UsersController < ApiController
   include ActionView::Rendering
   before_action :set_user
   def show
