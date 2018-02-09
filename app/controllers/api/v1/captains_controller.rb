@@ -1,7 +1,9 @@
 class Api::V1::CaptainsController < ApiController
   before_action :set_user
   def show
+  end
 
+  def index
   end
 
   private
