@@ -214,7 +214,7 @@ DEPENDENCIES
   devise (~> 4.2)
   faker
   foreman
-  jbuilder (~> 2.5)
+  jbuilder
   pg (~> 0.18)
   puma (~> 3.7)
   rails (~> 5.1.3)
