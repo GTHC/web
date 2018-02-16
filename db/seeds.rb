@@ -87,3 +87,18 @@ for i in 1..25
     );
   end
 end
+
+for i in 1..100
+  @id = User.all.ids.sample
+  @curr_user = User.find(@id)
+  @team_id = @curr_user.team.id
+  @now = Time.now
+  @later = @now + rand(1..10).hours
+  Shift.create!(
+    user_id: @id,
+    team_id: @team_id,
+    start_time: @now,
+    end_time: @later,
+    note: Faker::Lorem.paragraph,
+  )
+end
