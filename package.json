@@ -32,6 +32,7 @@
   },
   "scripts": {
     "start": "foreman start -f Procfile.dev",
-    "webpacker": "ruby bin\\webpack-dev-server"
+    "webpacker": "ruby bin\\webpack-dev-server",
+    "flush": " sh .\\bin\\db-flush.sh",
   }
 }
