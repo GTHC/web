@@ -15,7 +15,7 @@
   <tbody>
     <% @shifts.each do |shift| %>
       <tr>
-        <td><%= shift.time %></td>
+        <td><%= shift.start_time %></td>
         <td><%= shift.note %></td>
         <td><%= shift.user.email %></td>
         <td><%= link_to 'Show', shift %></td>
