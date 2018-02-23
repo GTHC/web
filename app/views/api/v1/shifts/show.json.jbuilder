@@ -1,1 +1,1 @@
-json.merge! @shifts.as_json({except: [:created_at, :updated_at]})
+json.merge! @shift.as_json({except: [:created_at, :updated_at]})

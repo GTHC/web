@@ -12,7 +12,7 @@ class Api::V1::ShiftsController < ApiController
       if params[:id]
         @shift = Shift.find(params[:id])
       else
-        @Shifts = Shift.where(id: current_user.team.id)
+        @Shifts = Shift.where(user_id: current_user.id)
       end
     end
 end
