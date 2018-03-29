@@ -38,10 +38,19 @@ const DevTools = createDevTools(
   </DockMonitor>,
 );
 
-const enhancer = compose(
-  applyMiddleware(middleware, thunkMiddleware),
-  DevTools.instrument(),
-);
+let enhancer;
+
+if (process.env.NODE_ENV === 'development') {
+  console.log('Running in development!');
+  enhancer = compose(
+    applyMiddleware(middleware, thunkMiddleware),
+    DevTools.instrument(),
+  );
+} else {
+  enhancer = compose(
+    applyMiddleware(middleware, thunkMiddleware),
+  );
+}
 
 function configureStore() {
 

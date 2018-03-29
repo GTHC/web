@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
 
+// redux
+import { connect } from "react-redux";
+import { bindActionCreators } from 'redux';
+
 import { Route, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
-import { ConnectedSwitch } from './../components'
-import Test from './../components/Test'
+import { ConnectedSwitch } from './../components';
+
+// components
+import Test from './../components/Test';
+import Login from './Login';
+
+// styles
+import './../styles';
 
 
 class App extends Component {
@@ -11,11 +21,34 @@ class App extends Component {
     return (
         <ConnectedRouter history={this.props.history}>
           <ConnectedSwitch>
-            <Route exact path="/app" component={Test} />
+            { true ? <Redirect exact from="/" to="/app" /> : <Redirect exact from="/" to="/login" />}
+            <Route path="/app" component={Test} />
+            <Route path="/login" component={Login} />
           </ConnectedSwitch>
         </ConnectedRouter>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  }
+};
+
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators(
+//     {
+//       getClasses: getClasses,
+//       getAllMajors: getAllMajors,
+//       getReqs: getReqs,
+//       getAllClasses: getAllClasses,
+//     },
+//     dispatch);
+// };
+
+export default connect(mapStateToProps)(App);
+
+export {
+  Login
+};

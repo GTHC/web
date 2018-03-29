@@ -35,7 +35,9 @@ class Kville extends Component {
         <PersistGate persistor={persistor}>
           <div>
             <App history={history} />
-            <DevTools />
+            { process.env.NODE_ENV === 'development' ?
+              <DevTools /> : null
+            }
           </div>
         </PersistGate>
       </Provider>
