@@ -23,49 +23,10 @@ import App from './containers/App'
 // CSS/styling
 import 'semantic-ui-css/semantic.min.css';
 
-import * as allReducers from './reducers';
+import { configureStore, DevTools, history } from './utils/store';
 
-const config = {
-  key: 'kville',
-  storage,
-};
+const { store, persistor } = configureStore();
 
-const reducer = combineReducers({
-  ...allReducers,
-  router: routerReducer,
-});
-
-const reducers = persistCombineReducers(config, reducer);
-
-const history = createHistory();
-const middleware = routerMiddleware(history);
-
-const DevTools = createDevTools(
-  <DockMonitor
-    toggleVisibilityKey="ctrl-h"
-    changePositionKey="ctrl-q"
-    defaultIsVisible={false}
-  >
-    <LogMonitor theme="tomorrow" />
-  </DockMonitor>,
-);
-
-let enhancer;
-
-if (process.env.NODE_ENV === 'development') {
-  console.log('Running in development!');
-  enhancer = compose(
-    applyMiddleware(middleware, thunkMiddleware),
-    DevTools.instrument(),
-  );
-} else {
-  enhancer = compose(
-    applyMiddleware(middleware, thunkMiddleware),
-  );
-}
-
-const store = createStore(reducers, enhancer);
-const persistor = persistStore(store);
 
 class Kville extends Component {
   render() {
@@ -74,9 +35,7 @@ class Kville extends Component {
         <PersistGate persistor={persistor}>
           <div>
             <App history={history} />
-            { process.env.NODE_ENV === 'development' ?
-              <DevTools /> : null
-            }
+            <DevTools />
           </div>
         </PersistGate>
       </Provider>

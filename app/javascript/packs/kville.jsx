@@ -3,8 +3,6 @@ import { render } from 'react-dom';
 
 import Kville from './../src/app'
 
-const root = document.getElementById('root');
-
 document.addEventListener('DOMContentLoaded', () => {
-  render(<Kville />, root);
+  render(<Kville />,  document.getElementById('root'));
 });
