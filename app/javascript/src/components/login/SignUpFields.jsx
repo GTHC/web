@@ -5,6 +5,7 @@ import { Button, Form, Step } from 'semantic-ui-react';
 
 // sub-components
 import UserSignUp from './signup/UserSignUp';
+import TeamSignUp from './signup/TeamSignUp';
 
 class SignUpFields extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class SignUpFields extends Component {
     return (
       <div>
         <Form>
-          <UserSignUp />
+          <TeamSignUp />
         </Form>
         <br />
         <Button.Group fluid>
