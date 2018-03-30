@@ -2,7 +2,7 @@ const initialState = {
   data: {},
 }
 
-const user = (state = initialState, action) => {
+const user = (state=initialState, action) => {
   return state;
 }
 

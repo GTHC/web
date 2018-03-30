@@ -1,47 +1,16 @@
 import React, { Component } from 'react';
 
 // redux
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // semantic ui components
-import { Input, Button, Icon, Container, Card } from 'semantic-ui-react';
+import { Container, Card } from 'semantic-ui-react';
+
+// Login components
+import { LoginFields, SignUpFields } from './../components';
 
 class Login extends Component {
-  renderLoginFields = () => (
-    <div>
-      <Input placeholder="Username" />
-
-      <br />
-      <br />
-
-      <Input placeholder="Password" type="password" />
-
-      <br />
-      <br />
-
-      <Button
-        icon
-        color="green"
-        labelPosition="right"
-      >
-        <Icon name="checkmark" />
-        Sign In!
-      </Button>
-
-      <br />
-      <br />
-
-      <Button
-        icon
-        color="blue"
-        labelPosition="right"
-      >
-        <Icon name="signup" />
-        Sign Up!
-      </Button>
-    </div>
-  );
 
   render() {
     return (
@@ -54,7 +23,9 @@ class Login extends Component {
               </Card.Header>
             </Card.Content>
             <Card.Content>
-              { this.renderLoginFields() }
+              {/* <LoginFields />  */}
+              {/* TODO: Add All Fields and add state changing */}
+              <SignUpFields />
             </Card.Content>
           </Card>
         </Container>
@@ -66,7 +37,8 @@ class Login extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-  }
+    login: state.login,
+  };
 };
 
 // const mapDispatchToProps = (dispatch) => {
