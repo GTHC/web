@@ -15,6 +15,26 @@ class SignUpFields extends Component {
     }
   }
 
+  handleButtonClick = (e, data) => {
+    const { activeStep } = this.state;
+    const { toggle, login } = this.props;
+    switch (data.id) {
+      case 'back': {
+        if (activeStep === 0) {
+          toggle(login.type);
+          return;
+        }
+        this.setState({ activeStep: activeStep - 1 });
+        return;
+      }
+      case 'next': {
+        if (activeStep < 2) {
+          this.setState({ activeStep: activeStep + 1 })
+        }
+      }
+    }
+  }
+
   render() {
     const { activeStep } = this.state;
     const steps = [
@@ -29,9 +49,9 @@ class SignUpFields extends Component {
         </Form>
         <br />
         <Button.Group fluid>
-          <Button content='Back' icon='left arrow' labelPosition='left' color="red" />
+          <Button id="back" content='Back' icon='left arrow' labelPosition='left' color="red" onClick={this.handleButtonClick} />
           <Button.Or />
-          <Button content='Next' icon='right arrow' labelPosition='right' color="green" />
+          <Button id="next" content='Next' icon='right arrow' labelPosition='right' color="green" onClick={this.handleButtonClick} />
         </Button.Group>
         <br />
         <Step.Group fluid items={steps} />

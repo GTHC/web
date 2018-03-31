@@ -10,9 +10,13 @@ import { Container, Card } from 'semantic-ui-react';
 // Login components
 import { LoginFields, SignUpFields } from './../components';
 
+// redux actions
+import { toggleLoginType } from './../actions/login';
+
 class Login extends Component {
 
   render() {
+    const { login, toggleLoginType } = this.props;
     return (
       <div className="login">
         <Container textalign="center" >
@@ -25,7 +29,7 @@ class Login extends Component {
             <Card.Content>
               {/* <LoginFields />  */}
               {/* TODO: Add All Fields and add state changing */}
-              <SignUpFields />
+              <SignUpFields toggle={toggleLoginType} login={login} />
             </Card.Content>
           </Card>
         </Container>
@@ -41,18 +45,15 @@ const mapStateToProps = (state) => {
   };
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators(
-//     {
-//       getClasses: getClasses,
-//       getAllMajors: getAllMajors,
-//       getReqs: getReqs,
-//       getAllClasses: getAllClasses,
-//     },
-//     dispatch);
-// };
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      toggleLoginType: toggleLoginType,
+    },
+    dispatch);
+};
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
 export {
   Login
