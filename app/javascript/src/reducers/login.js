@@ -1,4 +1,4 @@
-const initalState = {
+const initialState = {
   type: 'login', // login or signup
   signUpData: {
     name: '',
@@ -10,6 +10,7 @@ const initalState = {
     password: '',
     passwordConfirmation: '',
   },
+  disableNext: true, // disable next button for signup
 };
 
 const login = (state=initialState, action) => {
@@ -17,13 +18,13 @@ const login = (state=initialState, action) => {
     // changing page type
     case 'START_LOGIN': {
       return {
-        ...state,
+        ...initialState,
         type: 'login',
       };
     }
     case 'START_SIGNUP': {
       return {
-        ...state,
+        ...initialState,
         type: 'signup',
       };
     }
@@ -52,6 +53,14 @@ const login = (state=initialState, action) => {
         }
       };
     }
+    case 'SU_NEXT': {
+      return {
+        ...state,
+        disableNext: action.payload,
+      };
+    }
   }
   return state;
 };
+
+export default login;

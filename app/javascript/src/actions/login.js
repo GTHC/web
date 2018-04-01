@@ -11,8 +11,16 @@ const toggleLoginType = (type) => {
       };
     }
   }
-}
+};
+
+const toggleDisableNext = (val) => {
+  return {
+    type: 'SU_NEXT',
+    payload: val,
+  };
+};
 
 export {
   toggleLoginType,
+  toggleDisableNext,
 };

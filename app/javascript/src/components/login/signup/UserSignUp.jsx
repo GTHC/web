@@ -11,15 +11,31 @@ class UserSignUp extends Component {
       email: '',
       password: '',
       passwordConfirmation: '',
+      errorMessage: '',
     };
   }
 
   onInputChange = (e, data) => {
-    this.setState({ [data.id]: e.target.value });
+    this.setState({ [data.id]: e.target.value },
+      () => { this.validInput(); }
+    );
+  }
+
+  validInput = () => {
+    const { hidePasswords, email, password, passwordConfirmation } = this.state;
+    if (password !== passwordConfirmation) {
+      this.setState({ errorMessage: 'Make sure both passwords are the same.' });
+      return;
+    } else if (email === '' || password === '' || passwordConfirmation === '') {
+      this.setState({ errorMessage: 'Make sure none of the fields are empty.' });
+      return;
+    }
+    this.setState({ errorMessage: '' });
+    this.props.toggleDisableNext(false);
   }
 
   render() {
-    const { hidePasswords, email, password, passwordConfirmation } = this.state;
+    const { hidePasswords, email, password, passwordConfirmation, errorMessage } = this.state;
     return (
       <div>
         <Form.Input
@@ -56,6 +72,9 @@ class UserSignUp extends Component {
             onClick: () => { this.setState({ hidePasswords: !hidePasswords }) }
           }}
         />
+      <p style={{ color: 'red' }}>
+        {errorMessage}
+      </p>
       </div>
     );
   }

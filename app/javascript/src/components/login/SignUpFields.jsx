@@ -17,11 +17,11 @@ class SignUpFields extends Component {
 
   handleButtonClick = (e, data) => {
     const { activeStep } = this.state;
-    const { toggle, login } = this.props;
+    const { toggleLoginType, toggleDisableNext, login } = this.props;
     switch (data.id) {
       case 'back': {
         if (activeStep === 0) {
-          toggle(login.type);
+          toggleLoginType(login.type);
           return;
         }
         this.setState({ activeStep: activeStep - 1 });
@@ -29,7 +29,8 @@ class SignUpFields extends Component {
       }
       case 'next': {
         if (activeStep < 2) {
-          this.setState({ activeStep: activeStep + 1 })
+          this.setState({ activeStep: activeStep + 1 });
+          toggleDisableNext(true);
         }
       }
     }
@@ -37,24 +38,37 @@ class SignUpFields extends Component {
 
   render() {
     const { activeStep } = this.state;
+    const { login, toggleDisableNext } = this.props;
     const steps = [
         { key: 'user', icon: 'user', title: 'User Credentials', description: 'Add your email and create an account password.', active: (activeStep === 0) },
         { key: 'team', active: true, icon: 'users', title: 'Team information', description: 'Let us know which team you are on!', active: (activeStep === 1) },
-        { key: 'join', disabled: true, icon: 'checkmark box', title: 'All Set!', active: (activeStep === 2) },
+        { key: 'join', disabled: true, icon: 'checkmark box', title: 'All Set!', active: (activeStep === 2), completed: (activeStep === 2) },
       ];
     return (
       <div>
+        <Step.Group fluid items={steps} />
+        <br />
+        <br />
         <Form>
-          <TeamSignUp />
+          { activeStep === 0 && <UserSignUp toggleDisableNext={toggleDisableNext} />}
+          { activeStep === 1 && <TeamSignUp toggleDisableNext={toggleDisableNext} />}
+
         </Form>
         <br />
-        <Button.Group fluid>
-          <Button id="back" content='Back' icon='left arrow' labelPosition='left' color="red" onClick={this.handleButtonClick} />
-          <Button.Or />
-          <Button id="next" content='Next' icon='right arrow' labelPosition='right' color="green" onClick={this.handleButtonClick} />
-        </Button.Group>
+        { activeStep < 2 ?
+          <Button.Group fluid>
+            <Button id="back" content='Back' icon='left arrow' labelPosition='left' color="red" onClick={this.handleButtonClick} />
+            <Button.Or />
+            <Button id="next" content='Next' icon='right arrow' labelPosition='right' disabled={login.disableNext} color="green" onClick={this.handleButtonClick} />
+          </Button.Group> :
+          <Button.Group fluid>
+            <Button id="back" content='Back' icon='left arrow' labelPosition='left' color="red" onClick={this.handleButtonClick} />
+            <Button.Or />
+            <Button id="login" content='Login' icon='sign in' labelPosition='right' color="green" onClick={this.handleButtonClick} />
+          </Button.Group>
+        }
         <br />
-        <Step.Group fluid items={steps} />
+        <br />
       </div>
     );
   }

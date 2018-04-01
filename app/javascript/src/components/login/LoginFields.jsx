@@ -5,6 +5,7 @@ import { Input, Button, Icon } from 'semantic-ui-react';
 
 class LoginFields extends Component {
   render() {
+    const { login, toggleLoginType } = this.props;
     return (
       <div>
         <Input placeholder="Username" />
@@ -33,6 +34,9 @@ class LoginFields extends Component {
           icon
           color="blue"
           labelPosition="right"
+          onClick={() => {
+            toggleLoginType(login.type);
+          }}
         >
           <Icon name="signup" />
           Sign Up!

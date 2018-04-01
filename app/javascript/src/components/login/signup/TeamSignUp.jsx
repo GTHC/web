@@ -22,20 +22,35 @@ class TeamSignUp extends Component {
       team: '',
       teamType: '',
       teamNumber: '',
+      errorMessage: '',
     };
   }
 
   onInputChange = (e, data) => {
-    this.setState({ [data.id]: e.target.value });
+    this.setState({ [data.id]: e.target.value },
+      () => {this.validInput()}
+    );
+  }
+
+  validInput = () => {
+    const { stepType, name, team, teamType, teamNumber } = this.state;
+    console.log('teamType', teamType);
+    if (name === '' || team === '' || teamType === '' || teamNumber === '') {
+      this.setState({ errorMessage: 'Make sure all fields are filled.' });
+    } else {
+      this.setState({ errorMessage: '' });
+      this.props.toggleDisableNext(false);
+    }
   }
 
   dropdownChange = (e, data) => {
-    this.setState({ teamType: data.value });
-    console.log(data.value);
+    this.setState({ teamType: data.value },
+      () => {this.validInput()}
+    );
   }
 
   render() {
-    const { stepType, name, team, teamType, teamNumber } = this.state;
+    const { stepType, name, team, teamType, teamNumber, errorMessage } = this.state;
     return (
       <div>
         { stepType === 0 ?
@@ -85,6 +100,9 @@ class TeamSignUp extends Component {
             />
           </div>
         }
+        <p style={{ color: 'red' }}>
+          {errorMessage}
+        </p>
       </div>
     );
   }
