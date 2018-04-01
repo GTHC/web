@@ -5,7 +5,7 @@ const initialState = {
     email: '',
     team: '',
     tentType: '',
-    tentNumber: null,
+    tentNumber: '',
     isCaptain: false,
     password: '',
     passwordConfirmation: '',

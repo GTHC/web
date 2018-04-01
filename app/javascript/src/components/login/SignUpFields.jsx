@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // semantic ui components
-import { Button, Form, Step } from 'semantic-ui-react';
+import { Button, Form, Step, Divider } from 'semantic-ui-react';
 
 // sub-components
 import UserSignUp from './signup/UserSignUp';
@@ -41,7 +41,7 @@ class SignUpFields extends Component {
     const { login, toggleDisableNext, updateUserInfo, updateTeamInfo } = this.props;
     const steps = [
         { key: 'user', icon: 'user', title: 'User Credentials', description: 'Add your email and create an account password.', active: (activeStep === 0) },
-        { key: 'team', active: true, icon: 'users', title: 'Team information', description: 'Let us know which team you are on!', active: (activeStep === 1) },
+        { key: 'team', active: true, icon: 'users', title: 'Team Information', description: 'Let us know which team you are on!', active: (activeStep === 1) },
         { key: 'join', disabled: true, icon: 'checkmark box', title: 'All Set!', active: (activeStep === 2), completed: (activeStep === 2) },
       ];
     return (

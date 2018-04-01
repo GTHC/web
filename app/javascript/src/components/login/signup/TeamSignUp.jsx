@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // semantic ui components
-import { Form, Button } from 'semantic-ui-react';
+import { Form, Button, Divider } from 'semantic-ui-react';
 
 // utils
 import dropdownOptions from './utils/dropdownOptions';
@@ -21,27 +21,35 @@ class TeamSignUp extends Component {
       stepType: 0,
       name: data.name,
       team: data.team,
-      teamType: data.teamType,
-      teamNumber: data.teamNumber,
+      tentType: data.tentType,
+      tentNumber: data.tentNumber,
+      isCaptain: false,
       errorMessage: '',
     };
     // checks if next button should be active or not (useful for situations where user comes from a future page)
-    if (data.name && data.team && data.teamType && data.teamNumber) {
+    if (data.name && data.team && data.tentType && data.tentNumber) {
       props.toggleDisableNext(false);
     }
   }
 
   onInputChange = (e, data) => {
+    // check if tentNumber is actually a number
     this.setState({ [data.id]: e.target.value },
       () => {this.validInput()}
     );
   }
 
   validInput = () => {
-    const { stepType, name, team, teamType, teamNumber } = this.state;
+    const { stepType, name, team, tentType, tentNumber } = this.state;
     const { toggleDisableNext, updateTeamInfo } = this.props;
-    if (name === '' || team === '' || teamType === '' || teamNumber === '') {
+    if (stepType === 1 && (name === '' || team === '' || tentType === '' || tentNumber === '')) {
       this.setState({ errorMessage: 'Make sure all fields are filled.' });
+      toggleDisableNext(true);
+    } else if (stepType === 2 && (name === '' )) {
+      this.setState({ errorMessage: 'Make sure all fields are filled.' });
+      toggleDisableNext(true);
+    } else if (isNaN(tentNumber) && stepType === 1) {
+      this.setState({ errorMessage: 'Tent Number must be a number.' });
       toggleDisableNext(true);
     } else {
       this.setState({ errorMessage: '' });
@@ -51,31 +59,30 @@ class TeamSignUp extends Component {
   }
 
   dropdownChange = (e, data) => {
-    this.setState({ teamType: data.value },
+    this.setState({ tentType: data.value },
       () => {this.validInput()}
     );
   }
 
   render() {
-    const { stepType, name, team, teamType, teamNumber, errorMessage } = this.state;
+    const { stepType, name, team, tentType, tentNumber, errorMessage } = this.state;
     return (
       <div>
-        { stepType === 0 ?
-          <div>
-            <Button basic content='Create A Team' color="blue" onClick={() => { this.setState({ stepType: 1 }); }} />
-            <Button basic content='Join A Team' color="blue" onClick={() => { this.setState({ stepType: 2 }); }} />
-          </div>
-          :
-          <div>
-            <Form.Input
-              fluid
-              value={name}
-              id="name"
-              label="Name"
-              placeholder="Name"
-              onChange={this.onInputChange}
-            />
-            { stepType === 1 ?
+          <Form.Input
+            fluid
+            value={name}
+            id="name"
+            label="Your Name"
+            placeholder="Name"
+            onChange={this.onInputChange}
+          />
+        <Divider horizontal>Team Info</Divider>
+        <div>
+          <Button basic={stepType !== 1} content='Create A Team' color="blue" onClick={() => { this.setState({ stepType: 1, isCaptain: true  }); }} />
+          <Button basic={stepType !== 2} content='Join A Team' color="blue" onClick={() => { this.setState({ stepType: 2, isCaptain: false }); }} />
+        </div>
+        <br />
+        { stepType === 1 ?
               <div>
                 <Form.Input
                   fluid
@@ -87,26 +94,38 @@ class TeamSignUp extends Component {
                 />
                 <Form.Input
                   fluid
-                  value={teamNumber}
-                  id="teamNumber"
+                  value={tentNumber}
+                  id="tentNumber"
                   label="Team Number"
                   placeholder="Team Number"
                   onChange={this.onInputChange}
                 />
+                <Form.Dropdown
+                  fluid
+                  label="Team Type"
+                  placeholder='Team Type'
+                  search
+                  selection
+                  options={dropdownOptions}
+                  onChange={this.dropdownChange}
+                  defaultValue={tentType}
+                />
             </div> :
               null
-            }
-            <Form.Dropdown
-              fluid
-              label="Team Type"
-              placeholder='Team Type'
-              search
-              selection
-              options={dropdownOptions}
-              onChange={this.dropdownChange}
-            />
-          </div>
         }
+        {stepType === 2 ?
+          <Form.Dropdown
+            fluid
+            label="Team Name & Number"
+            placeholder='Find your team'
+            search
+            selection
+            options={dropdownOptions}
+            onChange={this.dropdownChange}
+          /> :
+          null
+      }
+        <br />
         <p style={{ color: 'red' }}>
           {errorMessage}
         </p>
