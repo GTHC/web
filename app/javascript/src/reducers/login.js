@@ -29,7 +29,7 @@ const login = (state=initialState, action) => {
       };
     }
     // SIGNUP (SU) actions
-    case 'SU_SIGN_CREDENTIALS': {
+    case 'SU_USER_INFO': {
       return {
         ...state,
         signUpData: {

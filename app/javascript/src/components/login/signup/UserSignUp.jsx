@@ -6,13 +6,22 @@ import { Button, Form, Step } from 'semantic-ui-react';
 class UserSignUp extends Component {
   constructor(props) {
     super(props);
+    const data = props.login.signUpData;
     this.state = {
       hidePasswords: true,
-      email: '',
-      password: '',
-      passwordConfirmation: '',
+      email: data.email,
+      password: data.password,
+      passwordConfirmation: data.passwordConfirmation,
       errorMessage: '',
     };
+    // this checks if the Next button for the user creds should be active or not (useful for situations where user comes from a future page)
+    if (data.email && data.password && data.passwordConfirmation) {
+      if (data.password === data.passwordConfirmation) {
+        props.toggleDisableNext(false);
+      } else {
+        props.toggleDisableNext(true);
+      }
+    }
   }
 
   onInputChange = (e, data) => {
@@ -23,15 +32,19 @@ class UserSignUp extends Component {
 
   validInput = () => {
     const { hidePasswords, email, password, passwordConfirmation } = this.state;
+    const { updateUserInfo, toggleDisableNext } = this.props;
     if (password !== passwordConfirmation) {
       this.setState({ errorMessage: 'Make sure both passwords are the same.' });
+      toggleDisableNext(true);
       return;
     } else if (email === '' || password === '' || passwordConfirmation === '') {
       this.setState({ errorMessage: 'Make sure none of the fields are empty.' });
+      toggleDisableNext(true);
       return;
     }
     this.setState({ errorMessage: '' });
-    this.props.toggleDisableNext(false);
+    updateUserInfo(this.state);
+    toggleDisableNext(false);
   }
 
   render() {

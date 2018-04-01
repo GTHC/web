@@ -9,6 +9,7 @@ import dropdownOptions from './utils/dropdownOptions';
 class TeamSignUp extends Component {
   constructor(props) {
     super(props);
+    const data = props.login.signUpData;
     this.state = {
       /**
        * stepType: This will define what is displayed for this step.
@@ -18,12 +19,16 @@ class TeamSignUp extends Component {
        * @type {Number}
        */
       stepType: 0,
-      name: '',
-      team: '',
-      teamType: '',
-      teamNumber: '',
+      name: data.name,
+      team: data.team,
+      teamType: data.teamType,
+      teamNumber: data.teamNumber,
       errorMessage: '',
     };
+    // checks if next button should be active or not (useful for situations where user comes from a future page)
+    if (data.name && data.team && data.teamType && data.teamNumber) {
+      props.toggleDisableNext(false);
+    }
   }
 
   onInputChange = (e, data) => {
@@ -34,12 +39,14 @@ class TeamSignUp extends Component {
 
   validInput = () => {
     const { stepType, name, team, teamType, teamNumber } = this.state;
-    console.log('teamType', teamType);
+    const { toggleDisableNext, updateTeamInfo } = this.props;
     if (name === '' || team === '' || teamType === '' || teamNumber === '') {
       this.setState({ errorMessage: 'Make sure all fields are filled.' });
+      toggleDisableNext(true);
     } else {
       this.setState({ errorMessage: '' });
-      this.props.toggleDisableNext(false);
+      updateTeamInfo(this.state);
+      toggleDisableNext(false);
     }
   }
 

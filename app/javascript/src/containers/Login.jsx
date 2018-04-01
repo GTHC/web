@@ -11,12 +11,17 @@ import { Container, Card } from 'semantic-ui-react';
 import { LoginFields, SignUpFields } from './../components';
 
 // redux actions
-import { toggleLoginType, toggleDisableNext } from './../actions/login';
+import {
+  toggleLoginType,
+  toggleDisableNext,
+  updateUserInfo,
+  updateTeamInfo,
+} from './../actions/login';
 
 class Login extends Component {
 
   render() {
-    const { login, toggleLoginType, toggleDisableNext } = this.props;
+    const { login, toggleLoginType, toggleDisableNext, updateUserInfo, updateTeamInfo } = this.props;
     return (
       <div className="login">
         <Container textalign="center" >
@@ -29,8 +34,21 @@ class Login extends Component {
               </Card.Header>
             </Card.Content>
             <Card.Content>
-              { login.type === 'login' && <LoginFields toggleLoginType={toggleLoginType} login={login} /> }
-              { login.type === 'signup' && <SignUpFields toggleLoginType={toggleLoginType} toggleDisableNext={toggleDisableNext} login={login} /> }
+              { login.type === 'login' &&
+                <LoginFields
+                  toggleLoginType={toggleLoginType}
+                  login={login}
+                  />
+              }
+              { login.type === 'signup' &&
+                <SignUpFields
+                  toggleLoginType={toggleLoginType}
+                  toggleDisableNext={toggleDisableNext}
+                  login={login}
+                  updateUserInfo={updateUserInfo}
+                  updateTeamInfo={updateTeamInfo}
+                  />
+              }
             </Card.Content>
           </Card>
         </Container>
@@ -51,6 +69,8 @@ const mapDispatchToProps = (dispatch) => {
     {
       toggleLoginType: toggleLoginType,
       toggleDisableNext: toggleDisableNext,
+      updateUserInfo: updateUserInfo,
+      updateTeamInfo: updateTeamInfo,
     },
     dispatch);
 };

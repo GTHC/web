@@ -20,7 +20,34 @@ const toggleDisableNext = (val) => {
   };
 };
 
+const updateUserInfo = (userInfo) => {
+  return {
+    type: 'SU_USER_INFO',
+    payload: {
+      email: userInfo.email,
+      password: userInfo.password,
+      passwordConfirmation: userInfo.passwordConfirmation,
+    }
+  };
+}
+
+const updateTeamInfo = (teamInfo) => {
+  // TODO: Make sure store is getting appropriate tentType and tentNumber values
+  return {
+    type: 'SU_TEAM_INFO',
+    payload: {
+      name: teamInfo.name,
+      team: teamInfo.team,
+      tentType: teamInfo.tentType,
+      tentNumber: teamInfo.tentNumber,
+      isCaptain: teamInfo.isCaptain,
+    }
+  };
+}
+
 export {
   toggleLoginType,
   toggleDisableNext,
+  updateUserInfo,
+  updateTeamInfo,
 };
