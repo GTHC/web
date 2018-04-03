@@ -16,12 +16,13 @@ import {
   toggleDisableNext,
   updateUserInfo,
   updateTeamInfo,
+  getAllTeams,
 } from './../actions/login';
 
 class Login extends Component {
 
   render() {
-    const { login, toggleLoginType, toggleDisableNext, updateUserInfo, updateTeamInfo } = this.props;
+    const { login, toggleLoginType, toggleDisableNext, updateUserInfo, updateTeamInfo, getAllTeams } = this.props;
     return (
       <div className="login">
         <Container textalign="center" >
@@ -47,6 +48,7 @@ class Login extends Component {
                   login={login}
                   updateUserInfo={updateUserInfo}
                   updateTeamInfo={updateTeamInfo}
+                  getAllTeams={getAllTeams}
                   />
               }
             </Card.Content>
@@ -71,6 +73,7 @@ const mapDispatchToProps = (dispatch) => {
       toggleDisableNext: toggleDisableNext,
       updateUserInfo: updateUserInfo,
       updateTeamInfo: updateTeamInfo,
+      getAllTeams: getAllTeams,
     },
     dispatch);
 };

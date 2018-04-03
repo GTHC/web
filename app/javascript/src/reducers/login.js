@@ -11,6 +11,12 @@ const initialState = {
     passwordConfirmation: '',
   },
   disableNext: true, // disable next button for signup
+  // API
+  isLoading: false,
+  teams: {}, // used for GET request for teams
+  teamDropDownOptions: [],
+  error: false,
+  errorMessage: '',
 };
 
 const login = (state=initialState, action) => {
@@ -62,6 +68,43 @@ const login = (state=initialState, action) => {
 
     case '@@router/LOCATION_CHANGE': {
       return initialState;
+    }
+
+    // API actions for login
+    case 'BEGIN_GET_TEAMS': {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+    case 'END_GET_TEAMS': {
+      // this formats the teams into data that can be read by the Dropdown component in the TeamSignUp component
+      const teamDropDownOptions = action.payload.data.map(
+        (team) => {
+          // having a serperate color variable rather than just saying team.tent_type avoids warnings although it would it still work
+          const color = (team.tent_type.includes('black') ? 'black' : ( team.tent_type.includes('blue') ? 'blue' : null ));
+          return {
+            key: team.id,
+            value: team.name,
+            text: `${team.tent_number} - ${team.name}`,
+            label: {color: color, empty: true, circular: true },
+          };
+        }
+      );
+      return {
+        ...state,
+        teams: action.payload.data,
+        isLoading: false,
+        teamDropDownOptions,
+      };
+    }
+    case 'FAILED_GET_TEAMS': {
+      return {
+        ...state,
+        error: true,
+        errorMessage: action.payload,
+        isLoading: false,
+      };
     }
   }
   return state;

@@ -23,7 +23,7 @@ class AllSet extends Component {
         <br />
         Tent Number: { data.tentNumber }
         <br />
-        Tent Type: { tentType[data.tentType] }
+        Tent Type: { data.tentType }
       </div>
     );
   }

@@ -11,7 +11,9 @@
         "useBuiltIns": true
       }
     ],
-    "react"
+    "react",
+    "stage-0",
+    "es2015"
   ],
   "plugins": [
     "syntax-dynamic-import",

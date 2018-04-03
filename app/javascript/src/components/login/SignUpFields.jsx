@@ -39,7 +39,7 @@ class SignUpFields extends Component {
 
   render() {
     const { activeStep } = this.state;
-    const { login, toggleDisableNext, updateUserInfo, updateTeamInfo } = this.props;
+    const { login, toggleDisableNext, updateUserInfo, updateTeamInfo, getAllTeams } = this.props;
     const steps = [
         { key: 'user', icon: 'user', title: 'User Credentials', description: 'Add your email and create an account password.', active: (activeStep === 0) },
         { key: 'team', active: true, icon: 'users', title: 'Team Information', description: 'Let us know which team you are on!', active: (activeStep === 1) },
@@ -63,6 +63,7 @@ class SignUpFields extends Component {
               login={login}
               toggleDisableNext={toggleDisableNext}
               updateTeamInfo={updateTeamInfo}
+              getAllTeams={getAllTeams}
             />
           }
           { activeStep === 2 &&

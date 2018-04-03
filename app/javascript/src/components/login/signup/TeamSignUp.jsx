@@ -64,8 +64,14 @@ class TeamSignUp extends Component {
     );
   }
 
+  handleGetTeams = () => {
+    const { getAllTeams, login } = this.props;
+    getAllTeams();
+  }
+
   render() {
     const { stepType, name, team, tentType, tentNumber, errorMessage } = this.state;
+    const { toggleDisableNext, login } = this.props;
     return (
       <div>
           <Form.Input
@@ -84,6 +90,7 @@ class TeamSignUp extends Component {
             }}
           />
           <Button basic={stepType !== 2} content='Join A Team' color="blue" onClick={() => {
+              this.handleGetTeams();
               this.setState({ stepType: 2, isCaptain: false });
               toggleDisableNext(true);
             }}
@@ -129,7 +136,7 @@ class TeamSignUp extends Component {
             placeholder='Find your team'
             search
             selection
-            options={dropdownOptions}
+            options={login.teamDropDownOptions}
             onChange={this.dropdownChange}
           /> :
           null

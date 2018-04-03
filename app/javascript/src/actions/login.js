@@ -1,3 +1,5 @@
+import crud from './utils/crud';
+
 const toggleLoginType = (type) => {
   switch (type) {
     case 'login': {
@@ -45,9 +47,24 @@ const updateTeamInfo = (teamInfo) => {
   };
 }
 
+// API actions
+
+const getAllTeams = () => (
+  crud({
+    dispatch: {
+      begin: 'BEGIN_GET_TEAMS',
+      end: 'END_GET_TEAMS',
+      fail: 'FAILED_GET_TEAMS',
+    },
+    method: 'GET',
+    url: '/api/v1/teams'
+  })
+)
+
 export {
   toggleLoginType,
   toggleDisableNext,
   updateUserInfo,
   updateTeamInfo,
+  getAllTeams,
 };

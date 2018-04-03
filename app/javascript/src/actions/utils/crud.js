@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { push } from 'react-router-redux';
 
-const crud = request => async (dispatch) => {
+const crud = request => (dispatch) => {
   dispatch({
       type: request.dispatch.begin,
     });
-  const response = await axios({
+  axios({
       method: request.method,
       url: request.url,
       data: request.data ? request.data : null,
