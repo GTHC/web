@@ -51,7 +51,7 @@ class TeamSignUp extends Component {
     } else if (isNaN(tentNumber) && stepType === 1) {
       this.setState({ errorMessage: 'Tent Number must be a number.' });
       toggleDisableNext(true);
-    } else {
+    } else if (stepType > 0) {
       this.setState({ errorMessage: '' });
       updateTeamInfo(this.state);
       toggleDisableNext(false);
@@ -78,8 +78,16 @@ class TeamSignUp extends Component {
           />
         <Divider horizontal>Team Info</Divider>
         <div>
-          <Button basic={stepType !== 1} content='Create A Team' color="blue" onClick={() => { this.setState({ stepType: 1, isCaptain: true  }); }} />
-          <Button basic={stepType !== 2} content='Join A Team' color="blue" onClick={() => { this.setState({ stepType: 2, isCaptain: false }); }} />
+          <Button basic={stepType !== 1} content='Create A Team' color="blue" onClick={() => {
+              this.setState({ stepType: 1, isCaptain: true });
+              toggleDisableNext(true);
+            }}
+          />
+          <Button basic={stepType !== 2} content='Join A Team' color="blue" onClick={() => {
+              this.setState({ stepType: 2, isCaptain: false });
+              toggleDisableNext(true);
+            }}
+          />
         </div>
         <br />
         { stepType === 1 ?
@@ -114,6 +122,7 @@ class TeamSignUp extends Component {
               null
         }
         {stepType === 2 ?
+          // TODO: Add options from API
           <Form.Dropdown
             fluid
             label="Team Name & Number"

@@ -59,6 +59,10 @@ const login = (state=initialState, action) => {
         disableNext: action.payload,
       };
     }
+
+    case '@@router/LOCATION_CHANGE': {
+      return initialState;
+    }
   }
   return state;
 };
