@@ -85,7 +85,7 @@ const login = (state=initialState, action) => {
           const color = (team.tent_type.includes('black') ? 'black' : ( team.tent_type.includes('blue') ? 'blue' : null ));
           return {
             key: team.id,
-            value: team.name,
+            value: team.id,
             text: `${team.tent_number} - ${team.name}`,
             label: {color: color, empty: true, circular: true },
           };

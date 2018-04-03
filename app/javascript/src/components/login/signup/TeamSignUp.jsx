@@ -59,7 +59,25 @@ class TeamSignUp extends Component {
   }
 
   dropdownChange = (e, data) => {
+    console.log(data);
     this.setState({ tentType: data.value },
+      () => {this.validInput()}
+    );
+  }
+
+  teamDropDownChange = (e, data) => {
+    const toTitleCase = (str) => {
+      return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+    };
+    const { teams } = this.props.login;
+    const team = teams.find(team => team.id === data.value);
+    const tentType = toTitleCase(team.tent_type);
+    this.setState({
+      team: team.name,
+      tentNumber: team.tent_number,
+      tentType: tentType,
+      isCaptain: false,
+    },
       () => {this.validInput()}
     );
   }
@@ -116,6 +134,7 @@ class TeamSignUp extends Component {
                   onChange={this.onInputChange}
                 />
                 <Form.Dropdown
+                  id="tentType"
                   fluid
                   label="Team Type"
                   placeholder='Team Type'
@@ -137,7 +156,7 @@ class TeamSignUp extends Component {
             search
             selection
             options={login.teamDropDownOptions}
-            onChange={this.dropdownChange}
+            onChange={this.teamDropDownChange}
           /> :
           null
       }
