@@ -6,6 +6,7 @@ import { Button, Form, Step, Divider } from 'semantic-ui-react';
 // sub-components
 import UserSignUp from './signup/UserSignUp';
 import TeamSignUp from './signup/TeamSignUp';
+import AllSet from './signup/AllSet';
 
 class SignUpFields extends Component {
   constructor(props) {
@@ -63,6 +64,9 @@ class SignUpFields extends Component {
               toggleDisableNext={toggleDisableNext}
               updateTeamInfo={updateTeamInfo}
             />
+          }
+          { activeStep === 2 &&
+            <AllSet login={login} />
           }
 
         </Form>
