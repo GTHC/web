@@ -41,6 +41,14 @@ class UserSignUp extends Component {
       this.setState({ errorMessage: 'Make sure none of the fields are empty.' });
       toggleDisableNext(true);
       return;
+    } else if ( !email.includes('@') ) {
+      this.setState({ errorMessage: 'Make sure to use a valid email.' });
+      toggleDisableNext(true);
+      return;
+    } else if ( password.length < 6 ) {
+      this.setState({ errorMessage: 'Make sure passwords are at least 6 characters.' });
+      toggleDisableNext(true);
+      return;
     }
     this.setState({ errorMessage: '' });
     updateUserInfo(this.state);

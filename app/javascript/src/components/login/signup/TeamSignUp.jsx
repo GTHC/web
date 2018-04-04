@@ -19,6 +19,7 @@ class TeamSignUp extends Component {
        * @type {Number}
        */
       stepType: 0,
+      teamType: '', // User is either creating or joining a team (used in validInput())
       name: data.name,
       team: data.team,
       tentType: data.tentType,
@@ -40,8 +41,9 @@ class TeamSignUp extends Component {
   }
 
   validInput = () => {
-    const { stepType, name, team, tentType, tentNumber } = this.state;
-    const { toggleDisableNext, updateTeamInfo } = this.props;
+    const { stepType, name, team, tentType, tentNumber, teamType } = this.state;
+    const { toggleDisableNext, updateTeamInfo, login } = this.props;
+    const tentNumbers = login.teams.map(team => team.tent_number);
     if (stepType === 1 && (name === '' || team === '' || tentType === '' || tentNumber === '')) {
       this.setState({ errorMessage: 'Make sure all fields are filled.' });
       toggleDisableNext(true);
@@ -51,6 +53,10 @@ class TeamSignUp extends Component {
     } else if (isNaN(tentNumber) && stepType === 1) {
       this.setState({ errorMessage: 'Tent Number must be a number.' });
       toggleDisableNext(true);
+    } else if (teamType === 'create' && tentNumbers.includes(parseInt(tentNumber))) {
+      this.setState({ errorMessage: 'Tent Number is already being used by another team.' });
+      toggleDisableNext(true);
+      return;
     } else if (stepType > 0) {
       this.setState({ errorMessage: '' });
       updateTeamInfo(this.state);
@@ -59,7 +65,6 @@ class TeamSignUp extends Component {
   }
 
   dropdownChange = (e, data) => {
-    console.log(data);
     this.setState({ tentType: data.value },
       () => {this.validInput()}
     );
@@ -82,11 +87,6 @@ class TeamSignUp extends Component {
     );
   }
 
-  handleGetTeams = () => {
-    const { getAllTeams, login } = this.props;
-    getAllTeams();
-  }
-
   render() {
     const { stepType, name, team, tentType, tentNumber, errorMessage } = this.state;
     const { toggleDisableNext, login } = this.props;
@@ -103,13 +103,19 @@ class TeamSignUp extends Component {
         <Divider horizontal>Team Info</Divider>
         <div>
           <Button basic={stepType !== 1} content='Create A Team' color="blue" onClick={() => {
-              this.setState({ stepType: 1, isCaptain: true });
+              this.setState({
+                teamType: 'create',
+                stepType: 1,
+                isCaptain: true,
+                team: '',
+                tentType: '',
+                tentNumber: '',
+              });
               toggleDisableNext(true);
             }}
           />
           <Button basic={stepType !== 2} content='Join A Team' color="blue" onClick={() => {
-              this.handleGetTeams();
-              this.setState({ stepType: 2, isCaptain: false });
+              this.setState({ teamType: 'join', stepType: 2, isCaptain: false });
               toggleDisableNext(true);
             }}
           />
@@ -148,7 +154,6 @@ class TeamSignUp extends Component {
               null
         }
         {stepType === 2 ?
-          // TODO: Add options from API
           <Form.Dropdown
             fluid
             label="Team Name & Number"

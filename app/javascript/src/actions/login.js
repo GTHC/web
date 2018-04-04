@@ -34,7 +34,6 @@ const updateUserInfo = (userInfo) => {
 }
 
 const updateTeamInfo = (teamInfo) => {
-  // TODO: Make sure store is getting appropriate tentType and tentNumber values
   return {
     type: 'SU_TEAM_INFO',
     payload: {

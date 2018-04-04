@@ -16,6 +16,10 @@ class SignUpFields extends Component {
     }
   }
 
+  componentWillMount() {
+    this.props.getAllTeams();
+  }
+
   handleButtonClick = (e, data) => {
     const { activeStep } = this.state;
     const { toggleLoginType, toggleDisableNext, login } = this.props;
@@ -63,7 +67,6 @@ class SignUpFields extends Component {
               login={login}
               toggleDisableNext={toggleDisableNext}
               updateTeamInfo={updateTeamInfo}
-              getAllTeams={getAllTeams}
             />
           }
           { activeStep === 2 &&
