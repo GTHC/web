@@ -11,9 +11,7 @@
         "useBuiltIns": true
       }
     ],
-    "react",
-    "stage-0",
-    "es2015"
+    "react"
   ],
   "plugins": [
     "syntax-dynamic-import",
@@ -23,7 +21,6 @@
       {
         "spec": true
       }
-    ],
-    ["lodash", { "id": ["lodash", "semantic-ui-react"] }]
+    ]
   ]
 }
