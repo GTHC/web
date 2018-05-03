@@ -38,6 +38,9 @@ class SignUpFields extends Component {
           toggleDisableNext(true);
         }
       }
+      case 'login': {
+        // login button click
+      }
     }
   }
 

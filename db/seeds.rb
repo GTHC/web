@@ -33,59 +33,55 @@ if !Team.exists?(id: 0)
     id: 0,
     name: 'Team 0',
     captain_id: 0,
-    tent_number: rand(30),
+    tent_number: 0,
     tent_type: 'black',
   )
   team_1 = Team.create!(
     id: 1,
     name: 'Team 1',
     captain_id: 0,
-    tent_number: rand(100),
+    tent_number: 1,
     tent_type: 'blue',
   )
   team_2 = Team.create!(
     id: 2,
     name: 'Team 2',
     captain_id: 2,
-    tent_number: rand(30),
+    tent_number: 2,
     tent_type: 'black',
   )
   team_3 = Team.create!(
     id: 3,
     name: 'Team 3',
     captain_id: 3,
-    tent_number: rand(100),
+    tent_number: 3,
     tent_type: 'white',
   )
   team_4 = Team.create!(
     id: 4,
     name: 'Team 4',
     captain_id: 0,
-    tent_number: rand(100),
+    tent_number: 4,
     tent_type: 'dirty black',
   )
   team_5 = Team.create!(
     id: 5,
     name: 'Team 5',
     captain_id: 0,
-    tent_number: rand(100),
+    tent_number: 5,
     tent_type: 'dirty blue',
   )
 end
 
 for i in 1..25
   fake_email = Faker::Internet.email
-  user_id = rand(6..100)
-  if !User.exists?(user_id)
-    User.create!(
-      id: user_id,
-      name: Faker::Name.name,
-      password: 'password',
-      password_confirmation: 'password',
-      email: fake_email,
-      team_id: rand(5),
-    );
-  end
+  User.create!(
+    name: Faker::Name.name,
+    password: 'password',
+    password_confirmation: 'password',
+    email: fake_email,
+    team_id: rand(5),
+  );
 end
 
 for i in 1..100
