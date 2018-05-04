@@ -10,77 +10,58 @@ require 'faker'
 # Captains
 
 for i in 0..5
-  if !User.exists?(i)
-    User.create!(
-      id: i,
-      name: Faker::Name.name,
-      password: 'password',
-      password_confirmation: 'password',
-      email: Faker::Internet.email,
-      team_id: rand(5),
-    )
-    Captain.create!(
-      id: i,
-      user_id: i
-    )
-  end
+  @user = User.create!(
+    name: Faker::Name.name,
+    password: 'password',
+    password_confirmation: 'password',
+    email: Faker::Internet.email,
+    team_id: rand(1..5),
+  )
+  Captain.create!(
+    user_id: @user.id
+  )
 end
 
 
 # Teams
-if !Team.exists?(id: 0)
-  team_0 = Team.create!(
-    id: 0,
-    name: 'Team 0',
-    captain_id: 0,
-    tent_number: 0,
-    tent_type: 'black',
-  )
-  team_1 = Team.create!(
-    id: 1,
-    name: 'Team 1',
-    captain_id: 0,
-    tent_number: 1,
-    tent_type: 'blue',
-  )
-  team_2 = Team.create!(
-    id: 2,
-    name: 'Team 2',
-    captain_id: 2,
-    tent_number: 2,
-    tent_type: 'black',
-  )
-  team_3 = Team.create!(
-    id: 3,
-    name: 'Team 3',
-    captain_id: 3,
-    tent_number: 3,
-    tent_type: 'white',
-  )
-  team_4 = Team.create!(
-    id: 4,
-    name: 'Team 4',
-    captain_id: 0,
-    tent_number: 4,
-    tent_type: 'dirty black',
-  )
-  team_5 = Team.create!(
-    id: 5,
-    name: 'Team 5',
-    captain_id: 0,
-    tent_number: 5,
-    tent_type: 'dirty blue',
-  )
-end
+team_1 = Team.create!(
+  name: 'Team 1',
+  captain_id: 1,
+  tent_number: 1,
+  tent_type: 'blue',
+)
+team_2 = Team.create!(
+  name: 'Team 2',
+  captain_id: 2,
+  tent_number: 2,
+  tent_type: 'black',
+)
+team_3 = Team.create!(
+  name: 'Team 3',
+  captain_id: 3,
+  tent_number: 3,
+  tent_type: 'white',
+)
+team_4 = Team.create!(
+  name: 'Team 4',
+  captain_id: 4,
+  tent_number: 4,
+  tent_type: 'dirty black',
+)
+team_5 = Team.create!(
+  name: 'Team 5',
+  captain_id: 5,
+  tent_number: 5,
+  tent_type: 'dirty blue',
+)
 
 for i in 1..25
-  fake_email = Faker::Internet.email
   User.create!(
     name: Faker::Name.name,
     password: 'password',
     password_confirmation: 'password',
-    email: fake_email,
-    team_id: rand(5),
+    email: Faker::Internet.email,
+    team_id: rand(1..5),
   );
 end
 

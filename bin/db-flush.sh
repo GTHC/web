@@ -8,6 +8,6 @@ eval rails db:drop
 printf '2/4 Deleting schema.rb 🚫 \n'
 rm db/schema.rb
 printf '3/4 Recreate databases ♻️ \n'
-rails db:create && rails db:migrate
+rails db:create && rails db:migrate && rails database:correction_seq_id
 printf '4/4 Seeding with test data 🌱 \n'
 rails db:seed

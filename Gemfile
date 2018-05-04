@@ -66,4 +66,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # for seeds.rb
 gem 'faker'
 
-gem 'bcrypt', '3.1.11', platforms: [:ruby, :x64_mingw]
+gem 'bcrypt-ruby', '3.1.5', :require => 'bcrypt'
