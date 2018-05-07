@@ -33,6 +33,7 @@ class Api::V1::CaptainsController < ApiController
     elsif !@user.save
       render json: { status: 'ERROR', message: 'User not saved', data: @user.errors }, status: :unprocessable_entity
     else
+      sign_in @user
       render json: { status: 'SUCCESS', message: 'User, Captain, and Team created', data: {
           team: @team,
           captain: @captain,
