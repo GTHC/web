@@ -42,8 +42,6 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     arel (8.0.0)
     bcrypt (3.1.11-x86-mingw32)
-    bcrypt-ruby (3.1.5-x86-mingw32)
-      bcrypt (>= 3.1.3)
     bindex (0.5.0)
     builder (3.2.3)
     byebug (10.0.2)
@@ -207,7 +205,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
-  bcrypt-ruby (= 3.1.5)
+  bcrypt (= 3.1.11)
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
@@ -230,4 +228,4 @@ DEPENDENCIES
   webpacker
 
 BUNDLED WITH
-   1.15.4
+   1.16.1

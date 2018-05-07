@@ -38,8 +38,17 @@ class SignUpFields extends Component {
           toggleDisableNext(true);
         }
       }
-      case 'login': {
-        // login button click
+      case 'signup': {
+        // signup button click
+        // TODO: Add Login functionality
+        const data = login.signUpData; // data collected from signup fields
+        if (data.isCaptain) {
+          // API call to create team and create user
+          // Create User -> Create Captain -> Create Team -> Add Team ID to User
+        }
+        else {
+          // API call to create user and add to team
+        }
       }
     }
   }
@@ -87,7 +96,7 @@ class SignUpFields extends Component {
           <Button.Group fluid>
             <Button id="back" content='Back' icon='left arrow' labelPosition='left' color="red" onClick={this.handleButtonClick} />
             <Button.Or />
-            <Button id="login" content='Login' icon='sign in' labelPosition='right' color="green" onClick={this.handleButtonClick} />
+            <Button id="signup" content='Sign Up and Login' icon='sign in' labelPosition='right' color="green" onClick={this.handleButtonClick} />
           </Button.Group>
         }
         <br />
