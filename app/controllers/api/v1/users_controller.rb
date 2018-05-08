@@ -17,7 +17,7 @@ class Api::V1::UsersController < ApiController
       team_id: params[:team_id],
     )
     if @user.save
-      sign_in @user
+      bypass_sign_in @user
       render json: { status: 'SUCCESS', message: 'User saved and signed in' }, status: :ok
     else
       render json: { status: 'ERROR', message: 'User not saved', data: @user.errors }, status: :unprocessable_entity
@@ -29,8 +29,12 @@ class Api::V1::UsersController < ApiController
     validate_login_params
     @user = User.find_by_email(params[:email])
     if @user&.valid_password?(params[:password])
-      sign_in @user
-      render json: { status: 'SUCCESS', message: 'User Logged In', data: { user: @user } }, status: :ok
+      bypass_sign_in @user
+      if current_user
+        render json: { status: 'SUCCESS', message: 'User Logged In', data: { user: @user } }, status: :ok
+      else
+        render json: { status: 'ERROR', message: 'Error while Logging In' }, status: :unauthorized
+      end
     else
       render json: { status: 'ERROR', message: 'Incorrect Email or Password' }, status: :unauthorized
     end
