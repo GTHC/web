@@ -22,6 +22,7 @@ class TeamSignUp extends Component {
       teamType: '', // User is either creating or joining a team (used in validInput())
       name: data.name,
       team: data.team,
+      teamID: data.teamID,
       tentType: data.tentType,
       tentNumber: data.tentNumber,
       isCaptain: false,
@@ -79,6 +80,7 @@ class TeamSignUp extends Component {
     const tentType = toTitleCase(team.tent_type);
     this.setState({
       team: team.name,
+      teamID: team.id,
       tentNumber: team.tent_number,
       tentType: tentType,
       isCaptain: false,

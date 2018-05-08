@@ -39,6 +39,7 @@ const updateTeamInfo = (teamInfo) => {
     payload: {
       name: teamInfo.name,
       team: teamInfo.team,
+      teamID: teamInfo.teamID,
       tentType: teamInfo.tentType,
       tentNumber: teamInfo.tentNumber,
       isCaptain: teamInfo.isCaptain,
@@ -60,6 +61,7 @@ const getAllTeams = () => (
   })
 )
 
+// API call made when logging in
 const login = (userData) => (
   crud({
     dispatch: {
@@ -87,6 +89,38 @@ const logout = () => (
   })
 )
 
+// API call made for user signing up with existing team
+const signup = (userData) => (
+  crud({
+    dispatch: {
+      begin: 'BEGIN_SIGNUP',
+      end: 'END_SIGNUP',
+      fail: 'FAILED_SIGNUP',
+    },
+    method: 'POST',
+    url: '/api/v1/users',
+    push: '/app',
+    data: userData
+  })
+);
+
+
+// API call made for user signing up with a new team
+const signupNewTeam = (userData) => (
+  crud({
+    dispatch: {
+      begin: 'BEGIN_SIGNUP',
+      end: 'END_SIGNUP',
+      fail: 'FAILED_SIGNUP',
+    },
+    method: 'POST',
+    url: '/api/v1/captains',
+    push: '/app',
+    data: userData
+  })
+);
+
+
 export {
   toggleLoginType,
   toggleDisableNext,
@@ -94,5 +128,6 @@ export {
   updateTeamInfo,
   getAllTeams,
   login,
-  logout
+  logout,
+  signup
 };
