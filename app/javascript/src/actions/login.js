@@ -82,7 +82,8 @@ const logout = () => (
       fail: 'FAILED_LOGOUT',
     },
     method: 'POST',
-    url: '/logout'
+    url: '/logout',
+    push: '/login'
   })
 )
 

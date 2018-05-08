@@ -75,6 +75,8 @@ class Login extends Component {
   }
 }
 
+// connecting to redux
+
 const mapStateToProps = (state) => {
   return {
     user: state.user,

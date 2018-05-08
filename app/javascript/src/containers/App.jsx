@@ -9,11 +9,18 @@ import { ConnectedRouter } from 'react-router-redux';
 import { ConnectedSwitch } from './../components';
 
 // components
-import Test from './../components/Test';
+import Home from './Home';
 import Login from './Login';
 
 // styles
 import './../styles';
+
+// routes
+const AppRoutes = () => (
+  <ConnectedSwitch>
+    <Route exact path="/app" component={Home} />
+  </ConnectedSwitch>
+);
 
 
 class App extends Component {
@@ -23,13 +30,15 @@ class App extends Component {
         <ConnectedRouter history={history}>
           <ConnectedSwitch>
             { user.isLoggedIn ? <Redirect exact from="/" to="/app" /> : <Redirect exact from="/" to="/login" />}
-            <Route path="/app" component={Test} />
+            <Route path="/app" component={AppRoutes} />
             <Route path="/login" component={Login} />
           </ConnectedSwitch>
         </ConnectedRouter>
     );
   }
 }
+
+// connecting to redux
 
 const mapStateToProps = (state) => {
   return {
