@@ -62,6 +62,13 @@ const getAllTeams = () => (
 )
 
 // API call made when logging in
+/**
+ * @param  {[Object]} userData
+ * {
+ *  email: string
+ *  password: string
+ * }
+ */
 const login = (userData) => (
   crud({
     dispatch: {
@@ -90,6 +97,16 @@ const logout = () => (
 )
 
 // API call made for user signing up with existing team
+/**
+ * @param  {[Object]} userData
+ * {
+ *  name: string
+ *  email: string
+ *  password: string
+ *  password_confirmation: string
+ *  team_id: integer
+ * }
+ */
 const signup = (userData) => (
   crud({
     dispatch: {
@@ -106,6 +123,18 @@ const signup = (userData) => (
 
 
 // API call made for user signing up with a new team
+/**
+ * @param  {[Object]} userData
+ * {
+ *  user_name: string
+ *  email: string
+ *  password: string
+ *  password_confirmation: string
+ *  team_name: string,
+ *  tent_number: integer,
+ *  tent_type: string (black, dblack, blue, dblue, or white)
+ * }
+ */
 const signupNewTeam = (userData) => (
   crud({
     dispatch: {

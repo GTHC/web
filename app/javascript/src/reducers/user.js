@@ -8,6 +8,7 @@ const initialState = {
 
 const user = (state=initialState, action) => {
   switch(action.type) {
+    // POST /login
     case 'BEGIN_LOGIN': {
       return {
         ...state,
@@ -28,6 +29,28 @@ const user = (state=initialState, action) => {
         isLoggedIn: true
       };
     }
+    // POST /api/v1/users or POST /api/v1/captains
+    case 'BEGIN_SIGNUP': {
+      return {
+        ...state,
+        isLoading: true,
+      }
+    }
+    case 'FAILED_SIGNUP': {
+      return {
+        ...initialState,
+        error: true,
+        errorMessage: action.payload.response.data.message,
+        errorObject: action.payload,
+      }
+    }
+    case 'END_SIGNUP': {
+      return {
+        data: action.payload.data.data,
+        isLoggedIn: true
+      };
+    }
+    // POST /logout
     case 'BEGIN_LOGOUT': {
       return {
         ...state,
