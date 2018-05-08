@@ -6,6 +6,7 @@ class Api::V1::CaptainsController < ApiController
   def index
   end
 
+  # POST /api/v1/captains
   def create
     # Creating a new user, captain, and team
     # Create User -> Create Captain -> Create Team -> Add Team ID to User
@@ -34,7 +35,7 @@ class Api::V1::CaptainsController < ApiController
       render json: { status: 'ERROR', message: 'User not saved', data: @user.errors }, status: :unprocessable_entity
     else
       sign_in @user
-      render json: { status: 'SUCCESS', message: 'User, Captain, and Team created', data: {
+      render json: { status: 'SUCCESS', message: 'User, Captain, and Team created, and User signed in', data: {
           team: @team,
           captain: @captain,
           user: @user,

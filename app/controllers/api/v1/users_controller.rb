@@ -6,6 +6,25 @@ class Api::V1::UsersController < ApiController
   def index
   end
 
+  # POST /api/v1/users
+  def create
+    validate_params
+    @user = User.create!(
+      name: params[:name],
+      email: params[:email],
+      password: params[:password],
+      password_confirmation: params[:password_confirmation],
+      team_id: params[:team_id],
+    )
+    if @user.save
+      sign_in @user
+      render json: { status: 'SUCCESS', message: 'User saved and signed in' }, status: :ok
+    else
+      render json: { status: 'ERROR', message: 'User not saved', data: @user.errors }, status: :unprocessable_entity
+    end
+  end
+
+  # POST /login
   def login
     validate_login_params
     @user = User.find_by_email(params[:email])
@@ -17,6 +36,7 @@ class Api::V1::UsersController < ApiController
     end
   end
 
+  # POST /logout
   def logout
     sign_out current_user
     if !current_user
@@ -38,5 +58,13 @@ class Api::V1::UsersController < ApiController
 
     def validate_login_params
       params.require([:email, :password])
+    end
+
+    def validate_params
+      params.require([:name,
+                      :email,
+                      :password,
+                      :password_confirmation,
+                      :team_id])
     end
 end
