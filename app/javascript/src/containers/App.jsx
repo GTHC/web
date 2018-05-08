@@ -18,10 +18,11 @@ import './../styles';
 
 class App extends Component {
   render() {
+    const { history, user } = this.props;
     return (
-        <ConnectedRouter history={this.props.history}>
+        <ConnectedRouter history={history}>
           <ConnectedSwitch>
-            { true ? <Redirect exact from="/" to="/app" /> : <Redirect exact from="/" to="/login" />}
+            { user.isLoggedIn ? <Redirect exact from="/" to="/app" /> : <Redirect exact from="/" to="/login" />}
             <Route path="/app" component={Test} />
             <Route path="/login" component={Login} />
           </ConnectedSwitch>

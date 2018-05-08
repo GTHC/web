@@ -11,7 +11,7 @@ class Api::V1::UsersController < ApiController
     @user = User.find_by_email(params[:email])
     if @user&.valid_password?(params[:password])
       sign_in @user
-      render json: { status: 'SUCCESS', message: 'User Logged In' }, status: :ok
+      render json: { status: 'SUCCESS', message: 'User Logged In', data: { user: @user } }, status: :ok
     else
       render json: { status: 'ERROR', message: 'Incorrect Email or Password' }, status: :unauthorized
     end

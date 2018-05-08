@@ -60,10 +60,37 @@ const getAllTeams = () => (
   })
 )
 
+const login = (userData) => (
+  crud({
+    dispatch: {
+      begin: 'BEGIN_LOGIN',
+      end: 'END_LOGIN',
+      fail: 'FAILED_LOGIN',
+    },
+    method: 'POST',
+    url: '/login',
+    data: userData
+  })
+)
+
+const logout = () => (
+  crud({
+    dispatch: {
+      begin: 'BEGIN_LOGOUT',
+      end: 'END_LOGOUT',
+      fail: 'FAILED_LOGOUT',
+    },
+    method: 'POST',
+    url: '/logout'
+  })
+)
+
 export {
   toggleLoginType,
   toggleDisableNext,
   updateUserInfo,
   updateTeamInfo,
   getAllTeams,
+  login,
+  logout
 };

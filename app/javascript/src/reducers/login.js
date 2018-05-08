@@ -106,6 +106,10 @@ const login = (state=initialState, action) => {
         isLoading: false,
       };
     }
+    // reset signup/login redux data when user login POST call is successful
+    case 'END_LOGIN': {
+      return initialState;
+    }
   }
   return state;
 };
