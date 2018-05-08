@@ -17,12 +17,23 @@ import {
   updateUserInfo,
   updateTeamInfo,
   getAllTeams,
+  login,
+  logout,
 } from './../actions/login';
 
 class Login extends Component {
 
   render() {
-    const { login, toggleLoginType, toggleDisableNext, updateUserInfo, updateTeamInfo, getAllTeams } = this.props;
+    const { login,
+            user,
+            toggleLoginType,
+            toggleDisableNext,
+            updateUserInfo,
+            updateTeamInfo,
+            getAllTeams,
+            loginUser,
+            logoutUser,
+          } = this.props;
     return (
       <div className="login">
         <Container textalign="center" >
@@ -39,6 +50,9 @@ class Login extends Component {
                 <LoginFields
                   toggleLoginType={toggleLoginType}
                   login={login}
+                  user={user}
+                  loginUser={loginUser}
+                  logoutUser={logoutUser}
                   />
               }
               { login.type === 'signup' &&
@@ -49,6 +63,8 @@ class Login extends Component {
                   updateUserInfo={updateUserInfo}
                   updateTeamInfo={updateTeamInfo}
                   getAllTeams={getAllTeams}
+                  loginUser={loginUser}
+                  logoutUser={logoutUser}
                   />
               }
             </Card.Content>
@@ -74,6 +90,8 @@ const mapDispatchToProps = (dispatch) => {
       updateUserInfo: updateUserInfo,
       updateTeamInfo: updateTeamInfo,
       getAllTeams: getAllTeams,
+      loginUser: login, // changed login and logout action names due to login state name
+      logoutUser: logout,
     },
     dispatch);
 };

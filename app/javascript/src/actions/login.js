@@ -69,6 +69,7 @@ const login = (userData) => (
     },
     method: 'POST',
     url: '/login',
+    push: '/app',
     data: userData
   })
 )
