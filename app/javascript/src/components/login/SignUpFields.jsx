@@ -22,7 +22,7 @@ class SignUpFields extends Component {
 
   handleButtonClick = (e, data) => {
     const { activeStep } = this.state;
-    const { toggleLoginType, toggleDisableNext, login } = this.props;
+    const { toggleLoginType, toggleDisableNext, login, signup, signupNewTeam } = this.props;
     switch (data.id) {
       case 'back': {
         if (activeStep === 0) {
@@ -37,6 +37,7 @@ class SignUpFields extends Component {
           this.setState({ activeStep: activeStep + 1 });
           toggleDisableNext(true);
         }
+        return;
       }
       case 'signup': {
         // signup button click
@@ -45,10 +46,27 @@ class SignUpFields extends Component {
         if (data.isCaptain) {
           // API call to create team and create user
           // Create User -> Create Captain -> Create Team -> Add Team ID to User
+          signupNewTeam({
+            user_name: data.name,
+            password: data.password,
+            password_confirmation: data.passwordConfirmation,
+            email: data.email,
+            team_name: data.team,
+            tent_number: data.tentNumber,
+            tent_type: data.tentType
+          });
         }
         else {
           // API call to create user and add to team
+          signup({
+            name: data.name,
+            email: data.email,
+            password: data.password,
+            password_confirmation: data.passwordConfirmation,
+            team_id: data.teamID,
+          })
         }
+        return;
       }
     }
   }

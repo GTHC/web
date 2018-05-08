@@ -48,13 +48,16 @@ const login = (state=initialState, action) => {
       };
     }
     case 'SU_TEAM_INFO': {
+      const teamID = !action.payload.isCaptain ?  action.payload.teamID : null;
+      // if user is not a captain then the teamID that is coming from the payload
+      // can be discarded since it won't be used. Otherwise, the teamID is important.
       return {
         ...state,
         signUpData: {
           ...state.signUpData,
           name: action.payload.name,
           team: action.payload.team,
-          teamID: action.payload.teamID,
+          teamID: teamID,
           tentType: action.payload.tentType,
           tentNumber: action.payload.tentNumber,
           isCaptain: action.payload.isCaptain,

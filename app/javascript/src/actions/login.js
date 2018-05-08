@@ -158,5 +158,6 @@ export {
   getAllTeams,
   login,
   logout,
-  signup
+  signup,
+  signupNewTeam
 };
