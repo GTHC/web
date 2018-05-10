@@ -15,15 +15,24 @@ class AllSet extends Component {
         By clicking "Login" you are confirming that the following information is correct:
         <br />
         <br />
-        Name: { data.name }
+        <strong>Name: </strong>
         <br />
-        Email: { data.email }
+        { data.name }
         <br />
-        Team: { data.team }
         <br />
-        Tent Number: { data.tentNumber }
+        <strong>Email:</strong>
+        <br/>
+        { data.email }
         <br />
-        Tent Type: { data.tentType }
+        <br />
+        <strong>Team: </strong>
+        <br />
+        { data.team }
+        <br />
+        <br />
+        <strong>Tent Type:</strong>
+        <br/>
+        { data.tentType }
       </div>
     );
   }

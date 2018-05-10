@@ -1,5 +1,9 @@
 .login {
   text-align: center;
+  padding-top: 10em;
+  padding-bottom: 100%;
+  background-image: url("./../../../images/tent.png");
+  background-repeat: repeat;
 }
 
 .login-card {
