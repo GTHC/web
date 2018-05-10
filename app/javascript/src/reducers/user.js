@@ -68,6 +68,14 @@ const user = (state=initialState, action) => {
     case 'END_LOGOUT': {
       return initialState;
     }
+    // this is so the error message is not persisted when the page is refreshed
+    case 'persist/REHYDRATE': {
+      return {
+        ...state,
+        error: false,
+        errorMessage: '',
+      }
+    }
     default: {
       return state;
     }

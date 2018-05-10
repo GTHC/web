@@ -59,7 +59,7 @@ class LoginFields extends Component {
           type="password"
         />
 
-        {/* {this.state.error ?
+        {this.state.error ?
           <div>
             <br />
             <p style={{ color: 'red' }}>{this.state.errorMessage}</p>
@@ -71,7 +71,7 @@ class LoginFields extends Component {
             <br />
             <p style={{ color: 'red' }}>{user.errorMessage}</p>
           </div>
-        : null} */}
+        : null}
 
         <br />
         <br />
