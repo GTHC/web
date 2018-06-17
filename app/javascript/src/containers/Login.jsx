@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // semantic ui components
-import { Container, Card } from 'semantic-ui-react';
+import { Container, Card, Menu, Input } from 'semantic-ui-react';
 
 // Login components
 import { LoginFields, SignUpFields } from './../components';
@@ -24,8 +24,15 @@ import {
 } from './../actions/login';
 
 class Login extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      activeItem: 'home',
+    }
+  }
 
   render() {
+    const { activeItem } = this.state;
     const { login,
             user,
             toggleLoginType,
@@ -39,41 +46,52 @@ class Login extends Component {
             signupNewTeam
           } = this.props;
     return (
-      <div className="login">
-        <Container textalign="center" >
-          <Card centered fluid color="blue" className="login-card" >
-            <Card.Content>
-              <Card.Header>
-                { login.type === 'login' ? '⛺⛺ Welcome to your K-Ville Scheduler! ⛺⛺' :
-                  '🤝🤝 Pleased to meet you! 🤝🤝'
+      <div>
+        <Menu secondary>
+          <Menu.Item header>Krzyzewskiville Scheduler ⛺</Menu.Item>
+          <Menu.Item
+            name='about KVS'
+            active={activeItem === 'about'}
+            onMouseOver={() => {this.setState({activeItem: 'about'})}}
+            onMouseLeave={() => {this.setState({activeItem: ''})}}
+           />
+      </Menu>
+        <div className="login">
+          <Container textalign="center" >
+            <Card centered fluid color="blue" className="login-card" >
+              <Card.Content>
+                <Card.Header>
+                  { login.type === 'login' ? '⛺⛺ Welcome to your K-Ville Scheduler! ⛺⛺' :
+                    '🤝🤝 Pleased to meet you! 🤝🤝'
+                  }
+                </Card.Header>
+              </Card.Content>
+              <Card.Content>
+                { login.type === 'login' &&
+                  <LoginFields
+                    toggleLoginType={toggleLoginType}
+                    login={login}
+                    user={user}
+                    loginUser={loginUser}
+                    logoutUser={logoutUser}
+                    />
                 }
-              </Card.Header>
-            </Card.Content>
-            <Card.Content>
-              { login.type === 'login' &&
-                <LoginFields
-                  toggleLoginType={toggleLoginType}
-                  login={login}
-                  user={user}
-                  loginUser={loginUser}
-                  logoutUser={logoutUser}
-                  />
-              }
-              { login.type === 'signup' &&
-                <SignUpFields
-                  toggleLoginType={toggleLoginType}
-                  toggleDisableNext={toggleDisableNext}
-                  login={login}
-                  updateUserInfo={updateUserInfo}
-                  updateTeamInfo={updateTeamInfo}
-                  getAllTeams={getAllTeams}
-                  signup={signup}
-                  signupNewTeam={signupNewTeam}
-                  />
-              }
-            </Card.Content>
-          </Card>
-        </Container>
+                { login.type === 'signup' &&
+                  <SignUpFields
+                    toggleLoginType={toggleLoginType}
+                    toggleDisableNext={toggleDisableNext}
+                    login={login}
+                    updateUserInfo={updateUserInfo}
+                    updateTeamInfo={updateTeamInfo}
+                    getAllTeams={getAllTeams}
+                    signup={signup}
+                    signupNewTeam={signupNewTeam}
+                    />
+                }
+              </Card.Content>
+            </Card>
+          </Container>
+        </div>
       </div>
     );
   }

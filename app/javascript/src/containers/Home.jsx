@@ -12,6 +12,7 @@ import {
 
 // components
 import Test from './../components/Test';
+import NavBar from './NavBar';
 import { Button } from 'semantic-ui-react';
 
 
@@ -23,6 +24,7 @@ class Home extends Component {
   render() {
     return (
         <div>
+          <NavBar />
           <Test />
           <Button
             content="Logout"
