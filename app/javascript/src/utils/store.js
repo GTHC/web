@@ -54,10 +54,10 @@ if (process.env.NODE_ENV === 'development') {
 
 function configureStore() {
 
-  let store = createStore(reducers, enhancer);
+  let store = createStore(reducers, undefined, enhancer);
   let persistor = persistStore(store);
 
-  return { persistor, store };
+  return { store, persistor };
 }
 
 export {

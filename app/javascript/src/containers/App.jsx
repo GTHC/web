@@ -32,9 +32,22 @@ class App extends Component {
     return (
         <ConnectedRouter history={history}>
           <ConnectedSwitch>
-            { user.isLoggedIn ? <Redirect exact from="/" to="/app" /> : <Redirect exact from="/" to="/login" />}
-            <Route path="/app" component={AppRoutes} />
-            <Route path="/login" component={Login} />
+            <Route exact path="/" render={() => {
+              console.log('user.isLoggedIn', user.isLoggedIn);
+              return (user.isLoggedIn ?
+                <Redirect to="/app" /> :
+                <Redirect to="/login" />)
+            }}/>
+            <Route path="/app" render={() => (
+              user.isLoggedIn ?
+              <AppRoutes /> :
+              <Redirect to="/login" />
+            )} />
+            <Route path="/login" render={() => (
+              user.isLoggedIn ?
+              <Redirect to="/app" /> :
+              <Login />
+            )} />
           </ConnectedSwitch>
         </ConnectedRouter>
     );

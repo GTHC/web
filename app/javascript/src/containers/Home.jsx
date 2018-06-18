@@ -27,9 +27,10 @@ class Home extends Component {
           <NavBar />
           <Test />
           <Button
-            content="Logout"
+            content={this.props.user.isLoggedIn.toString()}
             onClick={this.handleLogout}
           />
+
         </div>
     );
   }
