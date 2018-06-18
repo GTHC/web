@@ -12,6 +12,8 @@ import { ConnectedSwitch } from './../components';
 import Home from './Home';
 import Login from './Login';
 
+// TODO: User Auth checking on components
+
 // styles
 import './../styles';
 
@@ -19,6 +21,7 @@ import './../styles';
 const AppRoutes = () => (
   <ConnectedSwitch>
     <Route exact path="/app" component={Home} />
+    <Route exact path="/app/*" component={Home} />
   </ConnectedSwitch>
 );
 

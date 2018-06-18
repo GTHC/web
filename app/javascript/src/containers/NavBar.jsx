@@ -9,6 +9,7 @@ import {
   login,
   logout,
 } from './../actions/login';
+import { push } from './../actions/router';
 
 // components
 import { Menu } from 'semantic-ui-react';
@@ -21,13 +22,13 @@ class NavBar extends Component {
   handleClick = (e, data) => {
     switch (data.children) {
       case 'Home':
-      // PUSH to /app
+        this.props.push('/app')
         break;
       case 'Dashboard':
-      // /app/dashboard
+        this.props.push('/app/dashboard')
         break;
       case 'User Profile':
-      // /app/user
+        this.props.push('/app/user')
         break;
       default:
         return;
@@ -87,6 +88,7 @@ const mapDispatchToProps = (dispatch) => {
     {
       loginUser: login, // changed login and logout action names due to login state name
       logoutUser: logout,
+      push: push,
     },
     dispatch);
 };
