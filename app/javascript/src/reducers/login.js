@@ -71,9 +71,9 @@ const login = (state=initialState, action) => {
       };
     }
 
-    // case '@@router/LOCATION_CHANGE': {
-    //   return initialState;
-    // }
+    case '@@router/LOCATION_CHANGE': {
+      return initialState;
+    }
 
     // API actions for login
     case 'BEGIN_GET_TEAMS': {

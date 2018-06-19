@@ -12,7 +12,7 @@ import {
 import { push } from './../actions/router';
 
 // components
-import { Menu } from 'semantic-ui-react';
+import { Menu, Icon } from 'semantic-ui-react';
 
 class NavBar extends Component {
   handleLogout = () => {
@@ -20,7 +20,7 @@ class NavBar extends Component {
   }
 
   handleClick = (e, data) => {
-    switch (data.children) {
+    switch (data.children[1]) {
       case 'Home':
         this.props.push('/app')
         break;
@@ -29,6 +29,9 @@ class NavBar extends Component {
         break;
       case 'User Profile':
         this.props.push('/app/user')
+        break;
+      case 'Team Profile':
+        this.props.push('/app/team')
         break;
       default:
         return;
@@ -39,35 +42,49 @@ class NavBar extends Component {
     const { router } = this.props;
     const path = router.location.pathname;
     return (
-      <div>
-        <Menu fixed="top" inverted>
-          <Menu.Item header>Krzyzewskiville Scheduler ⛺</Menu.Item>
+      <div style={{ paddingBottom: '75px'}}>
+        <Menu fixed="top" inverted color="blue" icon="labeled">
+          <Menu.Item header>
+            <div style={{fontSize: '2em', paddingBottom: '4px'}}>⛺</div>
+            Krzyzewskiville Scheduler
+          </Menu.Item>
           <Menu.Item
             as='a'
-            active={path === '/app'}
-            color="blue"
+            active={path === '/app' || path === '/app/'}
             onClick={this.handleClick}
           >
+            <Icon name="home" />
             Home
           </Menu.Item>
           <Menu.Item
             as='a'
             active={path === '/app/dashboard'}
-            color="blue"
             onClick={this.handleClick}
           >
+            <Icon name="dashboard" />
             Dashboard
           </Menu.Item>
-          <Menu.Menu position="right" color="red">
+          <Menu.Menu position="right">
+            <Menu.Item
+              as='a'
+              active={path === '/app/team'}
+              onClick={this.handleClick}
+            >
+              <Icon name="users" />
+              Team Profile
+            </Menu.Item>
             <Menu.Item
               as='a'
               active={path === '/app/user'}
-              color="blue"
               onClick={this.handleClick}
             >
+              <Icon name="user" />
               User Profile
             </Menu.Item>
-            <Menu.Item as='a' onClick={this.handleLogout}>Logout</Menu.Item>
+            <Menu.Item as='a' onClick={this.handleLogout}>
+              <Icon name="sign out" />
+              Logout
+            </Menu.Item>
           </Menu.Menu>
         </Menu>
       </div>
