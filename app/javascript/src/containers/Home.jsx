@@ -25,11 +25,13 @@ class Home extends Component {
     return (
         <div>
           <NavBar />
-          <Test />
-          <Button
-            content={this.props.user.isLoggedIn.toString()}
-            onClick={this.handleLogout}
-          />
+          <div className="body">
+            <Test />
+            <Button
+              content={this.props.user.isLoggedIn.toString()}
+              onClick={this.handleLogout}
+            />
+          </div>
 
         </div>
     );
