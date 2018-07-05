@@ -37,7 +37,8 @@
   },
   "scripts": {
     "start": "foreman start -f Procfile.dev",
-    "webpacker": "ruby bin\\webpack-dev-server",
-    "flush": " sh .\\bin\\db-flush.sh"
+    "webpacker": "ruby bin/webpack-dev-server",
+    "flush": " sh ./bin/db-flush.sh",
+    "dev": "docker-compose run -p '5000:5000' app yarn start"
   }
 }
