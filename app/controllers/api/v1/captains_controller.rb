@@ -35,6 +35,8 @@ class Api::V1::CaptainsController < ApiController
       render json: { status: 'ERROR', message: 'User not saved', data: @user.errors }, status: :unprocessable_entity
     else
       bypass_sign_in @user
+      @user.team_id = @team.id
+      @user.save
       render json: { status: 'SUCCESS', message: 'User, Captain, and Team created, and User signed in', data: {
           team: @team,
           captain: @captain,
