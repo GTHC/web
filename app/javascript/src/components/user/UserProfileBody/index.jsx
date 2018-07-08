@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Tab } from 'semantic-ui-react'
+import { Tab } from 'semantic-ui-react';
 
-import UserDataPane from './UserDataPane';
+import UserPane from './UserPane';
+import EditUserPane from './EditUserPane';
+import EditPasswordPane from './EditPasswordPane';
 
 export default class UserProfileBody extends Component {
   render () {
@@ -9,15 +11,19 @@ export default class UserProfileBody extends Component {
 
     const panes = [
       { menuItem: 'User Information', render: () => <Tab.Pane>
-        <UserDataPane user={user}/>
+        <UserPane user={user}/>
       </Tab.Pane> },
-      { menuItem: 'Edit User Information', render: () => <Tab.Pane>Tab 2 Content</Tab.Pane> },
-      { menuItem: 'Edit Password', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
+      { menuItem: 'Edit User Information', render: () => <Tab.Pane>
+        <EditUserPane user={user} />
+      </Tab.Pane> },
+      { menuItem: 'Edit Password', render: () => <Tab.Pane>
+        <EditPasswordPane user={user} />
+      </Tab.Pane> },
     ];
 
     return (
       <div>
-          <Tab menu={{ fluid: true, vertical: true, tabular: true }} panes={panes} />
+          <Tab menu={{ fluid: true, vertical: true, color: 'blue' }} panes={panes} />
       </div>
     );
   }
