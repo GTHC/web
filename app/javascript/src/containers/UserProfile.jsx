@@ -16,7 +16,6 @@ class UserProfile extends Component {
         <NavBar />
         <div className="body">
           <UserProfileBody userData={user.data} />
-          UserProfile
         </div>
       </div>
     );

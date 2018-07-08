@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 
-export default class UserDataView extends Component {
+export default class UserDataPane extends Component {
   render () {
     const { user } = this.props;
 
     return (
       <div>
-        { user.email }
+        { `Name: ${user.name}`  }
+        <br />
+        { `Email: ${user.email}`  }
       </div>
     );
   }
