@@ -19,6 +19,8 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
+    "react-twitter-widgets": "^1.7.1",
+    "react-youtube": "^7.6.0",
     "redux": "^3.7.2",
     "redux-auth-wrapper": "^2.0.2",
     "redux-persist": "^5.6.6",

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-
 import { Container, Divider, Embed, Transition } from 'semantic-ui-react';
+
+import DukeTwitterTimeline from './DukeTwitterTimeline';
+import DukeVideo from './DukeVideo'
 
 export default class HomeBody extends Component {
   constructor (props) {
@@ -18,17 +20,15 @@ export default class HomeBody extends Component {
       <div onMouseOver={() => {
           this.setState({ visible: true })
         }}>
-        <Container textAlign="center">
-          <Transition visible={visible} duration={1000}>
-            <h1>Welcome to your scheduler, { user.name }!</h1>
-          </Transition>
+        <Container>
+          <Container textAlign="center">
+            <Transition visible={visible} duration={1000}>
+              <h1>Welcome to your scheduler, { user.name }!</h1>
+            </Transition>
+          </Container>
           <Divider />
-          <Embed source='youtube' id='LPFkFU8QMfI' icon='youtube'
-            iframe= {{
-              widht: '20px',
-              height: '20px'
-            }}
-          />
+          <DukeVideo />
+          <DukeTwitterTimeline />
         </Container>
       </div>
     );
