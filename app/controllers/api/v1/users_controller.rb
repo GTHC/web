@@ -18,14 +18,16 @@ class Api::V1::UsersController < ApiController
     )
     if @user.save
       bypass_sign_in @user
-      render json: { status: 'SUCCESS', message: 'User saved and signed in', data: {
-        user: @user,
-        team: @user.team,
-        captain: @user.team.captain
-        } }, status: :ok
+      render json: { status: 'SUCCESS', message: 'User saved and signed in', data: { user: @user } }, status: :ok
     else
       render json: { status: 'ERROR', message: 'User not saved', data: @user.errors }, status: :unprocessable_entity
     end
+  end
+
+  # PATCH /api/v1/users
+  def update
+    validate_params
+
   end
 
   # POST /login
