@@ -3,43 +3,13 @@ import React, { Component } from 'react';
 import { Image, Label } from 'semantic-ui-react';
 import * as default_image from '../../../images/default_image.png';
 
+// utils
+import { defineTentColors } from './../../utils/tent'
+
 export default class UserPane extends Component {
   render () {
     const { team } = this.props;
-
-    let tentType, tentTypeColor;
-    switch (team.tent_type.toLowerCase()) {
-      case 'black': {
-        tentType = 'Black';
-        tentTypeColor = 'black';
-        break;
-      }
-      case 'blue': {
-        tentType = 'Blue';
-        tentTypeColor = 'blue';
-        break;
-      }
-      case 'white': {
-        tentType = 'White';
-        tentTypeColor = 'white';
-        break;
-      }
-      case 'dirty black': {
-        tentType = 'Dirty Black';
-        tentTypeColor = 'black';
-        break;
-      }
-      case 'dirty blue': {
-        tentType = 'Dirty Blue';
-        tentTypeColor = 'blue';
-        break;
-      }
-      default: {
-        tentType = 'Unknown';
-        tentTypeColor = 'grey';
-        break;
-      }
-    }
+    const { tentType, tentTypeColor } = defineTentColors(team.tent_type)
 
     return (
       <div>
