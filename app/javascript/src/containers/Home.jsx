@@ -11,7 +11,7 @@ import {
 } from './../actions/login';
 
 // components
-import Test from './../components/Test';
+import HomeBody from './../components/home/HomeBody';
 import NavBar from './NavBar';
 import { Button } from 'semantic-ui-react';
 
@@ -22,15 +22,13 @@ class Home extends Component {
   }
 
   render() {
+    const { user } = this.props;
+
     return (
         <div>
           <NavBar />
           <div className="body">
-            <Test />
-            <Button
-              content={this.props.user.isLoggedIn.toString()}
-              onClick={this.handleLogout}
-            />
+            <HomeBody userData={user.data} />
           </div>
 
         </div>

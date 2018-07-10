@@ -47,4 +47,4 @@ then
 fi
 
 printf "🖥️  Starting app 🖥️ \n"
-docker-compose run -p '5000:5000' app yarn start
+docker-compose run -p '5000:5000' -p '3035:3035' app yarn start

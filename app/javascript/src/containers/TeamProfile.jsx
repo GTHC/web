@@ -5,16 +5,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // components
-import Test from './../components/Test';
+import TeamProfileBody from './../components/team/TeamProfileBody';
 import NavBar from './NavBar';
 
 class TeamProfile extends Component {
   render () {
+    const { user } = this.props;
     return (
       <div>
         <NavBar />
         <div className="body">
-          TeamProfile
+          <TeamProfileBody userData={user.data} />
         </div>
       </div>
     );

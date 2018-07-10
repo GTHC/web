@@ -14,8 +14,9 @@ RUN apt-get update\
 WORKDIR /usr/src/app
 COPY Gemfile* ./
 RUN bundle install
-COPY . .
+COPY package.json yarn* ./
 RUN yarn install
+COPY . .
 
-EXPOSE 5000
-CMD ./bin/db-setup.sh
+EXPOSE 5000 3035
+# CMD ./bin/db-setup.sh
