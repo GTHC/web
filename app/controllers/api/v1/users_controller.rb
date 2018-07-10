@@ -16,12 +16,23 @@ class Api::V1::UsersController < ApiController
       password_confirmation: params[:password_confirmation],
       team_id: params[:team_id],
     )
+    @team = @user.team
     if @user.save
       bypass_sign_in @user
-      render json: { status: 'SUCCESS', message: 'User saved and signed in' }, status: :ok
+      render json: { status: 'SUCCESS', message: 'User saved and signed in', data: {
+        user: @user,
+        team: @team,
+        captain: @team.captain
+        } }, status: :ok
     else
       render json: { status: 'ERROR', message: 'User not saved', data: @user.errors }, status: :unprocessable_entity
     end
+  end
+
+  # PATCH /api/v1/users
+  def update
+    validate_params
+
   end
 
   # POST /login
@@ -30,8 +41,13 @@ class Api::V1::UsersController < ApiController
     @user = User.find_by_email(params[:email])
     if @user&.valid_password?(params[:password])
       bypass_sign_in @user
+      @team = @user.team
       if current_user
-        render json: { status: 'SUCCESS', message: 'User Logged In', data: { user: @user } }, status: :ok
+        render json: { status: 'SUCCESS', message: 'User Logged In', data: {
+          user: @user,
+          team: @team,
+          captain: @team.captain,
+          } }, status: :ok
       else
         render json: { status: 'ERROR', message: 'Error while Logging In' }, status: :unauthorized
       end
