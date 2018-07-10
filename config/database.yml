@@ -21,18 +21,24 @@
 #   # http://guides.rubyonrails.org/configuring.html#database-pooling
 #   pool: 5
 
-development:
+default: &default
+  host: db
   adapter: postgresql
   encoding: unicode
+  username: <%= ENV["POSTGRES_USER"] %>
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
+
+development:
+  <<: *default
   database: kville_dev
   pool: 5
-  username: kville
-  password: password
 
 test:
-  adapter: postgresql
-  encoding: unicode
+  <<: *default
   database: kville_test
   pool: 5
-  username: kville
-  password: password
+
+production:
+  <<: *default
+  database: kville_prod
+  pool: 5
