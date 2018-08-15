@@ -20,6 +20,7 @@ import App from './containers/App'
 
 // CSS/styling
 import 'semantic-ui-css/semantic.min.css';
+import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css';
 
 import { configureStore, DevTools, history } from './utils/store';
 

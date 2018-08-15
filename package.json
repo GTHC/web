@@ -11,11 +11,11 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
     "cross-env": "^5.0.5",
+    "fullcalendar-reactwrapper": "^1.0.7",
     "history": "^4.7.2",
     "moment": "^2.22.2",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
-    "react-big-calendar": "^0.19.1",
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
@@ -44,6 +44,7 @@
     "clean:branch": "./bin/clean-branch.sh",
     "webpacker": "ruby bin/webpack-dev-server",
     "flush": " ./bin/db-flush.sh",
-    "dev": "./bin/dev.sh"
+    "dev:setup": "./bin/dev.sh",
+    "dev:start": "docker-compose run -p '5000:5000' -p '3035:3035' app yarn start"
   }
 }
