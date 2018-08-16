@@ -75,13 +75,8 @@ class Calendar extends Component {
       <div>
         <NavBar />
         <div className="body">
-          Calendar
-          <div
-            style={{
-              height: '200px',
-              width: '350px'
-            }}
-          >
+          <div className="calendar">
+            test
             <FullCalendar
                id = "your-custom-ID"
         	     header = {{
@@ -89,7 +84,7 @@ class Calendar extends Component {
           			center: 'title',
           			right: 'month,basicWeek,basicDay'
           		}}
-              defaultDate={'2017-09-12'}
+              defaultDate={new Date()}
         	    navLinks= {true} // can click day/week names to navigate views
         	    editable= {true}
         	    eventLimit= {true} // allow "more" link when too many events
