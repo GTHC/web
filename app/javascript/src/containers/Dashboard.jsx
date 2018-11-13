@@ -15,6 +15,7 @@ class Dashboard extends Component {
         <NavBar />
         <div className="body">
           Dashboard
+          <Test />
         </div>
       </div>
     );

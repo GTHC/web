@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Button, Container, Header } from 'semantic-ui-react';
 
+import Availability from './../components/availability';
+
 class Test extends Component {
   render() {
     return (
@@ -14,6 +16,7 @@ class Test extends Component {
               icon='github'
               labelPosition='left'
             />
+            <Availability />
           </Container>
         </div>
     );
