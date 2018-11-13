@@ -83,32 +83,13 @@ class Calendar extends Component {
       <div>
         <NavBar />
         <div className="body">
-          {/* <Card
-            raised
-            height="250px"
-            width="250px"
-          >
+          <Card fluid raised>
             <Card.Content>
               <div className="calendar">
-                test
-                <FullCalendar
-                  height="100px"
-                   id = "your-custom-ID"
-            	     header = {{
-              			left: 'prev,next today myCustomButton',
-              			center: 'title',
-              			right: 'month,basicWeek,basicDay'
-              		}}
-                  defaultDate={new Date()}
-            	    navLinks= {true} // can click day/week names to navigate views
-            	    editable= {true}
-            	    eventLimit= {true} // allow "more" link when too many events
-            	    events = {events}
-                	/>
+                <BigCal />
               </div>
             </Card.Content>
-          </Card> */}
-          <BigCal />
+          </Card>
         </div>
       </div>
     );

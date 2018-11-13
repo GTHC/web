@@ -13,7 +13,12 @@ class BigCal extends Component {
         start: new Date(),
         end: new Date(moment().add(1, "days")),
         title: "Some title"
-      }
+      },
+      {
+        start: new Date(),
+        end: new Date(moment().add(1, "hour")),
+        title: "Some title"
+      },
     ]
   };
 
@@ -23,9 +28,9 @@ class BigCal extends Component {
         <Calendar
           localizer={localizer}
           defaultDate={new Date()}
-          defaultView="month"
+          defaultView="day"
           events={this.state.events}
-          style={{ height: "100vh" }}
+          style={{ height: "50vh" }}
         />
       </div>
     );
