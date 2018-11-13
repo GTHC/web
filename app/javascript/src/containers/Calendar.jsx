@@ -10,6 +10,7 @@ import NavBar from './NavBar';
 import { Card } from 'semantic-ui-react';
 
 import FullCalendar from 'fullcalendar-reactwrapper';
+import BigCal from '../components/calendar';
 
 const events = [{
     id: 0,
@@ -82,7 +83,7 @@ class Calendar extends Component {
       <div>
         <NavBar />
         <div className="body">
-          <Card
+          {/* <Card
             raised
             height="250px"
             width="250px"
@@ -106,7 +107,8 @@ class Calendar extends Component {
                 	/>
               </div>
             </Card.Content>
-          </Card>
+          </Card> */}
+          <BigCal />
         </div>
       </div>
     );
