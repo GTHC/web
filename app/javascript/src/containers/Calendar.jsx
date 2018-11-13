@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 // components
 import Test from './../components/Test';
 import NavBar from './NavBar';
+import { Card } from 'semantic-ui-react';
 
 import FullCalendar from 'fullcalendar-reactwrapper';
 
@@ -66,6 +67,12 @@ const events = [{
 		title: 'Click for Google',
 		url: 'http://google.com/',
 		start: new Date(),
+	},
+  {
+		title: 'Click for Google',
+		url: 'http://google.com/',
+		start: '2018-11-13T07:00:00',
+    end: '2018-11-13T09:00:00',
 	}
 ];
 
@@ -75,22 +82,31 @@ class Calendar extends Component {
       <div>
         <NavBar />
         <div className="body">
-          <div className="calendar">
-            test
-            <FullCalendar
-               id = "your-custom-ID"
-        	     header = {{
-          			left: 'prev,next today myCustomButton',
-          			center: 'title',
-          			right: 'month,basicWeek,basicDay'
-          		}}
-              defaultDate={new Date()}
-        	    navLinks= {true} // can click day/week names to navigate views
-        	    editable= {true}
-        	    eventLimit= {true} // allow "more" link when too many events
-        	    events = {events}
-            	/>
-          </div>
+          <Card
+            raised
+            height="250px"
+            width="250px"
+          >
+            <Card.Content>
+              <div className="calendar">
+                test
+                <FullCalendar
+                  height="100px"
+                   id = "your-custom-ID"
+            	     header = {{
+              			left: 'prev,next today myCustomButton',
+              			center: 'title',
+              			right: 'month,basicWeek,basicDay'
+              		}}
+                  defaultDate={new Date()}
+            	    navLinks= {true} // can click day/week names to navigate views
+            	    editable= {true}
+            	    eventLimit= {true} // allow "more" link when too many events
+            	    events = {events}
+                	/>
+              </div>
+            </Card.Content>
+          </Card>
         </div>
       </div>
     );
