@@ -47,7 +47,8 @@
     "flush": " docker-compose run app ./bin/db-flush.sh",
     "dev:setup": "./bin/dev.sh",
     "dev:start": "docker-compose run -p '5000:5000' -p '3035:3035' app yarn start",
-    "dev:db": "docker-compose run app rails db",
-    "dev:console": "docker-compose run app bash"
+    "dev:bash": "docker-compose run app bash",
+    "dev:console": "docker-compose run app rails c",
+    "dev:db": "docker-compose run app rails db"
   }
 }
