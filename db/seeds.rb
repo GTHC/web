@@ -66,19 +66,19 @@ for i in 1..25
 end
 
 for i in 1..100
-  @id = User.all.ids.sample
-  @curr_user = User.find(@id)
-  @team_id = @curr_user.team.id
+  @ids = User.all.ids.sample (rand(1..5))
+  @first_user = User.find(@ids[0])
+  @team_id = @first_user.team.id
   @now = Time.now
   @later = @now + rand(1..10).hours
-  @shift = Shift.create!(
+  @shift = @first_user.shifts.create!(
     team_id: @team_id,
     start_time: @now,
     end_time: @later,
     note: Faker::Lorem.paragraph,
   )
-  UserShift.create(
-    shift_id: @shift.id,
-    user_id: @id,
-  )
+  for @id in @ids[1..-1]
+    @curr_user = User.find(@id)
+    @curr_user.shifts << @shift
+  end
 end
