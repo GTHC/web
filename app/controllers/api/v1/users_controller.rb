@@ -30,6 +30,7 @@ class Api::V1::UsersController < ApiController
   end
 
   # PATCH /api/v1/users
+  # TODO: Complete endpoint
   def update
     validate_params
 

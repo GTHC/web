@@ -1,6 +1,4 @@
 class Api::V1::ShiftsController < ApiController
-  before_action :set_user
-
   # GET /api/v1/shifts/:id
   # GET team shift at ID
   def show
@@ -22,5 +20,32 @@ class Api::V1::ShiftsController < ApiController
     else
       render json: { status: 'ERROR', message: 'Shifts not found.' }, status: :unprocessable_entity
     end
+  end
+
+  # POST /api/v1/shifts
+  def create
+    validate_params
+    @shift = current_user.shifts.create!(
+      note: params[:note],
+      team_id: params[:team_id],
+      start_time: params[:start_time],
+      end_time: params[:end_time]
+    )
+    if @shift.save
+      render json: { status: 'SUCCESS', message: 'Shift created.', data: @shift }, status: :ok
+    else
+      render json: { status: 'ERROR', message: 'Shift not created.', data: @shift.errors }, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def validate_params
+    params.require([
+        :note,
+        :team_id,
+        :start_time,
+        :end_time
+      ])
   end
 end
