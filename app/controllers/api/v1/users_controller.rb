@@ -66,6 +66,16 @@ class Api::V1::UsersController < ApiController
     end
   end
 
+  # GET /api/v1/user/shifts
+  # GET shifts of only the user
+  def shifts
+    if current_user.shifts
+      render json: { status: 'SUCCESS', message: 'Shifts found.', data: current_user.shifts }, status: :ok
+    else
+      render json: { status: 'ERROR', message: 'Shifts not found' }, status: :unprocessable_entity
+    end
+  end
+
   private
 
     def set_user
