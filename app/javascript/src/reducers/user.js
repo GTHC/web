@@ -27,6 +27,7 @@ const user = (state=initialState, action) => {
       return {
         ...state,
         data: action.payload.data.data,
+        isLoading: false,
         isLoggedIn: true
       };
     }
