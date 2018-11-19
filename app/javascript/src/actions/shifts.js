@@ -13,5 +13,5 @@ const getAllShifts = () => (
 );
 
 export {
-  getShifts,
+  getAllShifts,
 };

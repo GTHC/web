@@ -3,7 +3,6 @@ const initialState = {
   isLoading: false,
   error: false,
   errorMessage: '',
-  errorObject: {},
 };
 
 const shifts = (state=initialState, action) => {
@@ -30,7 +29,7 @@ const shifts = (state=initialState, action) => {
     case 'FAILED_GET_SHIFTS': {
       return {
         ...failedState,
-        errorMessage: action.payload.response.data.message,
+        errorMessage: action.payload.message,
         errorObject: action.payload,
       };
     }
@@ -38,7 +37,8 @@ const shifts = (state=initialState, action) => {
     case 'END_GET_SHIFTS': {
       return {
         ...endState,
-        data: action.payload.response.data,
+        data: action.payload.data.data,
+        responseObject: action.payload,
       };
     }
 
