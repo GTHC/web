@@ -40,6 +40,7 @@ class Api::V1::ShiftsController < ApiController
     end
   end
 
+  # PUT /api/v1/shifts/:id
   # PATCH /api/v1/shifts/:id
   def update
     validate_params
@@ -48,6 +49,17 @@ class Api::V1::ShiftsController < ApiController
       render json: { status: 'SUCCESS', message: 'Shift updated.', data: shift }, status: :ok
     else
       render json: { status: 'ERROR', message: 'Shift not found' }, status: :unprocessable_entity
+    end
+  end
+
+  # DELETE /api/v1/shifts/:idea
+  def destroy
+    shift = Shift.find(params[:id])
+    shift.destroy
+    if shift.destroyed?
+      render json: { status: 'SUCCESS', message: 'Shift destroyed' }, status: :ok
+    else
+      render json: { status: 'ERROR', message: 'Shift not destroyed' }, status: :bad_request
     end
   end
 
