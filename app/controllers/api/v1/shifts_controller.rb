@@ -29,12 +29,17 @@ class Api::V1::ShiftsController < ApiController
     validate_params
     @shift = current_user.shifts.create!(
       note: params[:note],
-      team_id: params[:team_id],
+      team_id: current_user.team.id,
       start_time: params[:start_time],
       end_time: params[:end_time]
     )
     if @shift.save
-      render json: { status: 'SUCCESS', message: 'Shift created.', data: @shift }, status: :ok
+      data = {
+          shift: @shift,
+          user_shifts: current_user.shifts,
+          team_shifts: current_user.team.shifts,
+        }
+      render json: { status: 'SUCCESS', message: 'Shift created.', data: data }, status: :ok
     else
       render json: { status: 'ERROR', message: 'Shift not created.', data: @shift.errors }, status: :unprocessable_entity
     end
@@ -46,7 +51,12 @@ class Api::V1::ShiftsController < ApiController
     validate_params
     if shift = Shift.find(params[:id])
       shift.update(@prime_params)
-      render json: { status: 'SUCCESS', message: 'Shift updated.', data: shift }, status: :ok
+      data = {
+        shift: shift,
+        user_shifts: current_user.shifts,
+        team_shifts: current_user.team.shifts,
+      }
+      render json: { status: 'SUCCESS', message: 'Shift updated.', data: data }, status: :ok
     else
       render json: { status: 'ERROR', message: 'Shift not found' }, status: :unprocessable_entity
     end
@@ -57,7 +67,11 @@ class Api::V1::ShiftsController < ApiController
     shift = Shift.find(params[:id])
     shift.destroy
     if shift.destroyed?
-      render json: { status: 'SUCCESS', message: 'Shift destroyed' }, status: :ok
+      data = {
+        user_shifts: current_user.shifts,
+        team_shifts: current_user.team.shifts,
+      }
+      render json: { status: 'SUCCESS', message: 'Shift destroyed', data: data }, status: :ok
     else
       render json: { status: 'ERROR', message: 'Shift not destroyed' }, status: :bad_request
     end
@@ -68,13 +82,11 @@ class Api::V1::ShiftsController < ApiController
   def validate_params
     params.require([
         :note,
-        :team_id,
         :start_time,
         :end_time
       ])
       @prime_params = {
         note: params[:note],
-        team_id: params[:team_id],
         start_time: params[:start_time],
         end_time: params[:end_time]
       }
