@@ -1,4 +1,6 @@
 class Api::V1::ShiftsController < ApiController
+  rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
+
   # GET /api/v1/shifts/:id
   # GET team shift at ID
   def show
@@ -38,6 +40,17 @@ class Api::V1::ShiftsController < ApiController
     end
   end
 
+  # PATCH /api/v1/shifts/:id
+  def update
+    validate_params
+    if shift = Shift.find(params[:id])
+      shift.update(@prime_params)
+      render json: { status: 'SUCCESS', message: 'Shift updated.', data: shift }, status: :ok
+    else
+      render json: { status: 'ERROR', message: 'Shift not found' }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def validate_params
@@ -47,5 +60,16 @@ class Api::V1::ShiftsController < ApiController
         :start_time,
         :end_time
       ])
+      @prime_params = {
+        note: params[:note],
+        team_id: params[:team_id],
+        start_time: params[:start_time],
+        end_time: params[:end_time]
+      }
+  end
+
+
+  def record_not_found
+    render json: { status: 'ERROR', message: 'Shift(s) not found.' }, status: :unprocessable_entity
   end
 end
