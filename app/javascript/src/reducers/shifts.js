@@ -95,6 +95,10 @@ const shifts = (state=initialState, action) => {
       };
     }
 
+    case 'END_LOGOUT': {
+      return initialState;
+    }
+
     default: {
       return state;
     }

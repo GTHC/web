@@ -9,8 +9,10 @@ import Test from './../components/Test';
 import NavBar from './NavBar';
 import { Card } from 'semantic-ui-react';
 
-import FullCalendar from 'fullcalendar-reactwrapper';
 import BigCal from '../components/calendar';
+
+// redux actions
+import { getAllShifts } from '../actions/shifts';
 
 const events = [{
     id: 0,
@@ -78,6 +80,9 @@ const events = [{
 ];
 
 class Calendar extends Component {
+  componentDidMount() {
+    this.props.getAllShifts();
+  }
   render () {
     return (
       <div>
@@ -102,19 +107,19 @@ const mapStateToProps = state => {
   return {
     user: state.user,
     login: state.login,
+    shifts: state.shifts,
   };
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators(
-//     {
-//       loginUser: login, // changed login and logout action names due to login state name
-//       logoutUser: logout,
-//     },
-//     dispatch);
-// };
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      getAllShifts,
+    },
+    dispatch);
+};
 
-export default connect(mapStateToProps)(Calendar);
+export default connect(mapStateToProps, mapDispatchToProps)(Calendar);
 
 export {
   Calendar,

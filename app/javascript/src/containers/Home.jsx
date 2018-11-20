@@ -9,6 +9,7 @@ import {
   login,
   logout,
 } from './../actions/login';
+import { getAllShifts } from '../actions/shifts';
 
 // components
 import HomeBody from './../components/home/HomeBody';
@@ -17,9 +18,13 @@ import { Button } from 'semantic-ui-react';
 
 
 class Home extends Component {
+  componentDidMount() {
+    this.props.getAllShifts();
+  }
+
   handleLogout = () => {
     this.props.logoutUser();
-  }
+  };
 
   render() {
     const { user } = this.props;
@@ -50,6 +55,7 @@ const mapDispatchToProps = (dispatch) => {
     {
       loginUser: login, // changed login and logout action names due to login state name
       logoutUser: logout,
+      getAllShifts,
     },
     dispatch);
 };
