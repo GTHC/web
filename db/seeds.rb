@@ -72,6 +72,7 @@ for i in 1..100
   @now = Time.now
   @later = @now + rand(1..10).hours
   @shift = @first_user.shifts.create!(
+    title: Faker::Book.title,
     team_id: @team_id,
     start_time: @now,
     end_time: @later,

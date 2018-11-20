@@ -19,8 +19,8 @@ class Api::V1::ShiftsController < ApiController
     @shifts = current_user.team.shifts
     if @shifts
       data = {
-        user_shifts: current_user.shifts,
-        team_shifts: @shifts,
+        user_shifts: format_shifts(current_user.shifts),
+        team_shifts: format_shifts(@shifts),
       }
       render json: { status: 'SUCCESS', message: 'Shifts found.', data: data } , status: :ok
     else
@@ -32,6 +32,7 @@ class Api::V1::ShiftsController < ApiController
   def create
     validate_params
     @shift = current_user.shifts.create!(
+      title: params[:title],
       note: params[:note],
       team_id: current_user.team.id,
       start_time: params[:start_time],
@@ -39,9 +40,9 @@ class Api::V1::ShiftsController < ApiController
     )
     if @shift.save
       data = {
-          shift: @shift,
-          user_shifts: current_user.shifts,
-          team_shifts: current_user.team.shifts,
+          shift: format_shifts([@shift]),
+          user_shifts: format_shifts(current_user.shifts),
+          team_shifts: format_shifts(current_user.team.shifts),
         }
       render json: { status: 'SUCCESS', message: 'Shift created.', data: data }, status: :ok
     else
@@ -56,9 +57,9 @@ class Api::V1::ShiftsController < ApiController
     if shift = Shift.find(params[:id])
       shift.update(@prime_params)
       data = {
-        shift: shift,
-        user_shifts: current_user.shifts,
-        team_shifts: current_user.team.shifts,
+        shift: format_shifts([shift]),
+        user_shifts: format_shifts(current_user.shifts),
+        team_shifts: format_shifts(current_user.team.shifts),
       }
       render json: { status: 'SUCCESS', message: 'Shift updated.', data: data }, status: :ok
     else
@@ -72,8 +73,8 @@ class Api::V1::ShiftsController < ApiController
     shift.destroy
     if shift.destroyed?
       data = {
-        user_shifts: current_user.shifts,
-        team_shifts: current_user.team.shifts,
+        user_shifts: format_shifts(current_user.shifts),
+        team_shifts: format_shifts(current_user.team.shifts),
       }
       render json: { status: 'SUCCESS', message: 'Shift destroyed', data: data }, status: :ok
     else
@@ -85,11 +86,13 @@ class Api::V1::ShiftsController < ApiController
 
   def validate_params
     params.require([
+        :title,
         :note,
         :start_time,
         :end_time
       ])
       @prime_params = {
+        title: params[:title],
         note: params[:note],
         start_time: params[:start_time],
         end_time: params[:end_time]
@@ -98,6 +101,21 @@ class Api::V1::ShiftsController < ApiController
 
 
   def record_not_found
-    render json: { status: 'ERROR', message: 'Shift(s) not found.' }, status: :unprocessable_entity
+    render json: { status: 'ERROR', message: 'Shift(s) not found.' }, status: :not_found
+  end
+
+  def format_shifts(shifts)
+    data = []
+    shifts.each do |s|
+      data.push({
+        id: s.id,
+        title: s.title,
+        start: s.start_time,
+        end: s.end_time,
+        note: s.note,
+        users: s.users,
+      })
+    end
+    data
   end
 end
