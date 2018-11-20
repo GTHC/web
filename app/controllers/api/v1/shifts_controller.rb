@@ -14,11 +14,15 @@ class Api::V1::ShiftsController < ApiController
   end
 
   # GET /api/v1/shifts
-  # GET all of team shifts
+  # GET all shifts
   def index
     @shifts = current_user.team.shifts
     if @shifts
-      render json: { status: 'SUCCESS', message: 'Shifts found.', data: @shifts } , status: :ok
+      data = {
+        user_shifts: current_user.shifts,
+        team_shifts: @shifts,
+      }
+      render json: { status: 'SUCCESS', message: 'Shifts found.', data: data } , status: :ok
     else
       render json: { status: 'ERROR', message: 'Shifts not found.' }, status: :unprocessable_entity
     end
