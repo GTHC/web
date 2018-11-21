@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   belongs_to :team, optional: true
 
-  has_many :user_shifts
-  has_many :shifts, through: :user_shifts, dependent: :destroy
+  has_many :user_shifts, dependent: :destroy
+  has_many :shifts, -> { distinct }, through: :user_shifts, dependent: :destroy
 
 end

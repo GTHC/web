@@ -7,7 +7,10 @@ class Api::V1::ShiftsController < ApiController
     @id = params[:id]
     @shifts = current_user.team.shifts
     if @shifts.ids.include? @id
-      render json: { status: 'SUCCESS', message: 'Shift found.', data: @shifts.find(@id) } , status: :ok
+      data = {
+        shift: @shift.find(@id)
+      }
+      render json: { status: 'SUCCESS', message: 'Shift found.', data: data } , status: :ok
     else
       render json: { status: 'ERROR', message: 'ID not found.' }, status: :unprocessable_entity
     end
