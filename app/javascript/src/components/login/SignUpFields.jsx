@@ -7,6 +7,7 @@ import { Button, Form, Step, Divider } from 'semantic-ui-react';
 import UserSignUp from './signup/UserSignUp';
 import TeamSignUp from './signup/TeamSignUp';
 import AllSet from './signup/AllSet';
+import When2Meet from './signup/When2Meet';
 
 class SignUpFields extends Component {
   constructor(props) {
@@ -33,7 +34,7 @@ class SignUpFields extends Component {
         return;
       }
       case 'next': {
-        if (activeStep < 2) {
+        if (activeStep < 3) {
           this.setState({ activeStep: activeStep + 1 });
           toggleDisableNext(true);
         }
@@ -77,7 +78,9 @@ class SignUpFields extends Component {
     const steps = [
         { key: 'user', icon: 'user', title: 'User Credentials', description: 'Add your email and create an account password.', active: (activeStep === 0) },
         { key: 'team', active: true, icon: 'users', title: 'Team Information', description: 'Let us know which team you are on!', active: (activeStep === 1) },
-        { key: 'join', disabled: true, icon: 'checkmark box', title: 'All Set!', active: (activeStep === 2), completed: (activeStep === 2) },
+  //      { key: 'avail', disabled: true, icon: 'clock', title: 'Availability', active: (activeStep === 2), completed: (activeStep === 2) },
+        { key: 'avail', disabled: true, icon: 'clock', title: 'Availability', active: (activeStep === 2) },
+        { key: 'join', disabled: true, icon: 'checkmark box', title: 'All Set!', active: (activeStep === 3), completed: (activeStep === 3) },
       ];
     return (
       <div>
@@ -100,12 +103,18 @@ class SignUpFields extends Component {
             />
           }
           { activeStep === 2 &&
+            <When2Meet
+              login={login}
+              toggleDisableNext={toggleDisableNext}
+            />
+          }
+          { activeStep === 3 &&
             <AllSet login={login} />
           }
 
         </Form>
         <br />
-        { activeStep < 2 ?
+        { activeStep < 3 ?
           <Button.Group fluid>
             <Button id="back" content='Back' icon='left arrow' labelPosition='left' color="red" onClick={this.handleButtonClick} />
             <Button.Or />
