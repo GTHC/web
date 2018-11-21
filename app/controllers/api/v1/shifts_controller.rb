@@ -70,7 +70,7 @@ class Api::V1::ShiftsController < ApiController
     end
   end
 
-  # DELETE /api/v1/shifts/:idea
+  # DELETE /api/v1/shifts/:id
   def destroy
     shift = Shift.find(params[:id])
     shift.destroy

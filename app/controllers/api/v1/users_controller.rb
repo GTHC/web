@@ -78,7 +78,11 @@ class Api::V1::UsersController < ApiController
       @shift = Shift.find(@s_id)
       if @shift.team_id == @user.team_id
         @user.shifts <<  @shift
-        render json: { status: 'SUCCESS', message: 'User added to Shift successfully.' }, status: :ok
+        data = {
+          user_shifts: current_user.shifts,
+          team_shifts: current_user.team.shifts,
+        }
+        render json: { status: 'SUCCESS', message: 'User added to Shift successfully.', data: data }, status: :ok
       else
         render json: { status: 'ERROR', message: 'Shift and User must be the same team.' }, status: :unprocessable_entity
       end

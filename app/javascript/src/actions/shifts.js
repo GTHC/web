@@ -38,8 +38,37 @@ const createShift = data => (
   })
 );
 
+const deleteShift = id => (
+  crud({
+    dispatch: {
+      begin: 'BEGIN_GET_SHIFTS',
+      end: 'END_GET_SHIFTS',
+      fail: 'FAILED_GET_SHIFTS',
+    },
+    method: 'DELETE',
+    url: `/api/v1/shifts${id}`,
+  })
+);
+
+const addUserToShift = (userID, shiftID) => (
+  crud({
+    dispatch: {
+      begin: 'BEGIN_POST_SHIFT',
+      end: 'END_POST_SHIFT',
+      fail: 'FAILED_POST_SHIFT',
+    },
+    method: 'POST',
+    url: '/api/v1/user/shifts',
+    data: {
+      user_id: userID,
+      shift_id: shiftID,
+    },
+  })
+);
+
 export {
   getAllShifts,
   updateShift,
   createShift,
+  deleteShift,
 };
