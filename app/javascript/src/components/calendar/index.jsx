@@ -21,14 +21,20 @@ class BigCal extends Component {
   };
 
   render() {
+    const { team_shifts, user_shifts } = this.props.shifts;
+    const events = team_shifts.map((shift) => ({
+      ...shift,
+      start: new Date(shift.start),
+      end: new Date(shift.end),
+    }));
     return (
       <div className="App">
         <Calendar
           localizer={localizer}
           defaultDate={new Date()}
           defaultView="day"
-          events={this.state.events}
-          style={{ height: "50vh" }}
+          events={events}
+          style={{ height: "80vh" }}
         />
       </div>
     );
