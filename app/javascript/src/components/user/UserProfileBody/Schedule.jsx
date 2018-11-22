@@ -7,13 +7,13 @@ export default class Schedule extends Component {
 
   render () {
       const { user } = this.props
-      /*
+{/**
       const ButtonE = () => (
         <div>
           <Button primary>Save</Button>
         </div>
       )
-*/
+*/}
     return (
      <div>
 
