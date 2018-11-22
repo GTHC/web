@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 // semantic-ui
 import { Modal } from 'semantic-ui-react';
 
+// utils
+import genDateFormat from './utils/genDateFormat';
+
 class ShiftViewModal extends Component {
 
   render() {
@@ -14,9 +17,9 @@ class ShiftViewModal extends Component {
           </Modal.Header>
           <Modal.Content>
             <Modal.Description as="h3">
-              {shiftData.start.toString()}
+              {genDateFormat(shiftData.start)}
               <br />
-              {shiftData.end.toString()}
+              {genDateFormat(shiftData.end)}
             </Modal.Description>
             <Modal.Description>
               {shiftData.note}

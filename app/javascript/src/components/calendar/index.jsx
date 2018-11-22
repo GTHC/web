@@ -100,7 +100,7 @@ class BigCal extends Component {
         <Modal
           closeIcon
           open={openShiftCreate}
-          onClose={() => this.onClose('view')}
+          onClose={() => this.onClose('create')}
         >
           <ShiftCreateModal start={start} end={end} />
           <Modal.Actions>

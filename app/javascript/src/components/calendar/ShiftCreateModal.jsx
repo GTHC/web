@@ -1,9 +1,31 @@
 import React, { Component } from 'react';
 
 // semantic-ui
-import { Modal } from 'semantic-ui-react';
+import { Modal, Form, Grid } from 'semantic-ui-react';
+
+// components
+import CreateShiftForm from './create/CreateShiftForm';
+
+// utils
+import genDateFormat from './utils/genDateFormat';
 
 class ShiftCreateModal extends Component {
+
+  constructor(props) {
+    super(props);
+    const startDate = props.start.toDateString();
+    const startTime = props.start.toTimeString().substring(0, 5);
+    this.state = {
+      note: '',
+      title: `Shift on ${startDate} at ${startTime}`,
+      userIDs: [],
+    };
+    this.updateShiftData = this.updateShiftData.bind(this);
+  }
+
+  updateShiftData = data => {
+    this.setState(data);
+  };
 
   render() {
     const { start, end } = this.props;
@@ -11,11 +33,19 @@ class ShiftCreateModal extends Component {
       <React.Fragment>
         <Modal.Header>Create a new shift</Modal.Header>
         <Modal.Content>
-          <Modal.Description as="h3">
-            {start.toString()}
-            <br />
-            {end.toString()}
+          <Modal.Description>
+            <Modal.Description as="h5">Start</Modal.Description>
+            {genDateFormat(start)}
           </Modal.Description>
+          <br />
+          <Modal.Description>
+            <Modal.Description as="h5">End</Modal.Description>
+            {genDateFormat(end)}
+          </Modal.Description>
+        </Modal.Content>
+
+        <Modal.Content>
+          <CreateShiftForm {...this.state} updateShiftData={this.updateShiftData} />
         </Modal.Content>
       </React.Fragment>
     );
