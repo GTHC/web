@@ -6,7 +6,8 @@ import moment from "moment";
 import { Button, Modal } from 'semantic-ui-react';
 
 // components
-import ShiftModal from './ShiftModal';
+import ShiftViewModal from './ShiftViewModal';
+import ShiftCreateModal from './ShiftCreateModal';
 
 const localizer = Calendar.momentLocalizer(moment);
 
@@ -14,8 +15,11 @@ class BigCal extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      open: false,
+      openShiftView: false,
+      openShiftCreate: false,
       shiftData: {},
+      start: '',
+      end: '',
     };
     this.onSelectEvent = this.onSelectEvent.bind(this);
     this.onClose = this.onClose.bind(this);
@@ -23,15 +27,40 @@ class BigCal extends Component {
 
   onSelectEvent = shiftData => {
     this.setState({
-      open: true,
+      openShiftView: true,
       shiftData,
     });
   };
 
-  onClose = () => this.setState({ open: false });
+  onClose = (type) => {
+    switch (type) {
+      case 'view': {
+        this.setState({ openShiftView: false });
+        return;
+      }
+
+      case 'create': {
+        this.setState({ openShiftCreate: false });
+        return;
+      }
+    }
+  };
+
+  handleSelectDrag = ({ start, end }) => {
+    const { createShift } = this.props.shiftActions;
+    this.setState({
+      start, end,
+      openShiftCreate: true,
+    });
+  };
 
   render() {
-    const { shiftData, open } = this.state;
+    const {
+      start, end,
+      shiftData,
+      openShiftCreate,
+      openShiftView,
+    } = this.state;
     const { team_shifts } = this.props.shifts;
     const events = team_shifts.map((shift) => ({
       ...shift,
@@ -42,20 +71,40 @@ class BigCal extends Component {
     return (
       <div>
         <Calendar
+          step={30}
+          timeslots={4}
+          selectable
           popup
-          step={15}
-          timeslots={8}
           localizer={localizer}
           defaultDate={new Date()}
           defaultView="day"
           events={events}
           onSelectEvent={this.onSelectEvent}
+          onSelectSlot={this.handleSelectDrag}
           style={{ height: '80vh' }}
         />
-        <Modal open={open} closeIcon onClose={this.onClose}>
-          <ShiftModal shiftData={shiftData}/>
+        {/* Shift View Modal */}
+        <Modal
+          closeIcon
+          open={openShiftView}
+          onClose={() => this.onClose('view')}
+        >
+          <ShiftViewModal shiftData={shiftData}/>
           <Modal.Actions>
-            <Button onClick={this.onClose}>
+            <Button onClick={() => this.onClose('view')}>
+              Close
+            </Button>
+          </Modal.Actions>
+        </Modal>
+        {/* Shift Create Modal */}
+        <Modal
+          closeIcon
+          open={openShiftCreate}
+          onClose={() => this.onClose('view')}
+        >
+          <ShiftCreateModal start={start} end={end} />
+          <Modal.Actions>
+            <Button onClick={() => this.onClose('create')}>
               Close
             </Button>
           </Modal.Actions>

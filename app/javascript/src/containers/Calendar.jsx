@@ -24,7 +24,19 @@ class Calendar extends Component {
   }
 
   render () {
-    const { shifts } = this.props;
+    const {
+      shifts,
+      getAllShifts,
+      updateShift,
+      createShift,
+      deleteShift,
+    } = this.props;
+    const shiftActions = {
+      getAllShifts,
+      updateShift,
+      createShift,
+      deleteShift,
+    };
     return (
       <div>
         <NavBar />
@@ -32,7 +44,7 @@ class Calendar extends Component {
           <Card fluid raised>
             <Card.Content>
               <div className="calendar">
-                <BigCal shifts={shifts} />
+                <BigCal shifts={shifts} shiftActions={shiftActions} />
               </div>
             </Card.Content>
           </Card>

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 // semantic-ui
 import { Modal } from 'semantic-ui-react';
 
-class ShiftModal extends Component {
+class ShiftViewModal extends Component {
 
   render() {
     const { shiftData } = this.props;
@@ -28,4 +28,4 @@ class ShiftModal extends Component {
 
 }
 
-export default ShiftModal;
+export default ShiftViewModal;
