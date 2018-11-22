@@ -11,9 +11,6 @@ export default class UserProfileBody extends Component {
     const { user } = this.props.userData;
 
     const panes = [
-      { menuItem: 'Availability', render: () => <Tab.Pane>
-        <Schedule user={user} />
-      </Tab.Pane> },
       { menuItem: 'User Information', render: () => <Tab.Pane>
         <UserPane user={user}/>
       </Tab.Pane> },
@@ -22,6 +19,9 @@ export default class UserProfileBody extends Component {
       </Tab.Pane> },
       { menuItem: 'Edit Password', render: () => <Tab.Pane>
         <EditPasswordPane user={user} />
+      </Tab.Pane> },
+      { menuItem: 'Edit User Availability', render: () => <Tab.Pane>
+        <Schedule user={user} />
       </Tab.Pane> },
     ];
 
