@@ -7,13 +7,6 @@ export default class Schedule extends Component {
 
   render () {
       const { user } = this.props
-{/**
-      const ButtonE = () => (
-        <div>
-          <Button primary>Save</Button>
-        </div>
-      )
-*/}
     return (
      <div>
 
@@ -22,8 +15,8 @@ export default class Schedule extends Component {
       </React.Fragment>
 
       <React.Fragment>
-        <ButtonE />
-        <Button type='submit'>Save2</Button>
+
+        <Button type='submit'>Save</Button>
       </React.Fragment>
 
      </div>
