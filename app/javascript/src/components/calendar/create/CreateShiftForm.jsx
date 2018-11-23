@@ -26,7 +26,7 @@ class CreateShiftForm extends Component {
         <Form.TextArea
           id="note"
           label="Description"
-          placeholder="Shift description"
+          placeholder="Shift Description"
           value={note}
           onChange={this.onInputChange}
         />

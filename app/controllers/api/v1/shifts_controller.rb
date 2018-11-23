@@ -34,7 +34,7 @@ class Api::V1::ShiftsController < ApiController
   # POST /api/v1/shifts
   def create
     validate_params
-    @shift = current_user.shifts.create!(
+    @shift = Shift.create!(
       title: params[:title],
       note: params[:note],
       team_id: current_user.team.id,
@@ -42,6 +42,14 @@ class Api::V1::ShiftsController < ApiController
       end_time: params[:end_time]
     )
     if @shift.save
+      if params[:user_ids]
+        params[:user_ids].each do |id|
+          @user = User.find(id)
+          @user.shifts << @shift
+        end
+      else
+        current_user.shifts << @shift
+      end
       data = {
           shift: format_shifts([@shift]),
           user_shifts: format_shifts(current_user.shifts),
