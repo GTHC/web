@@ -4,6 +4,13 @@ import { Form, Divider } from 'semantic-ui-react';
 
 class CreateShiftForm extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: false,
+    };
+  }
+
   onInputChange = (e, { value, id }) => {
     const { updateShiftData } = this.props;
     updateShiftData({
@@ -11,8 +18,32 @@ class CreateShiftForm extends Component {
     });
   };
 
+  handleCreate = () => {
+    const {
+      onClose,
+      createShift, getAllShifts,
+      title, note, user_ids,
+      start, end,
+    } = this.props;
+    if (title.trim() == '') {
+      this.setState({ error: true });
+    } else {
+      this.setState({ error: false });
+      const shiftData = {
+        title, note,
+        start_time: start,
+        end_time: end,
+        user_ids: user_ids.length > 0 ? user_ids : undefined,
+      };
+      createShift(shiftData);
+      onClose('create');
+      getAllShifts();
+    }
+  };
+
   render() {
-    const { title, note, userIDs, team } = this.props;
+    const { title, note, team } = this.props;
+    const { error } = this.state;
     const usersData = team.data.users;
     const userOptions = usersData.map(user => ({
       key: user.id,
@@ -24,13 +55,13 @@ class CreateShiftForm extends Component {
     }));
     return (
       <Form>
-        <Divider />
         <Form.Input
           id="title"
           label="Title"
           placeholder="Enter a title here"
           value={title}
           onChange={this.onInputChange}
+          error={error}
         />
         <Form.TextArea
           id="note"
@@ -47,6 +78,11 @@ class CreateShiftForm extends Component {
           options={userOptions}
           onChange={this.onInputChange}
         />
+        <Form.Button
+          onClick={this.handleCreate}
+        >
+          Create
+        </Form.Button>
       </Form>
     );
   }

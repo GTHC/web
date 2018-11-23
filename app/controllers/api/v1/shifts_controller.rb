@@ -98,7 +98,6 @@ class Api::V1::ShiftsController < ApiController
   def validate_params
     params.require([
         :title,
-        :note,
         :start_time,
         :end_time
       ])

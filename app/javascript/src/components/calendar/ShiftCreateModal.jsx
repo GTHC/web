@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // semantic-ui
-import { Modal, Form, Grid } from 'semantic-ui-react';
+import { Modal, Form, Grid, Divider } from 'semantic-ui-react';
 
 // components
 import CreateShiftForm from './create/CreateShiftForm';
@@ -43,7 +43,7 @@ class ShiftCreateModal extends Component {
             {genDateFormat(end)}
           </Modal.Description>
         </Modal.Content>
-
+        <Divider />
         <Modal.Content>
           <CreateShiftForm
             {...this.state}
