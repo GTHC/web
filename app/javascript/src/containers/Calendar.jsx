@@ -17,10 +17,14 @@ import {
   updateShift,
   createShift,
   deleteShift,  } from '../actions/shifts';
+import { getTeam } from '../actions/team';
 
 class Calendar extends Component {
   componentDidMount() {
-    this.props.getAllShifts();
+    const { getAllShifts, getTeam, user } = this.props;
+    const userData = user.data;
+    getAllShifts();
+    getTeam(userData.user.team_id);
   }
 
   render () {
@@ -31,12 +35,6 @@ class Calendar extends Component {
       createShift,
       deleteShift,
     } = this.props;
-    const shiftActions = {
-      getAllShifts,
-      updateShift,
-      createShift,
-      deleteShift,
-    };
     return (
       <div>
         <NavBar />
@@ -44,7 +42,7 @@ class Calendar extends Component {
           <Card fluid raised>
             <Card.Content>
               <div className="calendar">
-                <BigCal shifts={shifts} shiftActions={shiftActions} />
+                <BigCal {...this.props} />
               </div>
             </Card.Content>
           </Card>
@@ -71,6 +69,7 @@ const mapDispatchToProps = (dispatch) => {
       updateShift,
       createShift,
       deleteShift,
+      getTeam,
     },
     dispatch);
 };

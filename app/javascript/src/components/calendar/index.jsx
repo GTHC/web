@@ -47,7 +47,7 @@ class BigCal extends Component {
   };
 
   handleSelectDrag = ({ start, end }) => {
-    const { createShift } = this.props.shiftActions;
+    const { createShift } = this.props;
     this.setState({
       start, end,
       openShiftCreate: true,
