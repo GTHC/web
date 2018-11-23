@@ -59,6 +59,7 @@ const mapStateToProps = state => {
     user: state.user,
     login: state.login,
     shifts: state.shifts,
+    team: state.team,
   };
 };
 

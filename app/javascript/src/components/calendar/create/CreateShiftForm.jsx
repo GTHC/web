@@ -12,7 +12,16 @@ class CreateShiftForm extends Component {
   };
 
   render() {
-    const { title, note, userIDs } = this.props;
+    const { title, note, userIDs, team } = this.props;
+    const usersData = team.data.users;
+    const userOptions = usersData.map(user => ({
+      key: user.id,
+      value: user.id,
+      text: user.name,
+
+      // TODO: Add image src for user profile
+      image: { avatar: true },
+    }));
     return (
       <Form>
         <Divider />
@@ -31,10 +40,12 @@ class CreateShiftForm extends Component {
           onChange={this.onInputChange}
         />
         <Form.Dropdown
+          id="user_ids"
           fluid multiple search selection
           label="Add users to new Shift"
           placeholder="(Default: You)"
-          options={[]}
+          options={userOptions}
+          onChange={this.onInputChange}
         />
       </Form>
     );

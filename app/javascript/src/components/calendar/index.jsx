@@ -102,7 +102,7 @@ class BigCal extends Component {
           open={openShiftCreate}
           onClose={() => this.onClose('create')}
         >
-          <ShiftCreateModal start={start} end={end} />
+          <ShiftCreateModal start={start} end={end} {...this.props} />
           <Modal.Actions>
             <Button onClick={() => this.onClose('create')}>
               Close

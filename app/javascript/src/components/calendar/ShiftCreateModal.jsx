@@ -18,7 +18,7 @@ class ShiftCreateModal extends Component {
     this.state = {
       note: '',
       title: `Shift on ${startDate} at ${startTime}`,
-      userIDs: [],
+      user_ids: [],
     };
     this.updateShiftData = this.updateShiftData.bind(this);
   }
@@ -45,7 +45,11 @@ class ShiftCreateModal extends Component {
         </Modal.Content>
 
         <Modal.Content>
-          <CreateShiftForm {...this.state} updateShiftData={this.updateShiftData} />
+          <CreateShiftForm
+            {...this.state}
+            {...this.props}
+            updateShiftData={this.updateShiftData}
+          />
         </Modal.Content>
       </React.Fragment>
     );
