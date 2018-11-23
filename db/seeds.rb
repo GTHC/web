@@ -69,8 +69,8 @@ for i in 1..100
   @ids = User.all.ids.sample (rand(1..5))
   @first_user = User.find(@ids[0])
   @team_id = @first_user.team.id
-  @now = Time.now
-  @later = @now + rand(1..10).hours
+  @now = Time.now + rand(-10..10).hours + rand(-2..2).days
+  @later = @now + rand(1..5).hours
   @shift = @first_user.shifts.create!(
     title: Faker::Book.title,
     team_id: @team_id,
