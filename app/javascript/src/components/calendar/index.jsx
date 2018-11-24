@@ -8,6 +8,7 @@ import { Button, Modal } from 'semantic-ui-react';
 // components
 import ShiftViewModal from './ShiftViewModal';
 import ShiftCreateModal from './ShiftCreateModal';
+import ShiftUpdateModal from './ShiftUpdateModal';
 
 const localizer = Calendar.momentLocalizer(moment);
 
@@ -23,6 +24,7 @@ class BigCal extends Component {
     };
     this.onSelectEvent = this.onSelectEvent.bind(this);
     this.onClose = this.onClose.bind(this);
+    this.updateShiftData = this.updateShiftData.bind(this);
   }
 
   onSelectEvent = shiftData => {
@@ -52,6 +54,10 @@ class BigCal extends Component {
       start, end,
       openShiftCreate: true,
     });
+  };
+
+  updateShiftData = shiftData => {
+    this.setState({ shiftData });
   };
 
   render() {
@@ -91,6 +97,10 @@ class BigCal extends Component {
         >
           <ShiftViewModal shiftData={shiftData}/>
           <Modal.Actions>
+            <ShiftUpdateModal
+              {...this.props}
+              shiftData={shiftData} updateShiftData={this.updateShiftData}
+            />
             <Button onClick={() => this.onClose('view')}>
               Close
             </Button>
