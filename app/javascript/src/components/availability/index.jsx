@@ -8,21 +8,37 @@ import _ from 'lodash';
 
 const times = [
     'Night Shift',
-  '07:00 - 08:15',
-  '08:15 - 09:30',
-  '09:30 - 10:45',
-  '10:45 - 12:00',
-  '12:00 - 13:15',
-  '13:15 - 14:30',
-  '14:30 - 15:45',
-  '15:45 - 17:00',
-  '17:00 - 18:15',
-  '18:15 - 19:30',
-  '19:30 - 20:45',
-  '20:45 - 22:00',
-  // '22:00 - 23:15',
-  // '23:15 - 00:30',
-  // '00:30 - 02:00', // 1 hour 30 min shift till night shift, accounts for switching
+  '07:00 - 07:30 AM',
+  '07:30 - 08:00 AM',
+  '08:00 - 8:30 AM',
+  '8:30 - 9:00 AM',
+  '9:00 - 9:30 AM',
+  '9:30 - 10:00 AM',
+  '10:00- 10:30 AM',
+  '10:30 - 11:00 AM',
+  '11:00 - 11:30 AM',
+  '11:30 - 11:59 AM',
+  '12:00 - 12:30 PM',
+  '12:30 - 1:00 PM',
+  '01:00 - 01:30 PM',
+  '01:30 - 02:00 PM',
+  '02:00 - 2:30 PM',
+  '2:30 - 3:00 PM',
+  '3:00 - 3:30 PM',
+  '3:30 - 4:00 PM',
+  '4:00- 4:30 PM',
+  '4:30 - 5:00 PM',
+  '5:00 - 5:30 PM',
+  '5:30 - 6:00 PM',
+  '5:00 - 6:30 PM',
+  '6:30 - 7:00 PM',
+  '7:00 - 7:30 PM',
+  '7:30 - 8:00 PM',
+  '8:00 - 8:30 PM',
+  '8:30 - 9:00 PM',
+  '9:00 - 9:30 PM',
+  '9:30 - 10:00 PM',
+
 ];
 
 const days = [
@@ -40,7 +56,7 @@ class Availability extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      grid: (new Array(16)).fill().map(function(){ return new Array(7).fill(0);}),
+      grid: (new Array(31)).fill().map(function(){ return new Array(7).fill(0);}),
     };
 
     this.handleClick = this.handleClick.bind(this);
