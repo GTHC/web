@@ -138,6 +138,7 @@ class BigCal extends Component {
         {/* Shift Create Modal */}
         <Modal
           closeIcon
+          closeOnDimmerClick={false}
           open={openShiftCreate}
           onClose={() => this.onClose('create')}
         >
