@@ -5,8 +5,11 @@ import { Form } from 'semantic-ui-react';
 
 class UpdateShiftForm extends Component {
 
+  state = { error: false };
+
   onInputChange = (e, { value, id }) => {
     const { updateShiftData, shiftData } = this.props;
+    this.setState({ errors: [] });
     updateShiftData({
       ...shiftData,
       [id]: value,
@@ -15,6 +18,8 @@ class UpdateShiftForm extends Component {
 
   handleUpdate = () => {
     const { close, shiftData, updateShift } = this.props;
+    if (this.checkErrors(shiftData)) return;
+
     const data = {
       ...shiftData,
       start_time: shiftData.start,
@@ -22,6 +27,16 @@ class UpdateShiftForm extends Component {
     };
     updateShift(shiftData.id, data);
     close();
+  };
+
+  checkErrors = data => {
+    if (data.title.length == 0) {
+      this.setState({ error: true });
+      return true;
+    } else {
+      this.setState({ error: false });
+      return false;
+    }
   };
 
   render() {
@@ -47,7 +62,7 @@ class UpdateShiftForm extends Component {
           placeholder="Enter a title here"
           value={title}
           onChange={this.onInputChange}
-          // error={error}
+          error={this.state.error}
         />
         <Form.TextArea
           id="note"
@@ -63,7 +78,7 @@ class UpdateShiftForm extends Component {
           options={userOptions}
           defaultValue={user_ids}
           onChange={this.onInputChange}
-          // placeholder="(Default: You)"
+          placeholder="(Default: You)"
         />
         <Form.Button
           onClick={this.handleUpdate}
