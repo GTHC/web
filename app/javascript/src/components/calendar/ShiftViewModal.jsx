@@ -10,6 +10,7 @@ class ShiftViewModal extends Component {
 
   render() {
     const { shiftData } = this.props;
+    console.log(shiftData);
     return (
         <React.Fragment>
           <Modal.Header>
@@ -23,6 +24,14 @@ class ShiftViewModal extends Component {
             </Modal.Description>
             <Modal.Description>
               {shiftData.note}
+            </Modal.Description>
+            <Modal.Description as="h4">
+              Users:
+            </Modal.Description>
+            <Modal.Description>
+              {shiftData.users.map(user => (
+                <div key={user.name}>{user.name}</div>
+              ))}
             </Modal.Description>
           </Modal.Content>
         </React.Fragment>
