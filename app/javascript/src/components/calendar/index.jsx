@@ -109,9 +109,6 @@ class BigCal extends Component {
               {...this.props}
               shiftData={shiftData} updateShiftData={this.updateShiftData}
             />
-            <Button onClick={() => this.onClose('view')}>
-              Close
-            </Button>
           </Modal.Actions>
         </Modal>
         {/* Shift Create Modal */}

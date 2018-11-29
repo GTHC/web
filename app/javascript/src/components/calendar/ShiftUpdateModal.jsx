@@ -24,7 +24,7 @@ class ShiftUpdateModal extends Component {
         onOpen={this.open}
         onClose={this.close}
         closeIcon
-        trigger={<Button>Update</Button>}
+        trigger={<Button positive>Update</Button>}
       >
         <Modal.Header>Update shift</Modal.Header>
         <Modal.Content>
