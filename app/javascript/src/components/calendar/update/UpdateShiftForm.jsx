@@ -14,7 +14,14 @@ class UpdateShiftForm extends Component {
   };
 
   handleUpdate = () => {
-    console.log(this.props.shiftData);
+    const { close, shiftData, updateShift } = this.props;
+    const data = {
+      ...shiftData,
+      start_time: shiftData.start,
+      end_time: shiftData.end,
+    };
+    updateShift(shiftData.id, data);
+    close();
   };
 
   render() {

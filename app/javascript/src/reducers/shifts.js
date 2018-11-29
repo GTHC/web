@@ -63,9 +63,9 @@ const shifts = (state=initialState, action) => {
     case 'END_PUT_SHIFT': {
       return {
         ...endState,
-        // team_shifts: action.payload.data.data.team_shifts,
-        // user_shifts: action.payload.data.data.user_shifts,
-        // shift: action.payload.data.data.shift,
+        team_shifts: action.payload.data.data.team_shifts,
+        user_shifts: action.payload.data.data.user_shifts,
+        shift: action.payload.data.data.shift,
         responseObject: action.payload,
       };
     }

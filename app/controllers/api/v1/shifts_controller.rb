@@ -69,8 +69,6 @@ class Api::V1::ShiftsController < ApiController
       if params[:user_ids]
         shift.users = [];
         params[:user_ids].each do |id|
-          puts 'id'
-          puts id.is_a? Integer
           @user = User.find(id)
           puts @user.shifts.ids
           shift.users << @user
