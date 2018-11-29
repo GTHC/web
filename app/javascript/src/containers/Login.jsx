@@ -10,6 +10,9 @@ import { Container, Card, Menu, Input } from 'semantic-ui-react';
 // Login components
 import { LoginFields, SignUpFields } from './../components';
 
+// FAQ
+import FAQ from './FAQ';
+
 // redux actions
 import {
   toggleLoginType,
@@ -28,11 +31,12 @@ class Login extends Component {
     super(props);
     this.state = {
       activeItem: 'home',
+      secondaryItem: 'FAQ',
     }
   }
 
   render() {
-    const { activeItem } = this.state;
+    const { activeItem, secondaryItem } = this.state;
     const { login,
             user,
             toggleLoginType,
@@ -55,7 +59,19 @@ class Login extends Component {
             onMouseOver={() => {this.setState({activeItem: 'about'})}}
             onMouseLeave={() => {this.setState({activeItem: ''})}}
            />
-      </Menu>
+           <Menu.Item
+             name='Tenting 101'
+             active={activeItem === 'tenting101'}
+             onMouseOver={() => {this.setState({activeItem: 'tenting101'})}}
+             onMouseLeave={() => {this.setState({activeItem: ''})}}
+            />
+            <Menu.Item
+              name='FAQ'
+              active={activeItem === 'FAQ'}
+              onMouseOver={() => {this.setState({activeItem: 'FAQ'})}}
+              onMouseLeave={() => {this.setState({activeItem: ''})}}
+             />
+        </Menu>
         <div className="login">
           <Container textalign="center" >
             <Card centered fluid color="blue" className="login-card" >
