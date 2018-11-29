@@ -1,6 +1,7 @@
-import React, { Component } from "react";
-import Calendar from "react-big-calendar";
-import moment from "moment";
+import React, { Component } from 'react';
+import Calendar from 'react-big-calendar';
+import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
+import moment from 'moment';
 
 // semantic-ui
 import { Button, Modal } from 'semantic-ui-react';
@@ -11,6 +12,8 @@ import ShiftCreateModal from './ShiftCreateModal';
 import ShiftUpdateModal from './ShiftUpdateModal';
 
 const localizer = Calendar.momentLocalizer(moment);
+
+const DragDropCal = withDragAndDrop(Calendar);
 
 class BigCal extends Component {
   constructor (props) {
@@ -32,6 +35,24 @@ class BigCal extends Component {
       openShiftView: true,
       shiftData,
     });
+  };
+
+  resizeEvent = ({ event, start, end }) => {
+    const data = {
+      ...event,
+      start_time: start,
+      end_time: end,
+    };
+    this.props.updateShift(event.id, data);
+  };
+
+  moveEvent = ({ event, start, end }) => {
+    const data = {
+      ...event,
+      start_time: start,
+      end_time: end,
+    };
+    this.props.updateShift(event.id, data);
   };
 
   onClose = (type) => {
@@ -83,7 +104,10 @@ class BigCal extends Component {
 
     return (
       <div>
-        <Calendar
+        <DragDropCal
+          resizeable
+          onEventDrop={this.moveEvent}
+          onEventResize={this.resizeEvent}
           step={30}
           timeslots={4}
           selectable
