@@ -60,6 +60,13 @@ class BigCal extends Component {
     this.setState({ shiftData });
   };
 
+  handleDelete = () => {
+    const { shiftData } = this.state;
+    const { deleteShift } = this.props;
+    deleteShift(shiftData.id);
+    this.onClose('view');
+  };
+
   render() {
     const {
       start, end,
@@ -97,6 +104,7 @@ class BigCal extends Component {
         >
           <ShiftViewModal shiftData={shiftData}/>
           <Modal.Actions>
+            <Button negative onClick={this.handleDelete}>Delete</Button>
             <ShiftUpdateModal
               {...this.props}
               shiftData={shiftData} updateShiftData={this.updateShiftData}

@@ -95,6 +95,30 @@ const shifts = (state=initialState, action) => {
       };
     }
 
+    case 'BEGIN_DELETE_SHIFT': {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+
+    case 'FAILED_DELETE_SHIFT': {
+      return {
+        ...failedState,
+        errorMessage: action.payload.message,
+        errorObject: action.payload,
+      };
+    }
+
+    case 'END_DELETE_SHIFT': {
+      return {
+        ...endState,
+        team_shifts: action.payload.data.data.team_shifts,
+        user_shifts: action.payload.data.data.user_shifts,
+        responseObject: action.payload,
+      };
+    }
+
     case 'END_LOGOUT': {
       return initialState;
     }

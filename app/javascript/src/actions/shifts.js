@@ -41,12 +41,12 @@ const createShift = data => (
 const deleteShift = id => (
   crud({
     dispatch: {
-      begin: 'BEGIN_GET_SHIFTS',
-      end: 'END_GET_SHIFTS',
-      fail: 'FAILED_GET_SHIFTS',
+      begin: 'BEGIN_DELETE_SHIFT',
+      end: 'END_DELETE_SHIFT',
+      fail: 'FAILED_DELETE_SHIFT',
     },
     method: 'DELETE',
-    url: `/api/v1/shifts${id}`,
+    url: `/api/v1/shifts/${id}`,
   })
 );
 
@@ -71,4 +71,5 @@ export {
   updateShift,
   createShift,
   deleteShift,
+  addUserToShift,
 };
