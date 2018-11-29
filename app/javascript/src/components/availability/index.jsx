@@ -36,7 +36,7 @@ const days = [
   'Sunday',
 ];
 
-class Availabile extends Component {
+class Availability extends Component {
   constructor(props) {
     super(props);
     const data = props.login.signUpData;
@@ -147,4 +147,4 @@ class Availabile extends Component {
   }
 }
 
-export default Availabile;
+export default Availability;

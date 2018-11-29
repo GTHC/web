@@ -42,6 +42,7 @@ class SignUpFields extends Component {
         return;
       }
       case 'signup': {
+        console.log('here')
         // signup button click
         // TODO: Add Login functionality
         const data = login.signUpData; // data collected from signup fields
@@ -79,7 +80,7 @@ class SignUpFields extends Component {
     const steps = [
         { key: 'user', icon: 'user', title: 'User Credentials', description: 'Add your email and create an account password.', active: (activeStep === 0) },
         { key: 'team', active: true, icon: 'users', title: 'Team Information', description: 'Let us know which team you are on!', active: (activeStep === 1) },
-        { key: 'availability', disabled: true, icon: 'clock', title: 'Availability', active: (activeStep === 2) },
+        { key: 'availability', icon: 'clock', title: 'Availability', description: 'Put in your availabilities.', active: (activeStep === 2) },
         { key: 'join', disabled: true, icon: 'checkmark box', title: 'All Set!', active: (activeStep === 3), completed: (activeStep === 3) },
       ];
     return (
