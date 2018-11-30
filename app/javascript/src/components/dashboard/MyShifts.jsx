@@ -50,10 +50,12 @@ class MyShifts extends Component {
             .map(this.mapShiftToCard);
 
         return (
-           <div>
-               <Header>Upcoming Shifts</Header>
-                <Card.Group items={items} />
-           </div>       
+            <Card fluid raised style={{marginTop: "16px"}}>
+                    <Card.Content>
+                        <Card.Header>Upcoming Shifts</Card.Header>
+                    </Card.Content>
+                <Card.Group items={items} style={{ margin: "8px", marginTop: "0px" }} />
+           </Card>      
         );
     }
 
