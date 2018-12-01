@@ -70,7 +70,6 @@ const dragDropUpdate = (oldShifts, newShift) => {
   // NOTE: There is both a oldShift and oldShifts variable and the same for newShift and newShifts
   const oldShift = oldShifts.find(shift => shift.id == newShift.id);
   const index = oldShifts.indexOf(oldShift);
-  console.log('index', index);
   const newShifts = [...oldShifts];
   newShifts.splice(index, 1, newShift);
   return {

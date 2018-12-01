@@ -10,7 +10,6 @@ class ShiftViewModal extends Component {
 
   render() {
     const { shiftData } = this.props;
-    console.log(shiftData);
     return (
         <React.Fragment>
           <Modal.Header>
