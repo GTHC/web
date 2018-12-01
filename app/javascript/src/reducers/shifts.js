@@ -119,6 +119,13 @@ const shifts = (state=initialState, action) => {
       };
     }
 
+    case 'DRAG_DROP': {
+      return {
+        ...state,
+        team_shifts: action.payload,
+      };
+    }
+
     case 'END_LOGOUT': {
       return initialState;
     }

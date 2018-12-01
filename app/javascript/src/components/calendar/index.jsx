@@ -38,20 +38,34 @@ class BigCal extends Component {
   };
 
   resizeEvent = ({ event, start, end }) => {
+    const shifts = this.props.shifts.team_shifts;
     const data = {
       ...event,
-      start_time: start,
+      start, end, // replaces old start and end elements for redux and frontend
+      start_time: start, // API uses start_time & end_time
       end_time: end,
     };
+
+    // updates shift data locally to remove lag and dependence of API
+    this.props.dragDropUpdate(shifts, data);
+
+    // updates on DB with API
     this.props.updateShift(event.id, data);
   };
 
   moveEvent = ({ event, start, end }) => {
+    const shifts = this.props.shifts.team_shifts;
     const data = {
       ...event,
-      start_time: start,
+      start, end, // replaces old start and end elements for redux and frontend
+      start_time: start, // API uses start_time & end_time
       end_time: end,
     };
+
+    // updates shift data locally to remove lag and dependence of API
+    this.props.dragDropUpdate(shifts, data);
+
+    // updates on DB with API
     this.props.updateShift(event.id, data);
   };
 

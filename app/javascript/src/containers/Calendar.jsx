@@ -16,7 +16,9 @@ import {
   getAllShifts,
   updateShift,
   createShift,
-  deleteShift,  } from '../actions/shifts';
+  deleteShift,
+  dragDropUpdate,
+} from '../actions/shifts';
 import { getTeam } from '../actions/team';
 
 class Calendar extends Component {
@@ -28,13 +30,6 @@ class Calendar extends Component {
   }
 
   render () {
-    const {
-      shifts,
-      getAllShifts,
-      updateShift,
-      createShift,
-      deleteShift,
-    } = this.props;
     return (
       <div>
         <NavBar />
@@ -70,6 +65,7 @@ const mapDispatchToProps = (dispatch) => {
       updateShift,
       createShift,
       deleteShift,
+      dragDropUpdate,
       getTeam,
     },
     dispatch);
