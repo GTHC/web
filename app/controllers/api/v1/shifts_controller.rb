@@ -66,6 +66,14 @@ class Api::V1::ShiftsController < ApiController
   def update
     validate_params
     if shift = Shift.find(params[:id])
+      if params[:user_ids]
+        shift.users = [];
+        params[:user_ids].each do |id|
+          @user = User.find(id)
+          puts @user.shifts.ids
+          shift.users << @user
+        end
+      end
       shift.update(@prime_params)
       data = {
         shift: format_shifts([shift]),

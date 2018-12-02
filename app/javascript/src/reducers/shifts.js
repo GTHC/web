@@ -63,9 +63,9 @@ const shifts = (state=initialState, action) => {
     case 'END_PUT_SHIFT': {
       return {
         ...endState,
-        // team_shifts: action.payload.data.data.team_shifts,
-        // user_shifts: action.payload.data.data.user_shifts,
-        // shift: action.payload.data.data.shift,
+        team_shifts: action.payload.data.data.team_shifts,
+        user_shifts: action.payload.data.data.user_shifts,
+        shift: action.payload.data.data.shift,
         responseObject: action.payload,
       };
     }
@@ -92,6 +92,37 @@ const shifts = (state=initialState, action) => {
         user_shifts: action.payload.data.data.user_shifts,
         shift: action.payload.data.data.shift,
         responseObject: action.payload,
+      };
+    }
+
+    case 'BEGIN_DELETE_SHIFT': {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+
+    case 'FAILED_DELETE_SHIFT': {
+      return {
+        ...failedState,
+        errorMessage: action.payload.message,
+        errorObject: action.payload,
+      };
+    }
+
+    case 'END_DELETE_SHIFT': {
+      return {
+        ...endState,
+        team_shifts: action.payload.data.data.team_shifts,
+        user_shifts: action.payload.data.data.user_shifts,
+        responseObject: action.payload,
+      };
+    }
+
+    case 'DRAG_DROP': {
+      return {
+        ...state,
+        team_shifts: action.payload,
       };
     }
 
