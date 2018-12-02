@@ -42,7 +42,7 @@ class Availability extends Component {
     const data = props.login.signUpData;
     props.toggleDisableNext(false);
     this.state = {
-      grid: (new Array(16)).fill().map(function(){ return new Array(7).fill(0);}),
+      grid: (new Array(31)).fill().map(function(){ return new Array(7).fill(0);}),
     };
 
     this.handleClick = this.handleClick.bind(this);
