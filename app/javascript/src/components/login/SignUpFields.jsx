@@ -7,8 +7,6 @@ import { Button, Form, Step, Divider } from 'semantic-ui-react';
 import UserSignUp from './signup/UserSignUp';
 import TeamSignUp from './signup/TeamSignUp';
 import AllSet from './signup/AllSet';
-// Availability
-import Availability from './../availability/index'
 
 class SignUpFields extends Component {
   constructor(props) {
@@ -35,14 +33,13 @@ class SignUpFields extends Component {
         return;
       }
       case 'next': {
-        if (activeStep < 3) {
+        if (activeStep < 2) {
           this.setState({ activeStep: activeStep + 1 });
           toggleDisableNext(true);
         }
         return;
       }
       case 'signup': {
-        console.log('here')
         // signup button click
         // TODO: Add Login functionality
         const data = login.signUpData; // data collected from signup fields
@@ -78,10 +75,9 @@ class SignUpFields extends Component {
     const { activeStep } = this.state;
     const { login, toggleDisableNext, updateUserInfo, updateTeamInfo, getAllTeams } = this.props;
     const steps = [
-        { key: 'user', icon: 'user', title: 'User Credentials', description: 'Create your account with your email.', active: (activeStep === 0) },
+        { key: 'user', icon: 'user', title: 'User Credentials', description: 'Add your email and create an account password.', active: (activeStep === 0) },
         { key: 'team', active: true, icon: 'users', title: 'Team Information', description: 'Let us know which team you are on!', active: (activeStep === 1) },
-        { key: 'availability', icon: 'clock', title: 'Availability', description: 'Let us know when you can tent!', active: (activeStep === 2) },
-        { key: 'join', disabled: true, icon: 'checkmark box', title: 'All Set!', active: (activeStep === 3), completed: (activeStep === 3) },
+        { key: 'join', disabled: true, icon: 'checkmark box', title: 'All Set!', active: (activeStep === 2), completed: (activeStep === 2) },
       ];
     return (
       <div>
@@ -104,18 +100,12 @@ class SignUpFields extends Component {
             />
           }
           { activeStep === 2 &&
-            <Availability
-              login={login}
-              toggleDisableNext={toggleDisableNext}
-            />
-          }
-          { activeStep === 3 &&
             <AllSet login={login} />
           }
 
         </Form>
         <br />
-        { activeStep < 3 ?
+        { activeStep < 2 ?
           <Button.Group fluid>
             <Button id="back" content='Back' icon='left arrow' labelPosition='left' color="red" onClick={this.handleButtonClick} />
             <Button.Or />
