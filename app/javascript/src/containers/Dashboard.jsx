@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // components
-import Test from './../components/Test';
 import NavBar from './NavBar';
 import MyShifts from './../components/dashboard/MyShifts';
 
