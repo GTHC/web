@@ -16,6 +16,11 @@ class ShiftUpdateModal extends Component {
   open = () => this.setState({ open: true });
   close = () => this.setState({ open: false });
 
+  updateClose = () => {
+    this.props.closeShiftView();
+    this.close();
+  };
+
   render() {
     const { open } = this.state;
     return (
@@ -28,7 +33,7 @@ class ShiftUpdateModal extends Component {
       >
         <Modal.Header>Update shift</Modal.Header>
         <Modal.Content>
-          <UpdateShiftForm {...this.props} close={this.close} />
+          <UpdateShiftForm {...this.props} close={this.updateClose} />
         </Modal.Content>
       </Modal>
     );
