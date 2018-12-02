@@ -78,9 +78,9 @@ class SignUpFields extends Component {
     const { activeStep } = this.state;
     const { login, toggleDisableNext, updateUserInfo, updateTeamInfo, getAllTeams } = this.props;
     const steps = [
-        { key: 'user', icon: 'user', title: 'User Credentials', description: 'Add your email and create an account password.', active: (activeStep === 0) },
+        { key: 'user', icon: 'user', title: 'User Credentials', description: 'Create your account with your email.', active: (activeStep === 0) },
         { key: 'team', active: true, icon: 'users', title: 'Team Information', description: 'Let us know which team you are on!', active: (activeStep === 1) },
-        { key: 'availability', icon: 'clock', title: 'Availability', description: 'Put in your availabilities.', active: (activeStep === 2) },
+        { key: 'availability', icon: 'clock', title: 'Availability', description: 'Let us know when you can tent!', active: (activeStep === 2) },
         { key: 'join', disabled: true, icon: 'checkmark box', title: 'All Set!', active: (activeStep === 3), completed: (activeStep === 3) },
       ];
     return (
