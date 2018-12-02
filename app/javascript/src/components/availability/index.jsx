@@ -7,38 +7,22 @@ import { Grid, Segment, Divider, Button, Icon, Card } from 'semantic-ui-react';
 import _ from 'lodash';
 
 const times = [
-    'Night Shift',
-  '07:00 - 07:30 AM',
-  '07:30 - 08:00 AM',
-  '08:00 - 8:30 AM',
-  '8:30 - 9:00 AM',
-  '9:00 - 9:30 AM',
-  '9:30 - 10:00 AM',
-  '10:00- 10:30 AM',
-  '10:30 - 11:00 AM',
-  '11:00 - 11:30 AM',
-  '11:30 - 11:59 AM',
-  '12:00 - 12:30 PM',
-  '12:30 - 1:00 PM',
-  '01:00 - 01:30 PM',
-  '01:30 - 02:00 PM',
-  '02:00 - 2:30 PM',
-  '2:30 - 3:00 PM',
-  '3:00 - 3:30 PM',
-  '3:30 - 4:00 PM',
-  '4:00- 4:30 PM',
-  '4:30 - 5:00 PM',
-  '5:00 - 5:30 PM',
-  '5:30 - 6:00 PM',
-  '5:00 - 6:30 PM',
-  '6:30 - 7:00 PM',
-  '7:00 - 7:30 PM',
-  '7:30 - 8:00 PM',
-  '8:00 - 8:30 PM',
-  '8:30 - 9:00 PM',
-  '9:00 - 9:30 PM',
-  '9:30 - 10:00 PM',
-
+  'Night Shift',
+  '7:00 - 8:15 AM',
+  '8:15 - 9:30 AM',
+  '9:30 - 10:45 AM',
+  '10:45 - 12:00 PM',
+  '12:00 - 1:15 PM',
+  '1:15 - 2:30 PM',
+  '2:30 - 3:45 PM',
+  '3:45 - 5:00 PM',
+  '5:00 - 6:15 PM',
+  '6:15 - 7:30 PM',
+  '7:30 - 8:45 PM',
+  '8:45 - 10:00 PM',
+  '10:00 - 11:15 PM',
+  '11:15 - 12:30 AM',
+  '12:30 - 2:00 AM', // 1 hour 30 min shift till night shift, accounts for switching
 ];
 
 const days = [
@@ -55,6 +39,8 @@ const days = [
 class Availability extends Component {
   constructor(props) {
     super(props);
+    const data = props.login.signUpData;
+    props.toggleDisableNext(false);
     this.state = {
       grid: (new Array(31)).fill().map(function(){ return new Array(7).fill(0);}),
     };
@@ -118,23 +104,25 @@ class Availability extends Component {
     <Card fluid raised>
       <Grid columns="equal">
         <Grid.Row>
-          <Grid.Column>Key</Grid.Column>
+          <Grid.Column><h3> Key </h3></Grid.Column>
           <Grid.Column>
-            Unavailable - <Icon color='red' name='cancel' size='large' />
+            <h4> Unavailable </h4> <Icon color='red' name='cancel' size='large' />
           </Grid.Column>
           <Grid.Column>
-            Somewhat Availabile - <Icon color='yellow' name='question circle' size='large' />
+            <h4> Somewhat Available </h4> <Icon color='yellow' name='question circle' size='large' />
           </Grid.Column>
           <Grid.Column>
-            Availabile - <Icon color='green' name='checkmark' size='large' />
+            <h4> Available </h4> <Icon color='green' name='checkmark' size='large' />
           </Grid.Column>
         </Grid.Row>
       </Grid>
-    </Card>
+     </Card>
   );
 
   render() {
     const { myFunction } = this.props;
+    // const { toggleDisableNext } = this.props;
+    // toggleDisableNext(false);
 
     return (
       <div>
