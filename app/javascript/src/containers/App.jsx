@@ -14,6 +14,7 @@ import Login from './Login';
 import Dashboard from './Dashboard';
 import UserProfile from './UserProfile';
 import TeamProfile from './TeamProfile';
+import FAQ from './FAQ';
 
 // TODO: User Auth checking on components
 
@@ -29,6 +30,7 @@ const AppRoutes = () => (
     <Route exact path="/app/user" component={UserProfile} />
     <Route exact path="/app/team" component={TeamProfile} />
     <Route exact path="/app/*" component={Home} />
+    <Route exact path="/app/questions" component={FAQ} />
   </ConnectedSwitch>
 );
 

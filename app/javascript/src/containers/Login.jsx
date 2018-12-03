@@ -11,7 +11,7 @@ import { Container, Card, Menu, Input } from 'semantic-ui-react';
 import { LoginFields, SignUpFields } from './../components';
 
 // FAQ
-import FAQ from './FAQ';
+import { Link } from 'react-router-dom';
 
 // redux actions
 import {
@@ -31,7 +31,6 @@ class Login extends Component {
     super(props);
     this.state = {
       activeItem: 'home',
-      secondaryItem: 'FAQ',
     }
   }
 
@@ -47,7 +46,8 @@ class Login extends Component {
             loginUser,
             logoutUser,
             signup,
-            signupNewTeam
+            signupNewTeam,
+            router
           } = this.props;
     return (
       <div>
