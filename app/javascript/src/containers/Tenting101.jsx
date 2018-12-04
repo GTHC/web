@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 
+import { Link } from 'react-router-dom';
 // semantic ui components
 import { Image, Button, Form, Step, Divider, Message, Header, Segment, Card, Grid, Table, Icon } from 'semantic-ui-react';
 
@@ -151,7 +152,7 @@ class Tenting101 extends Component {
           <Button.Group fluid>
             <Button id="back" content='Back' icon='left arrow' labelPosition='left' color="red" onClick={this.handleButtonClick} />
             <Button.Or />
-            <Button id="signup" content='Reset' icon='sign in' labelPosition='right' color="green" onClick={this.handleReset} />
+            <Button id="signup" content='Finish and Return' icon='sign in' labelPosition='right' color="green" onClick={this.handleReset} />
           </Button.Group>
         }
         <br />
