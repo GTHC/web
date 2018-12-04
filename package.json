@@ -41,6 +41,7 @@
   },
   "scripts": {
     "start": "foreman start -f Procfile.dev",
+    "prod": "foreman start -f Procfile.prod",
     "clean:branch": "./bin/clean-branch.sh",
     "webpacker": "ruby bin/webpack-dev-server",
     "flush": " docker-compose run app ./bin/db-flush.sh",
@@ -48,6 +49,7 @@
     "dev:start": "docker-compose run -p '5000:5000' -p '3035:3035' app yarn start",
     "dev:bash": "docker-compose run app bash",
     "dev:console": "docker-compose run app rails c",
-    "dev:db": "docker-compose run app rails db"
+    "dev:db": "docker-compose run app rails db",
+    "prod:start": "docker-compose run -p '5000:5000' -p '3035:3035' app yarn run prod"
   }
 }
