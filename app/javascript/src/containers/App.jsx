@@ -15,6 +15,8 @@ import Dashboard from './Dashboard';
 import UserProfile from './UserProfile';
 import TeamProfile from './TeamProfile';
 import FAQ from './FAQ';
+import Tenting101 from './Tenting101';
+import About from './About';
 
 // TODO: User Auth checking on components
 
@@ -30,7 +32,6 @@ const AppRoutes = () => (
     <Route exact path="/app/user" component={UserProfile} />
     <Route exact path="/app/team" component={TeamProfile} />
     <Route exact path="/app/*" component={Home} />
-    <Route exact path="/app/questions" component={FAQ} />
   </ConnectedSwitch>
 );
 
@@ -57,6 +58,9 @@ class App extends Component {
               <Redirect to="/app" /> :
               <Login />
             )} />
+            <Route path='/tenting101' component={Tenting101} />
+            <Route path='/faq' component={FAQ} />
+            <Route path='/about' component={About} />
           </ConnectedSwitch>
         </ConnectedRouter>
     );

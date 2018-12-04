@@ -3,7 +3,7 @@ import { Accordion, Table } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
 const level1Panels = [
-  { key: 'panel-1a',
+  { key: 'Tenting',
   title: 'What’s the difference between black, blue, and white tenting?',
   content: 'Tenting is split up into three periods of varying difficulty, black, blue and white. Requirements for each period can be found in the next question.' },
   { key: 'panel-ba', title: 'How many people have to be in K-Ville?',
@@ -22,8 +22,15 @@ const Level1Content = (
 )
 
 const level2Panels = [
-  { key: 'panel-2a', title: 'K-Ville FAQs', content: 'K-Ville Frequently Asked Questions' },
-  { key: 'panel-2b', title: 'WUL FAQs', content: 'Walk-Up Line Frequently Asked Questions' },
+  { key: 'KVille',
+  title: 'Can I tent for Carolina and wait in line for other games at the same time?',
+  content: 'Yes, but the use of tents for ranked walk-up line games in no way relates to tenting for the Carolina game. A group’s position in the line for Carolina does not dictate position in line for any other game and vice versa.' },
+  { key: 'Kville2',
+  title: 'Does Wilson Gym count as being in K-Ville?',
+  content: 'No. If a check is called when you are inside Wilson Gym and you miss your check, you will recieve a missed check. ' },
+  { key: 'Kville2',
+  title: 'If I live near K-Ville, can I just run across Towerview Road to make a check?',
+  content: 'No. If a check is called and you run across Towerview, you will recieve a missed check. ' },
 ]
 
 const Level2Content = (
@@ -34,8 +41,12 @@ const Level2Content = (
 )
 
 const level3Panels = [
-  { key: 'panel-2a', title: 'Level 2A', content: 'Level 2A Contents' },
-  { key: 'panel-2b', title: 'Level 2B', content: 'Level 2B Contents' },
+  { key: 'WUL',
+  title: 'How many people need to be in the Walk-Up Line in K-Ville at once?',
+  content: 'Just 1/3 of your group needs to be in K-Ville at once. If you have a group of 3, just one of you needs to be in K-Ville. If you have a group of 6, two of you need to be in K-Ville and so on. ' },
+  { key: 'WUL2',
+  title: 'Can I tent for Carolina and wait in line for other games at the same time?',
+  content: 'Yes, but the use of tents for ranked walk-up line games in no way relates to tenting for the Carolina game. A group’s position in the line for Carolina does not dictate position in line for any other game and vice versa.' },
 ]
 
 const Level3Content = (

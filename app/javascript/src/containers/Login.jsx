@@ -22,12 +22,30 @@ import {
   signup,
   signupNewTeam
 } from './../actions/login';
+import { push } from './../actions/router';
 
 class Login extends Component {
   constructor (props) {
     super(props);
     this.state = {
       activeItem: 'home',
+    }
+  }
+  handleClick = (e, data) => {
+    console.log('data', data);
+    // data.id is the id element in the component that is clicked
+    switch (data.id) {
+      case 'tenting101':
+        this.props.push('/tenting101')
+        return;
+      case 'faq':
+        this.props.push('/faq')
+        return;
+      case 'about':
+          this.props.push('/about')
+          return;
+      default:
+        return;
     }
   }
 
@@ -43,18 +61,33 @@ class Login extends Component {
             loginUser,
             logoutUser,
             signup,
-            signupNewTeam
+            signupNewTeam,
+            router
           } = this.props;
+    const path = router.location.pathname;
     return (
       <div>
         <Menu secondary>
           <Menu.Item header>Krzyzewskiville Scheduler ⛺</Menu.Item>
           <Menu.Item
-            name='about KVS'
-            active={activeItem === 'about'}
-            onMouseOver={() => {this.setState({activeItem: 'about'})}}
-            onMouseLeave={() => {this.setState({activeItem: ''})}}
-           />
+            id='about'
+            active={path === '/about'}
+            onClick={this.handleClick}
+           >
+           About KVS
+           </Menu.Item>
+           <Menu.Item
+            id='tenting101'
+            active={path === '/tenting101'}
+            onClick={this.handleClick}>
+            Tenting101
+            </Menu.Item>
+            <Menu.Item
+             id='faq'
+             active={path === '/faq'}
+             onClick={this.handleClick}>
+             FAQ
+             </Menu.Item>
       </Menu>
         <div className="login">
           <Container textalign="center" >
@@ -103,6 +136,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
     login: state.login,
+    router: state.router,
   };
 };
 
@@ -118,6 +152,7 @@ const mapDispatchToProps = (dispatch) => {
       logoutUser: logout,
       signup: signup,
       signupNewTeam: signupNewTeam,
+      push: push,
     },
     dispatch);
 };
