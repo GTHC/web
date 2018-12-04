@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import 'semantic-ui-css/semantic.min.css';
 
-import { Link } from 'react-router-dom';
 // semantic ui components
 import { Image, Button, Form, Step, Divider, Message, Header, Segment, Card, Grid, Table, Icon } from 'semantic-ui-react';
+
+// import FAQ page
+import FAQ from './FAQ';
 
 class Tenting101 extends Component {
   constructor(props) {
@@ -78,33 +79,43 @@ class Tenting101 extends Component {
                   <Table.HeaderCell>Color</Table.HeaderCell>
                   <Table.HeaderCell>Start Date</Table.HeaderCell>
                   <Table.HeaderCell>End Date</Table.HeaderCell>
+                  <Table.HeaderCell>Day Occupancy</Table.HeaderCell>
+                  <Table.HeaderCell>Night Occupancy</Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
-
               <Table.Body>
                 <Table.Row>
                   <Table.Cell>Black</Table.Cell>
                   <Table.Cell>January 12th, 2018 at 11PM</Table.Cell>
-                  <Table.Cell textAlign='right'>January 23rd, 2018 at 11PM</Table.Cell>
+                  <Table.Cell>January 23rd, 2018 at 11PM</Table.Cell>
+                  <Table.Cell textAlign='center'> 2 </Table.Cell>
+                  <Table.Cell textAlign='center'> 10 </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Blue</Table.Cell>
                   <Table.Cell>January 23rd, 2018 at 11PM</Table.Cell>
-                  <Table.Cell textAlign='right'>February 3rd, 2018 at 11PM </Table.Cell>
+                  <Table.Cell>February 3rd, 2018 at 11PM </Table.Cell>
+                  <Table.Cell textAlign='center'> 1 </Table.Cell>
+                  <Table.Cell textAlign='center'> 6 </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>White</Table.Cell>
                   <Table.Cell>February 3rd, 2018 at 11PM </Table.Cell>
-                  <Table.Cell textAlign='right'>February 14th, 2018 at 12PM</Table.Cell>
+                  <Table.Cell>February 14th, 2018 at 12PM</Table.Cell>
+                  <Table.Cell textAlign='center'> 1 </Table.Cell>
+                  <Table.Cell textAlign='center'> 2 </Table.Cell>
                 </Table.Row>
               </Table.Body>
             </Table>
+            <FAQ />
            </div>
           }
           { activeStep === 1 &&
             <div>
              <Message header='Step 2' content='Tent Captain - Register your tent with the Line Monitors using the form below.' size='large' />
-             <iframe align="middle" src="https://docs.google.com/forms/d/e/1FAIpQLSfrLvNTtp1jxp4SMsTQz_eHUJMYIvE9Dlq4E_TTiZwo9FThbw/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+             <p align="middle">
+             <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfrLvNTtp1jxp4SMsTQz_eHUJMYIvE9Dlq4E_TTiZwo9FThbw/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0" align="middle">Loading...</iframe>
+             </p>
             </div>
           }
           { activeStep === 2 &&

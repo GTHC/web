@@ -59,7 +59,6 @@ class App extends Component {
               <Login />
             )} />
             <Route path='/tenting101' component={Tenting101} />
-            <Route path='/faq' component={FAQ} />
             <Route path='/about' component={About} />
           </ConnectedSwitch>
         </ConnectedRouter>

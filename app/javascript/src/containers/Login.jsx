@@ -38,9 +38,6 @@ class Login extends Component {
       case 'tenting101':
         this.props.push('/tenting101')
         return;
-      case 'faq':
-        this.props.push('/faq')
-        return;
       case 'about':
           this.props.push('/about')
           return;
@@ -82,12 +79,6 @@ class Login extends Component {
             onClick={this.handleClick}>
             Tenting101
             </Menu.Item>
-            <Menu.Item
-             id='faq'
-             active={path === '/faq'}
-             onClick={this.handleClick}>
-             FAQ
-             </Menu.Item>
       </Menu>
         <div className="login">
           <Container textalign="center" >
