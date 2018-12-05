@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20181120124711) do
 
   create_table "shifts", force: :cascade do |t|
     t.text "note"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "team_id"
