@@ -27,6 +27,9 @@ class NavBar extends Component {
       case 'Dashboard':
         this.props.push('/app/dashboard')
         break;
+      case 'Calendar':
+        this.props.push('/app/calendar')
+        break;
       case 'User Profile':
         this.props.push('/app/user')
         break;
@@ -48,6 +51,7 @@ class NavBar extends Component {
             <div style={{fontSize: '2em', paddingBottom: '4px'}}>⛺</div>
             Krzyzewskiville Scheduler
           </Menu.Item>
+
           <Menu.Item
             as='a'
             active={path === '/app' || path === '/app/'}
@@ -56,6 +60,7 @@ class NavBar extends Component {
             <Icon name="home" />
             Home
           </Menu.Item>
+
           <Menu.Item
             as='a'
             active={path === '/app/dashboard'}
@@ -64,6 +69,16 @@ class NavBar extends Component {
             <Icon name="dashboard" />
             Dashboard
           </Menu.Item>
+
+          <Menu.Item
+            as='a'
+            active={path === '/app/calendar'}
+            onClick={this.handleClick}
+          >
+            <Icon name="calendar" />
+            Calendar
+          </Menu.Item>
+
           <Menu.Menu position="right">
             <Menu.Item
               as='a'
@@ -73,6 +88,7 @@ class NavBar extends Component {
               <Icon name="users" />
               Team Profile
             </Menu.Item>
+
             <Menu.Item
               as='a'
               active={path === '/app/user'}
@@ -81,6 +97,7 @@ class NavBar extends Component {
               <Icon name="user" />
               User Profile
             </Menu.Item>
+
             <Menu.Item as='a' onClick={this.handleLogout}>
               <Icon name="sign out" />
               Logout

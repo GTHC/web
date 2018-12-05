@@ -3,6 +3,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  has_many :shifts
   belongs_to :team, optional: true
+
+  has_many :user_shifts, dependent: :destroy
+  has_many :shifts, -> { distinct }, through: :user_shifts, dependent: :destroy
+
 end

@@ -1,5 +1,6 @@
 class Api::V1::UsersController < ApiController
   before_action :set_user
+
   def show
   end
 
@@ -30,6 +31,7 @@ class Api::V1::UsersController < ApiController
   end
 
   # PATCH /api/v1/users
+  # TODO: Complete endpoint
   def update
     validate_params
 
@@ -66,6 +68,29 @@ class Api::V1::UsersController < ApiController
     end
   end
 
+  # POST /api/v1/user/shifts
+  # Add user to shift, and vice versa
+  def shifts
+    validate_shift_params
+    puts @s_id
+    if Shift.all.ids.include? @s_id and User.all.ids.include? @u_id
+      @user = User.find(@u_id)
+      @shift = Shift.find(@s_id)
+      if @shift.team_id == @user.team_id
+        @user.shifts <<  @shift
+        data = {
+          user_shifts: current_user.shifts,
+          team_shifts: current_user.team.shifts,
+        }
+        render json: { status: 'SUCCESS', message: 'User added to Shift successfully.', data: data }, status: :ok
+      else
+        render json: { status: 'ERROR', message: 'Shift and User must be the same team.' }, status: :unprocessable_entity
+      end
+    else
+      render json: { status: 'ERROR', message: 'Shift and/or User not found.' }, status: :not_found
+    end
+  end
+
   private
 
     def set_user
@@ -86,5 +111,11 @@ class Api::V1::UsersController < ApiController
                       :password,
                       :password_confirmation,
                       :team_id])
+    end
+
+    def validate_shift_params
+      params.require([:shift_id, :user_id])
+      @s_id = params[:shift_id].to_i
+      @u_id = params[:user_id].to_i
     end
 end
