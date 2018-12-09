@@ -27,7 +27,9 @@ const user = (state=initialState, action) => {
       return {
         ...state,
         data: action.payload.data.data,
-        isLoggedIn: true
+        isLoading: false,
+        isLoggedIn: true,
+        error: true,
       };
     }
     // POST /api/v1/users or POST /api/v1/captains

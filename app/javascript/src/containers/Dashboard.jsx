@@ -5,7 +5,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // components
+import Test from './../components/Test';
 import NavBar from './NavBar';
+import MyShifts from './../components/dashboard/MyShifts';
 
 class Dashboard extends Component {
   render () {
@@ -13,7 +15,7 @@ class Dashboard extends Component {
       <div>
         <NavBar />
         <div className="body">
-          Dashboard
+          <MyShifts {...this.props.shifts}/>
         </div>
       </div>
     );
@@ -26,6 +28,7 @@ const mapStateToProps = state => {
   return {
     user: state.user,
     login: state.login,
+    shifts: state.shifts,
   };
 };
 

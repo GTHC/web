@@ -12,6 +12,7 @@ import { ConnectedSwitch } from './../components';
 import Home from './Home';
 import Login from './Login';
 import Dashboard from './Dashboard';
+import Calendar from './Calendar';
 import UserProfile from './UserProfile';
 import TeamProfile from './TeamProfile';
 
@@ -26,6 +27,7 @@ const AppRoutes = () => (
     <Route exact path="/app" component={Home} />
     <Route exact path="/app/" component={Home} />
     <Route exact path="/app/dashboard" component={Dashboard} />
+    <Route exact path="/app/calendar" component={Calendar} />
     <Route exact path="/app/user" component={UserProfile} />
     <Route exact path="/app/team" component={TeamProfile} />
     <Route exact path="/app/*" component={Home} />
