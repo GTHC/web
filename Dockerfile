@@ -19,4 +19,4 @@ RUN yarn install
 COPY . .
 
 EXPOSE 5000 3035
-# CMD yarn run prod
+CMD yarn run prod
