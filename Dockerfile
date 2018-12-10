@@ -19,4 +19,4 @@ RUN yarn install
 COPY . .
 
 EXPOSE 5000 3035
-CMD ./bin/db-setup.sh && yarn run prod
+# CMD yarn run prod

@@ -50,6 +50,6 @@
     "dev:bash": "docker-compose run app bash",
     "dev:console": "docker-compose run app rails c",
     "dev:db": "docker-compose run app rails db",
-    "prod:start": "docker-compose run -p '5000:5000' -p '3035:3035' app yarn run prod"
+    "prod:start": "./bin/prod-start.sh"
   }
 }
