@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Container, Divider, Embed, Transition } from 'semantic-ui-react';
 
 import DukeTwitterTimeline from './DukeTwitterTimeline';
-import DukeVideo from './DukeVideo'
+import DukeVideo from './DukeVideo';
+import KvilleWeather from './KvilleWeather'
 
 export default class HomeBody extends Component {
   constructor (props) {
@@ -29,6 +30,7 @@ export default class HomeBody extends Component {
           <Divider />
           <DukeVideo />
           <DukeTwitterTimeline />
+          <KvilleWeather />
         </Container>
       </div>
     );
