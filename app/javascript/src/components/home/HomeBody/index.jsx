@@ -18,19 +18,17 @@ export default class HomeBody extends Component {
     const { visible } = this.state;
 
     return (
-      <div onMouseOver={() => {
-          this.setState({ visible: true })
-        }}>
+      <div style={{ paddingBottom: '48px' }}>
         <Container>
-          <Container textAlign="center">
+          {/* <Container textAlign="center">
             <Transition visible={visible} duration={1000}>
               <h1>Welcome to your scheduler, { user.name }!</h1>
             </Transition>
-          </Container>
-          <Divider />
-          <DukeVideo />
-          <DukeTwitterTimeline />
+          </Container> */}
+          {/* <Divider /> */}
           <KvilleWeather />
+          {/* <DukeVideo /> */}
+          <DukeTwitterTimeline />
         </Container>
       </div>
     );
