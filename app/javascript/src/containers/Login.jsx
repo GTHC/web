@@ -66,8 +66,15 @@ class Login extends Component {
             <Card centered fluid color="blue" className="login-card" >
               <Card.Content>
                 <Card.Header>
-                  { login.type === 'login' ? '⛺⛺ Welcome to your K-Ville Scheduler! ⛺⛺' :
-                    '🤝🤝 Pleased to meet you! 🤝🤝'
+                  { login.type === 'login' ?
+                    <div>
+                      Sign in to
+                      <Image src={logo} style={{
+                        paddingBottom: '12px',
+                        paddingLeft: '3px',
+                      }} size="tiny" />
+                    </div>
+                   : '⛺⛺ Welcome to GTHC (Game Tenting Help Center)! ⛺⛺'
                   }
                 </Card.Header>
               </Card.Content>

@@ -83,7 +83,7 @@ class LoginFields extends Component {
           onClick={this.handleSignIn}
         >
           <Icon name="checkmark" />
-          Sign In!
+          Sign In
         </Button>
 
         <br />
@@ -98,7 +98,7 @@ class LoginFields extends Component {
           }}
         >
           <Icon name="signup" />
-          Sign Up!
+          Sign Up
         </Button>
       </div>
     );
