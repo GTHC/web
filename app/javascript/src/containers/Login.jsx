@@ -48,9 +48,9 @@ class Login extends Component {
     return (
       <div>
         <Menu secondary>
-          <Menu.Item header>Krzyzewskiville Scheduler ⛺</Menu.Item>
+          <Menu.Item header>GTHC Scheduler ⛺</Menu.Item>
           <Menu.Item
-            name='about KVS'
+            name='about GTHC'
             active={activeItem === 'about'}
             onMouseOver={() => {this.setState({activeItem: 'about'})}}
             onMouseLeave={() => {this.setState({activeItem: ''})}}

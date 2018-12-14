@@ -49,7 +49,7 @@ class NavBar extends Component {
         <Menu fixed="top" inverted color="blue" icon="labeled">
           <Menu.Item header>
             <div style={{fontSize: '2em', paddingBottom: '4px'}}>⛺</div>
-            Krzyzewskiville Scheduler
+            GTHC Scheduler
           </Menu.Item>
 
           <Menu.Item
