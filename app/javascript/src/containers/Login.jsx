@@ -74,7 +74,7 @@ class Login extends Component {
                         paddingLeft: '3px',
                       }} size="tiny" />
                     </div>
-                   : '⛺⛺ Welcome to GTHC (Game Tenting Help Center)! ⛺⛺'
+                   : '⛺⛺ Welcome to GTHC (Game Tenting Help Center) ⛺⛺'
                   }
                 </Card.Header>
               </Card.Content>
