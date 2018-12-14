@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // semantic ui components
-import { Container, Card, Menu, Input } from 'semantic-ui-react';
+import { Container, Card, Menu, Input, Image } from 'semantic-ui-react';
 
 // Login components
 import { LoginFields, SignUpFields } from './../components';
@@ -22,6 +22,9 @@ import {
   signup,
   signupNewTeam
 } from './../actions/login';
+
+// logo
+import * as logo from './../images/gthc.png';
 
 class Login extends Component {
   constructor (props) {
@@ -48,7 +51,9 @@ class Login extends Component {
     return (
       <div>
         <Menu secondary>
-          <Menu.Item header>GTHC Scheduler ⛺</Menu.Item>
+          <Menu.Item header>
+            <Image src={logo} size="tiny" />
+          </Menu.Item>
           <Menu.Item
             name='about GTHC'
             active={activeItem === 'about'}
