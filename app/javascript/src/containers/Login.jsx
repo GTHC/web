@@ -29,22 +29,22 @@ class Login extends Component {
     super(props);
     this.state = {
       activeItem: 'home',
-    }
+    };
   }
+
   handleClick = (e, data) => {
-    console.log('data', data);
     // data.id is the id element in the component that is clicked
     switch (data.id) {
       case 'tenting101':
-        this.props.push('/tenting101')
+        this.props.push('/tenting101');
         return;
       case 'about':
-          this.props.push('/about')
-          return;
+        this.props.push('/about');
+        return;
       default:
         return;
     }
-  }
+  };
 
   render() {
     const { activeItem } = this.state;
