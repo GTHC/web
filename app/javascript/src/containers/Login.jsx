@@ -82,7 +82,7 @@ class Login extends Component {
             id='tenting101'
             active={path === '/tenting101'}
             onClick={this.handleClick}>
-            Tenting101
+            Tenting 101
             </Menu.Item>
       </Menu>
         <div className="login">
