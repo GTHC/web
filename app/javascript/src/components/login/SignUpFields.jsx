@@ -85,25 +85,26 @@ class SignUpFields extends Component {
         <br />
         <br />
         <Form>
-          { activeStep === 0 &&
-            <UserSignUp
-              login={login}
-              toggleDisableNext={toggleDisableNext}
-              updateUserInfo={updateUserInfo}
-            />
-          }
-          { activeStep === 1 &&
-            <TeamSignUp
-              login={login}
-              toggleDisableNext={toggleDisableNext}
-              updateTeamInfo={updateTeamInfo}
-            />
-          }
-          { activeStep === 2 &&
-            <AllSet login={login} />
-          }
+
 
         </Form>
+        { activeStep === 0 &&
+          <UserSignUp
+            login={login}
+            toggleDisableNext={toggleDisableNext}
+            updateUserInfo={updateUserInfo}
+          />
+        }
+        { activeStep === 1 &&
+          <TeamSignUp
+            login={login}
+            toggleDisableNext={toggleDisableNext}
+            updateTeamInfo={updateTeamInfo}
+          />
+        }
+        { activeStep === 2 &&
+          <AllSet login={login} />
+        }
         <br />
         { activeStep < 2 ?
           <Button.Group fluid>
