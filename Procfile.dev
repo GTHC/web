@@ -1,2 +1,2 @@
-backend: bundle exec puma -p $PORT
-webpack-frontend: ruby bin/webpack-dev-server
+puma-backend: bundle exec puma -p $PORT
+webpacker-frontend: ruby bin/webpack-dev-server

@@ -12,7 +12,10 @@ import {
 import { push } from './../actions/router';
 
 // components
-import { Menu, Icon } from 'semantic-ui-react';
+import { Menu, Icon, Image } from 'semantic-ui-react';
+
+// logo
+import * as logo from './../images/gthc.png';
 
 class NavBar extends Component {
   handleLogout = () => {
@@ -48,8 +51,7 @@ class NavBar extends Component {
       <div style={{ paddingBottom: '75px'}}>
         <Menu fixed="top" inverted color="blue" icon="labeled">
           <Menu.Item header>
-            <div style={{fontSize: '2em', paddingBottom: '4px'}}>⛺</div>
-            Krzyzewskiville Scheduler
+            <Image src={logo} size="tiny" />
           </Menu.Item>
 
           <Menu.Item

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // semantic ui components
-import { Container, Card, Menu, Input } from 'semantic-ui-react';
+import { Container, Card, Menu, Input, Image } from 'semantic-ui-react';
 
 // Login components
 import { LoginFields, SignUpFields } from './../components';
@@ -23,6 +23,9 @@ import {
   signupNewTeam
 } from './../actions/login';
 import { push } from './../actions/router';
+
+// logo
+import * as logo from './../images/gthc.png';
 
 class Login extends Component {
   constructor (props) {
@@ -65,13 +68,15 @@ class Login extends Component {
     return (
       <div>
         <Menu secondary>
-          <Menu.Item header>Krzyzewskiville Scheduler ⛺</Menu.Item>
+          <Menu.Item header>
+            <Image src={logo} size="tiny" />
+          </Menu.Item>
           <Menu.Item
             id='about'
             active={path === '/about'}
             onClick={this.handleClick}
            >
-           About KVS
+           About GTHC
            </Menu.Item>
            <Menu.Item
             id='tenting101'
@@ -85,8 +90,15 @@ class Login extends Component {
             <Card centered fluid color="blue" className="login-card" >
               <Card.Content>
                 <Card.Header>
-                  { login.type === 'login' ? '⛺⛺ Welcome to your K-Ville Scheduler! ⛺⛺' :
-                    '🤝🤝 Pleased to meet you! 🤝🤝'
+                  { login.type === 'login' ?
+                    <div>
+                      Sign in to
+                      <Image src={logo} style={{
+                        paddingBottom: '12px',
+                        paddingLeft: '3px',
+                      }} size="tiny" />
+                    </div>
+                   : '⛺⛺ Welcome to GTHC (Game Tenting Help Center) ⛺⛺'
                   }
                 </Card.Header>
               </Card.Content>
