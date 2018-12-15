@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // semantic ui components
-import { Button, Form, Step, Divider } from 'semantic-ui-react';
+import { Button, Form, Step, Divider, Message } from 'semantic-ui-react';
 
 // sub-components
 import UserSignUp from './signup/UserSignUp';
@@ -73,7 +73,7 @@ class SignUpFields extends Component {
 
   render() {
     const { activeStep } = this.state;
-    const { login, toggleDisableNext, updateUserInfo, updateTeamInfo, getAllTeams } = this.props;
+    const { login, toggleDisableNext, updateUserInfo, updateTeamInfo, getAllTeams, user } = this.props;
     const steps = [
         { key: 'user', icon: 'user', title: 'User Credentials', description: 'Add your email and create an account password.', active: (activeStep === 0) },
         { key: 'team', active: true, icon: 'users', title: 'Team Information', description: 'Let us know which team you are on!', active: (activeStep === 1) },
@@ -104,6 +104,14 @@ class SignUpFields extends Component {
         }
         { activeStep === 2 &&
           <AllSet login={login} />
+        }
+        {
+          user.error && user.errorMessage &&
+          <Message
+            error
+            header="Error"
+            content="Email is already being used by another user!"
+          />
         }
         <br />
         { activeStep < 2 ?
