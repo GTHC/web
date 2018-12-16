@@ -41,6 +41,7 @@ const login = (state=initialState, action) => {
         ...state,
         signUpData: {
           ...state.signUpData,
+          name: action.payload.name,
           email: action.payload.email,
           password: action.payload.password,
           passwordConfirmation: action.payload.passwordConfirmation,
@@ -55,7 +56,6 @@ const login = (state=initialState, action) => {
         ...state,
         signUpData: {
           ...state.signUpData,
-          name: action.payload.name,
           team: action.payload.team,
           teamID: teamID,
           tentType: action.payload.tentType,

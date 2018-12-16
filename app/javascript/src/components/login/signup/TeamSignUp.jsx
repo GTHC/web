@@ -20,7 +20,6 @@ class TeamSignUp extends Component {
        */
       stepType: 0,
       teamType: '', // User is either creating or joining a team (used in validInput())
-      name: data.name,
       team: data.team,
       teamID: data.teamID,
       tentType: data.tentType,
@@ -29,7 +28,7 @@ class TeamSignUp extends Component {
       errorMessage: '',
     };
     // checks if next button should be active or not (useful for situations where user comes from a future page)
-    if (data.name && data.team && data.tentType && data.tentNumber) {
+    if (data.team && data.tentType && data.tentNumber) {
       props.toggleDisableNext(false);
     }
   }
@@ -42,13 +41,10 @@ class TeamSignUp extends Component {
   }
 
   validInput = () => {
-    const { stepType, name, team, tentType, tentNumber, teamType } = this.state;
+    const { stepType, team, tentType, tentNumber, teamType } = this.state;
     const { toggleDisableNext, updateTeamInfo, login } = this.props;
     const tentNumbers = login.teams.map(team => team.tent_number);
-    if (stepType === 1 && (name === '' || team === '' || tentType === '' || tentNumber === '')) {
-      this.setState({ errorMessage: 'Make sure all fields are filled.' });
-      toggleDisableNext(true);
-    } else if (stepType === 2 && (name === '' )) {
+    if (stepType === 1 && (team === '' || tentType === '' || tentNumber === '')) {
       this.setState({ errorMessage: 'Make sure all fields are filled.' });
       toggleDisableNext(true);
     } else if (isNaN(tentNumber) && stepType === 1) {
@@ -90,19 +86,10 @@ class TeamSignUp extends Component {
   }
 
   render() {
-    const { stepType, name, team, tentType, tentNumber, errorMessage } = this.state;
+    const { stepType, team, tentType, tentNumber, errorMessage } = this.state;
     const { toggleDisableNext, login } = this.props;
     return (
       <div>
-          <Form.Input
-            fluid
-            value={name}
-            id="name"
-            label="Your Name"
-            placeholder="Name"
-            onChange={this.onInputChange}
-          />
-        <Divider horizontal>Team Info</Divider>
         <div>
           <Button basic={stepType !== 1} content='Create A Team' color="blue" onClick={() => {
               this.setState({

@@ -26,6 +26,7 @@ const updateUserInfo = (userInfo) => {
   return {
     type: 'SU_USER_INFO',
     payload: {
+      name: userInfo.name,
       email: userInfo.email,
       password: userInfo.password,
       passwordConfirmation: userInfo.passwordConfirmation,
@@ -37,7 +38,6 @@ const updateTeamInfo = (teamInfo) => {
   return {
     type: 'SU_TEAM_INFO',
     payload: {
-      name: teamInfo.name,
       team: teamInfo.team,
       teamID: teamInfo.teamID,
       tentType: teamInfo.tentType,
