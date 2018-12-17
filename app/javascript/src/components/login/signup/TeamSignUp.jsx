@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 
 // semantic ui components
-import { Form, Button, Divider } from 'semantic-ui-react';
+import { Button, Divider, Form, Message } from 'semantic-ui-react';
 
 // utils
+import { generate } from 'randomstring';
 import dropdownOptions from './utils/dropdownOptions';
+import PasscodeCheck from './utils/PasscodeCheck';
 
 class TeamSignUp extends Component {
   constructor(props) {
@@ -19,15 +21,25 @@ class TeamSignUp extends Component {
        * @type {Number}
        */
       stepType: 0,
-      teamType: '', // User is either creating or joining a team (used in validInput())
+
+      // User is either creating or joining a team (used in validInput())
+      teamType: '',
       team: data.team,
       teamID: data.teamID,
       tentType: data.tentType,
       tentNumber: data.tentNumber,
       isCaptain: false,
       errorMessage: '',
+      passcode: '',
+
+      // this is the value of the passcode input by the user when joining a team
+      joinPasscode: '',
+      showJoinPasscode: false, // shows PasscodeCheck component
+      correctPasscode: false,
     };
-    // checks if next button should be active or not (useful for situations where user comes from a future page)
+
+    // checks if next button should be active or not
+    // (useful for situations where user comes from a future page)
     if (data.team && data.tentType && data.tentNumber) {
       props.toggleDisableNext(false);
     }
@@ -41,7 +53,7 @@ class TeamSignUp extends Component {
   }
 
   validInput = () => {
-    const { stepType, team, tentType, tentNumber, teamType } = this.state;
+    const { stepType, team, tentType, tentNumber, teamType, correctPasscode } = this.state;
     const { toggleDisableNext, updateTeamInfo, login } = this.props;
     const tentNumbers = login.teams.map(team => team.tent_number);
     if (stepType === 1 && (team === '' || tentType === '' || tentNumber === '')) {
@@ -54,12 +66,14 @@ class TeamSignUp extends Component {
       this.setState({ errorMessage: 'Tent Number is already being used by another team.' });
       toggleDisableNext(true);
       return;
+    } else if (stepType == 2 && !correctPasscode) {
+      toggleDisableNext(true);
     } else if (stepType > 0) {
       this.setState({ errorMessage: '' });
       updateTeamInfo(this.state);
       toggleDisableNext(false);
     }
-  }
+  };
 
   dropdownChange = (e, data) => {
     this.setState({ tentType: data.value },
@@ -79,14 +93,24 @@ class TeamSignUp extends Component {
       teamID: team.id,
       tentNumber: team.tent_number,
       tentType: tentType,
+      passcode: 'TEST', // TODO: Add actual passcode to team
       isCaptain: false,
+      showJoinPasscode: true,
+      correctPasscode: false,
     },
       () => {this.validInput()}
     );
-  }
+  };
+
+  /**
+   * handleFoundPasscode - function for PasscodeCheck component when passcode is correctly typed by user
+   */
+  handleFoundPasscode = () => (this.setState({ correctPasscode: true },
+    () => {this.validInput();}
+  ));
 
   render() {
-    const { stepType, team, tentType, tentNumber, errorMessage } = this.state;
+    const { stepType, team, tentType, tentNumber, passcode, errorMessage, showJoinPasscode } = this.state;
     const { toggleDisableNext, login } = this.props;
     return (
       <div>
@@ -99,12 +123,19 @@ class TeamSignUp extends Component {
                 team: '',
                 tentType: '',
                 tentNumber: '',
+                passcode: generate(5).toUpperCase(),
+                showJoinPasscode: false,
               });
               toggleDisableNext(true);
             }}
           />
           <Button basic={stepType !== 2} content='Join A Team' color="blue" onClick={() => {
-              this.setState({ teamType: 'join', stepType: 2, isCaptain: false });
+              this.setState({
+                teamType: 'join',
+                stepType: 2,
+                isCaptain: false,
+                correctPasscode: false,
+              });
               toggleDisableNext(true);
             }}
           />
@@ -139,20 +170,32 @@ class TeamSignUp extends Component {
                   onChange={this.dropdownChange}
                   defaultValue={tentType}
                 />
+                <Message>
+                  <Message.Header>Team Passcode</Message.Header>
+                  Give this to your team-mates, so, they can join your team - <b>{passcode}</b>
+                </Message>
             </div> :
               null
         }
         {stepType === 2 ?
-          <Form.Dropdown
-            fluid
-            label="Team Name & Number"
-            placeholder='Find your team'
-            search
-            selection
-            options={login.teamDropDownOptions}
-            onChange={this.teamDropDownChange}
-          /> :
-          null
+          <div>
+            <Form.Dropdown
+              fluid
+              label="Team Name & Number"
+              placeholder='Find your team'
+              search
+              selection
+              options={login.teamDropDownOptions}
+              onChange={this.teamDropDownChange}
+            />
+            {
+              showJoinPasscode &&
+              <PasscodeCheck
+                passcode={passcode} handleFoundPasscode={this.handleFoundPasscode.bind(this)}
+              />
+            }
+          </div>
+          : null
       }
         <br />
         <p style={{ color: 'red' }}>
