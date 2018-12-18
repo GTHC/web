@@ -10,6 +10,9 @@ class Api::V1::UsersController < ApiController
   # POST /api/v1/users
   def create
     validate_params
+    if User.find_by_email(params[:email])
+      return render json: { status: 'ERROR', message: 'User already created' }, status: :unprocessable_entity
+    end
     @user = User.create!(
       name: params[:name],
       email: params[:email],
