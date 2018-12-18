@@ -41,6 +41,7 @@ const login = (state=initialState, action) => {
         ...state,
         signUpData: {
           ...state.signUpData,
+          name: action.payload.name,
           email: action.payload.email,
           password: action.payload.password,
           passwordConfirmation: action.payload.passwordConfirmation,
@@ -55,13 +56,13 @@ const login = (state=initialState, action) => {
         ...state,
         signUpData: {
           ...state.signUpData,
-          name: action.payload.name,
           team: action.payload.team,
           teamID: teamID,
           tentType: action.payload.tentType,
           tentNumber: action.payload.tentNumber,
           isCaptain: action.payload.isCaptain,
-        }
+          passcode: action.payload.passcode,
+        },
       };
     }
     case 'SU_NEXT': {
