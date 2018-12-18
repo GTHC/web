@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // semantic ui components
-import { Form, Button, Divider } from 'semantic-ui-react';
+import { Form, Button, Divider, Message } from 'semantic-ui-react';
 
 // utils
 import dropdownOptions from './utils/dropdownOptions';
@@ -168,9 +168,13 @@ class TeamSignUp extends Component {
           null
       }
         <br />
-        <p style={{ color: 'red' }}>
-          {errorMessage}
-        </p>
+        {errorMessage &&
+          <Message
+            warning
+            header='Uh oh...'
+            content={errorMessage}
+          />
+        }
       </div>
     );
   }
