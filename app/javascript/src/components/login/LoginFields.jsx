@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // semantic ui components
-import { Input, Button, Icon, Message } from 'semantic-ui-react';
+import { Input, Button, Icon } from 'semantic-ui-react';
 
 class LoginFields extends Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class LoginFields extends Component {
   validInput = () => {
     const { email, password, errorMessage } = this.state;
     if (email === '' || password === '') {
-      this.setState({ error: true, errorMessage: 'Make sure to fill in both fields.' });
+      this.setState({ error: true, errorMessage: 'Make sure both fields are non-empty.' });
       return false;
     } else {
       this.setState({ error: false, errorMessage: '' });
@@ -62,22 +62,14 @@ class LoginFields extends Component {
         {this.state.error ?
           <div>
             <br />
-            <Message
-              warning
-              header='Friendly Reminder'
-              content={this.state.errorMessage}
-            />
+            <p style={{ color: 'red' }}>{this.state.errorMessage}</p>
           </div>
         : null}
 
-        {user.error && user.errorMessage && !this.state.error ?
+        {user.error ?
           <div>
             <br />
-            <Message
-              error
-              header='Error'
-              content={user.errorMessage}
-            />
+            <p style={{ color: 'red' }}>{user.errorMessage}</p>
           </div>
         : null}
 
