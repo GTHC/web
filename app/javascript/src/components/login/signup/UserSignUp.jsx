@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // semantic ui components
-import { Button, Form, Step, Message } from 'semantic-ui-react';
+import { Button, Form, Step } from 'semantic-ui-react';
 
 class UserSignUp extends Component {
   constructor(props) {
@@ -41,8 +41,8 @@ class UserSignUp extends Component {
       this.setState({ errorMessage: 'Make sure none of the fields are empty.' });
       toggleDisableNext(true);
       return;
-    } else if ( !email.includes('@duke.edu') ) {
-      this.setState({ errorMessage: 'Make sure to use a valid Duke email.' });
+    } else if ( !email.includes('@') ) {
+      this.setState({ errorMessage: 'Make sure to use a valid email.' });
       toggleDisableNext(true);
       return;
     } else if ( password.length < 6 ) {
@@ -93,14 +93,9 @@ class UserSignUp extends Component {
             onClick: () => { this.setState({ hidePasswords: !hidePasswords }) }
           }}
         />
-        <br />
-        {errorMessage &&
-          <Message
-            warning
-            header='Uh oh...'
-            content={errorMessage}
-          />
-        }
+      <p style={{ color: 'red' }}>
+        {errorMessage}
+      </p>
       </div>
     );
   }

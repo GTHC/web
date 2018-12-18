@@ -90,7 +90,6 @@ class Login extends Component {
                 }
                 { login.type === 'signup' &&
                   <SignUpFields
-                    user={user}
                     toggleLoginType={toggleLoginType}
                     toggleDisableNext={toggleDisableNext}
                     login={login}

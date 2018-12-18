@@ -51,8 +51,6 @@
     "dev:bash": "docker-compose run app bash",
     "dev:console": "docker-compose run app rails c",
     "dev:db": "docker-compose run app rails db",
-    "prod:start": "./bin/prod-start.sh",
-    "prod:build": "./bin/build-production.sh",
-    "prod:build:staging": "./bin/build-staging.sh"
+    "prod:start": "./bin/prod-start.sh"
   }
 }
