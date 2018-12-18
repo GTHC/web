@@ -13,7 +13,7 @@ class SignUpFields extends Component {
     super(props);
     this.state = {
       activeStep: 0,
-    }
+    };
   }
 
   componentWillMount() {
@@ -46,6 +46,7 @@ class SignUpFields extends Component {
         if (data.isCaptain) {
           // API call to create team and create user
           // Create User -> Create Captain -> Create Team -> Add Team ID to User
+          console.log(data);
           signupNewTeam({
             user_name: data.name,
             password: data.password,
@@ -53,10 +54,10 @@ class SignUpFields extends Component {
             email: data.email,
             team_name: data.team,
             tent_number: data.tentNumber,
-            tent_type: data.tentType
+            tent_type: data.tentType,
+            passcode: data.passcode,
           });
-        }
-        else {
+        } else {
           // API call to create user and add to team
           signup({
             name: data.name,

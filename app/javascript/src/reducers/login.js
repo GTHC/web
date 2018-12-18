@@ -61,7 +61,8 @@ const login = (state=initialState, action) => {
           tentType: action.payload.tentType,
           tentNumber: action.payload.tentNumber,
           isCaptain: action.payload.isCaptain,
-        }
+          passcode: action.payload.passcode,
+        },
       };
     }
     case 'SU_NEXT': {

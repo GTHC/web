@@ -30,7 +30,7 @@ class TeamSignUp extends Component {
       tentNumber: data.tentNumber,
       isCaptain: false,
       errorMessage: '',
-      passcode: '',
+      passcode: data.passcode,
 
       // this is the value of the passcode input by the user when joining a team
       joinPasscode: '',
@@ -93,7 +93,7 @@ class TeamSignUp extends Component {
       teamID: team.id,
       tentNumber: team.tent_number,
       tentType: tentType,
-      passcode: 'TEST', // TODO: Add actual passcode to team
+      passcode: team.passcode,
       isCaptain: false,
       showJoinPasscode: true,
       correctPasscode: false,
