@@ -13,6 +13,7 @@ class Api::V1::TeamsController < ApiController
       captain_id: @captain_id,
       tent_number: @tent_number,
       tent_type: @tent_type,
+      passcode: @passcode,
     )
     if @team.save
       render json: { status: 'SUCCESS', message: 'Team saved', data: @team }, status: :ok
@@ -32,10 +33,11 @@ class Api::V1::TeamsController < ApiController
     end
 
     def validate_params
-      params.require([:name, :captain_id, :tent_number, :tent_type])
+      params.require([:name, :captain_id, :tent_type, :passcode])
       @name = params[:name]
       @captain_id = params[:captain_id]
       @tent_number = params[:tent_number]
       @tent_type = params[:tent_type]
+      @passcode = params[:passcode]
     end
 end
