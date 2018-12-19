@@ -1,25 +1,18 @@
 import React, { Component } from 'react';
+import { Card, Button } from 'semantic-ui-react';
+
 import Availability from '../../availability/index';
-import {Form, Button} from 'semantic-ui-react';
 
-
-export default class Schedule extends Component {
+class Schedule extends Component {
 
   render () {
-      const { user } = this.props
     return (
-     <div>
-
-      <React.Fragment>
+      <div>
         <Availability />
-      </React.Fragment>
-
-      <React.Fragment>
-
-        <Button type='submit'>Save</Button>
-      </React.Fragment>
-
-     </div>
+        <Button>Save</Button>
+      </div>
     );
   }
 }
+
+export default Schedule;

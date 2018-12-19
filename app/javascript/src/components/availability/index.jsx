@@ -7,7 +7,6 @@ import { Grid, Segment, Divider, Button, Icon, Card } from 'semantic-ui-react';
 import _ from 'lodash';
 
 const times = [
-  'Night Shift',
   '7:00 - 8:15 AM',
   '8:15 - 9:30 AM',
   '9:30 - 10:45 AM',
@@ -23,6 +22,7 @@ const times = [
   '10:00 - 11:15 PM',
   '11:15 - 12:30 AM',
   '12:30 - 2:00 AM', // 1 hour 30 min shift till night shift, accounts for switching
+  'Night Shift',
 ];
 
 const days = [
@@ -39,8 +39,8 @@ const days = [
 class Availability extends Component {
   constructor(props) {
     super(props);
-    const data = props.login.signUpData;
-    props.toggleDisableNext(false);
+    // const data = props.login.signUpData;
+    // props.toggleDisableNext(false);
     this.state = {
       grid: (new Array(31)).fill().map(function(){ return new Array(7).fill(0);}),
     };
@@ -102,16 +102,16 @@ class Availability extends Component {
 
   renderKey = () => (
     <Card fluid raised>
-      <Grid columns="equal">
+      <Grid columns={4} relaxed="very" padded>
         <Grid.Row>
-          <Grid.Column><h3> Key </h3></Grid.Column>
-          <Grid.Column>
+          <Grid.Column textAlign="center"><h3> Key </h3></Grid.Column>
+          <Grid.Column textAlign="center">
             <h4> Unavailable </h4> <Icon color='red' name='cancel' size='large' />
           </Grid.Column>
-          <Grid.Column>
+          <Grid.Column textAlign="center">
             <h4> Somewhat Available </h4> <Icon color='yellow' name='question circle' size='large' />
           </Grid.Column>
-          <Grid.Column>
+          <Grid.Column textAlign="center">
             <h4> Available </h4> <Icon color='green' name='checkmark' size='large' />
           </Grid.Column>
         </Grid.Row>
