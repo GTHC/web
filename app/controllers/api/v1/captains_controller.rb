@@ -25,6 +25,7 @@ class Api::V1::CaptainsController < ApiController
       name: params[:team_name],
       tent_number: params[:tent_number],
       tent_type: params[:tent_type],
+      passcode: params[:passcode],
       captain_id: @captain.id
     )
     if !@team.save

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // semantic ui components
-import { Button, Form, Step } from 'semantic-ui-react';
+import { Button, Form, Step, Message } from 'semantic-ui-react';
 
 class UserSignUp extends Component {
   constructor(props) {
@@ -9,13 +9,14 @@ class UserSignUp extends Component {
     const data = props.login.signUpData;
     this.state = {
       hidePasswords: true,
+      name: data.name,
       email: data.email,
       password: data.password,
       passwordConfirmation: data.passwordConfirmation,
       errorMessage: '',
     };
     // this checks if the Next button for the user creds should be active or not (useful for situations where user comes from a future page)
-    if (data.email && data.password && data.passwordConfirmation) {
+    if (data.name && data.email && data.password && data.passwordConfirmation) {
       if (data.password === data.passwordConfirmation) {
         props.toggleDisableNext(false);
       } else {
@@ -31,18 +32,18 @@ class UserSignUp extends Component {
   }
 
   validInput = () => {
-    const { hidePasswords, email, password, passwordConfirmation } = this.state;
+    const { hidePasswords, name, email, password, passwordConfirmation } = this.state;
     const { updateUserInfo, toggleDisableNext } = this.props;
     if (password !== passwordConfirmation) {
       this.setState({ errorMessage: 'Make sure both passwords are the same.' });
       toggleDisableNext(true);
       return;
-    } else if (email === '' || password === '' || passwordConfirmation === '') {
+    } else if (name === '' || email === '' || password === '' || passwordConfirmation === '') {
       this.setState({ errorMessage: 'Make sure none of the fields are empty.' });
       toggleDisableNext(true);
       return;
-    } else if ( !email.includes('@') ) {
-      this.setState({ errorMessage: 'Make sure to use a valid email.' });
+    } else if ( !email.includes('@duke.edu') ) {
+      this.setState({ errorMessage: 'Make sure to use a valid Duke email.' });
       toggleDisableNext(true);
       return;
     } else if ( password.length < 6 ) {
@@ -56,9 +57,17 @@ class UserSignUp extends Component {
   }
 
   render() {
-    const { hidePasswords, email, password, passwordConfirmation, errorMessage } = this.state;
+    const { hidePasswords, name, email, password, passwordConfirmation, errorMessage } = this.state;
     return (
       <div>
+        <Form.Input
+          fluid
+          value={name}
+          id="name"
+          label="Your Name"
+          placeholder="Name"
+          onChange={this.onInputChange}
+        />
         <Form.Input
           fluid
           value={email}
@@ -93,9 +102,14 @@ class UserSignUp extends Component {
             onClick: () => { this.setState({ hidePasswords: !hidePasswords }) }
           }}
         />
-      <p style={{ color: 'red' }}>
-        {errorMessage}
-      </p>
+        <br />
+        {errorMessage &&
+          <Message
+            warning
+            header='Uh oh...'
+            content={errorMessage}
+          />
+        }
       </div>
     );
   }

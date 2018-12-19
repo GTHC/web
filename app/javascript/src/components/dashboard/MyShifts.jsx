@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 
-import { Card, Header } from 'semantic-ui-react';
+import { Card, Message } from 'semantic-ui-react';
 
 class MyShifts extends Component {
 
@@ -54,7 +54,14 @@ class MyShifts extends Component {
                     <Card.Content>
                         <Card.Header>Upcoming Shifts</Card.Header>
                     </Card.Content>
-                <Card.Group items={items} style={{ margin: "8px", marginTop: "0px" }} />
+                {items.length > 0
+                    ? <Card.Group
+                        items={items}
+                        style={{ margin: "8px", marginTop: "0px" }} />
+                    : <Message warning>
+                        <Message.Header>You have no upcoming shifts!</Message.Header>
+                        <p>Go to the Calendar to create shifts.</p>
+                    </Message>}
            </Card>      
         );
     }

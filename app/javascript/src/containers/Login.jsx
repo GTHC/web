@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // semantic ui components
-import { Container, Card, Menu, Input } from 'semantic-ui-react';
+import { Container, Card, Menu, Input, Image } from 'semantic-ui-react';
 
 // Login components
 import { LoginFields, SignUpFields } from './../components';
@@ -22,6 +22,9 @@ import {
   signup,
   signupNewTeam
 } from './../actions/login';
+
+// logo
+import * as logo from './../images/gthc.png';
 
 class Login extends Component {
   constructor (props) {
@@ -48,9 +51,11 @@ class Login extends Component {
     return (
       <div>
         <Menu secondary>
-          <Menu.Item header>Krzyzewskiville Scheduler ⛺</Menu.Item>
+          <Menu.Item header>
+            <Image src={logo} size="tiny" />
+          </Menu.Item>
           <Menu.Item
-            name='about KVS'
+            name='about GTHC'
             active={activeItem === 'about'}
             onMouseOver={() => {this.setState({activeItem: 'about'})}}
             onMouseLeave={() => {this.setState({activeItem: ''})}}
@@ -61,8 +66,15 @@ class Login extends Component {
             <Card centered fluid color="blue" className="login-card" >
               <Card.Content>
                 <Card.Header>
-                  { login.type === 'login' ? '⛺⛺ Welcome to your K-Ville Scheduler! ⛺⛺' :
-                    '🤝🤝 Pleased to meet you! 🤝🤝'
+                  { login.type === 'login' ?
+                    <div>
+                      Sign in to
+                      <Image src={logo} style={{
+                        paddingBottom: '12px',
+                        paddingLeft: '3px',
+                      }} size="tiny" />
+                    </div>
+                   : '⛺⛺ Welcome to GTHC (Game Tenting Help Center) ⛺⛺'
                   }
                 </Card.Header>
               </Card.Content>
@@ -78,6 +90,7 @@ class Login extends Component {
                 }
                 { login.type === 'signup' &&
                   <SignUpFields
+                    user={user}
                     toggleLoginType={toggleLoginType}
                     toggleDisableNext={toggleDisableNext}
                     login={login}

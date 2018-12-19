@@ -41,6 +41,7 @@ const login = (state=initialState, action) => {
         ...state,
         signUpData: {
           ...state.signUpData,
+          name: action.payload.name,
           email: action.payload.email,
           password: action.payload.password,
           passwordConfirmation: action.payload.passwordConfirmation,
@@ -55,13 +56,13 @@ const login = (state=initialState, action) => {
         ...state,
         signUpData: {
           ...state.signUpData,
-          name: action.payload.name,
           team: action.payload.team,
           teamID: teamID,
           tentType: action.payload.tentType,
           tentNumber: action.payload.tentNumber,
           isCaptain: action.payload.isCaptain,
-        }
+          passcode: action.payload.passcode,
+        },
       };
     }
     case 'SU_NEXT': {
@@ -87,7 +88,7 @@ const login = (state=initialState, action) => {
       const teamDropDownOptions = action.payload.data.map(
         (team) => {
           // having a serperate color variable rather than just saying team.tent_type avoids warnings although it would it still work
-          const color = (team.tent_type.includes('black') ? 'black' : ( team.tent_type.includes('blue') ? 'blue' : null ));
+          const color = (team.tent_type.toLowerCase().includes('black') ? 'black' : ( team.tent_type.includes('blue') ? 'blue' : null ));
           return {
             key: team.id,
             value: team.id,

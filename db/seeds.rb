@@ -29,30 +29,35 @@ team_1 = Team.create!(
   captain_id: 1,
   tent_number: 1,
   tent_type: 'blue',
+  passcode: 'ABC123'
 )
 team_2 = Team.create!(
   name: 'Team 2',
   captain_id: 2,
   tent_number: 2,
   tent_type: 'black',
+  passcode: 'ABC123'
 )
 team_3 = Team.create!(
   name: 'Team 3',
   captain_id: 3,
   tent_number: 3,
   tent_type: 'white',
+  passcode: 'ABC123'
 )
 team_4 = Team.create!(
   name: 'Team 4',
   captain_id: 4,
   tent_number: 4,
   tent_type: 'dirty black',
+  passcode: 'ABC123'
 )
 team_5 = Team.create!(
   name: 'Team 5',
   captain_id: 5,
   tent_number: 5,
   tent_type: 'dirty blue',
+  passcode: 'ABC123'
 )
 
 for i in 1..25
