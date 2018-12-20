@@ -56,7 +56,9 @@ const user = (state=initialState, action) => {
       return {
         ...state,
         data: action.payload.data.data,
-        isLoggedIn: true
+        isLoggedIn: true,
+        error: false,
+        errorMessage: '',
       };
     }
 
@@ -81,12 +83,16 @@ const user = (state=initialState, action) => {
       return initialState;
     }
 
-    default: {
+    case 'CLEAR_ERROR': {
       return {
         ...state,
         error: false,
         errorMessage: '',
       };
+    }
+
+    default: {
+      return state;
     }
   }
 };

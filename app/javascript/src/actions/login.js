@@ -149,6 +149,9 @@ const signupNewTeam = (userData) => (
   })
 );
 
+const clearError = () => ({
+  type: 'CLEAR_ERROR',
+});
 
 export {
   toggleLoginType,
@@ -159,5 +162,6 @@ export {
   login,
   logout,
   signup,
-  signupNewTeam
+  signupNewTeam,
+  clearError,
 };
