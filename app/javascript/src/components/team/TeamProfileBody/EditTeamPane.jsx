@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Form, Message } from 'semantic-ui-react';
+import { Form, Message, Loader, Dimmer } from 'semantic-ui-react';
 
 // utils
 import dropdownOptions from '../../login/signup/utils/dropdownOptions';
@@ -14,11 +14,14 @@ export default class EditTeamPane extends Component {
       tentNumber: props.team.tent_number,
       tentType: props.team.tent_type,
       disabled: false,
+      savePressed: false,
+      loading: props.userState.isLoading,
     };
   }
 
   onInputChange = (e, { id, value }) => {
     this.setState({
+      savePressed: false,
       [id]: value,
     }, () => { this.validInput(); });
   };
@@ -31,11 +34,13 @@ export default class EditTeamPane extends Component {
       tent_number: tentNumber,
       tent_type: tentType,
     };
+    this.setState({ savePressed: true });
     updateTeam(team.id, data);
   };
 
   validInput = () => {
-    if (this.state.name.trim() == '') {
+    const { name, tentNumber } = this.state;
+    if (name.trim() == '' || tentNumber == '') {
       this.setState({ disabled: true });
     } else {
       this.setState({ disabled: false });
@@ -49,8 +54,9 @@ export default class EditTeamPane extends Component {
   );
 
   renderIsCaptain = () => {
-    const { team, captain, user } = this.props;
-    const { disabled, name, tentNumber, tentType } = this.state;
+    const { team, captain, user, userState } = this.props;
+    const { disabled, name, tentNumber, tentType, loading, savePressed } = this.state;
+    const error = userState.error;
     return (
       <div>
         <Message positive attached>
@@ -60,6 +66,7 @@ export default class EditTeamPane extends Component {
           <Form.Group widths="equal">
             <Form.Input
               fluid
+              type="text"
               id="name"
               error={disabled}
               label="Team Name"
@@ -69,7 +76,9 @@ export default class EditTeamPane extends Component {
             />
             <Form.Input
               fluid
+              type="number"
               id="tentNumber"
+              error={disabled}
               label="Tent Number"
               placeholder="Tent Number"
               value={tentNumber}
@@ -89,6 +98,41 @@ export default class EditTeamPane extends Component {
           />
           <Form.Button disabled={disabled} onClick={this.onSave}>Save</Form.Button>
         </Form>
+        { loading &&
+          <Dimmer active>
+            <Loader>Updating</Loader>
+          </Dimmer>
+        }
+        {
+          !loading && savePressed && !error &&
+          <Message
+            positive
+            attached
+            icon="check"
+            header="Updated Successfully!"
+            content="Team information has been updated."
+          />
+        }
+        {
+          !loading && savePressed && error &&
+          <Message
+            negative
+            attached
+            icon="x"
+            header="Error"
+            content="Team information has not been updated."
+          />
+        }
+        {
+          disabled &&
+          <Message
+            warning
+            attached
+            icon="exclamation triangle"
+            header="Warning!"
+            content="Please fill in all details."
+          />
+        }
       </div>
     );
   };

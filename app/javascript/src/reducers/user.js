@@ -96,6 +96,8 @@ const user = (state=initialState, action) => {
       return {
         ...state,
         isLoading: true,
+        error: false,
+        errorMessage: '',
       };
     }
 
