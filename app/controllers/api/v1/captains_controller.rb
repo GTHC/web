@@ -12,6 +12,9 @@ class Api::V1::CaptainsController < ApiController
     # Create User -> Create Captain -> Create Team -> Add Team ID to User
     validate_params
     # Create User
+    if User.find_by_email(params[:email])
+      return render json: { status: 'ERROR', message: 'User already created' }, status: :unprocessable_entity
+    end
     @user = User.create!(
       name: params[:user_name],
       email: params[:email],

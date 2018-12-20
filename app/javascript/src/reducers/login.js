@@ -116,6 +116,14 @@ const login = (state=initialState, action) => {
     case 'END_LOGIN': {
       return initialState;
     }
+
+    case 'CLEAR_ERROR': {
+      return {
+        ...state,
+        error: false,
+        errorMessage: '',
+      };
+    }
   }
   return state;
 };

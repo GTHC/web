@@ -22,9 +22,17 @@ class SignUpFields extends Component {
 
   handleButtonClick = (e, data) => {
     const { activeStep } = this.state;
-    const { toggleLoginType, toggleDisableNext, login, signup, signupNewTeam } = this.props;
+    const {
+      toggleLoginType, toggleDisableNext,
+      login,
+      signup,
+      signupNewTeam,
+      clearError,
+    } = this.props;
     switch (data.id) {
       case 'back': {
+        console.log('test');
+        clearError();
         if (activeStep === 0) {
           toggleLoginType(login.type);
           return;
