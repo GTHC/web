@@ -12,6 +12,20 @@ const getTeam = id => (
   })
 );
 
+const updateTeam = (id, data) => (
+  crud({
+    dispatch: {
+      begin: 'BEGIN_UPDATE_TEAM',
+      end: 'END_UPDATE_TEAM',
+      fail: 'FAILED_UPDATE_TEAM',
+    },
+    method: 'PUT',
+    url: `/api/v1/teams/${id}`,
+    data,
+  })
+);
+
 export {
   getTeam,
+  updateTeam,
 };

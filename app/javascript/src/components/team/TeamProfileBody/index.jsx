@@ -13,7 +13,7 @@ export default class TeamProfileBody extends Component {
         <TeamPane team={userData.team}/>
       </Tab.Pane>, },
       { menuItem: 'Edit Team Information', render: () => <Tab.Pane>
-        <EditTeamPane {...userData} />
+        <EditTeamPane {...userData} {...this.props} />
       </Tab.Pane>, },
     ];
 

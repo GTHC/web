@@ -23,13 +23,24 @@ export default class EditTeamPane extends Component {
     }, () => { this.validInput(); });
   };
 
+  onSave = () => {
+    const { team, updateTeam } = this.props;
+    const { name, tentNumber, tentType } = this.state;
+    const data = {
+      name,
+      tent_number: tentNumber,
+      tent_type: tentType,
+    };
+    updateTeam(team.id, data);
+  };
+
   validInput = () => {
     if (this.state.name.trim() == '') {
       this.setState({ disabled: true });
     } else {
       this.setState({ disabled: false });
     }
-  }
+  };
 
   renderError = () => (
     <Message negative>
@@ -76,7 +87,7 @@ export default class EditTeamPane extends Component {
             onChange={this.onInputChange}
             defaultValue={tentType}
           />
-          <Form.Button disabled={disabled}>Save</Form.Button>
+          <Form.Button disabled={disabled} onClick={this.onSave}>Save</Form.Button>
         </Form>
       </div>
     );

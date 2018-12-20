@@ -8,14 +8,17 @@ import { bindActionCreators } from 'redux';
 import TeamProfileBody from './../components/team/TeamProfileBody';
 import NavBar from './NavBar';
 
+// actions
+import { updateTeam } from '../actions/team';
+
 class TeamProfile extends Component {
   render () {
-    const { user } = this.props;
+    const { user, updateTeam } = this.props;
     return (
       <div>
         <NavBar />
         <div className="body">
-          <TeamProfileBody userData={user.data} />
+          <TeamProfileBody userData={user.data} updateTeam={updateTeam} />
         </div>
       </div>
     );
@@ -31,16 +34,15 @@ const mapStateToProps = state => {
   };
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators(
-//     {
-//       loginUser: login, // changed login and logout action names due to login state name
-//       logoutUser: logout,
-//     },
-//     dispatch);
-// };
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      updateTeam,
+    },
+    dispatch);
+};
 
-export default connect(mapStateToProps)(TeamProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(TeamProfile);
 
 export {
   TeamProfile,
