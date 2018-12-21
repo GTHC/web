@@ -47,6 +47,7 @@ class Api::V1::UsersController < ApiController
     validate_login_params
     @user = User.find_by_email(params[:email])
     if @user&.valid_password?(params[:password])
+      @user.remember_me = true
       bypass_sign_in @user
       @team = @user.team
       if current_user
@@ -98,7 +99,6 @@ class Api::V1::UsersController < ApiController
 
   # PUT/PATCH /api/v1/user/:id
   def update
-    # TODO: Add param checking
     if params[:password]
       validate_params_update_with_password
     else
@@ -106,6 +106,11 @@ class Api::V1::UsersController < ApiController
     end
     if user = User.find(params[:id])
       user.update(@prime_params)
+
+      # this is needed because Devise signs out a user if update() is called
+      if params[:password]
+        bypass_sign_in user
+      end
       render json: { status: 'SUCCESS', message: 'User successfully updated.', data: user }, staus: :ok
     else
       render json: { status: 'ERROR', message: 'User not found' }, status: :not_found

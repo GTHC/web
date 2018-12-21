@@ -17,7 +17,7 @@ export default class UserProfileBody extends Component {
         <EditUserPane {...userData} {...this.props} />
       </Tab.Pane>, },
       { menuItem: 'Edit Password', render: () => <Tab.Pane>
-        <EditPasswordPane {...this.props} />
+        <EditPasswordPane user={userData.user} {...this.props} />
       </Tab.Pane>, },
     ];
 

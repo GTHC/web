@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Dimmer } from 'semantic-ui-react';
+import { Form, Input, Message, Dimmer, Loader } from 'semantic-ui-react';
 
 // utils
 import checkPassword from './utils/checkPassword';
@@ -12,10 +12,12 @@ export default class UserPane extends Component {
       isIncPassword: false, // guess wrong current_password
       password: '',
       password_confirmation: '',
+      hidePasswords: true,
       active: true, // dimmer
       disabled: false, // disable for button
       loading: props.userState.isLoading,
       savePressed: false,
+      error: false,
     };
   }
 
@@ -23,7 +25,24 @@ export default class UserPane extends Component {
     this.setState({
       savePressed: false,
       [id]: value,
-    });
+    }, () => { this.validInput(); });
+  };
+
+  validInput = () => {
+    const { active, password, password_confirmation} = this.state;
+    if (!active) {
+      if (password.trim() == '' || password_confirmation.trim() == '') {
+        this.setState({ disabled: true });
+        return false;
+      } else if (password !== password_confirmation || password.length < 6 || password_confirmation.length < 6) {
+        this.setState({ error: true });
+        return false;
+      } else {
+        this.setState({ error: false, disabled: false });
+      }
+    }
+
+    return true;
   };
 
   onEnterPress = () => {
@@ -38,25 +57,94 @@ export default class UserPane extends Component {
     });
   };
 
-  renderNewPassword = () => (
-    <Form>
-      <Form.Input
-        id="password"
-        type="password"
-        label="Password"
-        placeholder="Password"
-        value={this.state.password}
-      />
-      <Form.Input
-        id="password_confirmation"
-        type="password"
-        label="Password Confirmation"
-        placeholder="Password Confirmation"
-        value={this.state.password_confirmation}
-      />
-      <Form.Button>Save</Form.Button>
-    </Form>
-  );
+  onSave = () => {
+    const { user, updateUser } = this.props;
+    const { password, password_confirmation } = this.state;
+    if (this.validInput()) {
+      updateUser(user.id, {
+        password, password_confirmation,
+      });
+    }
+    this.setState({ savePressed: true });
+  };
+
+  renderNewPassword = () => {
+    const {
+      hidePasswords,
+      password, password_confirmation,
+      error, disabled, loading, savePressed,
+    } = this.state;
+    return (
+      <div>
+        <Form className='attached fluid segment'>
+          <Form.Input
+            id="password"
+            error={error}
+            type="password"
+            label="Password"
+            placeholder="Password"
+            value={password}
+            onChange={this.onInputChange}
+            type={hidePasswords ? "password" : "text"}
+            action={{
+              icon: hidePasswords ? 'unhide' : 'hide',
+              onClick: () => { this.setState({ hidePasswords: !hidePasswords }) }
+            }}
+          />
+          <Form.Input
+            id="password_confirmation"
+            error={error}
+            type="password"
+            label="Password Confirmation"
+            placeholder="Password Confirmation"
+            value={password_confirmation}
+            onChange={this.onInputChange}
+            type={hidePasswords ? "password" : "text"}
+            action={{
+              icon: hidePasswords ? 'unhide' : 'hide',
+              onClick: () => { this.setState({ hidePasswords: !hidePasswords }) }
+            }}
+          />
+          <Form.Button disabled={disabled} onClick={this.onSave}>Save</Form.Button>
+        </Form>
+        { loading &&
+          <Dimmer active>
+            <Loader>Updating</Loader>
+          </Dimmer>
+        }
+        {
+          !loading && savePressed && !error && !disabled &&
+          <Message
+            positive
+            attached
+            icon="check"
+            header="Updated Successfully!"
+            content="Password has been changed."
+          />
+        }
+        {
+          error &&
+          <Message
+            negative
+            attached
+            icon="x"
+            header="Error"
+            content="Make sure both passwords are the same and longer than 6 characters."
+          />
+        }
+        {
+          disabled &&
+          <Message
+            warning
+            attached
+            icon="exclamation triangle"
+            header="Warning!"
+            content="Please fill in all inputs."
+          />
+        }
+      </div>
+    );
+  };
 
   dimmerContent = () => {
     const { isIncPassword } = this.state;
