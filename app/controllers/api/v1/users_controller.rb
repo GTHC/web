@@ -1,4 +1,6 @@
 class Api::V1::UsersController < ApiController
+  rescue_from ActionController::ParameterMissing, :with => :param_missing
+
   before_action :set_user
 
   def show
@@ -94,6 +96,22 @@ class Api::V1::UsersController < ApiController
     end
   end
 
+  # PUT/PATCH /api/v1/user/:id
+  def update
+    # TODO: Add param checking
+    if params[:password]
+      validate_params_update_with_password
+    else
+      validate_params_update
+    end
+    if user = User.find(params[:id])
+      user.update(@prime_params)
+      render json: { status: 'SUCCESS', message: 'User successfully updated.', data: user }, staus: :ok
+    else
+      render json: { status: 'ERROR', message: 'User not found' }, status: :not_found
+    end
+  end
+
   private
 
     def set_user
@@ -120,5 +138,24 @@ class Api::V1::UsersController < ApiController
       params.require([:shift_id, :user_id])
       @s_id = params[:shift_id].to_i
       @u_id = params[:user_id].to_i
+    end
+
+    def validate_params_update
+      params.require([:name]);
+      @prime_params = {
+        name: params[:name],
+      }
+    end
+
+    def validate_params_update_with_password
+        params.require([:password, :password_confirmation])
+        @prime_params = {
+          password: params[:password],
+          password_confirmation: params[:password_confirmation]
+        }
+    end
+
+    def param_missing(exception)
+      render json: { status: 'ERROR', message: exception }, status: :unprocessable_entity
     end
 end
