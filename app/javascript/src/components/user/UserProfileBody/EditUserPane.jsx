@@ -70,7 +70,7 @@ export default class UserPane extends Component {
           attached
           icon="check"
           header="Updated Successfully!"
-          content="Team information has been updated."
+          content="User information has been updated."
         />
       }
       {
@@ -80,7 +80,7 @@ export default class UserPane extends Component {
           attached
           icon="x"
           header="Error"
-          content="Team information has not been updated."
+          content="User information has not been updated."
         />
       }
       {
