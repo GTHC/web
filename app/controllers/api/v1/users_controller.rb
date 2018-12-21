@@ -112,6 +112,17 @@ class Api::V1::UsersController < ApiController
     end
   end
 
+  # PUT /api/v1/user/password/check
+  # purpose - checks users password on the user setting page
+  def password_check
+    validate_params_password_check
+    if current_user.valid_password? params[:password]
+      render json: { message: 'Correct Password', check: true }, status: :ok
+    else
+      render json: { message: 'Incorrect Password', check: false }, status: :ok
+    end
+  end
+
   private
 
     def set_user
@@ -153,6 +164,10 @@ class Api::V1::UsersController < ApiController
           password: params[:password],
           password_confirmation: params[:password_confirmation]
         }
+    end
+
+    def validate_params_password_check
+      params.require([:password])
     end
 
     def param_missing(exception)
