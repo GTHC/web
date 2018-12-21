@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 // components
 import Test from './../components/Test';
 import NavBar from './NavBar';
+import Hours from './../components/Dashboard/Hours';
 
 class Dashboard extends Component {
   render () {
@@ -14,7 +15,7 @@ class Dashboard extends Component {
       <div>
         <NavBar />
         <div className="body">
-          Dashboard
+          <Hours />
         </div>
       </div>
     );
