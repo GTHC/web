@@ -14,7 +14,8 @@ const defineTentColors = (tentTypeInput) => {
     }
     case 'white': {
       tentType = 'White';
-      tentTypeColor = 'white';
+      // null so the Label component can hold its default colors
+      tentTypeColor = null;
       break;
     }
     case 'dirty black': {
