@@ -7,18 +7,18 @@ import EditPasswordPane from './EditPasswordPane';
 
 export default class UserProfileBody extends Component {
   render () {
-    const { user } = this.props.userData;
+    const { userData } = this.props;
 
     const panes = [
       { menuItem: 'User Information', render: () => <Tab.Pane>
-        <UserPane user={user}/>
-      </Tab.Pane> },
+        <UserPane user={userData.user}/>
+      </Tab.Pane>, },
       { menuItem: 'Edit User Information', render: () => <Tab.Pane>
-        <EditUserPane user={user} />
-      </Tab.Pane> },
+        <EditUserPane {...userData} {...this.props} />
+      </Tab.Pane>, },
       { menuItem: 'Edit Password', render: () => <Tab.Pane>
-        <EditPasswordPane user={user} />
-      </Tab.Pane> },
+        <EditPasswordPane {...this.props} />
+      </Tab.Pane>, },
     ];
 
     return (
