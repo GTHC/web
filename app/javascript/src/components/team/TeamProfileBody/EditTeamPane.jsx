@@ -49,7 +49,7 @@ export default class EditTeamPane extends Component {
 
   renderError = () => (
     <Message negative>
-      <p>{ 'You are not the captain. You have no access.' }</p>
+      <p>{ 'You are not the captain. You do not have access to changing team information.' }</p>
     </Message>
   );
 
@@ -60,7 +60,7 @@ export default class EditTeamPane extends Component {
     return (
       <div>
         <Message positive attached>
-          <p>{ 'You are the captain. You have access.' }</p>
+          <p>{ 'You are the captain. You have access to editing team information.' }</p>
         </Message>
         <Form className='attached fluid segment'>
           <Form.Group widths="equal">
