@@ -18,7 +18,11 @@ class TeamProfile extends Component {
       <div>
         <NavBar />
         <div className="body">
-          <TeamProfileBody userData={user.data} updateTeam={updateTeam} userState={user} />
+          <TeamProfileBody
+            userState={user}
+            userData={user.data}
+            updateTeam={updateTeam}
+          />
         </div>
       </div>
     );

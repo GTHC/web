@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form } from 'semantic-ui-react';
+import { Form, Message, Loader, Dimmer } from 'semantic-ui-react';
 
 export default class UserPane extends Component {
   constructor(props) {
@@ -7,11 +7,16 @@ export default class UserPane extends Component {
     this.state = {
       disabled: false,
       name: props.user.name,
+      savePressed: false,
+      loading: props.userState.isLoading,
     };
   }
 
   onInputChange = (e, { id, value }) => {
-    this.setState({ [id]: value },
+    this.setState({
+      savePressed: false,
+      [id]: value,
+    },
       () => { this.validInput(); });
   };
 
@@ -24,12 +29,23 @@ export default class UserPane extends Component {
     }
   };
 
+  onSave = () => {
+    const { user, updateUser } = this.props;
+    const { name } = this.state;
+    const data = {
+      name,
+    };
+    updateUser(user.id, data);
+    this.setState({ savePressed: true });
+  };
+
   render () {
-    const { disabled, name } = this.state;
+    const { disabled, name, loading, savePressed } = this.state;
+    const { error } = this.props.userState;
 
     return (
       <div>
-        <Form>
+        <Form className='attached fluid segment'>
           <Form.Input
             fluid
             type="text"
@@ -40,8 +56,43 @@ export default class UserPane extends Component {
             value={name}
             onChange={this.onInputChange}
           />
-          <Form.Button disabled={disabled}>Save</Form.Button>
+          <Form.Button disabled={disabled} onClick={this.onSave}>Save</Form.Button>
       </Form>
+      { loading &&
+        <Dimmer active>
+          <Loader>Updating</Loader>
+        </Dimmer>
+      }
+      {
+        !loading && savePressed && !error &&
+        <Message
+          positive
+          attached
+          icon="check"
+          header="Updated Successfully!"
+          content="Team information has been updated."
+        />
+      }
+      {
+        !loading && savePressed && error &&
+        <Message
+          negative
+          attached
+          icon="x"
+          header="Error"
+          content="Team information has not been updated."
+        />
+      }
+      {
+        disabled &&
+        <Message
+          warning
+          attached
+          icon="exclamation triangle"
+          header="Warning!"
+          content="Please fill in all details."
+        />
+      }
       </div>
     );
   }
