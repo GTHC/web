@@ -83,7 +83,7 @@ class UserSignUp extends Component {
           label="Password"
           placeholder="Password"
           onChange={this.onInputChange}
-          type={hidePasswords ? "password" : ""}
+          type={hidePasswords ? "password" : "text"}
           action={{
             icon: hidePasswords ? 'unhide' : 'hide',
             onClick: () => { this.setState({ hidePasswords: !hidePasswords }) }
@@ -96,7 +96,7 @@ class UserSignUp extends Component {
           label="Password Confirmation"
           placeholder="Password Confirmation"
           onChange={this.onInputChange}
-          type={hidePasswords ? "password" : ""}
+          type={hidePasswords ? "password" : "text"}
           action={{
             icon: hidePasswords ? 'unhide' : 'hide',
             onClick: () => { this.setState({ hidePasswords: !hidePasswords }) }

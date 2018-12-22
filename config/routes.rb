@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :shifts, :teams, :captains, :users
       post 'user/shifts', to: 'users#shifts'
+      put 'user/password/check', to: 'users#password_check'
     end
   end
 end
