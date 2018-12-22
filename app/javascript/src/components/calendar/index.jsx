@@ -1,6 +1,7 @@
-import React, { Component } from "react";
-import Calendar from "react-big-calendar";
-import moment from "moment";
+import React, { Component } from 'react';
+import Calendar from 'react-big-calendar';
+import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
+import moment from 'moment';
 
 // semantic-ui
 import { Button, Modal } from 'semantic-ui-react';
@@ -11,6 +12,8 @@ import ShiftCreateModal from './ShiftCreateModal';
 import ShiftUpdateModal from './ShiftUpdateModal';
 
 const localizer = Calendar.momentLocalizer(moment);
+
+const DragDropCal = withDragAndDrop(Calendar);
 
 class BigCal extends Component {
   constructor (props) {
@@ -32,6 +35,38 @@ class BigCal extends Component {
       openShiftView: true,
       shiftData,
     });
+  };
+
+  resizeEvent = ({ event, start, end }) => {
+    const shifts = this.props.shifts.team_shifts;
+    const data = {
+      ...event,
+      start, end, // replaces old start and end elements for redux and frontend
+      start_time: start, // API uses start_time & end_time
+      end_time: end,
+    };
+
+    // updates shift data locally to remove lag and dependence of API
+    this.props.dragDropUpdate(shifts, data);
+
+    // updates on DB with API
+    this.props.updateShift(event.id, data);
+  };
+
+  moveEvent = ({ event, start, end }) => {
+    const shifts = this.props.shifts.team_shifts;
+    const data = {
+      ...event,
+      start, end, // replaces old start and end elements for redux and frontend
+      start_time: start, // API uses start_time & end_time
+      end_time: end,
+    };
+
+    // updates shift data locally to remove lag and dependence of API
+    this.props.dragDropUpdate(shifts, data);
+
+    // updates on DB with API
+    this.props.updateShift(event.id, data);
   };
 
   onClose = (type) => {
@@ -60,6 +95,13 @@ class BigCal extends Component {
     this.setState({ shiftData });
   };
 
+  handleDelete = () => {
+    const { shiftData } = this.state;
+    const { deleteShift } = this.props;
+    deleteShift(shiftData.id);
+    this.onClose('view');
+  };
+
   render() {
     const {
       start, end,
@@ -76,7 +118,10 @@ class BigCal extends Component {
 
     return (
       <div>
-        <Calendar
+        <DragDropCal
+          resizeable
+          onEventDrop={this.moveEvent}
+          onEventResize={this.resizeEvent}
           step={30}
           timeslots={4}
           selectable
@@ -97,18 +142,18 @@ class BigCal extends Component {
         >
           <ShiftViewModal shiftData={shiftData}/>
           <Modal.Actions>
+            <Button negative onClick={this.handleDelete}>Delete</Button>
             <ShiftUpdateModal
               {...this.props}
               shiftData={shiftData} updateShiftData={this.updateShiftData}
+              closeShiftView={() => this.onClose('view')}
             />
-            <Button onClick={() => this.onClose('view')}>
-              Close
-            </Button>
           </Modal.Actions>
         </Modal>
         {/* Shift Create Modal */}
         <Modal
           closeIcon
+          closeOnDimmerClick={false}
           open={openShiftCreate}
           onClose={() => this.onClose('create')}
         >

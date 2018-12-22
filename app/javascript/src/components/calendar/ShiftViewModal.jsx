@@ -24,6 +24,14 @@ class ShiftViewModal extends Component {
             <Modal.Description>
               {shiftData.note}
             </Modal.Description>
+            <Modal.Description as="h4">
+              Users:
+            </Modal.Description>
+            <Modal.Description>
+              {shiftData.users.map(user => (
+                <div key={user.name}>{user.name}</div>
+              ))}
+            </Modal.Description>
           </Modal.Content>
         </React.Fragment>
     );

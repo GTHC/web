@@ -14,9 +14,11 @@
     "history": "^4.7.2",
     "moment": "^2.22.2",
     "prop-types": "^15.6.1",
+    "randomstring": "^1.1.5",
     "react": "^16.3.2",
     "react-big-calendar": "^0.20.2",
     "react-dom": "^16.3.2",
+    "react-forecast": "git+https://github.com/mafuvadze/react-forecast.git",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
@@ -41,6 +43,7 @@
   },
   "scripts": {
     "start": "foreman start -f Procfile.dev",
+    "prod": "foreman start -f Procfile.prod",
     "clean:branch": "./bin/clean-branch.sh",
     "webpacker": "ruby bin/webpack-dev-server",
     "flush": " docker-compose run app ./bin/db-flush.sh",
@@ -48,6 +51,9 @@
     "dev:start": "docker-compose run -p '5000:5000' -p '3035:3035' app yarn start",
     "dev:bash": "docker-compose run app bash",
     "dev:console": "docker-compose run app rails c",
-    "dev:db": "docker-compose run app rails db"
+    "dev:db": "docker-compose run app rails db",
+    "prod:start": "./bin/prod-start.sh",
+    "prod:build": "./bin/build-production.sh",
+    "prod:build:staging": "./bin/build-staging.sh"
   }
 }

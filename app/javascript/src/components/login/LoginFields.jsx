@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // semantic ui components
-import { Input, Button, Icon } from 'semantic-ui-react';
+import { Input, Button, Icon, Message } from 'semantic-ui-react';
 
 class LoginFields extends Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class LoginFields extends Component {
   validInput = () => {
     const { email, password, errorMessage } = this.state;
     if (email === '' || password === '') {
-      this.setState({ error: true, errorMessage: 'Make sure both fields are non-empty.' });
+      this.setState({ error: true, errorMessage: 'Make sure to fill in both fields.' });
       return false;
     } else {
       this.setState({ error: false, errorMessage: '' });
@@ -62,14 +62,22 @@ class LoginFields extends Component {
         {this.state.error ?
           <div>
             <br />
-            <p style={{ color: 'red' }}>{this.state.errorMessage}</p>
+            <Message
+              warning
+              header='Friendly Reminder'
+              content={this.state.errorMessage}
+            />
           </div>
         : null}
 
-        {user.error ?
+        {user.error && user.errorMessage && !this.state.error ?
           <div>
             <br />
-            <p style={{ color: 'red' }}>{user.errorMessage}</p>
+            <Message
+              error
+              header='Error'
+              content={user.errorMessage}
+            />
           </div>
         : null}
 
@@ -83,7 +91,7 @@ class LoginFields extends Component {
           onClick={this.handleSignIn}
         >
           <Icon name="checkmark" />
-          Sign In!
+          Sign In
         </Button>
 
         <br />
@@ -98,7 +106,7 @@ class LoginFields extends Component {
           }}
         >
           <Icon name="signup" />
-          Sign Up!
+          Sign Up
         </Button>
       </div>
     );

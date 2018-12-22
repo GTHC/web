@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // semantic ui components
-import { Button, Form, Step, Divider } from 'semantic-ui-react';
+import { Button, Form, Step, Divider, Message } from 'semantic-ui-react';
 
 // sub-components
 import UserSignUp from './signup/UserSignUp';
@@ -13,7 +13,7 @@ class SignUpFields extends Component {
     super(props);
     this.state = {
       activeStep: 0,
-    }
+    };
   }
 
   componentWillMount() {
@@ -22,9 +22,17 @@ class SignUpFields extends Component {
 
   handleButtonClick = (e, data) => {
     const { activeStep } = this.state;
-    const { toggleLoginType, toggleDisableNext, login, signup, signupNewTeam } = this.props;
+    const {
+      toggleLoginType, toggleDisableNext,
+      login,
+      signup,
+      signupNewTeam,
+      clearError,
+    } = this.props;
     switch (data.id) {
       case 'back': {
+        console.log('test');
+        clearError();
         if (activeStep === 0) {
           toggleLoginType(login.type);
           return;
@@ -46,6 +54,7 @@ class SignUpFields extends Component {
         if (data.isCaptain) {
           // API call to create team and create user
           // Create User -> Create Captain -> Create Team -> Add Team ID to User
+          console.log(data);
           signupNewTeam({
             user_name: data.name,
             password: data.password,
@@ -53,10 +62,10 @@ class SignUpFields extends Component {
             email: data.email,
             team_name: data.team,
             tent_number: data.tentNumber,
-            tent_type: data.tentType
+            tent_type: data.tentType,
+            passcode: data.passcode,
           });
-        }
-        else {
+        } else {
           // API call to create user and add to team
           signup({
             name: data.name,
@@ -73,7 +82,7 @@ class SignUpFields extends Component {
 
   render() {
     const { activeStep } = this.state;
-    const { login, toggleDisableNext, updateUserInfo, updateTeamInfo, getAllTeams } = this.props;
+    const { login, toggleDisableNext, updateUserInfo, updateTeamInfo, getAllTeams, user } = this.props;
     const steps = [
         { key: 'user', icon: 'user', title: 'User Credentials', description: 'Add your email and create an account password.', active: (activeStep === 0) },
         { key: 'team', active: true, icon: 'users', title: 'Team Information', description: 'Let us know which team you are on!', active: (activeStep === 1) },
@@ -85,25 +94,34 @@ class SignUpFields extends Component {
         <br />
         <br />
         <Form>
-          { activeStep === 0 &&
-            <UserSignUp
-              login={login}
-              toggleDisableNext={toggleDisableNext}
-              updateUserInfo={updateUserInfo}
-            />
-          }
-          { activeStep === 1 &&
-            <TeamSignUp
-              login={login}
-              toggleDisableNext={toggleDisableNext}
-              updateTeamInfo={updateTeamInfo}
-            />
-          }
-          { activeStep === 2 &&
-            <AllSet login={login} />
-          }
+
 
         </Form>
+        { activeStep === 0 &&
+          <UserSignUp
+            login={login}
+            toggleDisableNext={toggleDisableNext}
+            updateUserInfo={updateUserInfo}
+          />
+        }
+        { activeStep === 1 &&
+          <TeamSignUp
+            login={login}
+            toggleDisableNext={toggleDisableNext}
+            updateTeamInfo={updateTeamInfo}
+          />
+        }
+        { activeStep === 2 &&
+          <AllSet login={login} />
+        }
+        {
+          user.error && user.errorMessage &&
+          <Message
+            error
+            header="Error"
+            content="Email is already being used by another user!"
+          />
+        }
         <br />
         { activeStep < 2 ?
           <Button.Group fluid>
