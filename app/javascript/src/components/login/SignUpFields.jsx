@@ -7,6 +7,7 @@ import { Button, Form, Step, Divider, Message } from 'semantic-ui-react';
 import UserSignUp from './signup/UserSignUp';
 import TeamSignUp from './signup/TeamSignUp';
 import AllSet from './signup/AllSet';
+import Availability from './../availability';
 
 class SignUpFields extends Component {
   constructor(props) {
@@ -33,9 +34,17 @@ class SignUpFields extends Component {
         return;
       }
       case 'next': {
-        if (activeStep < 2) {
-          this.setState({ activeStep: activeStep + 1 });
-          toggleDisableNext(true);
+        if (activeStep < 3) {
+          this.setState({ activeStep: activeStep + 1 },
+            () => {
+              // this allows availability to be optional
+              if (this.state.activeStep == 2) {
+                console.log('here');
+                toggleDisableNext(false);
+              } else {
+                toggleDisableNext(true);
+              }
+            });
         }
         return;
       }
@@ -76,18 +85,17 @@ class SignUpFields extends Component {
     const { activeStep } = this.state;
     const { login, toggleDisableNext, updateUserInfo, updateTeamInfo, getAllTeams, user } = this.props;
     const steps = [
-        { key: 'user', icon: 'user', title: 'User Credentials', description: 'Add your email and create an account password.', active: (activeStep === 0) },
-        { key: 'team', active: true, icon: 'users', title: 'Team Information', description: 'Let us know which team you are on!', active: (activeStep === 1) },
-        { key: 'join', disabled: true, icon: 'checkmark box', title: 'All Set!', active: (activeStep === 2), completed: (activeStep === 2) },
-      ];
+      { key: 'user', icon: 'user', title: 'User Credentials', description: 'Create your account with your email.', active: (activeStep === 0) },
+      { key: 'team', active: true, icon: 'users', title: 'Team Information', description: 'Let us know which team you are on!', active: (activeStep === 1) },
+      { key: 'availability', icon: 'clock', title: 'Availability (optional)', description: 'Let us know when you can tent!', active: (activeStep === 2) },
+      { key: 'join', disabled: true, icon: 'checkmark box', title: 'All Set!', active: (activeStep === 3), completed: (activeStep === 3) },
+    ];
     return (
       <div>
         <Step.Group fluid items={steps} />
         <br />
         <br />
         <Form>
-
-
         </Form>
         { activeStep === 0 &&
           <UserSignUp
@@ -104,6 +112,12 @@ class SignUpFields extends Component {
           />
         }
         { activeStep === 2 &&
+            <Availability
+              login={login}
+              toggleDisableNext={toggleDisableNext}
+            />
+          }
+        { activeStep === 3 &&
           <AllSet login={login} />
         }
         {
@@ -115,7 +129,7 @@ class SignUpFields extends Component {
           />
         }
         <br />
-        { activeStep < 2 ?
+        { activeStep < 3 ?
           <Button.Group fluid>
             <Button id="back" content='Back' icon='left arrow' labelPosition='left' color="red" onClick={this.handleButtonClick} />
             <Button.Or />
