@@ -7,13 +7,16 @@ const initialState = {
 };
 
 const user = (state=initialState, action) => {
+  const beginState = {
+    ...state,
+    isLoading: true,
+    error: false,
+    errorMessage: '',
+  };
   switch (action.type) {
     // POST /login
     case 'BEGIN_LOGIN': {
-      return {
-        ...state,
-        isLoading: true,
-      };
+      return beginState;
     }
 
     case 'FAILED_LOGIN': {
@@ -37,10 +40,7 @@ const user = (state=initialState, action) => {
 
     // POST /api/v1/users or POST /api/v1/captains
     case 'BEGIN_SIGNUP': {
-      return {
-        ...state,
-        isLoading: true,
-      };
+      return beginState;
     }
 
     case 'FAILED_SIGNUP': {
@@ -56,16 +56,15 @@ const user = (state=initialState, action) => {
       return {
         ...state,
         data: action.payload.data.data,
-        isLoggedIn: true
+        isLoggedIn: true,
+        error: false,
+        errorMessage: '',
       };
     }
 
     // POST /logout
     case 'BEGIN_LOGOUT': {
-      return {
-        ...state,
-        isLoading: true,
-      };
+      return beginState;
     }
 
     case 'FAILED_LOGOUT': {
@@ -81,12 +80,63 @@ const user = (state=initialState, action) => {
       return initialState;
     }
 
-    default: {
+    case 'CLEAR_ERROR': {
       return {
         ...state,
         error: false,
         errorMessage: '',
       };
+    }
+
+    // update TEAM with PUT /api/v1/team/:id
+    case 'BEGIN_UPDATE_TEAM': {
+      return beginState;
+    }
+
+    case 'FAILED_UPDATE_TEAM': {
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        errorMessage: action.payload.response.data.message,
+      };
+    }
+
+    case 'END_UPDATE_TEAM': {
+      const data = state.data;
+      data.team = action.payload.data.data;
+      return {
+        ...state,
+        data,
+        isLoading: false,
+      };
+    }
+
+    case 'BEGIN_UPDATE_USER': {
+      return beginState;
+    }
+
+    case 'FAILED_UPDATE_USER': {
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        errorMessage: action.payload.response.data.message,
+      };
+    }
+
+    case 'END_UPDATE_USER': {
+      const data = state.data;
+      data.user = action.payload.data.data;
+      return {
+        ...state,
+        data,
+        isLoading: false,
+      };
+    }
+
+    default: {
+      return state;
     }
   }
 };

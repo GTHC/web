@@ -20,7 +20,8 @@ import {
   login,
   logout,
   signup,
-  signupNewTeam
+  signupNewTeam,
+  clearError,
 } from './../actions/login';
 
 // logo
@@ -46,7 +47,8 @@ class Login extends Component {
             loginUser,
             logoutUser,
             signup,
-            signupNewTeam
+            signupNewTeam,
+            clearError,
           } = this.props;
     return (
       <div>
@@ -99,6 +101,7 @@ class Login extends Component {
                     getAllTeams={getAllTeams}
                     signup={signup}
                     signupNewTeam={signupNewTeam}
+                    clearError={clearError}
                     />
                 }
               </Card.Content>
@@ -131,6 +134,7 @@ const mapDispatchToProps = (dispatch) => {
       logoutUser: logout,
       signup: signup,
       signupNewTeam: signupNewTeam,
+      clearError: clearError,
     },
     dispatch);
 };
