@@ -92,8 +92,8 @@ const login = (state=initialState, action) => {
           return {
             key: team.id,
             value: team.id,
-            text: `${team.tent_number} - ${team.name}`,
-            label: {color: color, empty: true, circular: true },
+            text: `${team.name}`,
+            label: { color: color, empty: true, circular: true },
           };
         }
       );
