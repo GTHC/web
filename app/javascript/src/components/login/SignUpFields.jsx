@@ -32,7 +32,6 @@ class SignUpFields extends Component {
     } = this.props;
     switch (data.id) {
       case 'back': {
-        console.log('test');
         clearError();
         if (activeStep === 0) {
           toggleLoginType(login.type);
@@ -47,7 +46,6 @@ class SignUpFields extends Component {
             () => {
               // this allows availability to be optional
               if (this.state.activeStep == 2) {
-                console.log('here');
                 toggleDisableNext(false);
               } else {
                 toggleDisableNext(true);
@@ -62,7 +60,6 @@ class SignUpFields extends Component {
         if (data.isCaptain) {
           // API call to create team and create user
           // Create User -> Create Captain -> Create Team -> Add Team ID to User
-          console.log(data);
           signupNewTeam({
             user_name: data.name,
             password: data.password,
