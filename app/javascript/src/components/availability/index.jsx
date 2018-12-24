@@ -7,42 +7,44 @@ import { Grid, Segment, Divider, Button, Icon, Card } from 'semantic-ui-react';
 import _ from 'lodash';
 
 const times = [
-  '7:00 - 8:15 AM',
-  '8:15 - 9:30 AM',
-  '9:30 - 10:45 AM',
-  '10:45 - 12:00 PM',
-  '12:00 - 1:15 PM',
-  '1:15 - 2:30 PM',
-  '2:30 - 3:45 PM',
-  '3:45 - 5:00 PM',
-  '5:00 - 6:15 PM',
-  '6:15 - 7:30 PM',
-  '7:30 - 8:45 PM',
-  '8:45 - 10:00 PM',
-  '10:00 - 11:15 PM',
-  '11:15 - 12:30 AM',
-  '12:30 - 2:00 AM', // 1 hour 30 min shift till night shift, accounts for switching
+  '7:00 - 8:00 AM',
+  '8:00 - 9:00 AM',
+  '9:00 - 10:00 AM',
+  '10:00 - 11:00 AM',
+  '11:00 - 12:00 PM',
+  '12:00 - 1:00 PM',
+  '1:00 - 2:00 PM',
+  '2:00 - 3:00 PM',
+  '3:00 - 4:00 PM',
+  '4:00 - 5:00 PM',
+  '5:00 - 6:00 PM',
+  '6:00 - 7:00 PM',
+  '7:00 - 8:00 PM',
+  '8:00 - 9:00 PM',
+  '9:00 - 10:00 PM',
+  '10:00 - 11:00 PM',
+  '11:00 - 12:00 AM',
+  '12:00 - 1:00 AM',
+  '1:00 - 2:00 AM',
   'Night Shift',
 ];
 
 const days = [
   'Times',
+  'Sunday',
   'Monday',
   'Tuesday',
   'Wednesday',
   'Thursday',
   'Friday',
   'Saturday',
-  'Sunday',
 ];
 
 class Availability extends Component {
   constructor(props) {
     super(props);
-    // const data = props.login.signUpData;
-    // props.toggleDisableNext(false);
     this.state = {
-      grid: (new Array(31)).fill().map(function(){ return new Array(7).fill(0);}),
+      grid: (new Array(31)).fill().map(() => (new Array(7).fill(0))),
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -63,7 +65,7 @@ class Availability extends Component {
     let data = [];
     for (let i = 0; i < 7; i++) {
       data.push(
-          <Grid.Column key={i} onClick={() => this.handleClick(row, i)}>
+          <Grid.Column textAlign="center" key={i} onClick={() => this.handleClick(row, i)}>
             {this.renderIcon(this.state.grid[row][i])}
           </Grid.Column>
       );
@@ -120,17 +122,13 @@ class Availability extends Component {
   );
 
   render() {
-    const { myFunction } = this.props;
-    // const { toggleDisableNext } = this.props;
-    // toggleDisableNext(false);
-
     return (
       <div>
         <Grid columns='equal' celled >
           {this.renderKey()}
             <Grid columns={8} padded>
             {days.map(day => (
-              <Grid.Column key={day} color='green'>
+              <Grid.Column textAlign="center" key={day} color='green'>
                 <Grid.Row style={{height: '10%'}}>{_.capitalize(day)}</Grid.Row>
               </Grid.Column>
             ))}
