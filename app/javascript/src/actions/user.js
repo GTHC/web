@@ -13,6 +13,20 @@ const updateUser = (id, data) => (
   })
 );
 
+const updateAvailability = data => (
+  crud({
+    dispatch: {
+      begin: 'BEGIN_UPDATE_AVAIL',
+      fail: 'FAILED_UPDATE_AVAIL',
+      end: 'END_UPDATE_AVAIL',
+    },
+    method: 'POST',
+    url: '/api/v1/user/availability',
+    data,
+  })
+);
+
 export {
   updateUser,
+  updateAvailability,
 };

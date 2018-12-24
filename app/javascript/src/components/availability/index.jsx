@@ -58,12 +58,14 @@ class Availability extends Component {
 
 
   handleClick = (row, column) => {
+    const { updateAvailState } = this.props;
     const setNewNumber = (val) => (val < 2 ? ++val : 0);
 
     const grid = this.state.grid;
     const value = grid[row][column];
     grid[row][column] = setNewNumber(value);
     this.setState({ grid });
+    updateAvailState(grid); //updating states in higher level components
   };
 
   renderColumns = (col) => {

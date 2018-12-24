@@ -138,6 +138,8 @@ class Api::V1::UsersController < ApiController
     @user = current_user
     @user.availability = params[:availability]
     if @user.save
+      # Change availability from Strings to Integers
+      @user.availability.map! {|arr| arr.map.map(&:to_i) }
       render json: { status: 'SUCCESS', message: 'User availability updated successfully.', data: @user.availability }, status: :ok
     else
       render json: { status: 'ERROR', message: 'User availability not able to update.' }, status: :unprocessable_entity

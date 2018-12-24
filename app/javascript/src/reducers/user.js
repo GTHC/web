@@ -135,6 +135,29 @@ const user = (state=initialState, action) => {
       };
     }
 
+    case 'BEGIN_UPDATE_AVAIL': {
+      return beginState;
+    }
+
+    case 'FAILED_UPDATE_AVAIL': {
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        errorMessage: action.payload.response.data.message,
+      };
+    }
+
+    case 'END_UPDATE_AVAIL': {
+      const data = state.data;
+      data.user.availability = action.payload.data.data;
+      return {
+        ...state,
+        isLoading: false,
+        data,
+      };
+    }
+
     default: {
       return state;
     }
