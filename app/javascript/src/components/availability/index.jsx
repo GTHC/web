@@ -45,7 +45,6 @@ class Availability extends Component {
     super(props);
     let grid = (new Array(7)).fill().map(() => (new Array(20).fill(1)));
     if (props.user !== undefined) {
-      console.log(props.user.availability);
       grid = props.user.availability;
     }
 

@@ -132,6 +132,18 @@ class Api::V1::UsersController < ApiController
     end
   end
 
+  # POST /api/v1/user/availability
+  def update_availability
+    validate_availability
+    @user = current_user
+    @user.availability = params[:availability]
+    if @user.save
+      render json: { status: 'SUCCESS', message: 'User availability updated successfully.', data: @user.availability }, status: :ok
+    else
+      render json: { status: 'ERROR', message: 'User availability not able to update.' }, status: :unprocessable_entity
+    end
+  end
+
   private
 
     def set_user
@@ -177,6 +189,10 @@ class Api::V1::UsersController < ApiController
 
     def validate_params_password_check
       params.require([:password])
+    end
+
+    def validate_availability
+      params.require([:availability])
     end
 
     def param_missing(exception)
