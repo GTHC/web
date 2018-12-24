@@ -58,7 +58,6 @@ class SignUpFields extends Component {
       }
       case 'signup': {
         // signup button click
-        // TODO: Add Login functionality
         const data = login.signUpData; // data collected from signup fields
         if (data.isCaptain) {
           // API call to create team and create user
@@ -73,6 +72,7 @@ class SignUpFields extends Component {
             tent_number: data.tentNumber,
             tent_type: data.tentType,
             passcode: data.passcode,
+            availability: data.availability,
           });
         } else {
           // API call to create user and add to team
@@ -82,6 +82,7 @@ class SignUpFields extends Component {
             password: data.password,
             password_confirmation: data.passwordConfirmation,
             team_id: data.teamID,
+            availability: data.availability,
           })
         }
         return;
@@ -91,7 +92,7 @@ class SignUpFields extends Component {
 
   render() {
     const { activeStep } = this.state;
-    const { login, toggleDisableNext, updateUserInfo, updateTeamInfo, getAllTeams, user } = this.props;
+    const { login, toggleDisableNext, updateUserInfo, updateTeamInfo, updateAvailInfo, getAllTeams, user } = this.props;
     const steps = [
       { key: 'user', icon: 'user', title: 'User Credentials', description: 'Create your account with your email.', active: (activeStep === 0) },
       { key: 'team', active: true, icon: 'users', title: 'Team Information', description: 'Let us know which team you are on!', active: (activeStep === 1) },
@@ -121,8 +122,7 @@ class SignUpFields extends Component {
         }
         { activeStep === 2 &&
             <Availability
-              login={login}
-              toggleDisableNext={toggleDisableNext}
+              updateAvailState={updateAvailInfo}
             />
           }
         { activeStep === 3 &&

@@ -22,6 +22,9 @@ class Api::V1::UsersController < ApiController
       password_confirmation: params[:password_confirmation],
       team_id: params[:team_id],
     )
+    if params[:availability]
+      @user.availability = params[:availability]
+    end
     @team = @user.team
     if @user.save
       bypass_sign_in @user
@@ -35,13 +38,6 @@ class Api::V1::UsersController < ApiController
     else
       render json: { status: 'ERROR', message: 'User not saved', data: @user.errors }, status: :unprocessable_entity
     end
-  end
-
-  # PATCH /api/v1/users
-  # TODO: Complete endpoint
-  def update
-    validate_params
-
   end
 
   # POST /login

@@ -16,8 +16,6 @@ import Calendar from './Calendar';
 import UserProfile from './UserProfile';
 import TeamProfile from './TeamProfile';
 
-// TODO: User Auth checking on components
-
 // styles
 import './../styles';
 
