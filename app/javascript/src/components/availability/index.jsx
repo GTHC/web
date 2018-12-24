@@ -43,8 +43,14 @@ const days = [
 class Availability extends Component {
   constructor(props) {
     super(props);
+    let grid = (new Array(7)).fill().map(() => (new Array(20).fill(1)));
+    if (props.user !== undefined) {
+      console.log(props.user.availability);
+      grid = props.user.availability;
+    }
+
     this.state = {
-      grid: (new Array(31)).fill().map(() => (new Array(7).fill(0))),
+      grid: grid,
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -61,12 +67,12 @@ class Availability extends Component {
     this.setState({ grid });
   };
 
-  renderColumns = (row) => {
+  renderColumns = (col) => {
     let data = [];
     for (let i = 0; i < 7; i++) {
       data.push(
-          <Grid.Column textAlign="center" key={i} onClick={() => this.handleClick(row, i)}>
-            {this.renderIcon(this.state.grid[row][i])}
+          <Grid.Column textAlign="center" key={i} onClick={() => this.handleClick(i, col)}>
+            {this.renderIcon(this.state.grid[i][col])}
           </Grid.Column>
       );
     }

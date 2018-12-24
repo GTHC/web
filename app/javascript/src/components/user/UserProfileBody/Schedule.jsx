@@ -8,7 +8,7 @@ class Schedule extends Component {
   render () {
     return (
       <div>
-        <Availability />
+        <Availability {...this.props} />
         <Button>Save</Button>
       </div>
     );

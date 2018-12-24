@@ -21,7 +21,7 @@ export default class UserProfileBody extends Component {
         <EditPasswordPane user={userData.user} {...this.props} />
       </Tab.Pane>, },
       { menuItem: 'Edit User Availability', render: () => <Tab.Pane>
-        <Schedule />
+        <Schedule user={userData.user} />
       </Tab.Pane> },
     ];
 
