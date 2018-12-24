@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 // components
 import Test from './../components/Test';
 import NavBar from './NavBar';
-import Hours from './../components/Dashboard/Hours';
+import Hours from './../components/dashboard/Hours';
 import MyShifts from './../components/dashboard/MyShifts';
 
 class Dashboard extends Component {

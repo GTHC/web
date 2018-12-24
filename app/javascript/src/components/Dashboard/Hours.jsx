@@ -286,9 +286,10 @@ dropDown () {
                   onChange={(e, value) => {
                     const Totalv = value.value === 'Week' ? false : true;
                     console.log( Totalv, value);
-                    this.setState({Total:Totalv}, () => this.updateTotal());
+                    this.setState({Total:Totalv}, () => {
+                      this.handleNightorHours(e,this.state.Rank);
+                    });
                     console.log(this.state.Total);
-                    this.handleNightorHours(e,this.state.Rank);
                   }}
                 />
              </div>
@@ -312,7 +313,7 @@ dropDown () {
         </div>
       <br />
       <br />
-    <Card.Group itemsPerRow={6}>
+    <Card.Group centered >
         {
           this.state.Hours.map((user) => (
          <this.CustomCard user={user} key={user.name}/>
