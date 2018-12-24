@@ -41,6 +41,8 @@ class Api::V1::CaptainsController < ApiController
       bypass_sign_in @user
       @user.team_id = @team.id
       @user.save
+      # Change availability from Strings to Integers
+      @user.availability.map! {|arr| arr.map.map(&:to_i) }
       render json: { status: 'SUCCESS', message: 'User, Captain, and Team created, and User signed in', data: {
         user: @user,
         team: @team,

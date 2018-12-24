@@ -25,6 +25,8 @@ class Api::V1::UsersController < ApiController
     @team = @user.team
     if @user.save
       bypass_sign_in @user
+      # Change availability from Strings to Integers
+      @user.availability.map! {|arr| arr.map.map(&:to_i) }
       render json: { status: 'SUCCESS', message: 'User saved and signed in', data: {
         user: @user,
         team: @team,
@@ -51,6 +53,8 @@ class Api::V1::UsersController < ApiController
       bypass_sign_in @user
       @team = @user.team
       if current_user
+        # Change availability from Strings to Integers
+        @user.availability.map! {|arr| arr.map.map(&:to_i) }
         render json: { status: 'SUCCESS', message: 'User Logged In', data: {
           user: @user,
           team: @team,
