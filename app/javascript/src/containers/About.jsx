@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Icon, Image, Message} from 'semantic-ui-react'
 
 const AboutPage = () => (
-  <div align="middle">
+  <div align="middle" className="t101">
     <Message size='massive'> Meet the Team </Message>
     <Card.Group centered>
       <Card centered>
