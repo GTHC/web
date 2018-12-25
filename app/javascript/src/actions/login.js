@@ -46,7 +46,14 @@ const updateTeamInfo = (teamInfo) => {
       passcode: teamInfo.passcode,
     }
   };
-}
+};
+
+const updateAvailInfo = availability => ({
+  type: 'SU_AVAIL',
+  payload: {
+    availability,
+  },
+});
 
 // API actions
 
@@ -158,6 +165,7 @@ export {
   toggleDisableNext,
   updateUserInfo,
   updateTeamInfo,
+  updateAvailInfo,
   getAllTeams,
   login,
   logout,

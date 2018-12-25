@@ -16,8 +16,6 @@ import Calendar from './Calendar';
 import UserProfile from './UserProfile';
 import TeamProfile from './TeamProfile';
 
-// TODO: User Auth checking on components
-
 // styles
 import './../styles';
 
@@ -42,7 +40,6 @@ class App extends Component {
         <ConnectedRouter history={history}>
           <ConnectedSwitch>
             <Route exact path="/" render={() => {
-              console.log('user.isLoggedIn', user.isLoggedIn);
               return (user.isLoggedIn ?
                 <Redirect to="/app" /> :
                 <Redirect to="/login" />)
