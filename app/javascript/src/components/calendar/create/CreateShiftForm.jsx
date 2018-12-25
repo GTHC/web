@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Form, Divider } from 'semantic-ui-react';
 
 // utils
-import getShiftAvailability from './utils/getShiftAvailability';
+import getShiftAvailability from './../utils/getShiftAvailability';
 
 class CreateShiftForm extends Component {
 
@@ -133,6 +133,7 @@ class CreateShiftForm extends Component {
         <Form.Dropdown
           id="user_ids"
           fluid multiple search selection
+          scrolling upward
           label="Add users to new Shift"
           placeholder="(Default: You)"
           options={userOptions}
