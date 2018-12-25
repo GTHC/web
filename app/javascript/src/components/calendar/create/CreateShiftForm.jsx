@@ -11,6 +11,31 @@ class CreateShiftForm extends Component {
     };
   }
 
+  componentDidMount() {
+    const { start, end } = this.props;
+    const availStart = this.hourToAvailPosition(start);
+    const availEnd = this.hourToAvailPosition(end);
+    const availDay = start.getDay();
+  }
+
+  /**
+   * hourToAvailPosition - get aprox. position of date in Availability component
+   *                       which runs from 7 AM - 2AM
+   * @param  {[Date]} date [Date object of either the start or end time of a shift]
+   * @param {[boolean]} isEnd [tells function if this is for a start or end]
+   * @return {[number]}      [row number in Availability grid]
+   */
+  hourToAvailPosition = (date, isEnd=false) => {
+    let output = date.getHours() - 7 + (Math.floor(date.getMinutes() / 60));
+    if (output < 0 && output > -6) {
+      output = 19;
+    } else if (output < -5) {
+      output = output + 24;
+    }
+
+    return output;
+  };
+
   onInputChange = (e, { value, id }) => {
     const { updateShiftData } = this.props;
     updateShiftData({
