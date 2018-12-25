@@ -1,35 +1,18 @@
 import React, { Component } from 'react';
 
 // semantic ui components
-import { Menu, Image, Button, Form, Step, Divider, Message, Header, Segment, Card, Grid, Table, Icon } from 'semantic-ui-react';
+import { Image, Button, Form, Step, Divider, Message, Header, Segment, Card, Grid, Table, Icon } from 'semantic-ui-react';
 
 // import FAQ page
 import FAQ from './FAQ';
-
-// redux
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { push } from './../actions/router';
 
 class Tenting101 extends Component {
   constructor(props) {
     super(props);
     this.state = {
       activeStep: 0,
-      activeItem: 'tenting101',
     };
     this.handleReset = this.handleReset.bind(this);
-  }
-  handleClick = (e, data) => {
-    console.log('data', data);
-    // data.id is the id element in the component that is clicked
-    switch (data.id) {
-      case 'about':
-          this.props.push('/about')
-          return;
-      default:
-        return;
-    }
   }
   handleReset = () => {
     this.setState({
@@ -37,7 +20,7 @@ class Tenting101 extends Component {
     });
   };
   handleButtonClick = (e, data) => {
-      const { activeStep, } = this.state;
+      const { activeStep } = this.state;
       switch (data.id) {
         case 'back': {
           if (activeStep === 0) {
@@ -57,33 +40,19 @@ class Tenting101 extends Component {
 
   render() {
     const steps = [
-        { key: 'step1', icon: 'list alternate', title: 'Step 1', description: 'Find your team', active: (activeStep === 0) },
-        { key: 'step2', active: true, icon: 'users', title: 'Step 2', description: 'Register with the Line Monitors!', active: (activeStep === 1) },
-        { key: 'step3', disabled: true, icon: 'bed', title: 'Step 3', description: 'Get your tenting essentials!', active: (activeStep === 2), completed: (activeStep === 0) },
+        { key: 'step1', active: true, icon: 'list alternate', title: 'Step 1', description: 'Find your team', active: (activeStep === 0) },
+        { key: 'step2', icon: 'users', title: 'Step 2', description: 'Register with the Line Monitors!', active: (activeStep === 1) },
+        { key: 'step3', icon: 'bed', title: 'Step 3', description: 'Get your tenting essentials!', active: (activeStep === 2), completed: (activeStep === 0) },
       ];
-    const { activeItem, activeStep, value } = this.state;
-    const { router, } = this.props;
+    const { activeStep, value } = this.state;
     const square = { width: 175, height: 175 };
-    const url = 'http://www.kvillenation.com/images/navigation/brand/brand-dark.png';
-    const path = router.location.pathname;
+    const url = 'https://www.kvillenation.com/images/navigation/brand/brand-dark.png';
 
     return (
       <div className="body">
-        <div>
-          <Menu secondary>
-            <Menu.Item header> GTHC ⛺</Menu.Item>
-            <Menu.Item
-            id='about'
-            active={path === '/about'}
-            onClick={this.handleClick}
-            >
-              About GTHC
-            </Menu.Item>
-          </ Menu>
-        </ div>
         <Step.Group fluid items={steps} />
           { activeStep === 0 &&
-           <div className="body">
+           <div>
             <Image centered src={url} size='massive'/>
             <Message centered header='Step 1' size='large' content='Find your tent members and establish a Tent Captain.'/>
             <center>
@@ -204,24 +173,4 @@ class Tenting101 extends Component {
   }
 }
 
-// connecting to redux
-
-const mapStateToProps = (state) => {
-  return {
-    router: state.router,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-    {
-      push: push,
-    },
-    dispatch);
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Tenting101);
-
-export {
-  Tenting101
-};
+export default Tenting101;

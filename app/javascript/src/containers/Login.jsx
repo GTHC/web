@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // semantic ui components
-import { Container, Card, Menu, Input } from 'semantic-ui-react';
+import { Container, Card, Menu, Input, Image } from 'semantic-ui-react';
 
 // Login components
 import { LoginFields, SignUpFields } from './../components';
@@ -24,27 +24,30 @@ import {
 } from './../actions/login';
 import { push } from './../actions/router';
 
+// logo
+import * as logo from './../images/gthc.png';
+
 class Login extends Component {
   constructor (props) {
     super(props);
     this.state = {
       activeItem: 'home',
-    }
+    };
   }
+
   handleClick = (e, data) => {
-    console.log('data', data);
     // data.id is the id element in the component that is clicked
     switch (data.id) {
       case 'tenting101':
-        this.props.push('/tenting101')
+        this.props.push('/tenting101');
         return;
       case 'about':
-          this.props.push('/about')
-          return;
+        this.props.push('/about');
+        return;
       default:
         return;
     }
-  }
+  };
 
   render() {
     const { activeItem } = this.state;
@@ -65,19 +68,21 @@ class Login extends Component {
     return (
       <div>
         <Menu secondary>
-          <Menu.Item header>Krzyzewskiville Scheduler ⛺</Menu.Item>
+          <Menu.Item header>
+            <Image src={logo} size="tiny" />
+          </Menu.Item>
           <Menu.Item
             id='about'
             active={path === '/about'}
             onClick={this.handleClick}
            >
-           About KVS
+           About GTHC
            </Menu.Item>
            <Menu.Item
             id='tenting101'
             active={path === '/tenting101'}
             onClick={this.handleClick}>
-            Tenting101
+            Tenting 101
             </Menu.Item>
       </Menu>
         <div className="login">
@@ -85,8 +90,15 @@ class Login extends Component {
             <Card centered fluid color="blue" className="login-card" >
               <Card.Content>
                 <Card.Header>
-                  { login.type === 'login' ? '⛺⛺ Welcome to your K-Ville Scheduler! ⛺⛺' :
-                    '🤝🤝 Pleased to meet you! 🤝🤝'
+                  { login.type === 'login' ?
+                    <div>
+                      Sign in to
+                      <Image src={logo} style={{
+                        paddingBottom: '12px',
+                        paddingLeft: '3px',
+                      }} size="tiny" />
+                    </div>
+                   : '⛺⛺ Welcome to GTHC (Game Tenting Help Center) ⛺⛺'
                   }
                 </Card.Header>
               </Card.Content>

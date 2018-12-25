@@ -1,14 +1,13 @@
 import React from 'react';
 import { Accordion, Table } from 'semantic-ui-react';
-import 'semantic-ui-css/semantic.min.css';
 
 const level1Panels = [
   { key: 'Tenting',
   title: 'What’s the difference between black, blue, and white tenting?',
   content: 'Tenting is split up into three periods of varying difficulty, black, blue and white. Requirements for each period can be found in the next question.' },
-  { key: 'panel-ba', title: 'How many people have to be in K-Ville?',
+  { key: 'panel-ba1', title: 'How many people have to be in K-Ville?',
   content: 'Black Tenting: 2 during the day, 10 at night, Blue Tenting: 1 during the day, 6 at night, White Tenting: 1 during the day, 2 at night' },
-  { key: 'panel-ba', title: 'What does it mean to Dirty Black/Blue tent?',
+  { key: 'panel-ba2', title: 'What does it mean to Dirty Black/Blue tent?',
   content: 'Tents that begin on the first day of either the Black or Blue tenting period are not ordered immediately. Order for these tents is based on attendance at other sporting events during tenting season as well as a Duke Basketball trivia test. Dirty Tenting means that your tent began tenting after the first day of a tenting period, so your order is based only on when your tent started.' },
   { key: 'panel-2a', title: 'When do we get grace?',
   content: 'After every tent check for one hour. Two hours before and after a Men’s or Women’s home basketball game. One hour before and after a Men’s or Women’s away basketball game. Weather-related grace is given certain circumstances' },
@@ -17,7 +16,7 @@ const level1Panels = [
 const Level1Content = (
   <div>
     Frequently Asked Questions for Tenting
-    <Accordion.Accordion panels={level1Panels} />
+    <Accordion.Accordion key="level-1" panels={level1Panels} />
   </div>
 )
 
@@ -28,7 +27,7 @@ const level2Panels = [
   { key: 'Kville2',
   title: 'Does Wilson Gym count as being in K-Ville?',
   content: 'No. If a check is called when you are inside Wilson Gym and you miss your check, you will recieve a missed check. ' },
-  { key: 'Kville2',
+  { key: 'Kville3',
   title: 'If I live near K-Ville, can I just run across Towerview Road to make a check?',
   content: 'No. If a check is called and you run across Towerview, you will recieve a missed check. ' },
 ]
@@ -36,7 +35,7 @@ const level2Panels = [
 const Level2Content = (
   <div>
     Frequently Asked Questions for K-Ville
-    <Accordion.Accordion panels={level2Panels} />
+    <Accordion.Accordion key="level-2" panels={level2Panels} />
   </div>
 )
 
@@ -52,7 +51,7 @@ const level3Panels = [
 const Level3Content = (
   <div>
     Frequently Asked Questions for Walk-Up Line During Regular Games
-    <Accordion.Accordion panels={level3Panels} />
+    <Accordion.Accordion key="level-3" panels={level3Panels} />
   </div>
 )
 
@@ -62,6 +61,6 @@ const rootPanels = [
   { key: 'panel-3', title: 'WUL FAQs', content: { content: Level3Content } },
 ]
 
-const FAQ = () => <Accordion defaultActiveIndex={0} panels={rootPanels} fluid styled />
+const FAQ = () => (<Accordion key="accordion" defaultActiveIndex={0} panels={rootPanels} fluid styled />);
 
 export default FAQ;
