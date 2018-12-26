@@ -62,16 +62,17 @@ class Tenting101 extends Component {
     }
 
   render() {
-    const steps = [
-        { key: 'step1', icon: 'list alternate', title: 'Step 1', description: 'Find your team', active: (activeStep === 0) },
-        { key: 'step2', active: true, icon: 'users', title: 'Step 2', description: 'Register with the Line Monitors!', active: (activeStep === 1) },
-        { key: 'step3', disabled: true, icon: 'bed', title: 'Step 3', description: 'Get your tenting essentials!', active: (activeStep === 2), completed: (activeStep === 0) },
-      ];
     const { activeItem, activeStep, value } = this.state;
     const { router, } = this.props;
     const square = { width: 175, height: 175 };
     const url = 'http://www.kvillenation.com/images/navigation/brand/brand-dark.png';
     const path = router.location.pathname;
+
+    const steps = [
+        { key: 'step1', icon: 'list alternate', title: 'Step 1', description: 'Find your team', active: (activeStep === 0) },
+        { key: 'step2', active: true, icon: 'users', title: 'Step 2', description: 'Register with the Line Monitors!', active: (activeStep === 1) },
+        { key: 'step3', icon: 'bed', title: 'Step 3', description: 'Get your tenting essentials!', active: (activeStep === 2), completed: (activeStep === 0) },
+      ];
 
     return (
       <div className="body">
@@ -93,7 +94,10 @@ class Tenting101 extends Component {
              </Menu.Item>
           </ Menu>
         </ div>
+        <br />
+
         <Step.Group fluid items={steps} />
+        <Form>
           { activeStep === 0 &&
            <div className="body">
             <Image centered src={url} size='massive'/>
@@ -196,6 +200,7 @@ class Tenting101 extends Component {
             </Segment>
           </div>
           }
+          </Form>
         <br />
         { activeStep < 2 ?
           <Button.Group fluid>
