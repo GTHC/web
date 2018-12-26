@@ -158,6 +158,25 @@ const user = (state=initialState, action) => {
       };
     }
 
+    // GET /api/v1/user/session
+    case 'BEGIN_SESS_CHECK': {
+      return beginState;
+    }
+
+    case 'FAILED_SESS_CHECK': {
+      return {
+        ...state,
+        isLoggedIn: false,
+      };
+    }
+
+    case 'END_SESS_CHECK': {
+      return {
+        ...state,
+        isLoggedIn: action.payload.data.status && state.data,
+      };
+    }
+
     default: {
       return state;
     }

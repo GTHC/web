@@ -17,7 +17,7 @@ class SignUpFields extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getAllTeams();
   }
 
