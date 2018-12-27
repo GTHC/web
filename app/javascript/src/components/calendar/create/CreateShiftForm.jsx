@@ -5,6 +5,7 @@ import { Form, Divider } from 'semantic-ui-react';
 // utils
 import getShiftAvailability from './../utils/getShiftAvailability';
 import hourToAvailPosition from './../utils/hourToAvailPosition';
+import PopupInfo from './../utils/PopupInfo';
 
 class CreateShiftForm extends Component {
 
@@ -116,7 +117,7 @@ class CreateShiftForm extends Component {
           id="user_ids"
           fluid multiple search selection
           scrolling upward
-          label="Add users to new Shift"
+          label={<div>Add users to new Shift <PopupInfo /></div>}
           placeholder="(Default: You)"
           options={userOptions}
           onChange={this.onInputChange}
