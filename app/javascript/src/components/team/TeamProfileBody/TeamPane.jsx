@@ -10,6 +10,7 @@ export default class UserPane extends Component {
   render () {
     const { team } = this.props;
     const { tentType, tentTypeColor } = defineTentColors(team.tent_type);
+    console.log(team);
 
     return (
       <div>
@@ -30,6 +31,10 @@ export default class UserPane extends Component {
         <br />
         <strong>Tent Type: </strong>
         <Label color={tentTypeColor}>{ tentType }</Label>
+        <br />
+        <br />
+        <strong>Passcode: </strong>
+        <Label>{ team.passcode }</Label>
       </div>
     );
   }
