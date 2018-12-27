@@ -5,6 +5,7 @@ import { Form } from 'semantic-ui-react';
 
 // utils
 import getShiftAvailability from './../utils/getShiftAvailability';
+import hourToAvailPosition from './../utils/hourToAvailPosition';
 
 class UpdateShiftForm extends Component {
 
@@ -24,13 +25,12 @@ class UpdateShiftForm extends Component {
 
   componentDidMount() {
     const { start, end } = this.props.shiftData;
-    const availStart = this.hourToAvailPosition(start);
-    const availEnd = this.hourToAvailPosition(end);
+    const availStart = hourToAvailPosition(start);
+    const availEnd = hourToAvailPosition(end);
     const availDay = start.getDay();
     getShiftAvailability(availDay, availStart, availEnd)
     .then(res => {
       const { data } = res.data;
-      console.log(data);
       const userOptions = [];
 
       // sorting users by availability and then alphabetically
@@ -62,24 +62,6 @@ class UpdateShiftForm extends Component {
       this.setState({ userOptions });
     });
   }
-
-  /**
-   * hourToAvailPosition - get aprox. position of date in Availability component
-   *                       which runs from 7 AM - 2AM
-   * @param  {[Date]} date [Date object of either the start or end time of a shift]
-   * @param {[boolean]} isEnd [tells function if this is for a start or end]
-   * @return {[number]}      [row number in Availability grid]
-   */
-  hourToAvailPosition = (date, isEnd=false) => {
-    let output = date.getHours() - 7 + (Math.floor(date.getMinutes() / 60));
-    if (output < 0 && output > -6) {
-      output = 19;
-    } else if (output < -5) {
-      output = output + 24;
-    }
-
-    return output;
-  };
 
   onInputChange = (e, { value, id }) => {
     const { updateShiftData, shiftData } = this.props;
