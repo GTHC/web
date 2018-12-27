@@ -14,6 +14,7 @@
     "history": "^4.7.2",
     "moment": "^2.22.2",
     "prop-types": "^15.6.1",
+    "randomstring": "^1.1.5",
     "react": "^16.3.2",
     "react-big-calendar": "^0.20.2",
     "react-dom": "^16.3.2",
@@ -51,6 +52,8 @@
     "dev:bash": "docker-compose run app bash",
     "dev:console": "docker-compose run app rails c",
     "dev:db": "docker-compose run app rails db",
-    "prod:start": "./bin/prod-start.sh"
+    "prod:start": "./bin/prod-start.sh",
+    "prod:build": "./bin/build-production.sh",
+    "prod:build:staging": "./bin/build-staging.sh"
   }
 }

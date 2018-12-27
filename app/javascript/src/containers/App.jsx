@@ -19,8 +19,6 @@ import FAQ from './FAQ';
 import Tenting101 from './Tenting101';
 import About from './About';
 
-// TODO: User Auth checking on components
-
 // styles
 import './../styles';
 
@@ -45,7 +43,6 @@ class App extends Component {
         <ConnectedRouter history={history}>
           <ConnectedSwitch>
             <Route exact path="/" render={() => {
-              console.log('user.isLoggedIn', user.isLoggedIn);
               return (user.isLoggedIn ?
                 <Redirect to="/app" /> :
                 <Redirect to="/login" />)

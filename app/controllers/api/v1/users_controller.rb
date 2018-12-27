@@ -1,4 +1,6 @@
 class Api::V1::UsersController < ApiController
+  rescue_from ActionController::ParameterMissing, :with => :param_missing
+
   before_action :set_user
 
   def show
@@ -10,6 +12,9 @@ class Api::V1::UsersController < ApiController
   # POST /api/v1/users
   def create
     validate_params
+    if User.find_by_email(params[:email])
+      return render json: { status: 'ERROR', message: 'User already created' }, status: :unprocessable_entity
+    end
     @user = User.create!(
       name: params[:name],
       email: params[:email],
@@ -17,9 +22,14 @@ class Api::V1::UsersController < ApiController
       password_confirmation: params[:password_confirmation],
       team_id: params[:team_id],
     )
+    if params[:availability]
+      @user.availability = params[:availability]
+    end
     @team = @user.team
     if @user.save
       bypass_sign_in @user
+      # Change availability from Strings to Integers
+      @user.availability.map! {|arr| arr.map.map(&:to_i) }
       render json: { status: 'SUCCESS', message: 'User saved and signed in', data: {
         user: @user,
         team: @team,
@@ -30,21 +40,17 @@ class Api::V1::UsersController < ApiController
     end
   end
 
-  # PATCH /api/v1/users
-  # TODO: Complete endpoint
-  def update
-    validate_params
-
-  end
-
   # POST /login
   def login
     validate_login_params
     @user = User.find_by_email(params[:email])
     if @user&.valid_password?(params[:password])
+      @user.remember_me = true
       bypass_sign_in @user
       @team = @user.team
       if current_user
+        # Change availability from Strings to Integers
+        @user.availability.map! {|arr| arr.map.map(&:to_i) }
         render json: { status: 'SUCCESS', message: 'User Logged In', data: {
           user: @user,
           team: @team,
@@ -91,6 +97,51 @@ class Api::V1::UsersController < ApiController
     end
   end
 
+  # PUT/PATCH /api/v1/user/:id
+  def update
+    if params[:password]
+      validate_params_update_with_password
+    else
+      validate_params_update
+    end
+    if user = User.find(params[:id])
+      user.update(@prime_params)
+
+      # this is needed because Devise signs out a user if update() is called
+      if params[:password]
+        bypass_sign_in user
+      end
+      render json: { status: 'SUCCESS', message: 'User successfully updated.', data: user }, staus: :ok
+    else
+      render json: { status: 'ERROR', message: 'User not found' }, status: :not_found
+    end
+  end
+
+  # PUT /api/v1/user/password/check
+  # purpose - checks users password on the user setting page
+  def password_check
+    validate_params_password_check
+    if current_user.valid_password? params[:password]
+      render json: { message: 'Correct Password', check: true }, status: :ok
+    else
+      render json: { message: 'Incorrect Password', check: false }, status: :ok
+    end
+  end
+
+  # POST /api/v1/user/availability
+  def update_availability
+    validate_availability
+    @user = current_user
+    @user.availability = params[:availability]
+    if @user.save
+      # Change availability from Strings to Integers
+      @user.availability.map! {|arr| arr.map.map(&:to_i) }
+      render json: { status: 'SUCCESS', message: 'User availability updated successfully.', data: @user.availability }, status: :ok
+    else
+      render json: { status: 'ERROR', message: 'User availability not able to update.' }, status: :unprocessable_entity
+    end
+  end
+
   private
 
     def set_user
@@ -117,5 +168,32 @@ class Api::V1::UsersController < ApiController
       params.require([:shift_id, :user_id])
       @s_id = params[:shift_id].to_i
       @u_id = params[:user_id].to_i
+    end
+
+    def validate_params_update
+      params.require([:name]);
+      @prime_params = {
+        name: params[:name],
+      }
+    end
+
+    def validate_params_update_with_password
+        params.require([:password, :password_confirmation])
+        @prime_params = {
+          password: params[:password],
+          password_confirmation: params[:password_confirmation]
+        }
+    end
+
+    def validate_params_password_check
+      params.require([:password])
+    end
+
+    def validate_availability
+      params.require([:availability])
+    end
+
+    def param_missing(exception)
+      render json: { status: 'ERROR', message: exception }, status: :unprocessable_entity
     end
 end

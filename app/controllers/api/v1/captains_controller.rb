@@ -12,12 +12,18 @@ class Api::V1::CaptainsController < ApiController
     # Create User -> Create Captain -> Create Team -> Add Team ID to User
     validate_params
     # Create User
+    if User.find_by_email(params[:email])
+      return render json: { status: 'ERROR', message: 'User already created' }, status: :unprocessable_entity
+    end
     @user = User.create!(
       name: params[:user_name],
       email: params[:email],
       password: params[:password],
       password_confirmation: params[:password_confirmation]
     )
+    if params[:availability]
+      @user.availability = params[:availability]
+    end 
     # Create Captain
     @captain = Captain.create!(user_id: @user.id)
     # Create Team
@@ -25,6 +31,7 @@ class Api::V1::CaptainsController < ApiController
       name: params[:team_name],
       tent_number: params[:tent_number],
       tent_type: params[:tent_type],
+      passcode: params[:passcode],
       captain_id: @captain.id
     )
     if !@team.save
@@ -37,6 +44,8 @@ class Api::V1::CaptainsController < ApiController
       bypass_sign_in @user
       @user.team_id = @team.id
       @user.save
+      # Change availability from Strings to Integers
+      @user.availability.map! {|arr| arr.map.map(&:to_i) }
       render json: { status: 'SUCCESS', message: 'User, Captain, and Team created, and User signed in', data: {
         user: @user,
         team: @team,

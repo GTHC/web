@@ -30,6 +30,33 @@ const team = (state=initialState, action) => {
       };
     }
 
+    // update TEAM with PUT /api/v1/team/:id
+    case 'BEGIN_UPDATE_TEAM': {
+      return {
+        ...state,
+        isLoading: true,
+        error: false,
+        errorMessage: '',
+      };
+    }
+
+    case 'FAILED_UPDATE_TEAM': {
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        errorMessage: action.payload.response.data.message,
+      };
+    }
+
+    case 'END_UPDATE_TEAM': {
+      return {
+        ...state,
+        data: action.payload.data.data,
+        isLoading: false,
+      };
+    }
+
     default: {
       return state;
     }

@@ -8,14 +8,22 @@ import { bindActionCreators } from 'redux';
 import UserProfileBody from './../components/user/UserProfileBody';
 import NavBar from './NavBar';
 
+// redux actions
+import { updateUser, updateAvailability } from '../actions/user';
+
 class UserProfile extends Component {
   render () {
-    const { user } = this.props;
+    const { user, updateUser, updateAvailability } = this.props;
     return (
       <div>
         <NavBar />
         <div className="body">
-          <UserProfileBody userData={user.data} />
+          <UserProfileBody
+            userState={user}
+            userData={user.data}
+            updateUser={updateUser}
+            updateAvailability={updateAvailability}
+          />
         </div>
       </div>
     );
@@ -31,16 +39,16 @@ const mapStateToProps = state => {
   };
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators(
-//     {
-//       loginUser: login, // changed login and logout action names due to login state name
-//       logoutUser: logout,
-//     },
-//     dispatch);
-// };
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      updateUser,
+      updateAvailability,
+    },
+    dispatch);
+};
 
-export default connect(mapStateToProps)(UserProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
 
 export {
   UserProfile,

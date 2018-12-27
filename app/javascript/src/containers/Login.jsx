@@ -16,11 +16,13 @@ import {
   toggleDisableNext,
   updateUserInfo,
   updateTeamInfo,
+  updateAvailInfo,
   getAllTeams,
   login,
   logout,
   signup,
-  signupNewTeam
+  signupNewTeam,
+  clearError,
 } from './../actions/login';
 import { push } from './../actions/router';
 
@@ -57,6 +59,7 @@ class Login extends Component {
             toggleDisableNext,
             updateUserInfo,
             updateTeamInfo,
+            updateAvailInfo,
             getAllTeams,
             loginUser,
             logoutUser,
@@ -114,14 +117,17 @@ class Login extends Component {
                 }
                 { login.type === 'signup' &&
                   <SignUpFields
+                    user={user}
                     toggleLoginType={toggleLoginType}
                     toggleDisableNext={toggleDisableNext}
                     login={login}
                     updateUserInfo={updateUserInfo}
                     updateTeamInfo={updateTeamInfo}
+                    updateAvailInfo={updateAvailInfo}
                     getAllTeams={getAllTeams}
                     signup={signup}
                     signupNewTeam={signupNewTeam}
+                    clearError={clearError}
                     />
                 }
               </Card.Content>
@@ -150,6 +156,7 @@ const mapDispatchToProps = (dispatch) => {
       toggleDisableNext: toggleDisableNext,
       updateUserInfo: updateUserInfo,
       updateTeamInfo: updateTeamInfo,
+      updateAvailInfo: updateAvailInfo,
       getAllTeams: getAllTeams,
       loginUser: login, // changed login and logout action names due to login state name
       logoutUser: logout,

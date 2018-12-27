@@ -26,6 +26,7 @@ const updateUserInfo = (userInfo) => {
   return {
     type: 'SU_USER_INFO',
     payload: {
+      name: userInfo.name,
       email: userInfo.email,
       password: userInfo.password,
       passwordConfirmation: userInfo.passwordConfirmation,
@@ -37,15 +38,22 @@ const updateTeamInfo = (teamInfo) => {
   return {
     type: 'SU_TEAM_INFO',
     payload: {
-      name: teamInfo.name,
       team: teamInfo.team,
       teamID: teamInfo.teamID,
       tentType: teamInfo.tentType,
       tentNumber: teamInfo.tentNumber,
       isCaptain: teamInfo.isCaptain,
+      passcode: teamInfo.passcode,
     }
   };
-}
+};
+
+const updateAvailInfo = availability => ({
+  type: 'SU_AVAIL',
+  payload: {
+    availability,
+  },
+});
 
 // API actions
 
@@ -92,7 +100,7 @@ const logout = () => (
     },
     method: 'POST',
     url: '/logout',
-    push: '/login'
+    push: '/login',
   })
 )
 
@@ -117,10 +125,9 @@ const signup = (userData) => (
     method: 'POST',
     url: '/api/v1/users',
     push: '/app',
-    data: userData
+    data: userData,
   })
 );
-
 
 // API call made for user signing up with a new team
 /**
@@ -145,19 +152,24 @@ const signupNewTeam = (userData) => (
     method: 'POST',
     url: '/api/v1/captains',
     push: '/app',
-    data: userData
+    data: userData,
   })
 );
 
+const clearError = () => ({
+  type: 'CLEAR_ERROR',
+});
 
 export {
   toggleLoginType,
   toggleDisableNext,
   updateUserInfo,
   updateTeamInfo,
+  updateAvailInfo,
   getAllTeams,
   login,
   logout,
   signup,
-  signupNewTeam
+  signupNewTeam,
+  clearError,
 };

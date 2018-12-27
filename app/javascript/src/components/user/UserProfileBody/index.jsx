@@ -4,20 +4,24 @@ import { Tab } from 'semantic-ui-react';
 import UserPane from './UserPane';
 import EditUserPane from './EditUserPane';
 import EditPasswordPane from './EditPasswordPane';
+import Schedule from './Schedule';
 
 export default class UserProfileBody extends Component {
   render () {
-    const { user } = this.props.userData;
+    const { userData } = this.props;
 
     const panes = [
       { menuItem: 'User Information', render: () => <Tab.Pane>
-        <UserPane user={user}/>
-      </Tab.Pane> },
+        <UserPane user={userData.user}/>
+      </Tab.Pane>, },
       { menuItem: 'Edit User Information', render: () => <Tab.Pane>
-        <EditUserPane user={user} />
-      </Tab.Pane> },
+        <EditUserPane {...userData} {...this.props} />
+      </Tab.Pane>, },
       { menuItem: 'Edit Password', render: () => <Tab.Pane>
-        <EditPasswordPane user={user} />
+        <EditPasswordPane user={userData.user} {...this.props} />
+      </Tab.Pane>, },
+      { menuItem: 'Edit User Availability', render: () => <Tab.Pane>
+        <Schedule user={userData.user} {...this.props} />
       </Tab.Pane> },
     ];
 
