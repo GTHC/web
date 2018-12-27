@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 // Semantic Ui Components Used
-import { Dropdown, Card, Grid, Button, Header, Icon, Label } from "semantic-ui-react";
+import { Dropdown, Card, Grid, Button, Header, Icon, Label, Feed } from "semantic-ui-react";
 //Endpoints not yet created, so Created Fake Data Instead
 import {getHours} from "./mockData";
 
@@ -20,15 +20,15 @@ export default class Hours extends Component {
 
   hourView() {
     return this.state.total == false
-      ? "Week Hours : "
-      : "Total Hours : ";
+      ? "Hours Spent: "
+      : "Hours Spent: ";
   };
 
   nightView() {
     const {total} = this.state;
     return this.state.total == false
-      ? "Week Nights : "
-      : "Total Nights : ";
+      ? "Nights Slept: "
+      : "Nights Slept: ";
   };
 
   //Function determining which View to Display
@@ -116,6 +116,7 @@ export default class Hours extends Component {
         </Card.Header>
       </Card.Content>
       <Card.Content>
+        {this.state.total == false ? "Week " : "Total "}
         <Card.Description>
           {this.hourView()}
           <strong>{this.hoursNumber(props.user)}
@@ -129,11 +130,11 @@ export default class Hours extends Component {
       </Card.Content>
       <Card.Content >
         <Grid.Column>
-          Hours Spent: {this.hourRank(props.user)}
+          Hours Rank: {this.hourRank(props.user)}
           {this.trophy(props.user, "hour")}
         </Grid.Column>
         <Grid.Column>
-          Nights Slept: {this.nightRank(props.user)}
+          Nights Rank: {this.nightRank(props.user)}
           {this.trophy(props.user, "night")}
         </Grid.Column>
       </Card.Content>
