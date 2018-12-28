@@ -22,6 +22,7 @@ const user = (state=initialState, action) => {
     case 'FAILED_LOGIN': {
       return {
         ...initialState,
+        isLoading: false,
         error: true,
         errorMessage: action.payload.response.data.message,
         errorObject: action.payload,
@@ -46,6 +47,7 @@ const user = (state=initialState, action) => {
     case 'FAILED_SIGNUP': {
       return {
         ...initialState,
+        isLoading: false,
         error: true,
         errorMessage: action.payload.response.data.message,
         errorObject: action.payload,
@@ -56,6 +58,7 @@ const user = (state=initialState, action) => {
       return {
         ...state,
         data: action.payload.data.data,
+        isLoading: false,
         isLoggedIn: true,
         error: false,
         errorMessage: '',
@@ -166,6 +169,7 @@ const user = (state=initialState, action) => {
     case 'FAILED_SESS_CHECK': {
       return {
         ...state,
+        isLoading: false,
         isLoggedIn: false,
       };
     }
@@ -173,6 +177,7 @@ const user = (state=initialState, action) => {
     case 'END_SESS_CHECK': {
       return {
         ...state,
+        isLoading: false,
         isLoggedIn: action.payload.data.status && state.data,
       };
     }

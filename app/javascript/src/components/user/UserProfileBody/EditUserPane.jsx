@@ -58,7 +58,7 @@ export default class UserPane extends Component {
           />
           <Form.Button disabled={disabled} onClick={this.onSave}>Save</Form.Button>
       </Form>
-      { loading &&
+      { loading && savePressed &&
         <Dimmer active>
           <Loader>Updating</Loader>
         </Dimmer>
