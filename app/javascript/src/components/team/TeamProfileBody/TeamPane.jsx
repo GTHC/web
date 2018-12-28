@@ -10,7 +10,6 @@ export default class UserPane extends Component {
   render () {
     const { team } = this.props;
     const { tentType, tentTypeColor } = defineTentColors(team.tent_type);
-    console.log(team);
 
     return (
       <div>
