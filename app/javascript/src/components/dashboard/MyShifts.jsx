@@ -52,15 +52,8 @@ class MyShifts extends Component {
         return (
             <Card fluid raised style={{marginTop: "16px"}}>
                     <Card.Content>
-                      <Header>
-                        <Header.Content>
-                          <div style={{ paddingTop: '12px', paddingLeft: '15px'}} >
-                            <h2> Upcoming Shifts </h2>
-                          </div>
-                        </Header.Content>
-                      </Header>
-                    </Card.Content>
-                    <Card.Content>
+                      <Card.Header> Upcoming Shifts </Card.Header>
+                  </Card.Content>
                 {items.length > 0
                     ? <Card.Group
                         items={items}
@@ -69,7 +62,6 @@ class MyShifts extends Component {
                         <Message.Header>You have no upcoming shifts!</Message.Header>
                         <p>Go to the Calendar to create shifts.</p>
                     </Message>}
-                </Card.Content>
            </Card>
         );
     }

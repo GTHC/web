@@ -32,33 +32,33 @@ export default class Hours extends Component {
   };
 
   //Function determining which View to Display
-  hoursNumber(user) {
+  hoursNumber= user => {
     return this.state.total == false
       ? user.hours.week
       : user.hours.total;
   };
 
-  nightNumber(user) {
+  nightNumber = user => {
     return this.state.total == false
       ? user.night.week
       : user.night.total;
   };
 
   //Function determining which Rank Data to Display
-  hourRank(user) {
+  hourRank = user => {
     return this.state.total == false
       ? user.rank.whour
       : user.rank.thour;
   };
 
-  nightRank(user) {
+  nightRank = user => {
     return this.state.total == false
       ? user.rank.wnight
       : user.rank.tnight;
   };
 
   //Function determining proper coloring of badges for certain ranks
-  trophy(user, view) {
+  trophy = (user, view) => {
     let rank;
     if (this.state.total) {
       rank = view == "hour"
@@ -142,8 +142,8 @@ export default class Hours extends Component {
   }
 
   //Needed to updated 'total' state value while switching view in dropdown. Look at line 192
-  handleChange(e, timeofDay) {
-    const total = timeofDay === 'Week'
+  handleChange(e, timeOfDay) {
+    const total = timeOfDay === 'Week'
       ? false
       : true;
     this.setState({
@@ -211,32 +211,23 @@ export default class Hours extends Component {
 
   //begining of render function
   render() {
-    const {total, hours} = this.state;
-    return (<Card fluid="fluid">
-      <Header textAlign='left'>
-        <Header.Content>
-          <div style={{
-              paddingTop: '12px',
-              paddingLeft: '15px'
-            }}>
-            <h2>Hour Breakdown</h2>
-          </div>
-        </Header.Content>
-      </Header>
-      <Card.Content textAlign="center">
-        <this.dropDown/>
-        <br/>
-        <br/>
-        <Card.Group centered="centered">
-          {
-            this.state.hours.map((user) => (<this.customCard user={user} key={user.name} style={{
-                paddingRight: '12px',
-                paddingLeft: '50px'
-              }}/>))
-          }
-        </Card.Group>
-      </Card.Content>
-    </Card>);
-
+    const { hours } = this.state;
+    return (
+      <Card fluid>
+        <Card.Content>
+          <Card.Header>Hour Breakdown</Card.Header>
+        </Card.Content>
+        <Card.Content>
+          {this.dropDown()}
+          <br/>
+          <br/>
+          <Card.Group>
+            {
+              hours.map((user) => (this.customCard({ user, key: user.name })))
+            }
+          </Card.Group>
+        </Card.Content>
+      </Card>
+    );
   }
 }
