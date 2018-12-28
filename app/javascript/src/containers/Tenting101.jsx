@@ -5,6 +5,9 @@ import { Menu, Image, Button, Form, Step, Divider, Message, Header, Segment, Car
 
 // import FAQ page
 import FAQ from './FAQ';
+// import Components
+import Step1 from './../components/tenting/Step1';
+import Essentials from './../components/tenting/Essentials';
 
 // redux
 import { connect } from 'react-redux';
@@ -62,8 +65,6 @@ class Tenting101 extends Component {
   render() {
     const { activeItem, activeStep, value } = this.state;
     const { router, } = this.props;
-    const square = { width: 175, height: 175 };
-    const url = 'http://www.kvillenation.com/images/navigation/brand/brand-dark.png';
     const path = router.location.pathname;
 
     const steps = [
@@ -99,63 +100,11 @@ class Tenting101 extends Component {
         <Step.Group fluid items={steps} />
         <Form>
           { activeStep === 0 &&
-           <div className="body">
-            <Image centered src={url} size='massive'/>
-            <Message centered header='Step 1' size='large' content='Find your tent members and establish a Tent Captain.'/>
-            <center>
-            <Segment circular inverted style={square}>
-              <Header as='h2' inverted> Black Tenting
-                <Header.Subheader> Best Seats - Longest Form of Tenting </Header.Subheader>
-              </Header>
-            </Segment>
-            <Segment circular color='blue' style={square}>
-              <Header as='h2' color='blue'> Blue Tenting
-                <Header.Subheader> Only available if there is room in K-Ville </Header.Subheader>
-              </Header>
-            </Segment>
-            <Segment circular style={square}>
-              <Header as='h2'> White Tenting
-                <Header.Subheader> Shortest Form of Tenting </Header.Subheader>
-              </Header>
-            </Segment>
-            </center>
-            <Message header='Tenting Color' size='large' content='Decide which color tenting your group would want to do.'/>
-            <Table celled inverted selectable unstackable>
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell>Color</Table.HeaderCell>
-                  <Table.HeaderCell>Start Date</Table.HeaderCell>
-                  <Table.HeaderCell>End Date</Table.HeaderCell>
-                  <Table.HeaderCell>Day Occupancy</Table.HeaderCell>
-                  <Table.HeaderCell>Night Occupancy</Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
-              <Table.Body>
-                <Table.Row>
-                  <Table.Cell>Black</Table.Cell>
-                  <Table.Cell>January 12th, 2018 at 11PM</Table.Cell>
-                  <Table.Cell>January 23rd, 2018 at 11PM</Table.Cell>
-                  <Table.Cell textAlign='center'> 2 </Table.Cell>
-                  <Table.Cell textAlign='center'> 10 </Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell>Blue</Table.Cell>
-                  <Table.Cell>January 23rd, 2018 at 11PM</Table.Cell>
-                  <Table.Cell>February 3rd, 2018 at 11PM </Table.Cell>
-                  <Table.Cell textAlign='center'> 1 </Table.Cell>
-                  <Table.Cell textAlign='center'> 6 </Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell>White</Table.Cell>
-                  <Table.Cell>February 3rd, 2018 at 11PM </Table.Cell>
-                  <Table.Cell>February 14th, 2018 at 12PM</Table.Cell>
-                  <Table.Cell textAlign='center'> 1 </Table.Cell>
-                  <Table.Cell textAlign='center'> 2 </Table.Cell>
-                </Table.Row>
-              </Table.Body>
-            </Table>
+          <div>
+            <Step1 />
+            <br />
             <FAQ />
-           </div>
+          </div>
           }
           { activeStep === 1 &&
             <div>
@@ -167,38 +116,8 @@ class Tenting101 extends Component {
           }
           { activeStep === 2 &&
             <div>
-             <Segment placeholder>
-                <Grid columns={2} stackable textAlign='center'>
-                  <Divider vertical></Divider>
-                  <Grid.Row verticalAlign='middle'>
-                    <Grid.Column>
-                      <Segment><h1>Tenting Essentials</h1></Segment>
-                      <Image centered src="https://kenan.ethics.duke.edu/wp-content/uploads/2017/02/tenting-01-300x300.png"/>
-                    </Grid.Column>
-                    <Grid.Column>
-                    <Segment.Group>
-                      <Segment><h3> The following items: </h3></Segment>
-                      <Segment.Group>
-                        <Segment as='h5' attached>1. Tent </Segment>
-                        <Message warning attached='bottom'>
-                          <Icon name='warning' />
-                              Fire Safe, Large 12 Person Tent
-                        </Message>
-                        <Segment as='h5' attached>2. Palletes </Segment>
-                        <Message attached> (Goes under the tents) </Message>
-                        <Segment as='h5' attached>3. Tarp </Segment>
-                        <Message attached inverted> (Over the tent, helps with heat and weather) </Message>
-                        <Segment as='h5' attached>4. 0 Degree Sleeping Bags </Segment>
-                        <Message attached inverted> (It gets cold in K-Ville) </Message>
-                        <Segment as='h5' attached>5. Flashlights, Lanterns </Segment>
-                        <Message attached inverted> (For the fun late nights in K-Ville)</Message>
-                      </Segment.Group>
-                    </Segment.Group>
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-            </Segment>
-          </div>
+              <Essentials />
+            </div>
           }
           </Form>
         <br />
