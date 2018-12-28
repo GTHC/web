@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       resources :shifts, :teams, :captains, :users
       post 'user/shifts', to: 'users#shifts'
       put 'user/password/check', to: 'users#password_check'
+      post 'user/availability', to: 'users#update_availability'
     end
   end
 end
