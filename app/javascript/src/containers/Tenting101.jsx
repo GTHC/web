@@ -11,8 +11,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { push } from './../actions/router';
 
-// kville logo
+// logos
 import * as kvilleLogo from './../images/kville.png';
+import * as logo from './../images/gthc.png';
 
 class Tenting101 extends Component {
   constructor(props) {
@@ -27,9 +28,6 @@ class Tenting101 extends Component {
     console.log('data', data);
     // data.id is the id element in the component that is clicked
     switch (data.id) {
-      case 'about':
-          this.props.push('/about')
-          return;
       case 'login':
           this.props.push('/login')
           return;
@@ -78,7 +76,9 @@ class Tenting101 extends Component {
       <div className="body">
         <div className="t101">
           <Menu secondary>
-            <Menu.Item header> GTHC ⛺</Menu.Item>
+          <Menu.Item header>
+            <Image src={logo} size="tiny" />
+          </Menu.Item>
             <Menu.Item
             id='about'
             active={path === '/about'}
