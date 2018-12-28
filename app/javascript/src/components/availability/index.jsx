@@ -3,30 +3,27 @@ import React, { Component } from 'react';
 // semantic-ui
 import { Grid, Segment, Divider, Button, Icon, Card } from 'semantic-ui-react';
 
-// helpers
-import _ from 'lodash';
-
 const times = [
-  '7:00 - 8:00 AM',
-  '8:00 - 9:00 AM',
-  '9:00 - 10:00 AM',
-  '10:00 - 11:00 AM',
-  '11:00 - 12:00 PM',
-  '12:00 - 1:00 PM',
-  '1:00 - 2:00 PM',
-  '2:00 - 3:00 PM',
-  '3:00 - 4:00 PM',
-  '4:00 - 5:00 PM',
-  '5:00 - 6:00 PM',
-  '6:00 - 7:00 PM',
-  '7:00 - 8:00 PM',
-  '8:00 - 9:00 PM',
-  '9:00 - 10:00 PM',
-  '10:00 - 11:00 PM',
-  '11:00 - 12:00 AM',
-  '12:00 - 1:00 AM',
-  '1:00 - 2:00 AM',
-  'Night Shift',
+  '12:00 - 1:00 am',
+  '1:00 - 2:00 am',
+  'Night Shift 🌜',
+  '7:00 - 8:00 am',
+  '8:00 - 9:00 am',
+  '9:00 - 10:00 am',
+  '10:00 - 11:00 am',
+  '11:00 - 12:00 pm',
+  '12:00 - 1:00 pm',
+  '1:00 - 2:00 pm',
+  '2:00 - 3:00 pm',
+  '3:00 - 4:00 pm',
+  '4:00 - 5:00 pm',
+  '5:00 - 6:00 pm',
+  '6:00 - 7:00 pm',
+  '7:00 - 8:00 pm',
+  '8:00 - 9:00 pm',
+  '9:00 - 10:00 pm',
+  '10:00 - 11:00 pm',
+  '11:00 - 12:00 am',
 ];
 
 const days = [
@@ -110,10 +107,9 @@ class Availability extends Component {
   };
 
   renderKey = () => (
-    <Card fluid raised>
-      <Grid columns={4} relaxed="very" padded>
-        <Grid.Row>
-          <Grid.Column textAlign="center"><h3> Key </h3></Grid.Column>
+    <div>
+      <Grid relaxed="very" padded>
+        <Grid.Row columns={3}>
           <Grid.Column textAlign="center">
             <h4> Unavailable </h4> <Icon color='red' name='cancel' size='large' />
           </Grid.Column>
@@ -124,28 +120,34 @@ class Availability extends Component {
             <h4> Available </h4> <Icon color='green' name='checkmark' size='large' />
           </Grid.Column>
         </Grid.Row>
+        <Grid.Row columns={1}>
+          <Grid.Column textAlign="center">
+            <i>Click icons below to select availability.</i>
+          </Grid.Column>
+        </Grid.Row>
       </Grid>
-     </Card>
+
+    </div>
   );
 
   render() {
     return (
       <div>
+        {this.renderKey()}
         <Grid columns='equal' celled >
-          {this.renderKey()}
-            <Grid columns={8} padded>
-            {days.map(day => (
-              <Grid.Column textAlign="center" key={day} color='green'>
-                <Grid.Row style={{height: '10%'}}>{_.capitalize(day)}</Grid.Row>
-              </Grid.Column>
-            ))}
-            </Grid>
-            {times.map((time, row) => (
-              <Grid.Row key={time} style={{height: '6.5%'}}>
-                <Grid.Column> {_.capitalize(time)} </Grid.Column>
-                {this.renderColumns(row)}
-              </Grid.Row>
-            ))}
+          <Grid columns={8} padded>
+          {days.map(day => (
+            <Grid.Column textAlign="center" key={day} color='green'>
+              <Grid.Row style={{ height: '10%' }}>{day}</Grid.Row>
+            </Grid.Column>
+          ))}
+          </Grid>
+          {times.map((time, row) => (
+            <Grid.Row key={time} style={{ height: '6.5%' }}>
+              <Grid.Column> {time} </Grid.Column>
+              {this.renderColumns(row)}
+            </Grid.Row>
+          ))}
         </Grid>
       </div>
     );

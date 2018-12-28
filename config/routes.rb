@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       post 'user/shifts', to: 'users#shifts'
       put 'user/password/check', to: 'users#password_check'
       post 'user/availability', to: 'users#update_availability'
+      get 'team/availability', to: 'teams#shift_availabilities'
     end
   end
 end
