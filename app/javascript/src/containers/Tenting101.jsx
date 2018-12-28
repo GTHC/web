@@ -73,8 +73,8 @@ class Tenting101 extends Component {
 
     return (
       <div className="body">
-        <div className="t101">
-          <Menu secondary>
+        <div style={{ paddingBottom: '75px'}}>
+          <Menu secondary fixed="top" inverted color="blue">
           <Menu.Item header>
             <Image src={logo} size="tiny" />
           </Menu.Item>
@@ -89,14 +89,10 @@ class Tenting101 extends Component {
              id='login'
              active={path === '/login'}
              onClick={this.handleClick}>
+             <Icon name="sign in" />
              Login
              </Menu.Item>
           </ Menu>
-          <Divider horizontal>
-            <Header as='h4'>
-                Just a 3 Step Process
-              </Header>
-            </Divider>
           </ div>
 
         <Step.Group fluid items={steps} />
