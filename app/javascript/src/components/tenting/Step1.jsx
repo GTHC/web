@@ -5,6 +5,8 @@ import { Menu, Image, Button, Form, Step, Divider, Message, Header, Segment, Car
 
 // logos
 import * as kvilleLogo from './../../images/kville.png';
+// import FAQ page
+import FAQ from './FAQ';
 
 class Step1 extends Component {
   render () {
@@ -65,6 +67,8 @@ class Step1 extends Component {
            </Table.Row>
          </Table.Body>
        </Table>
+       <br />
+       <FAQ />
       </div>
     );
   }

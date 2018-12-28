@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 // semantic ui components
 import { Menu, Image, Button, Form, Step, Divider, Message, Header, Segment, Card, Grid, Table, Icon } from 'semantic-ui-react';
 
-// import FAQ page
-import FAQ from './FAQ';
 // import Components
 import Step1 from './../components/tenting/Step1';
 import Essentials from './../components/tenting/Essentials';
@@ -94,16 +92,18 @@ class Tenting101 extends Component {
              Login
              </Menu.Item>
           </ Menu>
-        </ div>
-        <br />
+          <Divider horizontal>
+            <Header as='h4'>
+                Just a 3 Step Process
+              </Header>
+            </Divider>
+          </ div>
 
         <Step.Group fluid items={steps} />
         <Form>
           { activeStep === 0 &&
           <div>
             <Step1 />
-            <br />
-            <FAQ />
           </div>
           }
           { activeStep === 1 &&

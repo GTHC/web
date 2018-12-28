@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   get 'app', to: 'pages#index'
   get 'app/*path', to: 'pages#index'
   get 'tenting101', to: 'pages#index'
-  get 'faq', to: 'pages#index'
   get 'about', to: 'pages#index'
 
   # Login/Logout

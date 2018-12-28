@@ -20,7 +20,7 @@ class Essentials extends Component {
                 <Segment><h3> The following items: </h3></Segment>
                 <Segment.Group>
                   <Segment as='h5' attached>1. Tent </Segment>
-                  <Message attached='bottom'>
+                  <Message success attached='bottom'>
                         Fire Safe, Large 12 Person Tent
                   </Message>
                   <Segment as='h5' attached>2. Palletes </Segment>

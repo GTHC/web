@@ -15,7 +15,6 @@ import Dashboard from './Dashboard';
 import Calendar from './Calendar';
 import UserProfile from './UserProfile';
 import TeamProfile from './TeamProfile';
-import FAQ from './FAQ';
 import Tenting101 from './Tenting101';
 // import About from './About';
 
