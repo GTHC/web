@@ -159,6 +159,7 @@ const mapDispatchToProps = (dispatch) => {
       logoutUser: logout,
       signup: signup,
       signupNewTeam: signupNewTeam,
+      clearError: clearError,
       push: push,
     },
     dispatch);

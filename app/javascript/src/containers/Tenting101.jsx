@@ -26,7 +26,6 @@ class Tenting101 extends Component {
     this.handleReset = this.handleReset.bind(this);
   }
   handleClick = (e, data) => {
-    console.log('data', data);
     // data.id is the id element in the component that is clicked
     switch (data.id) {
       case 'login':
@@ -92,8 +91,8 @@ class Tenting101 extends Component {
              <Icon name="sign in" />
              Login
              </Menu.Item>
-          </ Menu>
-          </ div>
+          </Menu>
+          </div>
 
         <Step.Group fluid items={steps} />
         <Form>

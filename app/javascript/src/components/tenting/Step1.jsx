@@ -14,7 +14,7 @@ class Step1 extends Component {
     return (
       <div className="body">
        <Image centered src={kvilleLogo} size='massive'/>
-       <Message centered header='Step 1' size='large' content='Find your tent members and establish a Tent Captain.'/>
+       <Message header='Step 1' size='large' content='Find your tent members and establish a Tent Captain.'/>
        <center>
        <Segment circular inverted style={square}>
          <Header as='h2' inverted> Black Tenting
