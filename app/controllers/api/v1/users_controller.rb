@@ -9,6 +9,16 @@ class Api::V1::UsersController < ApiController
   def index
   end
 
+  # purpose - checks if users' session is still live
+  # GET /api/v1/user/session
+  def timeout
+    if current_user
+      render json: { message: 'User logged in.', status: true }
+    else
+      render json: { message: 'User not logged in.', status: false }
+    end
+  end
+
   # POST /api/v1/users
   def create
     validate_params

@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 
+// redux actions
+import { checkSession } from '../actions/user';
+
 import { Route, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import { ConnectedSwitch } from './../components';
@@ -34,6 +37,10 @@ const AppRoutes = () => (
 
 
 class App extends Component {
+  componentDidMount() {
+    this.props.checkSession();
+  }
+
   render() {
     const { history, user } = this.props;
     return (
@@ -68,18 +75,15 @@ const mapStateToProps = (state) => {
   }
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators(
-//     {
-//       getClasses: getClasses,
-//       getAllMajors: getAllMajors,
-//       getReqs: getReqs,
-//       getAllClasses: getAllClasses,
-//     },
-//     dispatch);
-// };
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      checkSession,
+    },
+    dispatch);
+};
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 export {
   Login
