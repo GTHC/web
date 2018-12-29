@@ -200,10 +200,10 @@ export default class Hours extends Component {
         }}>
         <Icon name='calendar'/>
         View by {' '}
-        <Dropdown labeled="labeled" inline="inline" options={lengthOptions} defaultValue={lengthOptions[0].value} onChange={(e, value) => this.handleChange(e, value.value)}/>
+        <Dropdown labeled inline options={lengthOptions} defaultValue={lengthOptions[0].value} onChange={(e, value) => this.handleChange(e, value.value)}/>
         <Icon name='trophy'/>
         Rank by {' '}
-        <Dropdown labeled="labeled" inline="inline" options={rankOptions} defaultValue={rankOptions[0].value} onChange={(e, value) => this.handleNightorHours(e, value.value)}/>
+        <Dropdown labeled inline options={rankOptions} defaultValue={rankOptions[0].value} onChange={(e, value) => this.handleNightorHours(e, value.value)}/>
       </div>
     </div>
 
