@@ -1,7 +1,13 @@
 setup:
   addons:
-    - plan: 'heroku-postgresql'
+    - plan: heroku-postgresql
       as: DATABASE
 build:
   docker:
     web: Dockerfile
+release:
+  image: web
+  command:
+    - ./bin/deployment-tasks.sh
+run:
+  web: yarn run prod
