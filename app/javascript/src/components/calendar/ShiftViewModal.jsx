@@ -19,11 +19,11 @@ class ShiftViewModal extends Component {
             <Modal.Description>
               <p>{genDatesFormat(shiftData.start, shiftData.end)}</p>
             </Modal.Description>
-            <br />
-            <br />
             {
               shiftData.note &&
               <div>
+                <br />
+                <br />
                 <Modal.Description as="h4">
                   Note:
                 </Modal.Description>
