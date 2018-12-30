@@ -72,8 +72,8 @@ class Tenting101 extends Component {
 
     return (
       <div className="body">
-        <div style={{ paddingBottom: '60px'}}>
-          <Menu fixed="top" inverted color="blue">
+        <div>
+          <Menu secondary>
           <Menu.Item header>
             <Image src={logo} size="tiny" />
           </Menu.Item>
