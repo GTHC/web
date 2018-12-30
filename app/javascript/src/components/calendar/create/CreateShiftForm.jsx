@@ -23,8 +23,20 @@ class CreateShiftForm extends Component {
     };
   }
 
+  componentDidUpdate() {
+    // any changes made to ShiftTimeInput will update availabilities
+    this.getAvailabilities();
+  }
+
   componentDidMount() {
-    const { start, end } = this.props;
+    // Before the form mounts, we get all of the users availabilities for the possible shift
+    this.getAvailabilities();
+  }
+
+  getAvailabilities = () => {
+    const start = this.props.start_time;
+    const end = this.props.end_time;
+
     const availStart = hourToAvailPosition(start);
     const availEnd = hourToAvailPosition(end);
     const availDay = start.getDay();
@@ -75,7 +87,7 @@ class CreateShiftForm extends Component {
       onClose,
       createShift, getAllShifts,
       title, note, user_ids,
-      start, end,
+      start_time, end_time,
     } = this.props;
     if (title.trim() == '') {
       this.setState({ error: true });
@@ -83,8 +95,8 @@ class CreateShiftForm extends Component {
       this.setState({ error: false });
       const shiftData = {
         title, note,
-        start_time: start,
-        end_time: end,
+        start_time,
+        end_time,
         user_ids: user_ids.length > 0 ? user_ids : undefined,
       };
       createShift(shiftData);
