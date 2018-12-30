@@ -2,13 +2,65 @@ import React, { Component } from 'react';
 
 import { Form, Divider } from 'semantic-ui-react';
 
+// utils
+import getShiftAvailability from './../utils/getShiftAvailability';
+import hourToAvailPosition from './../utils/hourToAvailPosition';
+import PopupInfo from './../utils/PopupInfo';
+
 class CreateShiftForm extends Component {
 
   constructor(props) {
     super(props);
+    const usersData = props.team.data.users;
+    const userOptions = usersData.map(user => ({
+      key: user.id,
+      value: user.id,
+      text: user.name,
+    }));
     this.state = {
       error: false,
+      userOptions,
     };
+  }
+
+  componentDidMount() {
+    const { start, end } = this.props;
+    const availStart = hourToAvailPosition(start);
+    const availEnd = hourToAvailPosition(end);
+    const availDay = start.getDay();
+    getShiftAvailability(availDay, availStart, availEnd)
+    .then(res => {
+      const { data } = res.data;
+      const userOptions = [];
+
+      // sorting users by availability and then alphabetically
+      data.sort((a, b) => {
+        if (a.shift_availability == b.shift_availability) {
+          if (a.name > b.name) { return 1; }
+          if (a.name < b.name) { return -1; }
+          return 0;
+        } else {
+          return b.shift_availability - a.shift_availability;
+        }
+      });
+
+      data.forEach(user => {
+        // choose color for availability
+        const color = user.shift_availability == 2 ? 'green' :
+        (user.shift_availability == 1 ? 'yellow' : 'red');
+
+        // adding dropdown item elements to userOptions
+        userOptions.push({
+          key: user.id,
+          value: user.id,
+          text: user.name,
+          label: { color: color, circular: true, empty: true },
+          // TODO: Add image src for user profile
+          // image: { avatar: true, src: 'https://react.semantic-ui.com/images/wireframe/image.png' },
+        });
+      });
+      this.setState({ userOptions });
+    });
   }
 
   onInputChange = (e, { value, id }) => {
@@ -43,16 +95,7 @@ class CreateShiftForm extends Component {
 
   render() {
     const { title, note, team } = this.props;
-    const { error } = this.state;
-    const usersData = team.data.users;
-    const userOptions = usersData.map(user => ({
-      key: user.id,
-      value: user.id,
-      text: user.name,
-
-      // TODO: Add image src for user profile
-      image: { avatar: true },
-    }));
+    const { error, userOptions } = this.state;
     return (
       <Form>
         <Form.Input
@@ -73,7 +116,8 @@ class CreateShiftForm extends Component {
         <Form.Dropdown
           id="user_ids"
           fluid multiple search selection
-          label="Add users to new Shift"
+          scrolling upward
+          label={<div>Add users to new Shift <PopupInfo /></div>}
           placeholder="(Default: You)"
           options={userOptions}
           onChange={this.onInputChange}
