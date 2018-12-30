@@ -7,6 +7,8 @@ import * as moment from 'moment';
  */
 const genDateFormat = (date) => (moment(date).format('dddd, MMMM Do YYYY, h:mm a'));
 
+const genDateFormatWithoutTime = date => (moment(date).format('dddd, MMMM Do YYYY '));
+
 /**
  * genDatesFormat - gives a string range between two dates
  * @param  {Date} start start date of a shift
@@ -42,4 +44,5 @@ const isSameDay = (d1, d2) => (d1.getDate() === d2.getDate()
 export {
   genDateFormat,
   genDatesFormat,
+  genDateFormatWithoutTime,
 };
