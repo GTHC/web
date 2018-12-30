@@ -3396,6 +3396,10 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
+keyboard-key@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/keyboard-key/-/keyboard-key-1.0.2.tgz#212e14dde4c2059814336159bbc5acd0a348ca6b"
+
 killable@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/killable/-/killable-1.0.1.tgz#4c8ce441187a061c7474fb87ca08e2a638194892"
@@ -5645,6 +5649,15 @@ selfsigned@^1.9.1:
   resolved "https://registry.yarnpkg.com/selfsigned/-/selfsigned-1.10.4.tgz#cdd7eccfca4ed7635d47a08bf2d5d3074092e2cd"
   dependencies:
     node-forge "0.7.5"
+
+semantic-ui-calendar-react@^0.12.1:
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/semantic-ui-calendar-react/-/semantic-ui-calendar-react-0.12.1.tgz#3802b1a873b0293ae50ded566a3de5b40073a152"
+  dependencies:
+    keyboard-key "^1.0.2"
+    lodash "^4.17.10"
+    moment "^2.22.2"
+    prop-types "^15.6.2"
 
 semantic-ui-css@^2.2.12:
   version "2.4.1"
