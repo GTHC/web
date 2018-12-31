@@ -61,11 +61,17 @@ class Api::V1::UsersController < ApiController
       if current_user
         # Change availability from Strings to Integers
         @user.availability.map! {|arr| arr.map.map(&:to_i) }
-        render json: { status: 'SUCCESS', message: 'User Logged In', data: {
-          user: @user,
-          team: @team,
-          captain: @team.captain,
-          } }, status: :ok
+
+        # setting up data
+        data = {
+            user: @user.as_json,
+            team: @team,
+            captain: @team.captain,
+          }
+
+        # add avatarURL if avatar
+        data[:user][:avatarURL] = url_for(@user.avatar) if @user.avatar.attached?
+        render json: { status: 'SUCCESS', message: 'User Logged In', data: data  }, status: :ok
       else
         render json: { status: 'ERROR', message: 'Error while Logging In' }, status: :unauthorized
       end
