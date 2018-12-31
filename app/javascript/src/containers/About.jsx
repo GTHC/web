@@ -3,7 +3,7 @@ import React from 'react';
 import { Card, Icon, Image, Message } from 'semantic-ui-react';
 
 const AboutPage = () => (
-  <div className="body">
+  <div className="login">
     <Card fluid centered>
       <Card.Content textAlign="center">
         <Message size='massive'> Meet the Team </Message>
@@ -29,68 +29,89 @@ const AboutPage = () => (
           </Card.Content>
         </Card>
 
-      <Card centered>
-        <Image src='https://scontent-iad3-1.xx.fbcdn.net/v/t31.0-8/17390690_1287621711329761_1734721323901598994_o.jpg?_nc_cat=100&_nc_ht=scontent-iad3-1.xx&oh=9dcb42be2d19103f7e46cf93c25f37a7&oe=5C72FEED' />
-        <Card.Content>
-          <Card.Header> Vinit Parekh </Card.Header>
-          <Card.Meta> One of the Three Amigos </Card.Meta>
-          <Card.Description> Vinit is part of the graduating class of 2020 studying a combination of Neuroscience, Computer Science, and Statistics. He is involved with many organizations on campus like Fix My Campus and Scale and Coin to name a few. This is his first web development project, and he thanks his teammates Aman, Anesu, and Rikki  for teaching and helping him about full stack web development.</Card.Description>
-        </Card.Content>
-        <Card.Content extra>
-          <a>
-            <Icon name='user' />
-            Admin
-          </a>
-        </Card.Content>
-      </Card>
-
-      <Card centered>
-        <Image src='https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/34142086_1929385717113887_2009316225124925440_o.jpg?_nc_cat=100&_nc_ht=scontent-iad3-1.xx&oh=bf70c8fdb9f2af69ac2ff6b874f8b591&oe=5C638327' />
-        <Card.Content>
-          <Card.Header> Rikki Kendall </Card.Header>
-          <Card.Meta> One of the Three Amigos </Card.Meta>
-          <Card.Description> Rikki is part of the graduating class of 2020 studying Computer Science with an AMES Minor. He is a member of the Line Monitors, Air Force ROTC, and DEID Bolivia where he built two bridges the past two summers. Rikki intends to commission as a 2nd Lieutenant in the United States Air Force once he graduates. </Card.Description>
-        </Card.Content>
-        <Card.Content extra>
-          <a>
-            <Icon name='user' />
-            Admin
-          </a>
-        </Card.Content>
-      </Card>
-      </Card.Group>
-        <Card.Group>
         <Card centered>
-          <Image rounded src='http://image.cdnllnwnl.xosnetwork.com/pics24/400/KN/KNUUGURFURIRDPP.20070212204646.jpg' />
+          <Image src='https://scontent-iad3-1.xx.fbcdn.net/v/t31.0-8/17390690_1287621711329761_1734721323901598994_o.jpg?_nc_cat=100&_nc_ht=scontent-iad3-1.xx&oh=9dcb42be2d19103f7e46cf93c25f37a7&oe=5C72FEED' />
           <Card.Content>
-            <Card.Header> Debbie Krzyzewski </Card.Header>
-            <Card.Description> Debbie is one of our clients with Duke Basketball and has been incredible in supporting us throughout the process of building this application. Thank you so much for your help Debbie. </Card.Description>
+            <Card.Header> Vinit Parekh </Card.Header>
+            <Card.Meta> One of the Three Amigos </Card.Meta>
+            <Card.Description> Vinit is part of the graduating class of 2020 studying a combination of Neuroscience, Computer Science, and Statistics. He is involved with many organizations on campus like Fix My Campus and Scale and Coin to name a few. This is his first web development project, and he thanks his teammates Aman, Anesu, and Rikki  for teaching and helping him about full stack web development.</Card.Description>
           </Card.Content>
           <Card.Content extra>
             <a>
               <Icon name='user' />
-              Client
+              Admin
             </a>
           </Card.Content>
         </Card>
+
         <Card centered>
-          <Image src='https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/33493049_10157366811269325_20159270817366016_o.jpg?_nc_cat=111&_nc_ht=scontent-iad3-1.xx&oh=ba225586d37a1eab60ccc352471d83f2&oe=5CAF7EF5'
-        />
+          <Image src='https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/34142086_1929385717113887_2009316225124925440_o.jpg?_nc_cat=100&_nc_ht=scontent-iad3-1.xx&oh=bf70c8fdb9f2af69ac2ff6b874f8b591&oe=5C638327' />
           <Card.Content>
-            <Card.Header> Grant Besner </Card.Header>
-            <Card.Description> Grant is one of our clients with the Tenters and has been incredible in supporting us throughout the process of building this application. Thank you so much for your help Grant. </Card.Description>
+            <Card.Header> Rikki Kendall </Card.Header>
+            <Card.Meta> One of the Three Amigos </Card.Meta>
+            <Card.Description> Rikki is part of the graduating class of 2020 studying Computer Science with an AMES Minor. He is a member of the Line Monitors, Air Force ROTC, and DEID Bolivia where he built two bridges the past two summers. Rikki intends to commission as a 2nd Lieutenant in the United States Air Force once he graduates. </Card.Description>
           </Card.Content>
           <Card.Content extra>
             <a>
               <Icon name='user' />
-              Client
+              Admin
             </a>
           </Card.Content>
         </Card>
         </Card.Group>
-        <Message size='massive'>
-          Also a big thank you to the CS 408 students and faculty for your support!
-        </Message>
+
+        <Card.Group centered>
+          <Card centered>
+            <Image rounded src='https://scontent.fhkg3-2.fna.fbcdn.net/v/t1.0-9/21032580_465472987157268_6322993883696927594_n.jpg?_nc_cat=111&_nc_ht=scontent.fhkg3-2.fna&oh=8dc37534d0513c91c50260adf6e4503d&oe=5CD55854' />
+            <Card.Content>
+              <Card.Header> Anesu Mafuvadze </Card.Header>
+              <Card.Description> Anesu is a junior studying Computer Science with a minor in Education. He enjoys all things basketball. His favorite basketball team are the Los Angeles Lakers. When he is not in his dorm, he can be found in Wilson gym playing pickup basketball. </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+              <a>
+                <Icon name='user' />
+                Admin
+              </a>
+            </Card.Content>
+          </Card>
+
+          <Card centered>
+            <Image rounded src='https://scontent.fhkg3-1.fna.fbcdn.net/v/t1.0-1/c0.0.959.959a/18622265_1872884956299375_8395037700206320293_n.jpg?_nc_cat=107&_nc_ht=scontent.fhkg3-1.fna&oh=c89d12ecf280bc4b70be9da2893732d2&oe=5C93A475' />
+            <Card.Content>
+              <Card.Header> Abdulla Shahid </Card.Header>
+              <Card.Description> Abdulla is a class of 2020 undergraduate majoring in Computer Science and Biology from Woodbridge, VA. He currently does research with Duke BME and Duke Neurology and is also involved with multiple clubs on campus such as Habitat for Humanity and Relay for Life. This is also Abdulla’s first web development project and he thanks all of his teammates for their guidance/coding wisdom. </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+              <a>
+                <Icon name='user' />
+                Admin
+              </a>
+            </Card.Content>
+          </Card>
+          </Card.Group>
+
+          <Message
+            size = 'massive'
+            success
+            header='Our Clients: K-Ville Tenters'
+            content='Thank you to all of our incredible supporters, Professor Duval and the CS408 Course, and to Duke Basketball.'
+          />
+
+          <Card.Group>
+          <Card centered>
+            <Image rounded src='http://image.cdnllnwnl.xosnetwork.com/pics24/400/KN/KNUUGURFURIRDPP.20070212204646.jpg' />
+            <Card.Content>
+              <Card.Header> Debbie Krzyzewski </Card.Header>
+              <Card.Description> Debbie is one of our clients with Duke Basketball and has been incredible in supporting us throughout the process of building this application. Thank you so much for your help Debbie. </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+              <a>
+                <Icon name='user' />
+                Client
+              </a>
+            </Card.Content>
+          </Card>
+          </Card.Group>
       </Card.Content>
     </Card>
   </div>
