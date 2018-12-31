@@ -34,5 +34,8 @@ yarn-debug.log*
 .yarn-integrity
 .env*
 
+# storage
+/storage
+
 # production
 /public/assets
