@@ -158,6 +158,16 @@ class Api::V1::UsersController < ApiController
     end
   end
 
+  # POST /api/v1/user/avatar
+  def update_avatar
+    validate_avatar_params
+    if current_user.avatar.attach(params[:avatar_file])
+      render json: { status: 'SUCCESS', message: 'User avatar updated successfully', data: url_for(current_user.avatar) }, status: :ok
+    else
+      render json: { status: 'ERROR', message: 'User avatar not updated.' }, status: :unprocessable_entity
+    end
+  end
+
   private
 
     def set_user
@@ -207,6 +217,10 @@ class Api::V1::UsersController < ApiController
 
     def validate_availability
       params.require([:availability])
+    end
+
+    def validate_avatar_params
+      params.require(:avatar_file)
     end
 
     def param_missing(exception)
