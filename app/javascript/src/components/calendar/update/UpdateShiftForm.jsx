@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 
 // semantic-ui
 import { Form } from 'semantic-ui-react';
+import PopupInfo from './../utils/PopupInfo';
 
-// utils
+// utils functions
 import getShiftAvailability from './../utils/getShiftAvailability';
 import hourToAvailPosition from './../utils/hourToAvailPosition';
-import PopupInfo from './../utils/PopupInfo';
 
 class UpdateShiftForm extends Component {
 
@@ -24,8 +24,20 @@ class UpdateShiftForm extends Component {
     };
   }
 
+  componentDidUpdate() {
+    // any changes made to ShiftTimeInput will update availabilities
+    this.getAvailabilities();
+  }
+
   componentDidMount() {
-    const { start, end } = this.props.shiftData;
+    // Before the form mounts, we get all of the users availabilities for the possible shift
+    this.getAvailabilities();
+  }
+
+  getAvailabilities = () => {
+    const start = this.props.start_time;
+    const end = this.props.end_time;
+
     const availStart = hourToAvailPosition(start);
     const availEnd = hourToAvailPosition(end);
     const availDay = start.getDay();
@@ -62,7 +74,7 @@ class UpdateShiftForm extends Component {
       });
       this.setState({ userOptions });
     });
-  }
+  };
 
   onInputChange = (e, { value, id }) => {
     const { updateShiftData, shiftData } = this.props;
@@ -74,13 +86,16 @@ class UpdateShiftForm extends Component {
   };
 
   handleUpdate = () => {
-    const { close, shiftData, updateShift } = this.props;
+    const {
+      close, shiftData, updateShift,
+      start_time, end_time,
+    } = this.props;
     if (this.checkErrors(shiftData)) return;
 
     const data = {
       ...shiftData,
-      start_time: shiftData.start,
-      end_time: shiftData.end,
+      start_time,
+      end_time,
     };
     updateShift(shiftData.id, data);
     close();
