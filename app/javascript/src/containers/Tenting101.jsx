@@ -31,6 +31,9 @@ class Tenting101 extends Component {
       case 'login':
           this.props.push('/login')
           return;
+      case 'about':
+          this.props.push('/about');
+          return;
       default:
         return;
     }
