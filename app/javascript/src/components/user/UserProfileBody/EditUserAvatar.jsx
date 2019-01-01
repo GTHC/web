@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // semantic-ui
-import { Image, Form } from 'semantic-ui-react';
+import { Image, Form, Loader, Message } from 'semantic-ui-react';
 
 // images
 import * as defaultSrc from '../../../images/default_image.png';
@@ -11,9 +11,10 @@ class EditUserAvatar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      disabled: true,
-      savePressed: false,
       avatarFile: null,
+      disabled: true,
+      loading: props.userState.isLoading,
+      savePressed: false,
       src: props.user.avatarURL || defaultSrc,
     };
   }
@@ -25,14 +26,14 @@ class EditUserAvatar extends Component {
     // this (onloadend) allows us to gen url for local images in order
     // to preview images after selecting
     fileReader.onloadend = () => {
-      this.setState({ avatarFile, src: fileReader.result, disabled: false, });
+      this.setState({ avatarFile, src: fileReader.result, disabled: false, savePressed: false });
     };
 
     if (avatarFile && this.isImage(avatarFile)) {
       // if the avatarFile is valid, the fileReader will call the onloadend function
       fileReader.readAsDataURL(avatarFile);
     } else {
-      this.setState({ disabled: true });
+      this.setState({ disabled: true, savePressed: false });
     }
   };
 
@@ -45,6 +46,7 @@ class EditUserAvatar extends Component {
     const formData = new FormData();
     formData.append('avatarFile', this.state.avatarFile);
     this.props.postAvatar(formData);
+    this.setState({ savePressed: true });
 
     // TODO: Remove this comment
     // function request to refer to:
@@ -57,7 +59,13 @@ class EditUserAvatar extends Component {
 
   render() {
     const { user } = this.props;
-    const { src, disabled } = this.state;
+    const { error } = this.props.userState;
+    const {
+      disabled,
+      loading,
+      src,
+      savePressed,
+    } = this.state;
     return (
       <div>
         <Image
@@ -74,6 +82,31 @@ class EditUserAvatar extends Component {
           />
           <Form.Button disabled={disabled} onClick={this.onSave}>Save</Form.Button>
         </Form>
+        { loading && savePressed &&
+          <Dimmer active>
+            <Loader>Updating</Loader>
+          </Dimmer>
+        }
+        {
+          !loading && savePressed && !error &&
+          <Message
+            positive
+            attached
+            icon="check"
+            header="Updated Successfully!"
+            content="Avatar has been updated."
+          />
+        }
+        {
+          !loading && savePressed && error &&
+          <Message
+            negative
+            attached
+            icon="x"
+            header="Error"
+            content="Avatar has not been updated."
+          />
+        }
       </div>
     );
   }
