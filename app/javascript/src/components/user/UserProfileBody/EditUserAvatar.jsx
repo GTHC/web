@@ -16,8 +16,14 @@ class EditUserAvatar extends Component {
 
   onFileChange = (e, data) => {
     const avatarFile = e.currentTarget.files[0];
-    this.setState({ avatarFile });
+    if (this.isImage(avatarFile)) {
+      this.setState({ avatarFile });
+    }
+
+    console.log(avatarFile);
   };
+
+  isImage = file => (file.type == 'image/png' || file.type == 'image/jpg' || file.type == 'image/jpeg');
 
   onSave = () => {
     const formData = new FormData();
