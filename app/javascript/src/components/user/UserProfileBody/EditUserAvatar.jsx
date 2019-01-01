@@ -22,22 +22,29 @@ class EditUserAvatar extends Component {
     const avatarFile = e.currentTarget.files[0];
     const fileReader = new FileReader();
 
-    // this allows us to gen url for local images in order
+    // this (onloadend) allows us to gen url for local images in order
     // to preview images after selecting
     fileReader.onloadend = () => {
-      this.setState({ avatarFile, src: fileReader.result });
+      this.setState({ avatarFile, src: fileReader.result, disabled: false, });
     };
 
     if (avatarFile && this.isImage(avatarFile)) {
+      // if the avatarFile is valid, the fileReader will call the onloadend function
       fileReader.readAsDataURL(avatarFile);
+    } else {
+      this.setState({ disabled: true });
     }
   };
 
   isImage = file => (file.type == 'image/png' || file.type == 'image/jpg' || file.type == 'image/jpeg');
 
   onSave = () => {
+
+    // Active Storage on rails needs a form data type
+    // in order to attach an avatar file to a user
     const formData = new FormData();
     formData.append('avatarFile', this.state.avatarFile);
+    this.props.postAvatar(formData);
 
     // TODO: Remove this comment
     // function request to refer to:
@@ -50,7 +57,7 @@ class EditUserAvatar extends Component {
 
   render() {
     const { user } = this.props;
-    const { src } = this.state;
+    const { src, disabled } = this.state;
     return (
       <div>
         <Image
@@ -65,7 +72,7 @@ class EditUserAvatar extends Component {
             id="avatarFile"
             onChange={this.onFileChange}
           />
-          <Form.Button onClick={this.onSave}>Save</Form.Button>
+          <Form.Button disabled={disabled} onClick={this.onSave}>Save</Form.Button>
         </Form>
       </div>
     );

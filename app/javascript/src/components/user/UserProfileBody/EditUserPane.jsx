@@ -5,7 +5,7 @@ export default class UserPane extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      disabled: false,
+      disabled: true,
       name: props.user.name,
       savePressed: false,
       loading: props.userState.isLoading,
