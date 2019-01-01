@@ -65,12 +65,21 @@ class Api::V1::UsersController < ApiController
         # setting up data
         data = {
             user: @user.as_json,
-            team: @team,
+            team: @team.as_json,
             captain: @team.captain,
           }
 
+        # Processing data object as it is not an ActiveRecord
         # add avatarURL if avatar
         data[:user][:avatarURL] = url_for(@user.avatar) if @user.avatar.attached?
+
+        # add avatarURL to users in a team
+        data[:team][:users] = @team.users.as_json
+        data[:team][:users].each do |u|
+          user = User.find(u["id"])
+          u[:avatarURL] = url_for(user.avatar) if user.avatar.attached?
+        end
+
         render json: { status: 'SUCCESS', message: 'User Logged In', data: data  }, status: :ok
       else
         render json: { status: 'ERROR', message: 'Error while Logging In' }, status: :unauthorized

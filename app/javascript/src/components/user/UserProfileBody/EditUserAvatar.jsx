@@ -40,21 +40,12 @@ class EditUserAvatar extends Component {
   isImage = file => (file.type == 'image/png' || file.type == 'image/jpg' || file.type == 'image/jpeg');
 
   onSave = () => {
-
     // Active Storage on rails needs a form data type
     // in order to attach an avatar file to a user
     const formData = new FormData();
     formData.append('avatarFile', this.state.avatarFile);
     this.props.postAvatar(formData);
     this.setState({ savePressed: true });
-
-    // TODO: Remove this comment
-    // function request to refer to:
-    // axios.post('/api/v1/user/avatar', formData, {
-    //   headers: { 'Content-Type': 'form-data' },
-    // })
-    // .then(res => console.log(res))
-    // .catch(err => console.log(err));
   };
 
   render() {

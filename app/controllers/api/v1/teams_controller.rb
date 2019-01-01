@@ -96,11 +96,13 @@ class Api::V1::TeamsController < ApiController
             min_avail = avail[i]
           end
         end
-        data.push({
+        userData = {
             id: user.id,
             name: user.name,
             shift_availability: min_avail
-            })
+            }
+        userData[:avatarURL] = url_for(user.avatar) if user.avatar.attached?
+        data.push(userData)
       end
       return data
     end
