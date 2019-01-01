@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 
+// semantic-ui
 import { Image, Form } from 'semantic-ui-react';
 
-import axios from 'axios';
+// images
+import * as defaultSrc from '../../../images/default_image.png';
+
 
 class EditUserAvatar extends Component {
   constructor(props) {
@@ -11,16 +14,23 @@ class EditUserAvatar extends Component {
       disabled: true,
       savePressed: false,
       avatarFile: null,
+      src: props.user.avatarURL || defaultSrc,
     };
   }
 
   onFileChange = (e, data) => {
     const avatarFile = e.currentTarget.files[0];
-    if (this.isImage(avatarFile)) {
-      this.setState({ avatarFile });
-    }
+    const fileReader = new FileReader();
 
-    console.log(avatarFile);
+    // this allows us to gen url for local images in order
+    // to preview images after selecting
+    fileReader.onloadend = () => {
+      this.setState({ avatarFile, src: fileReader.result });
+    };
+
+    if (avatarFile && this.isImage(avatarFile)) {
+      fileReader.readAsDataURL(avatarFile);
+    }
   };
 
   isImage = file => (file.type == 'image/png' || file.type == 'image/jpg' || file.type == 'image/jpeg');
@@ -39,8 +49,16 @@ class EditUserAvatar extends Component {
   };
 
   render() {
+    const { user } = this.props;
+    const { src } = this.state;
     return (
       <div>
+        <Image
+          rounded
+          bordered
+          size="medium"
+          src={src}
+        />
         <Form>
           <Form.Input
             type="file"

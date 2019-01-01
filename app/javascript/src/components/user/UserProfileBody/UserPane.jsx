@@ -10,6 +10,7 @@ export default class UserPane extends Component {
     return (
       <div>
         <Image
+          rounded
           src={src}
           label={{
             content: 'You',
