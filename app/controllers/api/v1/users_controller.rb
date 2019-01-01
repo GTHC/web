@@ -84,6 +84,20 @@ class Api::V1::UsersController < ApiController
     end
   end
 
+  # POST /api/v1/user/forgot_password
+  # Initiate password reset process
+  def forgot_password
+    validate_forgot_password_params
+    @user = User.find_by_email(params[:user_email]);
+    if @user
+      @user.send_reset_password_instructions
+      render json: { status: 'SUCCESS', message: 'Password reset sent', email: params[:user_email]}, status: :ok
+    else
+      # NOTE(anesu): Should we let users know if an email is not registered with GTHC?
+      render json: { status: 'ERROR', message: 'Email not found' }, status: :not_found
+    end
+  end
+
   # POST /api/v1/user/shifts
   # Add user to shift, and vice versa
   def shifts
@@ -160,6 +174,10 @@ class Api::V1::UsersController < ApiController
       else
         @Users = User.all
       end
+    end
+
+    def validate_forgot_password_params
+      params.require([:user_email])
     end
 
     def validate_login_params

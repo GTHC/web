@@ -38,6 +38,18 @@ const checkSession = () => (
   })
 );
 
+const initiatePasswordReset = () => {
+  crud({
+    dispatch: {
+      begin: '',
+      fail: '',
+      end: '',
+    },
+    method: 'POST',
+    url: '/api/v1/user/forgot_password',
+  })
+}
+
 export {
   updateUser,
   updateAvailability,

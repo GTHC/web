@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :shifts, :teams, :captains, :users
+      post 'user/forgot_password', to: 'users#forgot_password'
       get 'user/session', to: 'users#timeout'
       post 'user/shifts', to: 'users#shifts'
       put 'user/password/check', to: 'users#password_check'
