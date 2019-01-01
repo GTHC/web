@@ -43,6 +43,9 @@ class Login extends Component {
       case 'tenting101':
         this.props.push('/tenting101');
         return;
+      case 'about':
+        this.props.push('/about');
+        return;
       default:
         return;
     }
