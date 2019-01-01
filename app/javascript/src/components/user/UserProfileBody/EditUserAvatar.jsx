@@ -59,13 +59,14 @@ class EditUserAvatar extends Component {
     } = this.state;
     return (
       <div>
-        <Image
-          rounded
-          bordered
-          size="medium"
-          src={src}
-        />
-        <Form>
+        <Form className='attached fluid segment'>
+          <Image
+            rounded
+            bordered
+            size="medium"
+            src={src}
+          />
+          <br />
           <Form.Input
             type="file"
             id="avatarFile"
