@@ -50,7 +50,6 @@ class CreateShiftForm extends Component {
     .then(res => {
       const { data } = res.data;
       const userOptions = [];
-      console.log(data);
 
       // sorting users by availability and then alphabetically
       data.sort((a, b) => {
@@ -68,7 +67,6 @@ class CreateShiftForm extends Component {
         const color = user.shift_availability == 2 ? 'green' :
         (user.shift_availability == 1 ? 'yellow' : 'red');
         let src = defaultSrc;
-        console.log('here');
         if (user.avatarURL) {
           src = user.avatarURL;
         }
