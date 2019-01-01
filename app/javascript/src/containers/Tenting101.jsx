@@ -68,7 +68,7 @@ class Tenting101 extends Component {
     const path = router.location.pathname;
 
     const steps = [
-        { key: 'step1', icon: 'list alternate', title: 'Step 1', description: 'Find your team', active: (activeStep === 0) },
+        { key: 'step1', icon: 'list', title: 'Step 1', description: 'Find your team', active: (activeStep === 0) },
         { key: 'step2', active: true, icon: 'users', title: 'Step 2', description: 'Register with the Line Monitors!', active: (activeStep === 1) },
         { key: 'step3', icon: 'bed', title: 'Step 3', description: 'Get your tenting essentials!', active: (activeStep === 2), completed: (activeStep === 0) },
       ];
