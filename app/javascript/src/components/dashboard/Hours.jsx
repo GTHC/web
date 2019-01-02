@@ -18,13 +18,13 @@ export default class Hours extends Component {
 
   //Function created to Switch between Total and Week View script for both Hour and Night rank
 
-  hourView() {
+  hourView = () => {
     return this.state.total == false
       ? "Hours Spent: "
       : "Hours Spent: ";
   };
 
-  nightView() {
+  nightView = () => {
     const {total} = this.state;
     return this.state.total == false
       ? "Nights Slept: "
@@ -142,7 +142,7 @@ export default class Hours extends Component {
   }
 
   //Needed to updated 'total' state value while switching view in dropdown. Look at line 192
-  handleChange(e, timeOfDay) {
+  handleChange = (e, timeOfDay) => {
     const total = timeOfDay === 'Week'
       ? false
       : true;
