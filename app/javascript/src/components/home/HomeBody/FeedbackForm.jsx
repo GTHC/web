@@ -18,7 +18,7 @@ const level1Content = (
 )
 
   const rootPanels = [
-    { key: 'panel-1', title: 'Tenting Application FAQ and Feedback', content: { content: level1Content } },
+    { key: 'panel-1', title: 'Tenting Application Question and Feedback Form', content: { content: level1Content } },
   ]
 
   const GTHCApplicationFeedbackForm = () => (
