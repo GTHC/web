@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 
-import { Card, Message } from 'semantic-ui-react';
+import { Card, Message, Header } from 'semantic-ui-react';
 
 class MyShifts extends Component {
 
@@ -16,7 +16,7 @@ class MyShifts extends Component {
         const shiftStartTime = new Date(shift.start);
         const now = new Date();
         const sevenDaysFromNow = new Date();
-        sevenDaysFromNow.setDate(now.getDate() + daysToAdd); 
+        sevenDaysFromNow.setDate(now.getDate() + daysToAdd);
 
 
         return shiftStartTime > now && shiftStartTime < sevenDaysFromNow;
@@ -52,8 +52,8 @@ class MyShifts extends Component {
         return (
             <Card fluid raised style={{marginTop: "16px"}}>
                     <Card.Content>
-                        <Card.Header>Upcoming Shifts</Card.Header>
-                    </Card.Content>
+                      <Card.Header> Upcoming Shifts </Card.Header>
+                  </Card.Content>
                 {items.length > 0
                     ? <Card.Group
                         items={items}
@@ -62,7 +62,7 @@ class MyShifts extends Component {
                         <Message.Header>You have no upcoming shifts!</Message.Header>
                         <p>Go to the Calendar to create shifts.</p>
                     </Message>}
-           </Card>      
+           </Card>
         );
     }
 

@@ -1,0 +1,11 @@
+.about {
+  text-align: center;
+  padding-top: 1em;
+  padding-bottom: 50%;
+  background-image: url("./../../../images/tent.png");
+  background-repeat: repeat;
+}
+
+.about-card {
+  background-color: blue;
+}

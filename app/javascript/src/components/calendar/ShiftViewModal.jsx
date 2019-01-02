@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
 // semantic-ui
-import { Modal } from 'semantic-ui-react';
+import { Modal, Label } from 'semantic-ui-react';
 
 // utils
-import genDateFormat from './utils/genDateFormat';
+import { genDatesFormat } from './utils/dateFormatting';
 
 class ShiftViewModal extends Component {
 
@@ -16,20 +16,28 @@ class ShiftViewModal extends Component {
             {shiftData.title}
           </Modal.Header>
           <Modal.Content>
-            <Modal.Description as="h3">
-              {genDateFormat(shiftData.start)}
-              <br />
-              {genDateFormat(shiftData.end)}
-            </Modal.Description>
             <Modal.Description>
-              {shiftData.note}
+              <p>{genDatesFormat(shiftData.start, shiftData.end)}</p>
             </Modal.Description>
+            {/* Repeated the && statement twice due to improved spacing */}
+            {
+              shiftData.note &&
+              <Modal.Description as="h4">
+                Note:
+              </Modal.Description>
+            }
+            {
+              shiftData.note &&
+                <Modal.Description>
+                  <p>{shiftData.note}</p>
+                </Modal.Description>
+            }
             <Modal.Description as="h4">
               Users:
             </Modal.Description>
             <Modal.Description>
               {shiftData.users.map(user => (
-                <div key={user.name}>{user.name}</div>
+                <Label key={user.id}>{user.name}</Label>
               ))}
             </Modal.Description>
           </Modal.Content>

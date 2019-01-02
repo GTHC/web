@@ -72,8 +72,8 @@ class UserSignUp extends Component {
           fluid
           value={email}
           id="email"
-          label="Email"
-          placeholder="Email"
+          label="Duke Email"
+          placeholder="Duke Email"
           onChange={this.onInputChange}
         />
         <Form.Input

@@ -16,6 +16,7 @@ for i in 0..5
     password_confirmation: 'password',
     email: Faker::Internet.email,
     team_id: rand(1..5),
+    availability: Array.new(7, Array.new(20) { rand(0..2) }),
   )
   Captain.create!(
     user_id: @user.id
@@ -67,6 +68,7 @@ for i in 1..25
     password_confirmation: 'password',
     email: Faker::Internet.email,
     team_id: rand(1..5),
+    availability: Array.new(7, Array.new(20) { rand(0..2) }),
   );
 end
 
