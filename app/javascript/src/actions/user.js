@@ -26,7 +26,20 @@ const updateAvailability = data => (
   })
 );
 
+const checkSession = () => (
+  crud({
+    dispatch: {
+      begin: 'BEGIN_SESS_CHECK',
+      fail: 'FAILED_SESS_CHECK',
+      end: 'END_SESS_CHECK',
+    },
+    method: 'GET',
+    url: '/api/v1/user/session',
+  })
+);
+
 export {
   updateUser,
   updateAvailability,
+  checkSession,
 };

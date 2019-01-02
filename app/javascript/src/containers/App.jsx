@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 
+// redux actions
+import { checkSession } from '../actions/user';
+
 import { Route, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import { ConnectedSwitch } from './../components';
@@ -15,6 +18,8 @@ import Dashboard from './Dashboard';
 import Calendar from './Calendar';
 import UserProfile from './UserProfile';
 import TeamProfile from './TeamProfile';
+import Tenting101 from './Tenting101';
+import About from './About';
 
 // styles
 import './../styles';
@@ -34,6 +39,10 @@ const AppRoutes = () => (
 
 
 class App extends Component {
+  componentDidMount() {
+    this.props.checkSession();
+  }
+
   render() {
     const { history, user } = this.props;
     return (
@@ -54,6 +63,8 @@ class App extends Component {
               <Redirect to="/app" /> :
               <Login />
             )} />
+            <Route path='/tenting101' component={Tenting101} />
+            <Route path='/about' component={About} />
           </ConnectedSwitch>
         </ConnectedRouter>
     );
@@ -68,18 +79,15 @@ const mapStateToProps = (state) => {
   }
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators(
-//     {
-//       getClasses: getClasses,
-//       getAllMajors: getAllMajors,
-//       getReqs: getReqs,
-//       getAllClasses: getAllClasses,
-//     },
-//     dispatch);
-// };
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      checkSession,
+    },
+    dispatch);
+};
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 export {
   Login

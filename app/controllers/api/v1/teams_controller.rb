@@ -35,6 +35,12 @@ class Api::V1::TeamsController < ApiController
     end
   end
 
+  def shift_availabilities
+    validate_shift_params
+    data = team_availability(@day, @s, @e)
+    render json: { message: 'Team availability has been calculated.', data: data }, status: :ok
+  end
+
   private
 
     def set_user
@@ -64,7 +70,38 @@ class Api::V1::TeamsController < ApiController
       }
     end
 
+    def validate_shift_params
+      params.require([:day, :starting, :ending])
+      @day = params[:day].to_i
+      @s = params[:starting].to_i
+      @e = params[:ending].to_i
+    end
+
     def param_missing(exception)
       render json: { status: 'ERROR', message: exception }, status: :unprocessable_entity
+    end
+
+    # find the lowest availability value (0, 1, or 2) in a range of time on
+    # a certain day for each user in a team
+    def team_availability(day, s, e)
+      # s is starting time position, and e is ending time pos
+      @team = current_user.team
+      data = [];
+      for user in @team.users
+        user.availability.map! {|arr| arr.map.map(&:to_i)}
+        avail = user.availability[day]
+        min_avail = avail[s]
+        for i in s..e
+          if avail[i] < min_avail
+            min_avail = avail[i]
+          end
+        end
+        data.push({
+            id: user.id,
+            name: user.name,
+            shift_availability: min_avail
+            })
+      end
+      return data
     end
 end
