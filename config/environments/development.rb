@@ -57,5 +57,5 @@ config.webpacker.check_yarn_integrity = true
   config.webpacker.check_yarn_integrity = false
 
   # ActiveStorage
-  config.active_storage.service = :amazon_dev
+  config.active_storage.service = :local
 end
