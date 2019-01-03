@@ -19,7 +19,7 @@ import Calendar from './Calendar';
 import UserProfile from './UserProfile';
 import TeamProfile from './TeamProfile';
 import Tenting101 from './Tenting101';
-// import About from './About';
+import About from './About';
 
 // styles
 import './../styles';
@@ -64,6 +64,7 @@ class App extends Component {
               <Login />
             )} />
             <Route path='/tenting101' component={Tenting101} />
+            <Route path='/about' component={About} />
           </ConnectedSwitch>
         </ConnectedRouter>
     );
