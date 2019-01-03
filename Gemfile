@@ -67,3 +67,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'faker'
 
 gem 'bcrypt', '3.1.11', platforms: [:ruby, :x64_mingw]
+
+# Active Admin
+gem 'activeadmin'

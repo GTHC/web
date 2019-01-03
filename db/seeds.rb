@@ -91,3 +91,6 @@ for i in 1..100
     @curr_user.shifts << @shift
   end
 end
+
+# Active Admin
+AdminUser.create!(email: 'admin@gthc.io', password: 'password', password_confirmation: 'password') if Rails.env.development?
