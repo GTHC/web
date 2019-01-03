@@ -91,9 +91,9 @@ class Api::V1::UsersController < ApiController
     @user = User.find_by_email(params[:user_email]);
     if @user
       @user.send_reset_password_instructions
+      # TODO(anesu): Figure out how to get callback when email sent 
       render json: { status: 'SUCCESS', message: 'Password reset sent', email: params[:user_email]}, status: :ok
     else
-      # NOTE(anesu): Should we let users know if an email is not registered with GTHC?
       render json: { status: 'ERROR', message: 'Email not found' }, status: :not_found
     end
   end

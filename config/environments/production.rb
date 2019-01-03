@@ -94,4 +94,19 @@ config.webpacker.check_yarn_integrity = false
 
   # Serve assets under public
   # config.serve_static_assets = true
+
+  config.action_mailer.default_url_options = { :host => 'gthc.io' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+
+  ActionMailer::Base.smtp_settings = {
+    :user_name => Rails.application.secrets[:gthc_email],
+    :password => Rails.application.secrets[:gthc_email_password],
+    :domain => 'gthc.io',
+    :address => 'mail.privateemail.com',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
 end
