@@ -15,3 +15,9 @@
 // For example, to change the default status-tag color:
 //
 //   .status_tag { background: #6090DB; }
+$skinActiveColor: #001cee;
+$skinHeaderBck: #002744;
+$panelHeaderBck: #002744;
+
+$skinLogo: #002744 image-url('gthc_long.png') no-repeat 30px 0 !default;
+@import "active_skin"

@@ -70,3 +70,4 @@ gem 'bcrypt', '3.1.11', platforms: [:ruby, :x64_mingw]
 
 # Active Admin
 gem 'activeadmin'
+gem 'active_skin'
