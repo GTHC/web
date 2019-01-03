@@ -78,7 +78,7 @@ class UpdateShiftForm extends Component {
           value: user.id,
           text: user.name,
           label: { color: color, circular: true, empty: true },
-          image: { avatar: true, src: src },
+          image: { src: src, rounded: true },
         });
       });
       this.setState({ userOptions });
