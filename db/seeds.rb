@@ -31,35 +31,35 @@ when 'development'
     name: 'Team 1',
     captain_id: 1,
     tent_number: 1,
-    tent_type: 'blue',
+    tent_type: 'Blue',
     passcode: 'ABC123'
   )
   team_2 = Team.create!(
     name: 'Team 2',
     captain_id: 2,
     tent_number: 2,
-    tent_type: 'black',
+    tent_type: 'Black',
     passcode: 'ABC123'
   )
   team_3 = Team.create!(
     name: 'Team 3',
     captain_id: 3,
     tent_number: 3,
-    tent_type: 'white',
+    tent_type: 'White',
     passcode: 'ABC123'
   )
   team_4 = Team.create!(
     name: 'Team 4',
     captain_id: 4,
     tent_number: 4,
-    tent_type: 'dirty black',
+    tent_type: 'Dirty Black',
     passcode: 'ABC123'
   )
   team_5 = Team.create!(
     name: 'Team 5',
     captain_id: 5,
     tent_number: 5,
-    tent_type: 'dirty blue',
+    tent_type: 'Dirty Blue',
     passcode: 'ABC123'
   )
 
