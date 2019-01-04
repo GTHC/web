@@ -27,4 +27,37 @@ ActiveAdmin.register Team do
     column :passcode
   end
 
+  # filter
+  filter :name
+  filter :captain_id, as: :select, collection: -> {
+    Captain.all.map { |c| [c.user.name, c.id] }
+  }
+  filter :users
+  filter :tent_type, as: :select
+  filter :tent_number
+  filter :passcode
+
+  # show page
+  show do
+    attributes_table do
+      row :name
+      row :captain do |t|
+        link_to t.captain.user.name, admin_user_path(t.captain.user)
+      end
+      row :tent_type
+      row :tent_number
+      row :passcode
+    end
+    active_admin_comments
+  end
+
+  sidebar "Captain Details", only: :show do
+     attributes_table_for team.captain.user do
+       row :name do |user|
+         link_to user.name, admin_user_path(user)
+       end
+       row :email
+    end
+  end
+
 end

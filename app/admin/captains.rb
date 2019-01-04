@@ -13,4 +13,7 @@ ActiveAdmin.register Captain do
 #   permitted
 # end
 
+  # filters
+  filter :team
+
 end
