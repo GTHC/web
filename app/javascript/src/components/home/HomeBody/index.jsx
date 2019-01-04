@@ -1,33 +1,30 @@
 import React, { Component } from 'react';
-import { Image, Container, Grid ,Divider, Embed, Transition } from 'semantic-ui-react';
+import { Image, Container, Grid ,Segment, Divider, Embed, Transition } from 'semantic-ui-react';
 import DukeTwitterTimeline from './DukeTwitterTimeline';
 import DukeVideo from './DukeVideo';
 import KvilleWeather from './KvilleWeather';
 import LMTwitter from './LMTwitter';
 import CDWidget from './CDWidget'; 
-import PointsWidget from './PointsWidget'; 
 
-const GridExampleVerticallyDivided = () => (
-  <Grid divided='vertically'>
-    <Grid.Row columns={1}>
+const GridExampleEqualWidthRow = () => (
+  <Grid columns='equal'>
+    <Grid.Row>
       <Grid.Column>
-        <KvilleWeather />
+      <KvilleWeather/>
       </Grid.Column>
     </Grid.Row>
-
     <Grid.Row>
-      <Grid.Column width={4}>
+      <Grid.Column>
         <DukeTwitterTimeline/>
       </Grid.Column>
-      <Grid.Column width={8}>
+      <Grid.Column width={9}>
         <CDWidget/>
-        <PointsWidget/>
       </Grid.Column>
-      <Grid.Column width={4}>
+      <Grid.Column>
         <LMTwitter/>
       </Grid.Column>
     </Grid.Row>
   </Grid>
 )
 
-export default GridExampleVerticallyDivided
+export default GridExampleEqualWidthRow
