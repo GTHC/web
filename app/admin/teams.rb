@@ -1,4 +1,5 @@
 ActiveAdmin.register Team do
+  actions :all, :except => [:new]
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
@@ -13,6 +14,7 @@ ActiveAdmin.register Team do
 # end
   permit_params :name, :captain_id, :tent_type, :tent_number, :passcode
 
+  # defines what the index table shows
   index do
     column :name do |team|
       link_to team.name, admin_team_path(team)

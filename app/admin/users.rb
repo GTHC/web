@@ -1,4 +1,5 @@
 ActiveAdmin.register User do
+  actions :all, :except => [:new]
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
@@ -13,6 +14,8 @@ ActiveAdmin.register User do
 # end
   permit_params :email, :name, :team_id, :sign_in_count
 
+
+  # defines what the index table shows
   index do
     column :name do |user|
       link_to user.name, admin_user_path(user)
