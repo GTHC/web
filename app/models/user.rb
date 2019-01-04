@@ -8,4 +8,6 @@ class User < ApplicationRecord
   has_many :user_shifts, dependent: :destroy
   has_many :shifts, -> { distinct }, through: :user_shifts, dependent: :destroy
 
+  has_many :visits, class_name: "Ahoy::Visit"
+
 end

@@ -15,6 +15,11 @@ Rails.application.routes.draw do
   # Devise
   devise_for :users
 
+  # Analytics
+  # TODO(anesu): Authenticate with admin users
+  # authenticated :user, -> (user) { user.admin? } do
+  mount Blazer::Engine, at: "blazer"
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
