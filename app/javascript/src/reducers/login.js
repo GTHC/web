@@ -10,6 +10,9 @@ const initialState = {
     isCaptain: false,
     password: '',
     passwordConfirmation: '',
+
+    // default value is array of zeros
+    availability: (new Array(7)).fill().map(() => (new Array(20).fill(0))),
   },
   disableNext: true, // disable next button for signup
   // API
@@ -21,7 +24,7 @@ const initialState = {
 };
 
 const login = (state=initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     // changing page type
     case 'START_LOGIN': {
       return {
@@ -29,12 +32,14 @@ const login = (state=initialState, action) => {
         type: 'login',
       };
     }
+
     case 'START_SIGNUP': {
       return {
         ...state,
         type: 'signup',
       };
     }
+
     // SIGNUP (SU) actions
     case 'SU_USER_INFO': {
       return {
@@ -45,9 +50,10 @@ const login = (state=initialState, action) => {
           email: action.payload.email,
           password: action.payload.password,
           passwordConfirmation: action.payload.passwordConfirmation,
-        }
+        },
       };
     }
+
     case 'SU_TEAM_INFO': {
       const teamID = !action.payload.isCaptain ?  action.payload.teamID : null;
       // if user is not a captain then the teamID that is coming from the payload
@@ -65,6 +71,17 @@ const login = (state=initialState, action) => {
         },
       };
     }
+
+    case 'SU_AVAIL': {
+      return {
+        ...state,
+        signUpData: {
+          ...state.signUpData,
+          availability: action.payload.availability,
+        },
+      };
+    }
+
     case 'SU_NEXT': {
       return {
         ...state,
@@ -92,8 +109,8 @@ const login = (state=initialState, action) => {
           return {
             key: team.id,
             value: team.id,
-            text: `${team.tent_number} - ${team.name}`,
-            label: {color: color, empty: true, circular: true },
+            text: `${team.name}`,
+            label: { color: color, empty: true, circular: true },
           };
         }
       );

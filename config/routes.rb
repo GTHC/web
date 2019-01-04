@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   root 'pages#index'
   get 'app', to: 'pages#index'
   get 'app/*path', to: 'pages#index'
+  get 'tenting101', to: 'pages#index'
+  get 'about', to: 'pages#index'
 
   # Login/Logout
   post 'login', to: 'api/v1/users#login'
@@ -17,8 +19,11 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :shifts, :teams, :captains, :users
+      get 'user/session', to: 'users#timeout'
       post 'user/shifts', to: 'users#shifts'
       put 'user/password/check', to: 'users#password_check'
+      post 'user/availability', to: 'users#update_availability'
+      get 'team/availability', to: 'teams#shift_availabilities'
     end
   end
 end

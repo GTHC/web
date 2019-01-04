@@ -9,6 +9,16 @@ class Api::V1::UsersController < ApiController
   def index
   end
 
+  # purpose - checks if users' session is still live
+  # GET /api/v1/user/session
+  def timeout
+    if current_user
+      render json: { message: 'User logged in.', status: true }
+    else
+      render json: { message: 'User not logged in.', status: false }
+    end
+  end
+
   # POST /api/v1/users
   def create
     validate_params
@@ -22,9 +32,14 @@ class Api::V1::UsersController < ApiController
       password_confirmation: params[:password_confirmation],
       team_id: params[:team_id],
     )
+    if params[:availability]
+      @user.availability = params[:availability]
+    end
     @team = @user.team
     if @user.save
       bypass_sign_in @user
+      # Change availability from Strings to Integers
+      @user.availability.map! {|arr| arr.map.map(&:to_i) }
       render json: { status: 'SUCCESS', message: 'User saved and signed in', data: {
         user: @user,
         team: @team,
@@ -33,13 +48,6 @@ class Api::V1::UsersController < ApiController
     else
       render json: { status: 'ERROR', message: 'User not saved', data: @user.errors }, status: :unprocessable_entity
     end
-  end
-
-  # PATCH /api/v1/users
-  # TODO: Complete endpoint
-  def update
-    validate_params
-
   end
 
   # POST /login
@@ -51,6 +59,8 @@ class Api::V1::UsersController < ApiController
       bypass_sign_in @user
       @team = @user.team
       if current_user
+        # Change availability from Strings to Integers
+        @user.availability.map! {|arr| arr.map.map(&:to_i) }
         render json: { status: 'SUCCESS', message: 'User Logged In', data: {
           user: @user,
           team: @team,
@@ -128,6 +138,20 @@ class Api::V1::UsersController < ApiController
     end
   end
 
+  # POST /api/v1/user/availability
+  def update_availability
+    validate_availability
+    @user = current_user
+    @user.availability = params[:availability]
+    if @user.save
+      # Change availability from Strings to Integers
+      @user.availability.map! {|arr| arr.map.map(&:to_i) }
+      render json: { status: 'SUCCESS', message: 'User availability updated successfully.', data: @user.availability }, status: :ok
+    else
+      render json: { status: 'ERROR', message: 'User availability not able to update.' }, status: :unprocessable_entity
+    end
+  end
+
   private
 
     def set_user
@@ -173,6 +197,10 @@ class Api::V1::UsersController < ApiController
 
     def validate_params_password_check
       params.require([:password])
+    end
+
+    def validate_availability
+      params.require([:availability])
     end
 
     def param_missing(exception)

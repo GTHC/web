@@ -16,6 +16,7 @@ import {
   toggleDisableNext,
   updateUserInfo,
   updateTeamInfo,
+  updateAvailInfo,
   getAllTeams,
   login,
   logout,
@@ -23,6 +24,7 @@ import {
   signupNewTeam,
   clearError,
 } from './../actions/login';
+import { push } from './../actions/router';
 
 // logo
 import * as logo from './../images/gthc.png';
@@ -32,8 +34,22 @@ class Login extends Component {
     super(props);
     this.state = {
       activeItem: 'home',
-    }
+    };
   }
+
+  handleClick = (e, data) => {
+    // data.id is the id element in the component that is clicked
+    switch (data.id) {
+      case 'tenting101':
+        this.props.push('/tenting101');
+        return;
+      case 'about':
+        this.props.push('/about');
+        return;
+      default:
+        return;
+    }
+  };
 
   render() {
     const { activeItem } = this.state;
@@ -43,13 +59,15 @@ class Login extends Component {
             toggleDisableNext,
             updateUserInfo,
             updateTeamInfo,
+            updateAvailInfo,
             getAllTeams,
             loginUser,
             logoutUser,
             signup,
             signupNewTeam,
-            clearError,
+            router
           } = this.props;
+    const path = router.location.pathname;
     return (
       <div>
         <Menu secondary>
@@ -57,11 +75,18 @@ class Login extends Component {
             <Image src={logo} size="tiny" />
           </Menu.Item>
           <Menu.Item
-            name='about GTHC'
-            active={activeItem === 'about'}
-            onMouseOver={() => {this.setState({activeItem: 'about'})}}
-            onMouseLeave={() => {this.setState({activeItem: ''})}}
-           />
+            id='about'
+            active={path === '/about'}
+            onClick={this.handleClick}
+           >
+           About GTHC
+           </Menu.Item>
+           <Menu.Item
+            id='tenting101'
+            active={path === '/tenting101'}
+            onClick={this.handleClick}>
+            Tenting 101
+            </Menu.Item>
       </Menu>
         <div className="login">
           <Container textalign="center" >
@@ -98,6 +123,7 @@ class Login extends Component {
                     login={login}
                     updateUserInfo={updateUserInfo}
                     updateTeamInfo={updateTeamInfo}
+                    updateAvailInfo={updateAvailInfo}
                     getAllTeams={getAllTeams}
                     signup={signup}
                     signupNewTeam={signupNewTeam}
@@ -119,6 +145,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
     login: state.login,
+    router: state.router,
   };
 };
 
@@ -129,12 +156,14 @@ const mapDispatchToProps = (dispatch) => {
       toggleDisableNext: toggleDisableNext,
       updateUserInfo: updateUserInfo,
       updateTeamInfo: updateTeamInfo,
+      updateAvailInfo: updateAvailInfo,
       getAllTeams: getAllTeams,
       loginUser: login, // changed login and logout action names due to login state name
       logoutUser: logout,
       signup: signup,
       signupNewTeam: signupNewTeam,
       clearError: clearError,
+      push: push,
     },
     dispatch);
 };

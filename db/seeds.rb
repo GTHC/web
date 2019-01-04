@@ -16,6 +16,7 @@ for i in 0..5
     password_confirmation: 'password',
     email: Faker::Internet.email,
     team_id: rand(1..5),
+    availability: Array.new(7, Array.new(20) { rand(0..2) }),
   )
   Captain.create!(
     user_id: @user.id
@@ -67,11 +68,13 @@ for i in 1..25
     password_confirmation: 'password',
     email: Faker::Internet.email,
     team_id: rand(1..5),
+    availability: Array.new(7, Array.new(20) { rand(0..2) }),
   );
 end
 
 for i in 1..100
-  @ids = User.all.ids.sample (rand(1..5))
+  @team = Team.order("RANDOM()").first
+  @ids = @team.users.ids.sample rand(1..5)
   @first_user = User.find(@ids[0])
   @team_id = @first_user.team.id
   @now = Time.now + rand(-10..10).hours + rand(-2..2).days

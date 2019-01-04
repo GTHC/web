@@ -30,6 +30,10 @@ export default class UserPane extends Component {
         <br />
         <strong>Tent Type: </strong>
         <Label color={tentTypeColor}>{ tentType }</Label>
+        <br />
+        <br />
+        <strong>Passcode: </strong>
+        <Label>{ team.passcode }</Label>
       </div>
     );
   }

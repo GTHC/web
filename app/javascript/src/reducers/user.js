@@ -22,6 +22,7 @@ const user = (state=initialState, action) => {
     case 'FAILED_LOGIN': {
       return {
         ...initialState,
+        isLoading: false,
         error: true,
         errorMessage: action.payload.response.data.message,
         errorObject: action.payload,
@@ -46,6 +47,7 @@ const user = (state=initialState, action) => {
     case 'FAILED_SIGNUP': {
       return {
         ...initialState,
+        isLoading: false,
         error: true,
         errorMessage: action.payload.response.data.message,
         errorObject: action.payload,
@@ -56,6 +58,7 @@ const user = (state=initialState, action) => {
       return {
         ...state,
         data: action.payload.data.data,
+        isLoading: false,
         isLoggedIn: true,
         error: false,
         errorMessage: '',
@@ -132,6 +135,50 @@ const user = (state=initialState, action) => {
         ...state,
         data,
         isLoading: false,
+      };
+    }
+
+    case 'BEGIN_UPDATE_AVAIL': {
+      return beginState;
+    }
+
+    case 'FAILED_UPDATE_AVAIL': {
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        errorMessage: action.payload.response.data.message,
+      };
+    }
+
+    case 'END_UPDATE_AVAIL': {
+      const data = state.data;
+      data.user.availability = action.payload.data.data;
+      return {
+        ...state,
+        isLoading: false,
+        data,
+      };
+    }
+
+    // GET /api/v1/user/session
+    case 'BEGIN_SESS_CHECK': {
+      return beginState;
+    }
+
+    case 'FAILED_SESS_CHECK': {
+      return {
+        ...state,
+        isLoading: false,
+        isLoggedIn: false,
+      };
+    }
+
+    case 'END_SESS_CHECK': {
+      return {
+        ...state,
+        isLoading: false,
+        isLoggedIn: action.payload.data.status && state.data,
       };
     }
 

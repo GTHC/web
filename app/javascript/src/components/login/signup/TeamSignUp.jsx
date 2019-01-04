@@ -181,7 +181,7 @@ class TeamSignUp extends Component {
           <div>
             <Form.Dropdown
               fluid
-              label="Team Name & Number"
+              label="Team Names"
               placeholder='Find your team'
               search
               selection
