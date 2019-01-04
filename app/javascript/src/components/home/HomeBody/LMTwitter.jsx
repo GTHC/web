@@ -3,14 +3,14 @@ import React from 'react';
 import { Card } from 'semantic-ui-react';
 import { Timeline } from 'react-twitter-widgets';
 
-const DukeTwitterTimeline = () => (
+const LMTwitter = () => (
   <Card>
     <Card.Content>
       <div>
         <Timeline
           dataSource={{
             sourceType: 'profile',
-            screenName: 'dukembb',
+            screenName: 'EventsKville',
           }}
           options={{
             username: 'TwitterDev',
@@ -23,4 +23,4 @@ const DukeTwitterTimeline = () => (
   </Card>
 );
 
-export default DukeTwitterTimeline;
+export default LMTwitter;
