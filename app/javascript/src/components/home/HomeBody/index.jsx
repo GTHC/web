@@ -6,7 +6,7 @@ import KvilleWeather from './KvilleWeather';
 import LMTwitter from './LMTwitter';
 import CDWidget from './CDWidget'; 
 
-const GridExampleEqualWidthRow = () => (
+const HomeGrid = () => (
   <Grid columns='equal'>
     <Grid.Row>
       <Grid.Column>
@@ -27,4 +27,4 @@ const GridExampleEqualWidthRow = () => (
   </Grid>
 )
 
-export default GridExampleEqualWidthRow
+export default HomeGrid
