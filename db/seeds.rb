@@ -9,85 +9,92 @@ require 'faker'
 
 # Captains
 
-for i in 0..5
-  @user = User.create!(
-    name: Faker::Name.name,
-    password: 'password',
-    password_confirmation: 'password',
-    email: Faker::Internet.email,
-    team_id: rand(1..5),
-    availability: Array.new(7, Array.new(20) { rand(0..2) }),
-  )
-  Captain.create!(
-    user_id: @user.id
-  )
-end
-
-
-# Teams
-team_1 = Team.create!(
-  name: 'Team 1',
-  captain_id: 1,
-  tent_number: 1,
-  tent_type: 'blue',
-  passcode: 'ABC123'
-)
-team_2 = Team.create!(
-  name: 'Team 2',
-  captain_id: 2,
-  tent_number: 2,
-  tent_type: 'black',
-  passcode: 'ABC123'
-)
-team_3 = Team.create!(
-  name: 'Team 3',
-  captain_id: 3,
-  tent_number: 3,
-  tent_type: 'white',
-  passcode: 'ABC123'
-)
-team_4 = Team.create!(
-  name: 'Team 4',
-  captain_id: 4,
-  tent_number: 4,
-  tent_type: 'dirty black',
-  passcode: 'ABC123'
-)
-team_5 = Team.create!(
-  name: 'Team 5',
-  captain_id: 5,
-  tent_number: 5,
-  tent_type: 'dirty blue',
-  passcode: 'ABC123'
-)
-
-for i in 1..25
-  User.create!(
-    name: Faker::Name.name,
-    password: 'password',
-    password_confirmation: 'password',
-    email: Faker::Internet.email,
-    team_id: rand(1..5),
-    availability: Array.new(7, Array.new(20) { rand(0..2) }),
-  );
-end
-
-for i in 1..100
-  @team = Team.order("RANDOM()").first
-  @ids = @team.users.ids.sample rand(1..5)
-  @first_user = User.find(@ids[0])
-  @team_id = @first_user.team.id
-  @now = Time.now + rand(-10..10).hours + rand(-2..2).days
-  @later = @now + rand(1..5).hours
-  @shift = @first_user.shifts.create!(
-    title: Faker::Book.title,
-    team_id: @team_id,
-    start_time: @now,
-    end_time: @later,
-    note: Faker::Lorem.paragraph,
-  )
-  for @id in @ids[1..-1]
-    @curr_user = User.find(@id)
-    @curr_user.shifts << @shift
+if Rails.env.production? && !ENV['STAGING']
+  AdminUser.create!(email: 'admin@gthc.io', password: 'password', password_confirmation: 'password')
+else
+  for i in 0..5
+    @user = User.create!(
+      name: Faker::Name.name,
+      password: 'password',
+      password_confirmation: 'password',
+      email: Faker::Internet.email,
+      team_id: rand(1..5),
+      availability: Array.new(7, Array.new(20) { rand(0..2) }),
+    )
+    Captain.create!(
+      user_id: @user.id
+    )
   end
+
+
+  # Teams
+  team_1 = Team.create!(
+    name: 'Team 1',
+    captain_id: 1,
+    tent_number: 1,
+    tent_type: 'Blue',
+    passcode: 'ABC123'
+  )
+  team_2 = Team.create!(
+    name: 'Team 2',
+    captain_id: 2,
+    tent_number: 2,
+    tent_type: 'Black',
+    passcode: 'ABC123'
+  )
+  team_3 = Team.create!(
+    name: 'Team 3',
+    captain_id: 3,
+    tent_number: 3,
+    tent_type: 'White',
+    passcode: 'ABC123'
+  )
+  team_4 = Team.create!(
+    name: 'Team 4',
+    captain_id: 4,
+    tent_number: 4,
+    tent_type: 'Dirty Black',
+    passcode: 'ABC123'
+  )
+  team_5 = Team.create!(
+    name: 'Team 5',
+    captain_id: 5,
+    tent_number: 5,
+    tent_type: 'Dirty Blue',
+    passcode: 'ABC123'
+  )
+
+  for i in 1..25
+    User.create!(
+      name: Faker::Name.name,
+      password: 'password',
+      password_confirmation: 'password',
+      email: Faker::Internet.email,
+      team_id: rand(1..5),
+      availability: Array.new(7, Array.new(20) { rand(0..2) }),
+    );
+  end
+
+  for i in 1..100
+    @team = Team.order("RANDOM()").first
+    @ids = @team.users.ids.sample rand(1..5)
+    @first_user = User.find(@ids[0])
+    @team_id = @first_user.team.id
+    @now = Time.now + rand(-10..10).hours + rand(-2..2).days
+    @later = @now + rand(1..5).hours
+    @shift = @first_user.shifts.create!(
+      title: Faker::Book.title,
+      team_id: @team_id,
+      start_time: @now,
+      end_time: @later,
+      note: Faker::Lorem.paragraph,
+    )
+    for @id in @ids[1..-1]
+      @curr_user = User.find(@id)
+      @curr_user.shifts << @shift
+    end
+  end
+
+  # Active Admin
+  AdminUser.create!(email: 'admin@gthc.io', password: 'password', password_confirmation: 'password')
 end
