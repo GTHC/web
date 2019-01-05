@@ -30,9 +30,11 @@ class SignUpFields extends Component {
       signupNewTeam,
       clearError,
     } = this.props;
+
+    // clear/removes user and login redux state error
+    clearError();
     switch (data.id) {
       case 'back': {
-        clearError();
         if (activeStep === 0) {
           toggleLoginType(login.type);
           return;
