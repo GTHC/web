@@ -38,8 +38,23 @@ const checkSession = () => (
   })
 );
 
+const postAvatar = data => (
+  crud({
+    headers: { 'Content-Type': 'form-data' },
+    dispatch: {
+      begin: 'BEGIN_POST_AVATAR',
+      fail: 'FAILED_POST_AVATAR',
+      end: 'END_POST_AVATAR',
+    },
+    method: 'POST',
+    url: '/api/v1/user/avatar',
+    data,
+  })
+);
+
 export {
   updateUser,
   updateAvailability,
   checkSession,
+  postAvatar,
 };
