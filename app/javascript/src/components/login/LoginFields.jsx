@@ -15,6 +15,7 @@ class LoginFields extends Component {
   }
 
   onInputChange = (e, data) => {
+    this.props.clearError();
     this.setState({ [data.id]: e.target.value },
       () => { this.validInput(); }
     );
