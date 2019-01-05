@@ -94,4 +94,7 @@ config.webpacker.check_yarn_integrity = false
 
   # Serve assets under public
   # config.serve_static_assets = true
+
+  # ActiveStorage
+  config.active_storage.service = :amazon
 end
