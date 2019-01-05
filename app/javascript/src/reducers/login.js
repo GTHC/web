@@ -12,7 +12,7 @@ const initialState = {
     passwordConfirmation: '',
 
     // default value is array of zeros
-    availability: (new Array(7)).fill().map(() => (new Array(20).fill(0))),
+    availability: (new Array(7)).fill().map(() => (new Array(20).fill(2))),
   },
   disableNext: true, // disable next button for signup
   // API

@@ -40,7 +40,7 @@ const days = [
 class Availability extends Component {
   constructor(props) {
     super(props);
-    let grid = (new Array(7)).fill().map(() => (new Array(20).fill(0)));
+    let grid = (new Array(7)).fill().map(() => (new Array(20).fill(2)));
     if (props.user !== undefined) {
       grid = props.user.availability;
     }
