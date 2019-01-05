@@ -27,7 +27,7 @@ const HomeGrid = () => (
     </Grid.Row>
     <Grid.Row>
       <Grid.Column>
-      <FeedbackForm/>
+        <FeedbackForm/>
       </Grid.Column>
     </Grid.Row>
   </Grid>
