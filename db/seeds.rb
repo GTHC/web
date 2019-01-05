@@ -9,8 +9,9 @@ require 'faker'
 
 # Captains
 
-case Rails.env
-when 'development'
+if Rails.env.production? && !ENV['STAGING']
+  AdminUser.create!(email: 'admin@gthc.io', password: 'password', password_confirmation: 'password')
+else
   for i in 0..5
     @user = User.create!(
       name: Faker::Name.name,
@@ -95,7 +96,5 @@ when 'development'
   end
 
   # Active Admin
-  AdminUser.create!(email: 'admin@gthc.io', password: 'password', password_confirmation: 'password')
-when 'production'
   AdminUser.create!(email: 'admin@gthc.io', password: 'password', password_confirmation: 'password')
 end
