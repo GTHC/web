@@ -105,7 +105,10 @@ const login = (state=initialState, action) => {
       const teamDropDownOptions = action.payload.data.map(
         (team) => {
           // having a serperate color variable rather than just saying team.tent_type avoids warnings although it would it still work
-          const color = (team.tent_type.toLowerCase().includes('black') ? 'black' : ( team.tent_type.includes('blue') ? 'blue' : null ));
+          const tentType = team.tent_type.toLowerCase();
+          const color = (tentType.includes('black') ?
+          'black' : (tentType.includes('blue') ?
+          'blue' : null));
           return {
             key: team.id,
             value: team.id,
