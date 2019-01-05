@@ -170,7 +170,8 @@ class Api::V1::UsersController < ApiController
   # POST /api/v1/user/avatar
   def update_avatar
     validate_avatar_params
-    if current_user.avatar.attach(params[:avatarFile])
+    current_user.avatar.attach(params[:avatarFile])
+    if current_user.avatar.attached?
       render json: { status: 'SUCCESS', message: 'User avatar updated successfully', data: url_for(current_user.avatar) }, status: :ok
     else
       render json: { status: 'ERROR', message: 'User avatar not updated.' }, status: :unprocessable_entity
