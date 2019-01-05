@@ -70,3 +70,7 @@ gem 'bcrypt', '3.1.11', platforms: [:ruby, :x64_mingw]
 
 # AWS S3 Buckets
 gem "aws-sdk-s3", require: false
+
+# Active Admin
+gem 'activeadmin'
+gem 'active_skin'
