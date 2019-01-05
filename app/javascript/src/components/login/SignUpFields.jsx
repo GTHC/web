@@ -101,7 +101,7 @@ class SignUpFields extends Component {
     ];
     return (
       <div>
-        <Step.Group fluid items={steps} stackable='tablet' />
+        <Step.Group fluid size="tiny" items={steps} stackable='tablet' />
         <br />
         <br />
         <Form>
