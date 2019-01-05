@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
-import { Image, Container, Grid ,Segment, Divider, Embed, Transition } from 'semantic-ui-react';
-import DukeTwitterTimeline from './DukeTwitterTimeline';
-import DukeVideo from './DukeVideo';
-import KvilleWeather from './KvilleWeather';
-import LMTwitter from './LMTwitter';
-import CDWidget from './CDWidget'; 
+
+// semantic-ui
+import {
+  Container,
+  Divider,
+  Embed,
+  Grid,
+  Image,
+  Segment,
+  Transition
+} from 'semantic-ui-react';
+
+// widgets
+import DukeTwitterTimeline from './widgets/DukeTwitterTimeline';
+import KvilleWeather from './widgets/KvilleWeather';
+import LineMonitorTwitterTimeline from './widgets/LineMonitorTwitterTimeline';
+import CountDownTimer from './widgets/CountDownTimer';
 
 const HomeGrid = () => (
   <Grid columns='equal'>
@@ -18,13 +29,13 @@ const HomeGrid = () => (
         <DukeTwitterTimeline/>
       </Grid.Column>
       <Grid.Column width={9}>
-        <CDWidget/>
+        <CountDownTimer/>
       </Grid.Column>
       <Grid.Column>
-        <LMTwitter/>
+        <LineMonitorTwitterTimeline/>
       </Grid.Column>
     </Grid.Row>
   </Grid>
-)
+);
 
-export default HomeGrid
+export default HomeGrid;

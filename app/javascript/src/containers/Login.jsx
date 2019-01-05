@@ -65,7 +65,8 @@ class Login extends Component {
             logoutUser,
             signup,
             signupNewTeam,
-            router
+            router,
+            clearError,
           } = this.props;
     const path = router.location.pathname;
     return (
@@ -113,6 +114,7 @@ class Login extends Component {
                     user={user}
                     loginUser={loginUser}
                     logoutUser={logoutUser}
+                    clearError={clearError}
                     />
                 }
                 { login.type === 'signup' &&
