@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 // semantic-ui
 import { Header, Image, Table } from 'semantic-ui-react';
 
+// components
+import AvailabilityButton from './utils/AvailabilityButton';
+
 // image
 import * as defaultSrc from './../../../images/default_image.png';
 
@@ -35,22 +38,27 @@ class TeamTablePane extends Component {
           celled
           striped
           definition
+          stackable
         >
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell />
               <Table.HeaderCell>Email</Table.HeaderCell>
               <Table.HeaderCell>Phone</Table.HeaderCell>
+              <Table.HeaderCell>Availability</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
 
           <Table.Body>
             {
               users.map(user =>
-                <Table.Row>
+                <Table.Row key={user.id}>
                   {this.renderCellWithAvatar(user)}
                   <Table.Cell>{user.email}</Table.Cell>
                   <Table.Cell>{user.phone}</Table.Cell>
+                  <Table.Cell>
+                    <AvailabilityButton user={user} />
+                  </Table.Cell>
                 </Table.Row>
               )
             }
