@@ -7,23 +7,6 @@ const suggestionURL = "https://docs.google.com/forms/d/e/1FAIpQLScPghAkeRi-Ey0Jh
 
 const questionURL = "https://docs.google.com/forms/d/e/1FAIpQLSdbyw2o6IqQekPAC8rfa66GDe_3heodU9pgy5unkj44l4g7bA/viewform?embedded=true";
 
-const level1Panels = [
-  {
-    key: 'panel-suggestion',
-    title: 'Suggestions',
-    content: {
-      content: <iframe
-        src={suggestionURL} width="500" height="300" frameborder="0" marginheight="0" marginwidth="0" align='middle'>Loading...</iframe>,
-    },
-  }, {
-    key: 'panel-question',
-    title: 'Questions',
-    content: {
-      content: <iframe src={questionURL} width="500" height="300" frameborder="0" marginheight="0" marginwidth="0" align='middle'>Loading...</iframe>,
-    },
-  },
-];
-
 //Incorporates an Accordian within the larger Accordian description or content
 const level1Content = (
   <div>
@@ -33,14 +16,13 @@ const level1Content = (
       headlinemonitor@gmail.com
     </a>. Otherwise, please fill out your suggestions or questions on our form by clicking the buttons below:
 
-    {/* <Accordion.Accordion key="level1Content" panels={level1Panels} /> */}
 
     <br />
     <br />
     <Button.Group>
       <Button
         icon
-        color="google plus"
+        color="primary"
         labelPosition="left"
         as="a"
         target="_blank"
@@ -52,7 +34,7 @@ const level1Content = (
       <Button.Or />
       <Button
         icon
-        color="google plus"
+        color="primary"
         labelPosition="right"
         as="a"
         target="_blank"
