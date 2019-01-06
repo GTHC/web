@@ -61,11 +61,26 @@ class Api::V1::UsersController < ApiController
       if current_user
         # Change availability from Strings to Integers
         @user.availability.map! {|arr| arr.map.map(&:to_i) }
-        render json: { status: 'SUCCESS', message: 'User Logged In', data: {
-          user: @user,
-          team: @team,
-          captain: @team.captain,
-          } }, status: :ok
+
+        # setting up data
+        data = {
+            user: @user.as_json,
+            team: @team.as_json,
+            captain: @team.captain,
+          }
+
+        # Processing data object as it is not an ActiveRecord
+        # add avatarURL if avatar
+        data[:user][:avatarURL] = url_for(@user.avatar) if @user.avatar.attached?
+
+        # add avatarURL to users in a team
+        data[:team][:users] = @team.users.as_json
+        data[:team][:users].each do |u|
+          user = User.find(u["id"])
+          u[:avatarURL] = url_for(user.avatar) if user.avatar.attached?
+        end
+
+        render json: { status: 'SUCCESS', message: 'User Logged In', data: data  }, status: :ok
       else
         render json: { status: 'ERROR', message: 'Error while Logging In' }, status: :unauthorized
       end
@@ -152,6 +167,17 @@ class Api::V1::UsersController < ApiController
     end
   end
 
+  # POST /api/v1/user/avatar
+  def update_avatar
+    validate_avatar_params
+    current_user.avatar.attach(params[:avatarFile])
+    if current_user.avatar.attached?
+      render json: { status: 'SUCCESS', message: 'User avatar updated successfully', data: url_for(current_user.avatar) }, status: :ok
+    else
+      render json: { status: 'ERROR', message: 'User avatar not updated.' }, status: :unprocessable_entity
+    end
+  end
+
   private
 
     def set_user
@@ -201,6 +227,10 @@ class Api::V1::UsersController < ApiController
 
     def validate_availability
       params.require([:availability])
+    end
+
+    def validate_avatar_params
+      params.require(:avatarFile)
     end
 
     def param_missing(exception)

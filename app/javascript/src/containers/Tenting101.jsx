@@ -97,7 +97,7 @@ class Tenting101 extends Component {
           </Menu>
           </div>
 
-        <Step.Group fluid items={steps} />
+        <Step.Group stackable="tablet" fluid items={steps} />
         <Form>
           { activeStep === 0 &&
           <div>

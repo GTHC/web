@@ -30,9 +30,11 @@ class SignUpFields extends Component {
       signupNewTeam,
       clearError,
     } = this.props;
+
+    // clear/removes user and login redux state error
+    clearError();
     switch (data.id) {
       case 'back': {
-        clearError();
         if (activeStep === 0) {
           toggleLoginType(login.type);
           return;
@@ -90,6 +92,7 @@ class SignUpFields extends Component {
   render() {
     const { activeStep } = this.state;
     const { login, toggleDisableNext, updateUserInfo, updateTeamInfo, updateAvailInfo, getAllTeams, user } = this.props;
+    const grid = login.signUpData.availability;
     const steps = [
       { key: 'user', icon: 'user', title: 'User Credentials', description: 'Create your account with your email.', active: (activeStep === 0) },
       { key: 'team', active: true, icon: 'users', title: 'Team Information', description: 'Let us know which team you are on!', active: (activeStep === 1) },
@@ -98,7 +101,7 @@ class SignUpFields extends Component {
     ];
     return (
       <div>
-        <Step.Group fluid items={steps} stackable='tablet' />
+        <Step.Group fluid size="tiny" items={steps} stackable='tablet' />
         <br />
         <br />
         <Form>
@@ -119,6 +122,7 @@ class SignUpFields extends Component {
         }
         { activeStep === 2 &&
             <Availability
+              grid={grid}
               updateAvailState={updateAvailInfo}
             />
           }

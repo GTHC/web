@@ -5,11 +5,18 @@ const crud = request => (dispatch) => {
   dispatch({
       type: request.dispatch.begin,
     });
-  axios({
-      method: request.method,
-      url: request.url,
-      data: request.data ? request.data : null,
-    })
+  const options = {
+    method: request.method,
+    url: request.url,
+    data: request.data ? request.data : null,
+  };
+
+  // added options
+  if (request.headers) {
+    options.headers = request.headers;
+  }
+
+  axios(options)
     .then((res) => {
       dispatch({
             type: request.dispatch.end,

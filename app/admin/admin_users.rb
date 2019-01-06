@@ -3,7 +3,7 @@ ActiveAdmin.register AdminUser do
 
   # actions
   config.clear_action_items!
-  action_item only: :show do
+  action_item :edit, only: :show do
     if resource.email != current_admin_user.email
       link_to "Delete Admin User", {action: :destroy}, method: :delete, data: { confirm: 'Admin User will be deleted forever. Are you sure?' }
     else
@@ -11,7 +11,7 @@ ActiveAdmin.register AdminUser do
     end
   end
 
-  action_item only: :index do
+  action_item :edit, only: :index do
     link_to "New Admin User", {action: :new}
   end
 

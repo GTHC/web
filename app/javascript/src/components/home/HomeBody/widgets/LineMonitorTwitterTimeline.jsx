@@ -1,9 +1,12 @@
 import React from 'react';
 
+// semantic-ui
 import { Card } from 'semantic-ui-react';
+
+// components
 import { Timeline } from 'react-twitter-widgets';
 
-const LMTwitter = () => (
+const LineMonitorTwitterTimeline = () => (
   <Card>
     <Card.Content>
       <div>
@@ -23,4 +26,4 @@ const LMTwitter = () => (
   </Card>
 );
 
-export default LMTwitter;
+export default LineMonitorTwitterTimeline;
