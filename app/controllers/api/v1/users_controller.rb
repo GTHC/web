@@ -209,9 +209,10 @@ class Api::V1::UsersController < ApiController
     end
 
     def validate_params_update
-      params.require([:name]);
+      params.require([:name, :phone]);
       @prime_params = {
         name: params[:name],
+        phone: params[:phone],
       }
     end
 
