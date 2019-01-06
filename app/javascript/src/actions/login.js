@@ -25,12 +25,7 @@ const toggleDisableNext = (val) => {
 const updateUserInfo = (userInfo) => {
   return {
     type: 'SU_USER_INFO',
-    payload: {
-      name: userInfo.name,
-      email: userInfo.email,
-      password: userInfo.password,
-      passwordConfirmation: userInfo.passwordConfirmation,
-    }
+    payload: userInfo,
   };
 }
 

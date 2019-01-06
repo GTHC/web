@@ -23,7 +23,7 @@ class Api::V1::CaptainsController < ApiController
     )
     if params[:availability]
       @user.availability = params[:availability]
-    end 
+    end
     # Create Captain
     @captain = Captain.create!(user_id: @user.id)
     # Create Team
@@ -67,9 +67,10 @@ class Api::V1::CaptainsController < ApiController
 
     def validate_params
       params.require([:user_name,
+                      :email,
+                      :phone,
                       :password,
                       :password_confirmation,
-                      :email,
                       :team_name,
                       :tent_number,
                       :tent_type ])

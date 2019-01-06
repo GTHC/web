@@ -28,6 +28,7 @@ class Api::V1::UsersController < ApiController
     @user = User.create!(
       name: params[:name],
       email: params[:email],
+      phone: params[:phone],
       password: params[:password],
       password_confirmation: params[:password_confirmation],
       team_id: params[:team_id],
@@ -195,6 +196,7 @@ class Api::V1::UsersController < ApiController
     def validate_params
       params.require([:name,
                       :email,
+                      :phone,
                       :password,
                       :password_confirmation,
                       :team_id])

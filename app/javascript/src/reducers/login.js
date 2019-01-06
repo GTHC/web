@@ -3,6 +3,7 @@ const initialState = {
   signUpData: {
     name: '',
     email: '',
+    phone: '',
     team: '',
     teamID: null,
     tentType: '',
@@ -48,6 +49,7 @@ const login = (state=initialState, action) => {
           ...state.signUpData,
           name: action.payload.name,
           email: action.payload.email,
+          phone: action.payload.phone,
           password: action.payload.password,
           passwordConfirmation: action.payload.passwordConfirmation,
         },

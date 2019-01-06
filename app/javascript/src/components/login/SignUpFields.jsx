@@ -64,9 +64,10 @@ class SignUpFields extends Component {
           // Create User -> Create Captain -> Create Team -> Add Team ID to User
           signupNewTeam({
             user_name: data.name,
+            email: data.email,
+            phone: data.phone,
             password: data.password,
             password_confirmation: data.passwordConfirmation,
-            email: data.email,
             team_name: data.team,
             tent_number: data.tentNumber,
             tent_type: data.tentType,
@@ -78,6 +79,7 @@ class SignUpFields extends Component {
           signup({
             name: data.name,
             email: data.email,
+            phone: data.phone,
             password: data.password,
             password_confirmation: data.passwordConfirmation,
             team_id: data.teamID,
