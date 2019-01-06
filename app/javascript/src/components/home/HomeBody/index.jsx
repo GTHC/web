@@ -36,7 +36,7 @@ const HomeGrid = () => (
         <LineMonitorTwitterTimeline/>
       </Grid.Column>
     </Grid.Row>
-    <Grid.Row>
+    <Grid.Row columns={1}>
       <Grid.Column>
         <FeedbackForm/>
       </Grid.Column>
