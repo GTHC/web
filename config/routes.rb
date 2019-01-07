@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'app/*path', to: 'pages#index'
   get 'tenting101', to: 'pages#index'
   get 'about', to: 'pages#index'
+  get 'reset_password', to: 'pages#index'
 
   # Login/Logout
   post 'login', to: 'api/v1/users#login'

@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 
+// redux
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { push } from './../../actions/router';
+
+
 // semantic ui components
 import { Input, Button, Icon, Message } from 'semantic-ui-react';
 
@@ -108,9 +114,33 @@ class LoginFields extends Component {
           <Icon name="signup" />
           Sign Up
         </Button>
+
+        <br />
+        <br />
+
+        <div
+          onClick={() => {
+            this.props.push('/reset_password')
+            console.log('push');
+          }}
+        >
+        Forgot Password?
+        </div>
       </div>
     );
   }
 }
 
-export default LoginFields;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      push: push,
+    },
+    dispatch);
+};
+
+export default connect(null, mapDispatchToProps)(LoginFields);
+
+export {
+  LoginFields
+};
