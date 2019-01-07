@@ -5,28 +5,35 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { initiatePasswordReset } from '../actions/user';
 
-import { Form, Container, Header, Message} from 'semantic-ui-react'
+import { Form, Container, Header, Message, Button} from 'semantic-ui-react'
 
 class ResetPassword extends Component {
     constructor(props) {
         super(props)
         this.state = {
             email: '',
-            error: null,
+            isLoading: false,
+            success: false,
+            error: false,
+            errorMessage: '',
         }
     }
 
     validateEmail = () => {
-        // regular exp that validates email
+        // Regular exp that validates email
         const validEmailPattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,4}$/i;
 
         const isValidEmail = validEmailPattern.test(this.state.email);
 
         if (isValidEmail) {
-            initiatePasswordReset();
+            const apiParams = {
+                user_email: this.state.email,
+            }
+            initiatePasswordReset(apiParams);
         } else {
             this.setState({
-                error: 'Please enter a valid email',
+                error: true,
+                errorMessage: 'Please enter a valid email',
             })
         }
     }
@@ -34,7 +41,7 @@ class ResetPassword extends Component {
     inputChanged = (evt) => {
         this.setState({
             email: evt.target.value,
-            error: null,
+            error: false,
         });
     }
 
@@ -44,25 +51,39 @@ class ResetPassword extends Component {
                 <div>
                     <Header size="large">Forgot Password?</Header>
 
-                    {this.state.error && <Message negative content={this.state.error} />}
+                    {this.state.error && <Message negative content={this.state.errorMessage} />}
 
-                    <Message content="Enter your GTHC email to get a link allowing you to reset your password." />
+                    {this.state.success ? (
+                        <Message
+                            positive
+                            content="A password resend link has been sent to your email."
+                        />
+                    ) : (
+                            <Message content="Enter your GTHC email to get a link allowing you to reset your password." />
+                        )}
                 </div>
 
                 <br />
 
-                <Form>
-                    <Form.Field>
-                        <label>Email</label>
-                        <input
-                            value={this.state.email}
-                            onChange={this.inputChanged}
-                            placeholder="Email"
-                        />
-                    </Form.Field>
-                    <Form.Button onClick={this.validateEmail}>Reset my password</Form.Button>
-                </Form>
+                {!this.state.success && (
+                    <Form>
+                        <Form.Field>
+                            <label>Email</label>
+                            <input
+                                value={this.state.email}
+                                onChange={this.inputChanged}
+                                placeholder="Email"
+                            />
+                        </Form.Field>
+                        {this.state.isLoading ? (
+                            <Button loading>Reset my password</Button>
+                        ) : (
+                                <Button onClick={this.validateEmail}>Reset my password</Button>
+                            )}
+                    </Form>
+                )}
             </Container>
+
         );
     }
 }

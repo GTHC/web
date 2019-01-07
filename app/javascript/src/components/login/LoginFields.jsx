@@ -121,7 +121,6 @@ class LoginFields extends Component {
         <div
           onClick={() => {
             this.props.push('/reset_password')
-            console.log('push');
           }}
         >
         Forgot Password?

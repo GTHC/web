@@ -2,6 +2,7 @@ import axios from 'axios';
 import { push } from 'react-router-redux';
 
 const crud = request => (dispatch) => {
+  console.log(request.url);
   dispatch({
       type: request.dispatch.begin,
     });

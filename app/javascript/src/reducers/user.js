@@ -182,6 +182,29 @@ const user = (state=initialState, action) => {
       };
     }
 
+    case 'BEGIN_PASSWORD_RESET': {
+      return {
+        beginState
+      }
+    }
+
+    case 'FAILED_PASSWORD_RESET': {
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        errorMessage: action.payload.response.data.message,
+      }
+    }
+
+    case 'END_PASSWORD_RESET': {
+      return {
+        ...state,
+        isLoading: false,
+        success: true,
+      }
+    }
+
     default: {
       return state;
     }
