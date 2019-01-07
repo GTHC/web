@@ -16,6 +16,7 @@ import DukeTwitterTimeline from './widgets/DukeTwitterTimeline';
 import KvilleWeather from './widgets/KvilleWeather';
 import LineMonitorTwitterTimeline from './widgets/LineMonitorTwitterTimeline';
 import CountDownTimer from './widgets/CountDownTimer';
+import FeedbackForm from './widgets/FeedbackForm';
 
 const HomeGrid = () => (
   <Grid columns='equal'>
@@ -33,6 +34,11 @@ const HomeGrid = () => (
       </Grid.Column>
       <Grid.Column>
         <LineMonitorTwitterTimeline/>
+      </Grid.Column>
+    </Grid.Row>
+    <Grid.Row columns={1}>
+      <Grid.Column>
+        <FeedbackForm/>
       </Grid.Column>
     </Grid.Row>
   </Grid>
