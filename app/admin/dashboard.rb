@@ -31,14 +31,16 @@ ActiveAdmin.register_page "Dashboard" do
         end
       end
 
-      column do
-        panel "Recent Posts" do
-          last_posts = Post.last(10).reverse
-          ul do
-            last_posts.map do |post|
-              title = post.title
-              title ||= title = 'Post made on ' + post.created_at.to_s
-              li link_to(title, admin_post_path(post))
+      if Post.all.length > 0
+        column do
+          panel "Recent Posts" do
+            last_posts = Post.last(10).reverse
+            ul do
+              last_posts.map do |post|
+                title = post.title
+                title ||= title = 'Post made on ' + post.created_at.to_s
+                li link_to(title, admin_post_path(post))
+              end
             end
           end
         end
@@ -46,9 +48,8 @@ ActiveAdmin.register_page "Dashboard" do
 
         column do
           panel "Analytics" do
-            para ""
-            # TODO(anesu): Figure out how to get '/blazer' as path
-            para link_to "View Blazer Analytics", "/blazer", class: 'button'
+            para "Explore the GTHC data with SQL. Easily create charts and dashboards, and share them with other admins."
+            para link_to "View Blazer Analytics", blazer.root_path, class: 'button'
         end
       end
     end
