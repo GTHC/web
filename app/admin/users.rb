@@ -53,7 +53,6 @@ ActiveAdmin.register User do
         link_to t.captain.user.name, admin_user_path(t.captain.user)
       end
       row :tent_type
-      row :tent_number
       row :passcode
     end
   end

@@ -12,7 +12,7 @@ ActiveAdmin.register Team do
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
-  permit_params :name, :captain_id, :tent_type, :tent_number, :passcode
+  permit_params :name, :captain_id, :tent_type, :passcode
 
   # defines what the index table shows
   index do
@@ -23,7 +23,6 @@ ActiveAdmin.register Team do
       link_to team.captain.user.name, admin_user_path(team.captain.user)
     end
     column :tent_type
-    column :tent_number
     column :passcode
   end
 
@@ -34,7 +33,6 @@ ActiveAdmin.register Team do
   }
   filter :users
   filter :tent_type, as: :select
-  filter :tent_number
   filter :passcode
 
   # show page
@@ -45,7 +43,6 @@ ActiveAdmin.register Team do
         link_to t.captain.user.name, admin_user_path(t.captain.user)
       end
       row :tent_type
-      row :tent_number
       row :passcode
     end
     active_admin_comments
