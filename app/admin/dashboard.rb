@@ -44,6 +44,13 @@ ActiveAdmin.register_page "Dashboard" do
         end
       end
 
+        column do
+          panel "Analytics" do
+            para ""
+            # TODO(anesu): Figure out how to get '/blazer' as path
+            para link_to "View Blazer Analytics", "/blazer", class: 'button'
+        end
+      end
     end
 
   end # content
