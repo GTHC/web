@@ -22,7 +22,7 @@ const level1Content = (
     <Button.Group>
       <Button
         icon
-        color="primary"
+        primary
         labelPosition="left"
         as="a"
         target="_blank"
@@ -34,7 +34,7 @@ const level1Content = (
       <Button.Or />
       <Button
         icon
-        color="primary"
+        primary
         labelPosition="right"
         as="a"
         target="_blank"
@@ -52,6 +52,7 @@ const rootPanels = [
     key: 'panel-main',
     title: 'Tenting Application Question and Feedback Form',
     content: {
+      key: 'content',
       content: level1Content,
     },
   },
