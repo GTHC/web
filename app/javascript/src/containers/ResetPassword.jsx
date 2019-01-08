@@ -12,11 +12,9 @@ class ResetPassword extends Component {
         super(props)
         this.state = {
             email: '',
-            isLoading: false,
-            success: false,
-            error: false,
-            errorMessage: '',
         }
+
+        this.validateEmail = this.validateEmail.bind(this);
     }
 
     validateEmail = () => {
@@ -29,7 +27,7 @@ class ResetPassword extends Component {
             const apiParams = {
                 user_email: this.state.email,
             }
-            initiatePasswordReset(apiParams);
+            this.props.initiatePasswordReset(apiParams);
         } else {
             this.setState({
                 error: true,
@@ -51,9 +49,9 @@ class ResetPassword extends Component {
                 <div>
                     <Header size="large">Forgot Password?</Header>
 
-                    {this.state.error && <Message negative content={this.state.errorMessage} />}
+                    {this.props.user.error && <Message negative content={this.props.user.errorMessage} />}
 
-                    {this.state.success ? (
+                    {this.props.user.passwordResetSuccess ? (
                         <Message
                             positive
                             content="A password resend link has been sent to your email."
@@ -65,7 +63,7 @@ class ResetPassword extends Component {
 
                 <br />
 
-                {!this.state.success && (
+                {!this.props.user.passwordResetSuccess && (
                     <Form>
                         <Form.Field>
                             <label>Email</label>
@@ -75,7 +73,7 @@ class ResetPassword extends Component {
                                 placeholder="Email"
                             />
                         </Form.Field>
-                        {this.state.isLoading ? (
+                        {this.props.user.isLoading ? (
                             <Button loading>Reset my password</Button>
                         ) : (
                                 <Button onClick={this.validateEmail}>Reset my password</Button>
@@ -88,6 +86,12 @@ class ResetPassword extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        user: state.user,
+    };
+};
+
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators(
         {
@@ -96,7 +100,7 @@ const mapDispatchToProps = (dispatch) => {
         dispatch);
 };
 
-export default connect(null, mapDispatchToProps)(ResetPassword);
+export default connect(mapStateToProps, mapDispatchToProps)(ResetPassword);
 
 export {
     ResetPassword,

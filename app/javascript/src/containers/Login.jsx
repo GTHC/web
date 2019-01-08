@@ -23,7 +23,8 @@ import {
   signup,
   signupNewTeam,
   clearError,
-} from './../actions/login';
+} from './../actions/login'; 
+import { getResetPassword } from '../actions/user';
 import { push } from './../actions/router';
 
 // logo
@@ -65,7 +66,9 @@ class Login extends Component {
             logoutUser,
             signup,
             signupNewTeam,
-            router
+            router,
+            getResetPassword,
+            push,
           } = this.props;
     const path = router.location.pathname;
     return (
@@ -113,6 +116,8 @@ class Login extends Component {
                     user={user}
                     loginUser={loginUser}
                     logoutUser={logoutUser}
+                    getResetPassword={getResetPassword}
+                    push={push}
                     />
                 }
                 { login.type === 'signup' &&
@@ -164,6 +169,7 @@ const mapDispatchToProps = (dispatch) => {
       signupNewTeam: signupNewTeam,
       clearError: clearError,
       push: push,
+      getResetPassword,
     },
     dispatch);
 };

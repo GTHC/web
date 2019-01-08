@@ -4,6 +4,7 @@ const initialState = {
   isLoading: false,
   error: false,
   errorMessage: '',
+  passwordResetSuccess: false,
 };
 
 const user = (state=initialState, action) => {
@@ -12,6 +13,7 @@ const user = (state=initialState, action) => {
     isLoading: true,
     error: false,
     errorMessage: '',
+    passwordResetSuccess: false,
   };
   switch (action.type) {
     // POST /login
@@ -183,9 +185,8 @@ const user = (state=initialState, action) => {
     }
 
     case 'BEGIN_PASSWORD_RESET': {
-      return {
-        beginState
-      }
+      return beginState;
+      
     }
 
     case 'FAILED_PASSWORD_RESET': {
@@ -201,7 +202,14 @@ const user = (state=initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        success: true,
+        passwordResetSuccess: true,
+      }
+    }
+
+    case 'GET_RESET_PASSWORD': {
+      return {
+        ...state,
+        passwordResetSuccess: false,
       }
     }
 

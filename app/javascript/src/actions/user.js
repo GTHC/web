@@ -38,8 +38,7 @@ const checkSession = () => (
   })
 );
 
-const initiatePasswordReset = data => {
-  console.log(data);
+const initiatePasswordReset = data => (
   crud({
     dispatch: {
       begin: 'BEGIN_PASSWORD_RESET',
@@ -50,11 +49,16 @@ const initiatePasswordReset = data => {
     url: '/api/v1/user/forgot_password',
     data,
   })
-};
+);
+
+const getResetPassword = () => (
+  { type: 'GET_RESET_PASSWORD' }
+);
 
 export {
   updateUser,
   updateAvailability,
   checkSession,
-  initiatePasswordReset
+  initiatePasswordReset,
+  getResetPassword,
 };
