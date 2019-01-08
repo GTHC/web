@@ -19,7 +19,6 @@ Rails.application.routes.draw do
   devise_for :users
 
   # Analytics
-  # TODO(anesu): Authenticate with admin users
   authenticate :admin_user do
     mount Blazer::Engine, at: "blazer"
   end
