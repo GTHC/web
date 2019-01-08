@@ -17,6 +17,7 @@ import KvilleWeather from './widgets/KvilleWeather';
 import LineMonitorTwitterTimeline from './widgets/LineMonitorTwitterTimeline';
 import CountDownTimer from './widgets/CountDownTimer';
 import FeedbackForm from './widgets/FeedbackForm';
+import UpcomingGmae from './widgets/UpcomingGame'; 
 
 const HomeGrid = () => (
   <Grid columns='equal'>
@@ -39,6 +40,7 @@ const HomeGrid = () => (
     <Grid.Row columns={1}>
       <Grid.Column>
         <FeedbackForm/>
+        <UpcomingGmae/>
       </Grid.Column>
     </Grid.Row>
   </Grid>
