@@ -41,10 +41,9 @@ const updateTeamInfo = (teamInfo) => {
       team: teamInfo.team,
       teamID: teamInfo.teamID,
       tentType: teamInfo.tentType,
-      tentNumber: teamInfo.tentNumber,
       isCaptain: teamInfo.isCaptain,
       passcode: teamInfo.passcode,
-    }
+    },
   };
 };
 
@@ -133,13 +132,14 @@ const signup = (userData) => (
 /**
  * @param  {[Object]} userData
  * {
- *  user_name: string
+ *  name: string
  *  email: string
  *  password: string
  *  password_confirmation: string
  *  team_name: string,
- *  tent_number: integer,
  *  tent_type: string (black, dblack, blue, dblue, or white)
+ *  passcode: string,
+ *  phone: string,
  * }
  */
 const signupNewTeam = (userData) => (
