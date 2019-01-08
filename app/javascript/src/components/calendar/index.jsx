@@ -109,7 +109,8 @@ class BigCal extends Component {
       openShiftCreate,
       openShiftView,
     } = this.state;
-    const { team_shifts } = this.props.shifts;
+    const { team, shifts } = this.props;
+    const { team_shifts } = shifts;
     const events = team_shifts.map((shift) => ({
       ...shift,
       start: new Date(shift.start),
@@ -140,7 +141,7 @@ class BigCal extends Component {
           open={openShiftView}
           onClose={() => this.onClose('view')}
         >
-          <ShiftViewModal shiftData={shiftData}/>
+          <ShiftViewModal team={team} shiftData={shiftData}/>
           <Modal.Actions>
             <Button negative onClick={this.handleDelete}>Delete</Button>
             <ShiftUpdateModal

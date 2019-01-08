@@ -28,10 +28,15 @@ class Schedule extends Component {
   };
 
   render () {
+    const { user } = this.props;
     const { availability, disabled, savePressed, loading } = this.state;
     return (
       <div>
-        <Availability updateAvailState={this.updateAvailState} {...this.props} />
+        <Availability
+          {...this.props}
+          updateAvailState={this.updateAvailState}
+          grid={user.availability}
+        />
         <Button disabled={disabled} onClick={this.onSave}>Save</Button>
         {
           !loading && savePressed &&

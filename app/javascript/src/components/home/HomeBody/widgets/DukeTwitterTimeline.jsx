@@ -15,7 +15,7 @@ const DukeTwitterTimeline = () => (
           options={{
             username: 'TwitterDev',
             height: '400',
-            width: '400',
+            width: '600',
           }}
         />
       </div>

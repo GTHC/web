@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  resources :posts
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   # Page rendering
   root 'pages#index'
   get 'app', to: 'pages#index'
@@ -26,8 +29,13 @@ Rails.application.routes.draw do
       resources :shifts, :teams, :captains, :users
       get 'user/session', to: 'users#timeout'
       post 'user/shifts', to: 'users#shifts'
+
+      # user
       put 'user/password/check', to: 'users#password_check'
       post 'user/availability', to: 'users#update_availability'
+      post 'user/avatar', to: 'users#update_avatar'
+
+      # team
       get 'team/availability', to: 'teams#shift_availabilities'
     end
   end

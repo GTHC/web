@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 
 import { Image, Label } from 'semantic-ui-react';
-import * as default_image from '../../../images/default_image.png';
+import * as defaultSrc from '../../../images/default_image.png';
 
 export default class UserPane extends Component {
   render () {
     const { user } = this.props;
-
+    const src = user.avatarURL || defaultSrc;
     return (
       <div>
         <Image
-          src={default_image}
+          rounded
+          src={src}
           label={{
             content: 'You',
             attached: 'bottom',

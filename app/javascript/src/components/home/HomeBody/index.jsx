@@ -1,36 +1,47 @@
 import React, { Component } from 'react';
-import { Container, Divider, Embed, Transition } from 'semantic-ui-react';
 
-import DukeTwitterTimeline from './DukeTwitterTimeline';
-import DukeVideo from './DukeVideo';
-import KvilleWeather from './KvilleWeather'
+// semantic-ui
+import {
+  Container,
+  Divider,
+  Embed,
+  Grid,
+  Image,
+  Segment,
+  Transition
+} from 'semantic-ui-react';
 
-export default class HomeBody extends Component {
-  constructor (props) {
-    super(props);
-    this.state = {
-      visible: false,
-    }
-  }
+// widgets
+import DukeTwitterTimeline from './widgets/DukeTwitterTimeline';
+import KvilleWeather from './widgets/KvilleWeather';
+import LineMonitorTwitterTimeline from './widgets/LineMonitorTwitterTimeline';
+import CountDownTimer from './widgets/CountDownTimer';
+import FeedbackForm from './widgets/FeedbackForm';
 
-  render () {
-    const { user } = this.props.userData;
-    const { visible } = this.state;
+const HomeGrid = () => (
+  <Grid columns='equal'>
+    <Grid.Row>
+      <Grid.Column>
+      <KvilleWeather/>
+      </Grid.Column>
+    </Grid.Row>
+    <Grid.Row>
+      <Grid.Column>
+        <DukeTwitterTimeline/>
+      </Grid.Column>
+      <Grid.Column width={9}>
+        <CountDownTimer/>
+      </Grid.Column>
+      <Grid.Column>
+        <LineMonitorTwitterTimeline/>
+      </Grid.Column>
+    </Grid.Row>
+    <Grid.Row columns={1}>
+      <Grid.Column>
+        <FeedbackForm/>
+      </Grid.Column>
+    </Grid.Row>
+  </Grid>
+);
 
-    return (
-      <div style={{ paddingBottom: '48px' }}>
-        <Container>
-          {/* <Container textAlign="center">
-            <Transition visible={visible} duration={1000}>
-              <h1>Welcome to your scheduler, { user.name }!</h1>
-            </Transition>
-          </Container> */}
-          {/* <Divider /> */}
-          <KvilleWeather />
-          {/* <DukeVideo /> */}
-          <DukeTwitterTimeline />
-        </Container>
-      </div>
-    );
-  }
-}
+export default HomeGrid;
