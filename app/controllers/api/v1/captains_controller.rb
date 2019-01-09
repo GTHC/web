@@ -18,6 +18,7 @@ class Api::V1::CaptainsController < ApiController
     @user = User.create!(
       name: params[:user_name],
       email: params[:email],
+      phone: params[:phone],
       password: params[:password],
       password_confirmation: params[:password_confirmation]
     )

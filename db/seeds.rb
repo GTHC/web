@@ -18,6 +18,7 @@ else
       password: 'password',
       password_confirmation: 'password',
       email: Faker::Internet.email,
+      phone: Faker::PhoneNumber.cell_phone,
       team_id: i,
       availability: Array.new(7, Array.new(20) { rand(0..2) }),
     )
@@ -64,6 +65,7 @@ else
       name: Faker::Name.name,
       password: 'password',
       password_confirmation: 'password',
+      phone: Faker::PhoneNumber.cell_phone,
       email: Faker::Internet.email,
       team_id: rand(1..5),
       availability: Array.new(7, Array.new(20) { rand(0..2) }),
