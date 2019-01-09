@@ -1,7 +1,7 @@
 import React from 'react';
 
 // semantic-ui
-import { Accordion, Button, Icon } from 'semantic-ui-react';
+import { Accordion, Button, Header, Icon } from 'semantic-ui-react';
 
 const suggestionURL = "https://docs.google.com/forms/d/e/1FAIpQLScPghAkeRi-Ey0JhWRc2xmuG5fn6TofbIf147gsgIjhsRnuCQ/viewform?embedded=true";
 
@@ -10,11 +10,12 @@ const questionURL = "https://docs.google.com/forms/d/e/1FAIpQLSdbyw2o6IqQekPAC8r
 //Incorporates an Accordian within the larger Accordian description or content
 const level1Content = (
   <div>
-    Disclaimer: This section is for feedback on and questions about the tenting application
-    <strong> NOT </strong> on the Tenting Process itself. Please direct those questions to <a
+    <Header>Have any suggestions or questions about GTHC?</Header>
+    <Header as="h5">GTHC is an app built for Duke students by Duke students, and we are always looking to improve. We can only do that by listening to you all. Fill out either one of the Google forms for any suggestions or questions that you may have!</Header>
+    Disclaimer: This section is <strong> NOT </strong> on the Tenting Process itself. Please direct those questions to <a
       href="mailto:headlinemonitor@gmail.com">
       headlinemonitor@gmail.com
-    </a>. Otherwise, please fill out your suggestions or questions on our form by clicking the buttons below:
+    </a>.
 
 
     <br />
@@ -50,7 +51,7 @@ const level1Content = (
 const rootPanels = [
   {
     key: 'panel-main',
-    title: 'Tenting Application Question and Feedback Form',
+    title: 'GTHC Question and Feedback Forms',
     content: {
       key: 'content',
       content: level1Content,
@@ -63,7 +64,6 @@ const GTHCApplicationFeedbackForm = () => (
     fluid
     styled
     key="feedback"
-    defaultActiveIndex={0}
     panels={rootPanels}
   />
 );
