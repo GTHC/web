@@ -18,6 +18,7 @@ import LineMonitorTwitterTimeline from './widgets/LineMonitorTwitterTimeline';
 import LineMonitorPosts from './widgets/LineMonitorPosts';
 import CountDownTimer from './widgets/CountDownTimer';
 import FeedbackForm from './widgets/FeedbackForm';
+import UpcomingGame from './widgets/UpcomingGame';
 
 const HomeGrid = ({ posts }) => (
   <Grid columns='equal'>
@@ -37,6 +38,7 @@ const HomeGrid = ({ posts }) => (
       </Grid.Column>
       <Grid.Column width={9}>
         <CountDownTimer/>
+        <UpcomingGame/>
       </Grid.Column>
       <Grid.Column>
         <LineMonitorTwitterTimeline/>
