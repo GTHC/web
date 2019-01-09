@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-
 // semantic-ui
-import { Card, Header, Image } from 'semantic-ui-react';
+import { Card, Icon, Image, Loader } from 'semantic-ui-react';
 
 // util functions
-import getUpcomingGame from './utils/getUpcomingGame'; 
+import getUpcomingGame from './utils/getUpcomingGame';
+import { genDateFormat } from '../../../calendar/utils/dateFormatting';
 
 class UpcomingGame extends Component {
 
@@ -16,27 +16,27 @@ class UpcomingGame extends Component {
       date: '',
       espn: '',
       competitorLogo: '',
-      venue: {}
-    }
+      venue: {},
+      loaded: false,
+    };
   }
 
   componentWillMount() {
-    
-    getUpcomingGame() 
-      .then(res => { 
-        console.log('res', res)
-        const url = 'http://www.espn.com/mens-college-basketball/game?'; 
+    // grab ESPN upcoming game data
+    getUpcomingGame()
+      .then(res => {
+        const url = 'http://www.espn.com/mens-college-basketball/game?';
 
-        const data = res.data.team.nextEvent[0]; 
-        const id = data.id; 
-        const name = data.name; 
-        const date = data.date; 
+        const data = res.data.team.nextEvent[0];
+        const id = data.id;
+        const name = data.name;
+        const date = data.date;
         const espn = `${url}gameId=${id}`;
 
         const competitions = data.competitions[0];
         const venue = competitions.venue;
         const competitor = competitions.competitors[0].team;
-        const competitorLogo = competitor.logos[0].href; 
+        const competitorLogo = competitor.logos[0].href;
 
         this.setState({
           name,
@@ -44,17 +44,49 @@ class UpcomingGame extends Component {
           espn,
           competitorLogo,
           venue,
+          loaded: true,
         });
 
-      }) 
-    
+      });
   }
 
   render() {
-    console.log(this.state)
-    return (
-      <div></div>
-    );
+    const {
+      name,
+      date,
+      espn,
+      competitorLogo,
+      venue,
+      loaded,
+    } = this.state;
+
+    return loaded ?
+    (
+      <Card fluid>
+        <Card.Content>
+          <Card.Header>Upcoming Game</Card.Header>
+          <Card.Meta>{name}</Card.Meta>
+        </Card.Content>
+        <Card.Content>
+          <Image src={competitorLogo} size="tiny" floated="left"/>
+          <Card.Description>
+            {venue.fullName}
+            <Card.Meta>
+              {venue.address.city}, {venue.address.state}
+            </Card.Meta>
+          </Card.Description>
+        </Card.Content>
+        <Card.Content extra>
+          {genDateFormat(date)}
+        </Card.Content>
+      </Card>
+    ) :
+    <Card fluid>
+      <Card.Content>
+        <Loader />
+      </Card.Content>
+    </Card>
+    ;
   }
 
 }
