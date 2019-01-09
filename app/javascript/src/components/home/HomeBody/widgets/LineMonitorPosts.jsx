@@ -110,7 +110,6 @@ class LineMonitorPosts extends Component {
         fluid
         styled
         key="posts"
-        defaultActiveIndex={0}
         panels={rootPanels}
       />
     );
