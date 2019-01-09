@@ -27,6 +27,10 @@ export default class UserPane extends Component {
         <br />
         <strong>Email: </strong>
         <Label>{ user.email }</Label>
+        <br />
+        <br />
+        <strong>Phone: </strong>
+        <Label>{ user.phone }</Label>
       </div>
     );
   }

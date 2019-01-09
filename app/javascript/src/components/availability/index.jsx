@@ -55,6 +55,10 @@ class Availability extends Component {
 
 
   handleClick = (row, column) => {
+    if (this.props.fixed) {
+      return;
+    }
+
     const { updateAvailState } = this.props;
     const setNewNumber = (val) => (val < 2 ? ++val : 0);
 

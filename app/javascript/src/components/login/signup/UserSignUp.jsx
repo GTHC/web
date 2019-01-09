@@ -11,6 +11,7 @@ class UserSignUp extends Component {
       hidePasswords: true,
       name: data.name,
       email: data.email,
+      phone: data.phone,
       password: data.password,
       passwordConfirmation: data.passwordConfirmation,
       errorMessage: '',
@@ -29,35 +30,43 @@ class UserSignUp extends Component {
     this.setState({ [data.id]: e.target.value },
       () => { this.validInput(); }
     );
-  }
+  };
 
   validInput = () => {
-    const { hidePasswords, name, email, password, passwordConfirmation } = this.state;
+    const { hidePasswords, name, email, phone, password, passwordConfirmation } = this.state;
     const { updateUserInfo, toggleDisableNext } = this.props;
     if (password !== passwordConfirmation) {
       this.setState({ errorMessage: 'Make sure both passwords are the same.' });
       toggleDisableNext(true);
       return;
-    } else if (name === '' || email === '' || password === '' || passwordConfirmation === '') {
+    } else if (name === '' || email === '' || password === '' || passwordConfirmation === '' || phone === '') {
       this.setState({ errorMessage: 'Make sure none of the fields are empty.' });
       toggleDisableNext(true);
       return;
-    } else if ( !email.includes('@duke.edu') ) {
+    } else if (!email.includes('@duke.edu')) {
       this.setState({ errorMessage: 'Make sure to use a valid Duke email.' });
       toggleDisableNext(true);
       return;
-    } else if ( password.length < 6 ) {
+    } else if (password.length < 6) {
       this.setState({ errorMessage: 'Make sure passwords are at least 6 characters.' });
       toggleDisableNext(true);
       return;
     }
+
     this.setState({ errorMessage: '' });
     updateUserInfo(this.state);
     toggleDisableNext(false);
-  }
+  };
 
   render() {
-    const { hidePasswords, name, email, password, passwordConfirmation, errorMessage } = this.state;
+    const {
+      hidePasswords,
+      name, email,
+      phone,
+      password, passwordConfirmation,
+      errorMessage,
+    } = this.state;
+
     return (
       <div>
         <Form.Input
@@ -74,6 +83,14 @@ class UserSignUp extends Component {
           id="email"
           label="Duke Email"
           placeholder="Duke Email"
+          onChange={this.onInputChange}
+        />
+        <Form.Input
+          fluid
+          value={phone}
+          id="phone"
+          label="Phone Number"
+          placeholder="Phone"
           onChange={this.onInputChange}
         />
         <Form.Input

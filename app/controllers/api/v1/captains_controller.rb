@@ -66,9 +66,10 @@ class Api::V1::CaptainsController < ApiController
 
     def validate_params
       params.require([:user_name,
+                      :email,
+                      :phone,
                       :password,
                       :password_confirmation,
-                      :email,
                       :team_name,
                       :tent_type ])
     end
