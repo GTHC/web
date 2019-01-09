@@ -10,6 +10,7 @@ import {
   logout,
 } from './../actions/login';
 import { getAllShifts } from '../actions/shifts';
+import { getPosts } from './../actions/posts';
 
 // components
 import HomeBody from './../components/home/HomeBody';
@@ -20,6 +21,7 @@ import { Button } from 'semantic-ui-react';
 class Home extends Component {
   componentDidMount() {
     this.props.getAllShifts();
+    this.props.getPosts();
   }
 
   handleLogout = () => {
@@ -27,13 +29,13 @@ class Home extends Component {
   };
 
   render() {
-    const { user } = this.props;
+    const { user, posts } = this.props;
 
     return (
         <div>
           <NavBar />
           <div className="body">
-            <HomeBody userData={user.data} />
+            <HomeBody posts={posts} />
           </div>
 
         </div>
@@ -47,6 +49,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
     login: state.login,
+    posts: state.posts,
   };
 };
 
@@ -56,6 +59,7 @@ const mapDispatchToProps = (dispatch) => {
       loginUser: login, // changed login and logout action names due to login state name
       logoutUser: logout,
       getAllShifts,
+      getPosts,
     },
     dispatch);
 };

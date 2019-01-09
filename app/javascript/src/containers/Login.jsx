@@ -69,6 +69,7 @@ class Login extends Component {
             router,
             getResetPassword,
             push,
+            clearError,
           } = this.props;
     const path = router.location.pathname;
     return (
@@ -118,6 +119,7 @@ class Login extends Component {
                     logoutUser={logoutUser}
                     getResetPassword={getResetPassword}
                     push={push}
+                    clearError={clearError}
                     />
                 }
                 { login.type === 'signup' &&

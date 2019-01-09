@@ -4,6 +4,7 @@ import { Tab } from 'semantic-ui-react';
 import UserPane from './UserPane';
 import EditUserPane from './EditUserPane';
 import EditPasswordPane from './EditPasswordPane';
+import EditUserAvatar from './EditUserAvatar';
 import Schedule from './Schedule';
 
 export default class UserProfileBody extends Component {
@@ -14,13 +15,16 @@ export default class UserProfileBody extends Component {
       { menuItem: 'User Information', render: () => <Tab.Pane>
         <UserPane user={userData.user}/>
       </Tab.Pane>, },
-      { menuItem: 'Edit User Information', render: () => <Tab.Pane>
+      { menuItem: 'Edit User\'s Information', render: () => <Tab.Pane>
         <EditUserPane {...userData} {...this.props} />
       </Tab.Pane>, },
       { menuItem: 'Edit Password', render: () => <Tab.Pane>
         <EditPasswordPane user={userData.user} {...this.props} />
       </Tab.Pane>, },
-      { menuItem: 'Edit User Availability', render: () => <Tab.Pane>
+      { menuItem: 'Edit User\'s Avatar', render: () => <Tab.Pane>
+        <EditUserAvatar user={userData.user} {...this.props} />
+      </Tab.Pane> },
+      { menuItem: 'Edit User\'s Availability', render: () => <Tab.Pane>
         <Schedule user={userData.user} {...this.props} />
       </Tab.Pane> },
     ];

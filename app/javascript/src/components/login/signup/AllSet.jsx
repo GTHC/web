@@ -25,6 +25,11 @@ class AllSet extends Component {
         { data.email }
         <br />
         <br />
+        <strong>Phone:</strong>
+        <br/>
+        { data.phone }
+        <br />
+        <br />
         <strong>Team: </strong>
         <br />
         { data.team }

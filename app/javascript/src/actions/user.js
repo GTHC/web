@@ -38,18 +38,30 @@ const checkSession = () => (
   })
 );
 
-const initiatePasswordReset = data => (
+const initiatePasswordReset = data =>
   crud({
     dispatch: {
-      begin: 'BEGIN_PASSWORD_RESET',
-      fail: 'FAIL_PASSWORD_RESET',
-      end: 'END_PASSWORD_RESET',
+      begin: "BEGIN_PASSWORD_RESET",
+      fail: "FAIL_PASSWORD_RESET",
+      end: "END_PASSWORD_RESET"
     },
-    method: 'POST',
-    url: '/api/v1/user/forgot_password',
-    data,
-  })
-);
+    method: "POST",
+    url: "/api/v1/user/forgot_password",
+    data
+  });
+
+const postAvatar = data =>
+  crud({
+    headers: { "Content-Type": "form-data" },
+    dispatch: {
+      begin: "BEGIN_POST_AVATAR",
+      fail: "FAILED_POST_AVATAR",
+      end: "END_POST_AVATAR"
+    },
+    method: "POST",
+    url: "/api/v1/user/avatar",
+    data
+  });
 
 const getResetPassword = () => (
   { type: 'GET_RESET_PASSWORD' }
@@ -59,6 +71,5 @@ export {
   updateUser,
   updateAvailability,
   checkSession,
-  initiatePasswordReset,
-  getResetPassword,
+  postAvatar,
 };

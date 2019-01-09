@@ -72,4 +72,6 @@ config.webpacker.check_yarn_integrity = true
     :authentication => :plain,
     :enable_starttls_auto => true
   }
+  # ActiveStorage
+  config.active_storage.service = :local
 end

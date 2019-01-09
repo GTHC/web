@@ -13,7 +13,6 @@ class Api::V1::TeamsController < ApiController
     @team = Team.create!(
       name: @name,
       captain_id: @captain_id,
-      tent_number: @tent_number,
       tent_type: @tent_type,
       passcode: @passcode,
     )
@@ -55,17 +54,15 @@ class Api::V1::TeamsController < ApiController
       params.require([:name, :captain_id, :tent_type, :passcode])
       @name = params[:name]
       @captain_id = params[:captain_id]
-      @tent_number = params[:tent_number]
       @tent_type = params[:tent_type]
       @passcode = params[:passcode]
     end
 
     def validate_update_params
-      params.require([:id, :name, :tent_type, :tent_number])
+      params.require([:id, :name, :tent_type])
       @prime_params = {
         id: params[:id],
         name: params[:name],
-        tent_number: params[:tent_number],
         tent_type: params[:tent_type],
       }
     end
@@ -96,11 +93,13 @@ class Api::V1::TeamsController < ApiController
             min_avail = avail[i]
           end
         end
-        data.push({
+        userData = {
             id: user.id,
             name: user.name,
             shift_availability: min_avail
-            })
+            }
+        userData[:avatarURL] = url_for(user.avatar) if user.avatar.attached?
+        data.push(userData)
       end
       return data
     end

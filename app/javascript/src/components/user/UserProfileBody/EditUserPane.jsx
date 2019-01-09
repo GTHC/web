@@ -7,6 +7,7 @@ export default class UserPane extends Component {
     this.state = {
       disabled: false,
       name: props.user.name,
+      phone: props.user.phone,
       savePressed: false,
       loading: props.userState.isLoading,
     };
@@ -21,8 +22,8 @@ export default class UserPane extends Component {
   };
 
   validInput = () => {
-    const { name } = this.state;
-    if (name.trim() == '') {
+    const { name, phone } = this.state;
+    if (name.trim() == '' || phone.trim() == '') {
       this.setState({ disabled: true });
     } else {
       this.setState({ disabled: false });
@@ -31,16 +32,17 @@ export default class UserPane extends Component {
 
   onSave = () => {
     const { user, updateUser } = this.props;
-    const { name } = this.state;
+    const { name, phone } = this.state;
     const data = {
       name,
+      phone,
     };
     updateUser(user.id, data);
     this.setState({ savePressed: true });
   };
 
   render () {
-    const { disabled, name, loading, savePressed } = this.state;
+    const { disabled, name, phone, loading, savePressed } = this.state;
     const { error } = this.props.userState;
 
     return (
@@ -54,6 +56,16 @@ export default class UserPane extends Component {
             label="Name"
             placeholder="Name"
             value={name}
+            onChange={this.onInputChange}
+          />
+          <Form.Input
+            fluid
+            type="text"
+            id="phone"
+            error={disabled}
+            label="Phone Number"
+            placeholder="Phone"
+            value={phone}
             onChange={this.onInputChange}
           />
           <Form.Button disabled={disabled} onClick={this.onSave}>Save</Form.Button>

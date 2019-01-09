@@ -15,6 +15,7 @@ class LoginFields extends Component {
   }
 
   onInputChange = (e, data) => {
+    this.props.clearError();
     this.setState({ [data.id]: e.target.value },
       () => { this.validInput(); }
     );
@@ -40,7 +41,7 @@ class LoginFields extends Component {
   }
 
   render() {
-    const { login, toggleLoginType, user } = this.props;
+    const { clearError, login, toggleLoginType, user } = this.props;
     return (
       <div>
         <Input
@@ -102,6 +103,8 @@ class LoginFields extends Component {
           color="blue"
           labelPosition="right"
           onClick={() => {
+            // clear/removes user and login redux state error
+            clearError();
             toggleLoginType(login.type);
           }}
         >

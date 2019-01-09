@@ -9,16 +9,23 @@ import TeamProfileBody from './../components/team/TeamProfileBody';
 import NavBar from './NavBar';
 
 // actions
-import { updateTeam } from '../actions/team';
+import { updateTeam, getTeam } from '../actions/team';
 
 class TeamProfile extends Component {
+  componentDidMount() {
+    const { getTeam, user } = this.props;
+    const userData = user.data;
+    getTeam(userData.user.team_id);
+  }
+
   render () {
-    const { user, updateTeam } = this.props;
+    const { user, team, updateTeam } = this.props;
     return (
       <div>
         <NavBar />
         <div className="body">
           <TeamProfileBody
+            teamState={team}
             userState={user}
             userData={user.data}
             updateTeam={updateTeam}
@@ -34,6 +41,7 @@ class TeamProfile extends Component {
 const mapStateToProps = state => {
   return {
     user: state.user,
+    team: state.team,
     login: state.login,
   };
 };
@@ -42,6 +50,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       updateTeam,
+      getTeam,
     },
     dispatch);
 };
