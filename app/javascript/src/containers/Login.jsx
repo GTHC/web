@@ -23,7 +23,7 @@ import {
   signup,
   signupNewTeam,
   clearError,
-} from './../actions/login'; 
+} from './../actions/login';
 import { getResetPassword } from '../actions/user';
 import { push } from './../actions/router';
 
