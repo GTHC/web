@@ -64,8 +64,8 @@ config.webpacker.check_yarn_integrity = true
   config.action_mailer.raise_delivery_errors = true
 
   ActionMailer::Base.smtp_settings = {
-    :user_name => Rails.application.secrets[:gthc_email],
-    :password => Rails.application.secrets[:gthc_email_password],
+    :user_name => ENV['GTHC_EMAIL'],
+    :password => ENV['GTHC_EMAIL_PASSWORD'],
     :domain => 'gthc.io',
     :address => 'mail.privateemail.com',
     :port => 587,
