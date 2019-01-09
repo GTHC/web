@@ -106,9 +106,8 @@ class Api::V1::UsersController < ApiController
     validate_forgot_password_params
     @user = User.find_by_email(params[:user_email]);
     if @user
-      puts 'yippy'
       @user.send_reset_password_instructions
-      # TODO(anesu): Figure out how to get callback when email sent 
+      # TODO(anesu): Figure out how to get callback when email sent
       render json: { status: 'SUCCESS', message: 'Password reset sent', email: params[:user_email]}, status: :ok
     else
       render json: { status: 'ERROR', message: 'Email not found' }, status: :not_found
