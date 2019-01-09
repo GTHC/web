@@ -15,13 +15,21 @@ import {
 import DukeTwitterTimeline from './widgets/DukeTwitterTimeline';
 import KvilleWeather from './widgets/KvilleWeather';
 import LineMonitorTwitterTimeline from './widgets/LineMonitorTwitterTimeline';
+import LineMonitorPosts from './widgets/LineMonitorPosts';
 import CountDownTimer from './widgets/CountDownTimer';
+import FeedbackForm from './widgets/FeedbackForm';
+import UpcomingGame from './widgets/UpcomingGame';
 
-const HomeGrid = () => (
+const HomeGrid = ({ posts }) => (
   <Grid columns='equal'>
     <Grid.Row>
       <Grid.Column>
-      <KvilleWeather/>
+        <LineMonitorPosts posts={posts}/>
+      </Grid.Column>
+    </Grid.Row>
+    <Grid.Row>
+      <Grid.Column>
+        <KvilleWeather/>
       </Grid.Column>
     </Grid.Row>
     <Grid.Row>
@@ -30,9 +38,15 @@ const HomeGrid = () => (
       </Grid.Column>
       <Grid.Column width={9}>
         <CountDownTimer/>
+        <UpcomingGame/>
       </Grid.Column>
       <Grid.Column>
         <LineMonitorTwitterTimeline/>
+      </Grid.Column>
+    </Grid.Row>
+    <Grid.Row columns={1}>
+      <Grid.Column>
+        <FeedbackForm/>
       </Grid.Column>
     </Grid.Row>
   </Grid>

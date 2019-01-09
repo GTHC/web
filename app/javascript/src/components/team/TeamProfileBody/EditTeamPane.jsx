@@ -11,7 +11,6 @@ export default class EditTeamPane extends Component {
     super(props);
     this.state = {
       name: props.team.name,
-      tentNumber: props.team.tent_number,
       tentType: props.team.tent_type,
       disabled: false,
       savePressed: false,
@@ -28,10 +27,9 @@ export default class EditTeamPane extends Component {
 
   onSave = () => {
     const { team, updateTeam } = this.props;
-    const { name, tentNumber, tentType } = this.state;
+    const { name, tentType } = this.state;
     const data = {
       name,
-      tent_number: tentNumber,
       tent_type: tentType,
     };
     this.setState({ savePressed: true });
@@ -39,8 +37,8 @@ export default class EditTeamPane extends Component {
   };
 
   validInput = () => {
-    const { name, tentNumber } = this.state;
-    if (name.trim() == '' || tentNumber == '') {
+    const { name } = this.state;
+    if (name.trim() == '') {
       this.setState({ disabled: true });
     } else {
       this.setState({ disabled: false });
@@ -55,7 +53,7 @@ export default class EditTeamPane extends Component {
 
   renderIsCaptain = () => {
     const { team, captain, user, userState } = this.props;
-    const { disabled, name, tentNumber, tentType, loading, savePressed } = this.state;
+    const { disabled, name, tentType, loading, savePressed } = this.state;
     const error = userState.error;
     return (
       <div>
@@ -63,28 +61,16 @@ export default class EditTeamPane extends Component {
           <p>{ 'You are the captain. You have access to editing team information.' }</p>
         </Message>
         <Form className='attached fluid segment'>
-          <Form.Group widths="equal">
-            <Form.Input
-              fluid
-              type="text"
-              id="name"
-              error={disabled}
-              label="Team Name"
-              placeholder="Team Name"
-              value={name}
-              onChange={this.onInputChange}
-            />
-            <Form.Input
-              fluid
-              type="number"
-              id="tentNumber"
-              error={disabled}
-              label="Tent Number"
-              placeholder="Tent Number"
-              value={tentNumber}
-              onChange={this.onInputChange}
-            />
-          </Form.Group>
+          <Form.Input
+            fluid
+            type="text"
+            id="name"
+            error={disabled}
+            label="Team Name"
+            placeholder="Team Name"
+            value={name}
+            onChange={this.onInputChange}
+          />
           <Form.Dropdown
             fluid
             search

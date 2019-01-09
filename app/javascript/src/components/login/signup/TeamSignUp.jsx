@@ -27,7 +27,6 @@ class TeamSignUp extends Component {
       team: data.team,
       teamID: data.teamID,
       tentType: data.tentType,
-      tentNumber: data.tentNumber,
       isCaptain: false,
       errorMessage: '',
       passcode: data.passcode,
@@ -40,32 +39,23 @@ class TeamSignUp extends Component {
 
     // checks if next button should be active or not
     // (useful for situations where user comes from a future page)
-    if (data.team && data.tentType && data.tentNumber) {
+    if (data.team && data.tentType && data.passcode) {
       props.toggleDisableNext(false);
     }
   }
 
   onInputChange = (e, data) => {
-    // check if tentNumber is actually a number
     this.setState({ [data.id]: e.target.value },
       () => {this.validInput()}
     );
   }
 
   validInput = () => {
-    const { stepType, team, tentType, tentNumber, teamType, correctPasscode } = this.state;
+    const { stepType, team, tentType, teamType, correctPasscode } = this.state;
     const { toggleDisableNext, updateTeamInfo, login } = this.props;
-    const tentNumbers = login.teams.map(team => team.tent_number);
-    if (stepType === 1 && (team === '' || tentType === '' || tentNumber === '')) {
+    if (stepType === 1 && (team === '' || tentType === '')) {
       this.setState({ errorMessage: 'Make sure all fields are filled.' });
       toggleDisableNext(true);
-    } else if (isNaN(tentNumber) && stepType === 1) {
-      this.setState({ errorMessage: 'Tent Number must be a number.' });
-      toggleDisableNext(true);
-    } else if (teamType === 'create' && tentNumbers.includes(parseInt(tentNumber))) {
-      this.setState({ errorMessage: 'Tent Number is already being used by another team.' });
-      toggleDisableNext(true);
-      return;
     } else if (stepType == 2 && !correctPasscode) {
       toggleDisableNext(true);
     } else if (stepType > 0) {
@@ -91,7 +81,6 @@ class TeamSignUp extends Component {
     this.setState({
       team: team.name,
       teamID: team.id,
-      tentNumber: team.tent_number,
       tentType: tentType,
       passcode: team.passcode,
       isCaptain: false,
@@ -110,7 +99,7 @@ class TeamSignUp extends Component {
   ));
 
   render() {
-    const { stepType, team, tentType, tentNumber, passcode, errorMessage, showJoinPasscode } = this.state;
+    const { stepType, team, tentType, passcode, errorMessage, showJoinPasscode } = this.state;
     const { toggleDisableNext, login } = this.props;
     return (
       <div>
@@ -122,7 +111,6 @@ class TeamSignUp extends Component {
                 isCaptain: true,
                 team: '',
                 tentType: '',
-                tentNumber: '',
                 passcode: generate(5).toUpperCase(),
                 showJoinPasscode: false,
               });
@@ -149,14 +137,6 @@ class TeamSignUp extends Component {
                   id="team"
                   label="Team Name"
                   placeholder="Team Name"
-                  onChange={this.onInputChange}
-                />
-                <Form.Input
-                  fluid
-                  value={tentNumber}
-                  id="tentNumber"
-                  label="Team Number"
-                  placeholder="Team Number"
                   onChange={this.onInputChange}
                 />
                 <Form.Dropdown

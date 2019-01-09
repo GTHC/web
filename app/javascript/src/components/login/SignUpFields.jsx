@@ -69,7 +69,6 @@ class SignUpFields extends Component {
             password: data.password,
             password_confirmation: data.passwordConfirmation,
             team_name: data.team,
-            tent_number: data.tentNumber,
             tent_type: data.tentType,
             passcode: data.passcode,
             availability: data.availability,
@@ -84,7 +83,7 @@ class SignUpFields extends Component {
             password_confirmation: data.passwordConfirmation,
             team_id: data.teamID,
             availability: data.availability,
-          })
+          });
         }
         return;
       }

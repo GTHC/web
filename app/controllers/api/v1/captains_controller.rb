@@ -29,7 +29,6 @@ class Api::V1::CaptainsController < ApiController
     # Create Team
     @team = Team.create!(
       name: params[:team_name],
-      tent_number: params[:tent_number],
       tent_type: params[:tent_type],
       passcode: params[:passcode],
       captain_id: @captain.id
@@ -72,7 +71,6 @@ class Api::V1::CaptainsController < ApiController
                       :password,
                       :password_confirmation,
                       :team_name,
-                      :tent_number,
                       :tent_type ])
     end
 end
