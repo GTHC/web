@@ -11,7 +11,7 @@ import Countdown from 'react-count-down';
 import count from './count.css';
 
 const CountDownTimer = () => {
-  const options = { endDate: '02/22/2019 9:00 PM' };
+  const options = { endDate: '02/20/2019 9:00 PM' };
 
   return (
     <Card fluid>

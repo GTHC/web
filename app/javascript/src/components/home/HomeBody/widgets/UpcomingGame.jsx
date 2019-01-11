@@ -63,22 +63,26 @@ class UpcomingGame extends Component {
     return loaded ?
     (
       <Card fluid>
+       
         <Card.Content>
-          <Card.Header>Upcoming Game</Card.Header>
-          <Card.Meta>{name}</Card.Meta>
+          <Card.Header><center>Upcoming Game</center></Card.Header>
+          <Card.Meta><center>{name}</center></Card.Meta>
         </Card.Content>
         <Card.Content>
-          <Image src={competitorLogo} size="tiny" floated="left"/>
+          <center> <Image src={competitorLogo} size="tiny"/> </center>
           <Card.Description>
-            {venue.fullName}
+            <center>{venue.fullName}</center>
             <Card.Meta>
+              <center>
               {venue.address.city}, {venue.address.state}
+              </center>
             </Card.Meta>
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
-          {genDateFormat(date)}
+          <center>{genDateFormat(date)}</center>
         </Card.Content>
+      
       </Card>
     ) :
     <Card fluid>
