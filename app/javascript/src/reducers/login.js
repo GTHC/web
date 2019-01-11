@@ -3,16 +3,16 @@ const initialState = {
   signUpData: {
     name: '',
     email: '',
+    phone: '',
     team: '',
     teamID: null,
     tentType: '',
-    tentNumber: '',
     isCaptain: false,
     password: '',
     passwordConfirmation: '',
 
     // default value is array of zeros
-    availability: (new Array(7)).fill().map(() => (new Array(20).fill(0))),
+    availability: (new Array(7)).fill().map(() => (new Array(20).fill(2))),
   },
   disableNext: true, // disable next button for signup
   // API
@@ -48,6 +48,7 @@ const login = (state=initialState, action) => {
           ...state.signUpData,
           name: action.payload.name,
           email: action.payload.email,
+          phone: action.payload.phone,
           password: action.payload.password,
           passwordConfirmation: action.payload.passwordConfirmation,
         },
@@ -65,7 +66,6 @@ const login = (state=initialState, action) => {
           team: action.payload.team,
           teamID: teamID,
           tentType: action.payload.tentType,
-          tentNumber: action.payload.tentNumber,
           isCaptain: action.payload.isCaptain,
           passcode: action.payload.passcode,
         },
@@ -105,7 +105,10 @@ const login = (state=initialState, action) => {
       const teamDropDownOptions = action.payload.data.map(
         (team) => {
           // having a serperate color variable rather than just saying team.tent_type avoids warnings although it would it still work
-          const color = (team.tent_type.toLowerCase().includes('black') ? 'black' : ( team.tent_type.includes('blue') ? 'blue' : null ));
+          const tentType = team.tent_type.toLowerCase();
+          const color = (tentType.includes('black') ?
+          'black' : (tentType.includes('blue') ?
+          'blue' : null));
           return {
             key: team.id,
             value: team.id,

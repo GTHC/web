@@ -8,6 +8,9 @@ import PopupInfo from './../utils/PopupInfo';
 import getShiftAvailability from './../utils/getShiftAvailability';
 import hourToAvailPosition from './../utils/hourToAvailPosition';
 
+// images
+import * as defaultSrc from './../../../images/default_image.png';
+
 class UpdateShiftForm extends Component {
 
   constructor(props) {
@@ -24,9 +27,12 @@ class UpdateShiftForm extends Component {
     };
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     // any changes made to ShiftTimeInput will update availabilities
-    this.getAvailabilities();
+    const props = this.props;
+    if (prevProps.start_time !== props.start_time || prevProps.end_time !== props.end_time) {
+      this.getAvailabilities();
+    }
   }
 
   componentDidMount() {
@@ -61,6 +67,10 @@ class UpdateShiftForm extends Component {
         // choose color for availability
         const color = user.shift_availability == 2 ? 'green' :
         (user.shift_availability == 1 ? 'yellow' : 'red');
+        let src = defaultSrc;
+        if (user.avatarURL) {
+          src = user.avatarURL;
+        }
 
         // adding dropdown item elements to userOptions
         userOptions.push({
@@ -68,8 +78,7 @@ class UpdateShiftForm extends Component {
           value: user.id,
           text: user.name,
           label: { color: color, circular: true, empty: true },
-          // TODO: Add image src for user profile
-          // image: { avatar: true, src: 'https://react.semantic-ui.com/images/wireframe/image.png' },
+          image: { src: src, rounded: true },
         });
       });
       this.setState({ userOptions });

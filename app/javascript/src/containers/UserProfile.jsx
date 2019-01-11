@@ -9,11 +9,19 @@ import UserProfileBody from './../components/user/UserProfileBody';
 import NavBar from './NavBar';
 
 // redux actions
-import { updateUser, updateAvailability } from '../actions/user';
+import {
+  postAvatar,
+  updateUser,
+  updateAvailability,
+} from '../actions/user';
 
 class UserProfile extends Component {
   render () {
-    const { user, updateUser, updateAvailability } = this.props;
+    const {
+      postAvatar,
+      user,
+      updateUser, updateAvailability
+    } = this.props;
     return (
       <div>
         <NavBar />
@@ -23,6 +31,7 @@ class UserProfile extends Component {
             userData={user.data}
             updateUser={updateUser}
             updateAvailability={updateAvailability}
+            postAvatar={postAvatar}
           />
         </div>
       </div>
@@ -44,6 +53,7 @@ const mapDispatchToProps = (dispatch) => {
     {
       updateUser,
       updateAvailability,
+      postAvatar,
     },
     dispatch);
 };

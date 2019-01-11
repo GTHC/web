@@ -1,12 +1,29 @@
 import React, { Component } from 'react';
 
 // semantic-ui
-import { Modal, Label } from 'semantic-ui-react';
+import { Modal, Label, Image } from 'semantic-ui-react';
 
 // utils
 import { genDatesFormat } from './utils/dateFormatting';
 
 class ShiftViewModal extends Component {
+
+  /**
+   * getAvatarURL - get avatar url from user in team redux state by id
+   * @param  {[number]} id [id of user]
+   * @return {[string || null]}    [get url or null if undefined]
+   */
+  getAvatarURL = id => {
+    const { team } = this.props;
+
+    // get user from team redux state
+    const filterRes = team.data.users.filter(u => u.id == id);
+    if (filterRes[0]) {
+      return filterRes[0].avatarURL;
+    }
+
+    return null;
+  };
 
   render() {
     const { shiftData } = this.props;
@@ -36,9 +53,16 @@ class ShiftViewModal extends Component {
               Users:
             </Modal.Description>
             <Modal.Description>
-              {shiftData.users.map(user => (
-                <Label key={user.id}>{user.name}</Label>
-              ))}
+              {/* TODO: Add Avatar Here */}
+              {shiftData.users.map(user => {
+                const avatarURL = this.getAvatarURL(user.id)
+                return (
+                  <Label key={user.id} image>
+                    <Image src={avatarURL} rounded/>
+                    {user.name}
+                  </Label>
+                )
+              })}
             </Modal.Description>
           </Modal.Content>
         </React.Fragment>

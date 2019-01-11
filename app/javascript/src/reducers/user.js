@@ -182,6 +182,30 @@ const user = (state=initialState, action) => {
       };
     }
 
+    // POST /ap1/v1/user/avatar
+    case 'BEGIN_POST_AVATAR': {
+      return beginState;
+    }
+
+    case 'FAILED_POST_AVATAR': {
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        errorMessage: action.payload.response.data.message,
+      };
+    }
+
+    case 'END_POST_AVATAR': {
+      const data = state.data;
+      data.user.avatarURL = action.payload.data.data;
+      return {
+        ...state,
+        isLoading: false,
+        data,
+      };
+    }
+
     default: {
       return state;
     }
