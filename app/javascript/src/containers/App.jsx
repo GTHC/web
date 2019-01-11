@@ -21,6 +21,7 @@ import TeamProfile from './TeamProfile';
 import Tenting101 from './Tenting101';
 import About from './About';
 import ResetPassword from './ResetPassword';
+import ResetPasswordEdit from './ResetPasswordEdit';
 
 // styles
 import './../styles';
@@ -66,6 +67,8 @@ class App extends Component {
             )} />
             <Route path='/tenting101' component={Tenting101} />
             <Route path='/reset_password' component={ResetPassword} />
+            <Route path='/edit_password' component={ResetPasswordEdit} />
+            <Route path='/edit_password.32' component={ResetPasswordEdit} />
             <Route path='/about' component={About} />
           </ConnectedSwitch>
         </ConnectedRouter>

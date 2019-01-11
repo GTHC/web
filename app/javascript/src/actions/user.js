@@ -42,13 +42,38 @@ const initiatePasswordReset = data =>
   crud({
     dispatch: {
       begin: "BEGIN_PASSWORD_RESET",
-      fail: "FAIL_PASSWORD_RESET",
+      fail: "FAILED_PASSWORD_RESET",
       end: "END_PASSWORD_RESET"
     },
     method: "POST",
     url: "/api/v1/user/forgot_password",
     data
   });
+
+const changePasswordWithResetToken = data =>
+  crud({
+    dispatch: {
+      begin: "BEGIN_PASSWORD_RESET",
+      fail: "FAILED_PASSWORD_RESET",
+      end: "END_PASSWORD_RESET"
+    },
+    method: "POST",
+    url: "/api/v1/user/token_change_password",
+    push: "/",
+    data
+  });
+
+const invalidEmailError = () => (
+  { type: 'INVALID_EMAIL' }
+)
+
+const passwordTooShortError = () => (
+  { type: 'PASSWORD_SHORT' }
+)
+
+const passwordMismatchError = () => (
+  { type: 'PASSWORD_MISMATCH' }
+)
 
 const postAvatar = data =>
   crud({
@@ -72,4 +97,10 @@ export {
   updateAvailability,
   checkSession,
   postAvatar,
+  initiatePasswordReset,
+  getResetPassword,
+  changePasswordWithResetToken,
+  invalidEmailError,
+  passwordTooShortError,
+  passwordMismatchError
 };

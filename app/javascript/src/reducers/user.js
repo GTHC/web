@@ -213,6 +213,30 @@ const user = (state=initialState, action) => {
       }
     }
 
+    case 'INVALID_EMAIL': {
+      return {
+        ...state,
+        error: true,
+        errorMessage: "Please enter a valid email."
+      }
+    }
+
+    case 'PASSWORD_SHORT': {
+      return {
+        ...state,
+        error: true,
+        errorMessage: "Password must be at least 6 characters long."
+      }
+    }
+
+    case 'PASSWORD_MISMATCH': {
+      return {
+        ...state,
+        error: true,
+        errorMessage: "The passwords you entered do not match."
+      }
+    }
+
     // POST /ap1/v1/user/avatar
     case 'BEGIN_POST_AVATAR': {
       return beginState;

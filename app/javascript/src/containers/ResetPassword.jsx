@@ -3,9 +3,11 @@ import React, {Component} from 'react';
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { initiatePasswordReset } from '../actions/user';
+import { push } from './../actions/router';
+import { initiatePasswordReset, invalidEmailError } from '../actions/user';
 
-import { Form, Container, Header, Message, Button} from 'semantic-ui-react'
+import { Form, Container, Header, Message, Button} from 'semantic-ui-react';
+import NavBarAlternate from './NavBarAlternate';
 
 class ResetPassword extends Component {
     constructor(props) {
@@ -29,59 +31,66 @@ class ResetPassword extends Component {
             }
             this.props.initiatePasswordReset(apiParams);
         } else {
-            this.setState({
-                error: true,
-                errorMessage: 'Please enter a valid email',
-            })
+            this.props.invalidEmailError();
         }
     }
 
     inputChanged = (evt) => {
         this.setState({
             email: evt.target.value,
-            error: false,
         });
     }
 
     render() {
+        const {
+            passwordResetSuccess,
+            isLoading,
+            error,
+            errorMessage,
+        } = this.props.user;
+
         return (
-            <Container style={{ width: "520px" }}>
-                <div>
-                    <Header size="large">Forgot Password?</Header>
+            <div>
+                <NavBarAlternate
+                    push={this.props.push}
+                />
+                <Container style={{ width: "520px" }}>
+                    <div>
+                        <Header size="large">Forgot Password?</Header>
 
-                    {this.props.user.error && <Message negative content={this.props.user.errorMessage} />}
+                        {error && <Message negative content={errorMessage} />}
 
-                    {this.props.user.passwordResetSuccess ? (
-                        <Message
-                            positive
-                            content="A password resend link has been sent to your email."
-                        />
-                    ) : (
-                            <Message content="Enter your GTHC email to get a link allowing you to reset your password." />
-                        )}
-                </div>
-
-                <br />
-
-                {!this.props.user.passwordResetSuccess && (
-                    <Form>
-                        <Form.Field>
-                            <label>Email</label>
-                            <input
-                                value={this.state.email}
-                                onChange={this.inputChanged}
-                                placeholder="Email"
+                        {passwordResetSuccess ? (
+                            <Message
+                                positive
+                                content="A password resend link has been sent to your email."
                             />
-                        </Form.Field>
-                        {this.props.user.isLoading ? (
-                            <Button loading>Reset my password</Button>
                         ) : (
-                                <Button onClick={this.validateEmail}>Reset my password</Button>
+                                <Message content="Enter your GTHC email to get a link allowing you to reset your password." />
                             )}
-                    </Form>
-                )}
-            </Container>
+                    </div>
 
+                    <br />
+
+                    {!passwordResetSuccess && (
+                        <Form>
+                            <Form.Field>
+                                <label>Email</label>
+                                <input
+                                    value={this.state.email}
+                                    onChange={this.inputChanged}
+                                    placeholder="Email"
+                                />
+                            </Form.Field>
+                            {isLoading ? (
+                                <Button positive loading>Reset my password</Button>
+                            ) : (
+                                    <Button positive onClick={this.validateEmail}>Reset my password</Button>
+                                )}
+                        </Form>
+                    )}
+                </Container>
+            </div>
         );
     }
 }
@@ -96,6 +105,8 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators(
         {
             initiatePasswordReset,
+            invalidEmailError,
+            push,
         },
         dispatch);
 };
@@ -103,5 +114,5 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(ResetPassword);
 
 export {
-    ResetPassword,
+    ResetPassword
 };
