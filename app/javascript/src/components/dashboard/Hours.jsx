@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 
 // semantic-ui
-import { Dropdown, Card, Grid, Button, Header, Icon, Label, Feed } from 'semantic-ui-react';
+import {
+  Card,
+  Dropdown,
+  Header,
+  Icon,
+  Image,
+  Message
+} from 'semantic-ui-react';
 
-//Endpoints not yet created, so Created Fake Data Instead
-import {getHours} from "./mockData";
+// utils
+import getHourBreakdown from './utils/getHourBreakdown';
 
 export default class Hours extends Component {
 
@@ -12,10 +19,33 @@ export default class Hours extends Component {
     super(props);
 
     this.state = {
-      data: getHours(),
+      data: [],
+
+      // data type and data sort info
       order: 'day',
       sort: 'all',
+
+      // API states
+      loaded: false,
+      error: false,
     };
+  }
+
+  componentWillMount() {
+    getHourBreakdown()
+    .then(res => {
+      const { data } = res.data;
+      this.setState({
+        data,
+        loaded: true,
+        error: false,
+      });
+    })
+    .catch(err => {
+      this.setState({
+        error: true,
+      });
+    });
   }
 
   onInputChange = (e, { id, value }) => {
@@ -28,14 +58,22 @@ export default class Hours extends Component {
     const { order, sort } = this.state;
 
     return (
-      <Card color="blue" key={userData.name} style={{
-          width: '180px',
-        }}>
+      <Card color="blue" key={userData.name}>
         <Card.Content >
+          {userData.avatarURL &&
+            <Image
+              rounded
+              size="mini"
+              floated="right"
+              src={userData.avatarURL}
+            />
+          }
           <Card.Header>{userData.name}</Card.Header>
+          <Card.Meta>
+            { sort == 'all' ? 'All Shift Hours' : 'Past Week Shift Hours'}
+          </Card.Meta>
         </Card.Content>
         <Card.Content>
-          Hours Spent:
           { sort == 'all' ?
             <Card.Description>
               { order == 'day' ?
@@ -126,6 +164,8 @@ export default class Hours extends Component {
 
   //begining of render function
   render() {
+    const { loaded, error } = this.state;
+    console.log(loaded);
     const data = this.orderData();
     return (
       <Card fluid>
@@ -138,9 +178,24 @@ export default class Hours extends Component {
           <br/>
           <Card.Group>
             {
-              data.map(userData => this.renderUserCard(userData))
+              loaded && data.map(userData => this.renderUserCard(userData))
             }
           </Card.Group>
+          {
+            error &&
+            <div>
+              <br />
+              <Message
+                negative
+                icon="x"
+                header="Error"
+                content="An error has occured while calculating your hour breakdown."
+              />
+            </div>
+          }
+        </Card.Content>
+        <Card.Content extra>
+          <Card.Description>Hour aproximations are rounded by the minute.</Card.Description>
         </Card.Content>
       </Card>
     );
