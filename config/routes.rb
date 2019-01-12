@@ -18,6 +18,11 @@ Rails.application.routes.draw do
   # Devise
   devise_for :users
 
+  # Analytics
+  authenticate :admin_user do
+    mount Blazer::Engine, at: "blazer"
+  end
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do

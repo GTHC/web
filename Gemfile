@@ -36,6 +36,10 @@ gem 'jbuilder'
 # Devise for User Auth
 gem 'devise', '~> 4.2'
 
+# Analytics
+gem 'ahoy_matey'
+gem 'blazer'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
