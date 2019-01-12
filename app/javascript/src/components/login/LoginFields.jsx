@@ -115,18 +115,18 @@ class LoginFields extends Component {
         <br />
         <br />
 
-        <div
+        <Button
+          basic
           onClick={() => {
             this.props.getResetPassword();
             this.props.push('/reset_password');
           }}
         >
         Forgot Password?
-        </div>
+      </Button>
       </div>
     );
   }
 }
 
 export default LoginFields;
-
