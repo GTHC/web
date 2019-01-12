@@ -19,4 +19,4 @@ RUN yarn install
 COPY . .
 
 EXPOSE 5000 3035
-CMD ./bin/deployment-tasks.sh && yarn run prod
+CMD rails db:migrate && yarn run prod
