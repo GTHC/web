@@ -140,7 +140,9 @@ class Api::V1::TeamsController < ApiController
           night: all_night_count,
         },
         name: user.name,
+        id: user.id,
       }
+      data[:avatarURL] = url_for(user.avatar) if user.avatar.attached?
       data
     end
 
