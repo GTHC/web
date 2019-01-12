@@ -160,11 +160,6 @@ class Api::V1::TeamsController < ApiController
         start_time = shift.start_time.in_time_zone('America/New_York')
         start_night = start_time.change({ hour: 2, min: 0 })
         end_night = start_time.change({ hour: 6, min: 59, sec: 59 })
-        puts 'test'
-        puts start_time
-        puts start_night
-        puts end_night
-        puts (start_night..end_night).cover? start_time
         if start_time >= start_night and end_night > start_time
           output = output + get_shift_time_length(shift)
         end

@@ -104,7 +104,6 @@ class Api::V1::UsersController < ApiController
   # Add user to shift, and vice versa
   def shifts
     validate_shift_params
-    puts @s_id
     if Shift.all.ids.include? @s_id and User.all.ids.include? @u_id
       @user = User.find(@u_id)
       @shift = Shift.find(@s_id)
