@@ -53,7 +53,6 @@ class ShiftViewModal extends Component {
               Users:
             </Modal.Description>
             <Modal.Description>
-              {/* TODO: Add Avatar Here */}
               {shiftData.users.map(user => {
                 const avatarURL = this.getAvatarURL(user.id)
                 return (

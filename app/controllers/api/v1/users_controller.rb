@@ -103,6 +103,7 @@ class Api::V1::UsersController < ApiController
   # POST /api/v1/user/shifts
   # Add user to shift, and vice versa
   def shifts
+    puts Visits.last
     validate_shift_params
     if Shift.all.ids.include? @s_id and User.all.ids.include? @u_id
       @user = User.find(@u_id)
