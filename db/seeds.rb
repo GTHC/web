@@ -12,13 +12,14 @@ require 'faker'
 if Rails.env.production? && !ENV['STAGING']
   AdminUser.create!(email: 'admin@gthc.io', password: 'password', password_confirmation: 'password')
 else
-  for i in 0..5
+  for i in 1..5
     @user = User.create!(
       name: Faker::Name.name,
       password: 'password',
       password_confirmation: 'password',
       email: Faker::Internet.email,
-      team_id: rand(1..5),
+      phone: Faker::PhoneNumber.cell_phone,
+      team_id: i,
       availability: Array.new(7, Array.new(20) { rand(0..2) }),
     )
     Captain.create!(
@@ -64,6 +65,7 @@ else
       name: Faker::Name.name,
       password: 'password',
       password_confirmation: 'password',
+      phone: Faker::PhoneNumber.cell_phone,
       email: Faker::Internet.email,
       team_id: rand(1..5),
       availability: Array.new(7, Array.new(20) { rand(0..2) }),

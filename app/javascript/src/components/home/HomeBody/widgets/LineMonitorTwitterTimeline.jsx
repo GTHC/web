@@ -13,7 +13,7 @@ const LineMonitorTwitterTimeline = () => (
         <Timeline
           dataSource={{
             sourceType: 'profile',
-            screenName: 'EventsKville',
+            screenName: 'kville_nation',
           }}
           options={{
             username: 'TwitterDev',

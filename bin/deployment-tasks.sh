@@ -1,3 +1,9 @@
+#!/usr/bin/env bash
+
 echo 'Beginning release tasks!'
-rails db:seed
+
+if [ "$STAGING" = "true" ]; then
+ rails db:seed
+fi
+
 rails db:migrate
