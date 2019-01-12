@@ -105,7 +105,6 @@ class Api::V1::UsersController < ApiController
   def shifts
     puts Visits.last
     validate_shift_params
-    puts @s_id
     if Shift.all.ids.include? @s_id and User.all.ids.include? @u_id
       @user = User.find(@u_id)
       @shift = Shift.find(@s_id)

@@ -70,7 +70,6 @@ class Api::V1::ShiftsController < ApiController
         shift.users = [];
         params[:user_ids].each do |id|
           @user = User.find(id)
-          puts @user.shifts.ids
           shift.users << @user
         end
       end
