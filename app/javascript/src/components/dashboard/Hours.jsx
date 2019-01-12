@@ -1,6 +1,8 @@
-import React, {Component} from "react";
-// Semantic Ui Components Used
-import { Dropdown, Card, Grid, Button, Header, Icon, Label, Feed } from "semantic-ui-react";
+import React, { Component } from 'react';
+
+// semantic-ui
+import { Dropdown, Card, Grid, Button, Header, Icon, Label, Feed } from 'semantic-ui-react';
+
 //Endpoints not yet created, so Created Fake Data Instead
 import {getHours} from "./mockData";
 
@@ -10,220 +12,133 @@ export default class Hours extends Component {
     super(props);
 
     this.state = {
-      rank: 'hour',
-      hours: getHours(),
-      total: false //Total used to identify if User choose Week or Total View
+      data: getHours(),
+      order: 'day',
+      sort: 'all',
     };
   }
 
-  //Function created to Switch between Total and Week View script for both Hour and Night rank
-
-  hourView = () => {
-    return this.state.total == false
-      ? "Hours Spent: "
-      : "Hours Spent: ";
-  };
-
-  nightView = () => {
-    const {total} = this.state;
-    return this.state.total == false
-      ? "Nights Slept: "
-      : "Nights Slept: ";
-  };
-
-  //Function determining which View to Display
-  hoursNumber= user => {
-    return this.state.total == false
-      ? user.hours.week
-      : user.hours.total;
-  };
-
-  nightNumber = user => {
-    return this.state.total == false
-      ? user.night.week
-      : user.night.total;
-  };
-
-  //Function determining which Rank Data to Display
-  hourRank = user => {
-    return this.state.total == false
-      ? user.rank.whour
-      : user.rank.thour;
-  };
-
-  nightRank = user => {
-    return this.state.total == false
-      ? user.rank.wnight
-      : user.rank.tnight;
-  };
-
-  //Function determining proper coloring of badges for certain ranks
-  trophy = (user, view) => {
-    let rank;
-    if (this.state.total) {
-      rank = view == "hour"
-        ? user.rank.thour
-        : user.rank.tnight;
-    } else {
-      rank = view == "hour"
-        ? user.rank.whour
-        : user.rank.wnight;
-    }
-    if (rank == 1) {
-      return <Icon name='trophy' color='yellow'/>;
-    } else if (rank == 2) {
-      return <Icon name='trophy' color='grey'/>;
-    } else if (rank == 3) {
-      return <Icon name='trophy' color='brown'/>;
-    }
-  };
-
-  //Function sorting Data from Greatest to Least by the given Rank and Specific View (Week or Total)
-  handleNightorHours = (e, timeOfDay) => {
-    let newNight; //new instance of order list used to alter State Hours value
-    if (this.state.total) { //Order by Total Hours or Night
-      newNight = getHours().sort((b, a) => {
-        const timeA = timeOfDay === 'Night'
-          ? a.night
-          : a.hours;
-        const timeB = timeOfDay === 'Night'
-          ? b.night
-          : b.hours;
-
-        return timeA.total - timeB.total;
-      });
-    } else { //Order by Total Hours or Night
-      newNight = getHours().sort((a, b) => {
-        const timeA = timeOfDay === 'Night'
-          ? a.night
-          : a.hours;
-        const timeB = timeOfDay === 'Night'
-          ? b.night
-          : b.hours;
-        return timeB.week - timeA.week;
-      });
-    }
-    this.setState({rank: timeOfDay, hours: newNight});
-  };
-
-  //Each User Hours and Night count displayed for a given view customCard = (props) => {
-  customCard = (props) => {
-  return <Card key={props.user.name} style={{
-        width: "180px"
-      }}>
-      <Card.Content >
-        <Card.Header>{props.user.name}
-        </Card.Header>
-      </Card.Content>
-      <Card.Content>
-        {this.state.total == false ? "Week " : "Total "}
-        <Card.Description>
-          {this.hourView()}
-          <strong>{this.hoursNumber(props.user)}
-          </strong>
-        </Card.Description>
-        <Card.Description>
-          {this.nightView()}
-          <strong>{this.nightNumber(props.user)}
-          </strong>
-        </Card.Description>
-      </Card.Content>
-      <Card.Content >
-        <Grid.Column>
-          Hours Rank: {this.hourRank(props.user)}
-          {this.trophy(props.user, "hour")}
-        </Grid.Column>
-        <Grid.Column>
-          Nights Rank: {this.nightRank(props.user)}
-          {this.trophy(props.user, "night")}
-        </Grid.Column>
-      </Card.Content>
-    </Card>
-  }
-
-  //Needed to updated 'total' state value while switching view in dropdown. Look at line 192
-  handleChange = (e, timeOfDay) => {
-    const total = timeOfDay === 'Week'
-      ? false
-      : true;
+  onInputChange = (e, { id, value }) => {
     this.setState({
-      total
-    }, () => {
-      this.handleNightorHours(e, this.state.rank)
+      [id]: value,
     });
   };
 
-  // Trying to move the dropDown options out of the render component, but dropDown fucntion  is buggy
+  renderUserCard = (userData) => {
+    const { order, sort } = this.state;
 
-  dropDown = () => {
+    return (
+      <Card color="blue" key={userData.name} style={{
+          width: '180px',
+        }}>
+        <Card.Content >
+          <Card.Header>{userData.name}</Card.Header>
+        </Card.Content>
+        <Card.Content>
+          Hours Spent:
+          { sort == 'all' ?
+            <Card.Description>
+              { order == 'day' ?
+                <div>
+                  Day: {userData.all.day} <br />
+                  Night: {userData.all.night}
+                </div>
+                :
+                <div>
+                  Night: {userData.all.night} <br />
+                  Day: {userData.all.day}
+                </div>
+              }
+            </Card.Description>
+            :
+            <Card.Description>
+              { order == 'day' ?
+                <div>
+                  Day: {userData.week.day} <br />
+                  Night: {userData.week.night}
+                </div>
+                :
+                <div>
+                  Night: {userData.week.night} <br />
+                  Day: {userData.week.day}
+                </div>
+              }
+            </Card.Description>
+          }
+        </Card.Content>
+      </Card>
+    );
+  };
+
+  orderData = () => {
+    const { order, sort, data } = this.state;
+    data.sort((a, b) => (b[sort][order] - a[sort][order]));
+    return data;
+  };
+
+  renderDropDown = () => {
+    const { order, sort } = this.state;
+
     const lengthOptions = [
       {
-        key: 'Week',
-        text: 'Week',
-        value: 'Week',
-        content: 'Week'
+        text: 'All Time',
+        value: 'all',
       }, {
-        key: 'Total',
-        text: 'Total',
-        value: 'Total',
-        content: 'Total'
-      }
+        text: 'Recent (Past Week)',
+        value: 'week',
+      },
     ];
 
     const rankOptions = [
       {
-        key: 'Adjust Rank',
-        text: 'Adjust Rank',
-        value: 'Adjust Rank',
-        content: 'Adjust Rank'
+        text: 'Most Day Hours',
+        value: 'day',
       }, {
-        key: 'Hour',
-        text: 'Hour',
-        value: 'Hour',
-        content: 'Hour'
-      }, {
-        key: 'Night',
-        text: 'Night',
-        value: 'Night',
-        content: 'Night'
-      }
+        text: 'Most Night Hours',
+        value: 'night',
+      },
     ];
-    return <div className="sorting-dropdowns" style={{
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        display: 'inline-block'
-      }}>
-      <div style={{
-          display: 'inline-block',
-          paddingLeft: '10px'
-        }}>
-        <Icon name='calendar'/>
-        View by {' '}
-        <Dropdown labeled inline options={lengthOptions} defaultValue={lengthOptions[0].value} onChange={(e, value) => this.handleChange(e, value.value)}/>
-        <Icon name='trophy'/>
-        Rank by {' '}
-        <Dropdown labeled inline options={rankOptions} defaultValue={rankOptions[0].value} onChange={(e, value) => this.handleNightorHours(e, value.value)}/>
+    return (
+      <div>
+        <div>
+          <Icon name='calendar'/>
+          Sort by {' '}
+          <Dropdown
+            id="sort"
+            labeled inline
+            options={lengthOptions}
+            value={sort}
+            onChange={this.onInputChange}
+          />
+          <Icon name='trophy'/>
+          Order by {' '}
+          <Dropdown
+            id="order"
+            labeled inline
+            options={rankOptions}
+            value={order}
+            onChange={this.onInputChange}
+          />
+        </div>
       </div>
-    </div>
-
-  }
+    );
+  };
 
   //begining of render function
   render() {
-    const { hours } = this.state;
+    const data = this.orderData();
     return (
       <Card fluid>
         <Card.Content>
           <Card.Header>Hour Breakdown</Card.Header>
         </Card.Content>
         <Card.Content>
-          {this.dropDown()}
+          {this.renderDropDown()}
           <br/>
           <br/>
           <Card.Group>
             {
-              hours.map((user) => (this.customCard({ user, key: user.name })))
+              data.map(userData => this.renderUserCard(userData))
             }
           </Card.Group>
         </Card.Content>
