@@ -5,19 +5,18 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // components
-import Test from './../components/Test';
 import NavBar from './NavBar';
-import Hours from './../components/dashboard/Hours';
-import MyShifts from './../components/dashboard/MyShifts';
+import DashboardBody from '../components/dashboard/DashboardBody';
 
 class Dashboard extends Component {
   render () {
+    const { shifts } = this.props;
+
     return (
       <div>
         <NavBar />
         <div className="body">
-          <Hours />
-          <MyShifts {...this.props.shifts}/>
+          <DashboardBody shifts={shifts} />
         </div>
       </div>
     );

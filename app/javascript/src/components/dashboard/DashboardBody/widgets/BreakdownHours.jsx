@@ -13,7 +13,7 @@ import {
 // utils
 import getHourBreakdown from './utils/getHourBreakdown';
 
-export default class Hours extends Component {
+class BreakdownHours extends Component {
 
   constructor(props) {
     super(props);
@@ -165,7 +165,6 @@ export default class Hours extends Component {
   //begining of render function
   render() {
     const { loaded, error } = this.state;
-    console.log(loaded);
     const data = this.orderData();
     return (
       <Card fluid>
@@ -200,4 +199,6 @@ export default class Hours extends Component {
       </Card>
     );
   }
-}
+};
+
+export default BreakdownHours;

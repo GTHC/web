@@ -3,7 +3,7 @@ import moment from 'moment';
 
 import { Card, Message, Header } from 'semantic-ui-react';
 
-class MyShifts extends Component {
+class UpcomingShifts extends Component {
 
     constructor(props) {
         super(props);
@@ -68,4 +68,4 @@ class MyShifts extends Component {
 
 }
 
-export default MyShifts;
+export default UpcomingShifts;
