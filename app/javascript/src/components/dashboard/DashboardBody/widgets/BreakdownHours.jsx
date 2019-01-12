@@ -69,22 +69,28 @@ class BreakdownHours extends Component {
             />
           }
           <Card.Header>{userData.name}</Card.Header>
-          <Card.Meta>
-            { sort == 'all' ? 'All Shift Hours' : 'Past Week Shift Hours'}
-          </Card.Meta>
+          <Card.Meta>Shift Hours</Card.Meta>
         </Card.Content>
         <Card.Content>
           { sort == 'all' ?
             <Card.Description>
               { order == 'day' ?
                 <div>
-                  Day: {userData.all.day} <br />
-                  Night: {userData.all.night}
+                  <strong>
+                    Day:
+                  </strong> {userData.all.day} hr(s) <br />
+                  <strong>
+                    Night:
+                  </strong> {userData.all.night} hr(s)
                 </div>
                 :
                 <div>
-                  Night: {userData.all.night} <br />
-                  Day: {userData.all.day}
+                  <strong>
+                    Night:
+                  </strong> {userData.all.night} hr(s) <br />
+                  <strong>
+                    Day:
+                  </strong> {userData.all.day} hr(s)
                 </div>
               }
             </Card.Description>
@@ -92,13 +98,21 @@ class BreakdownHours extends Component {
             <Card.Description>
               { order == 'day' ?
                 <div>
-                  Day: {userData.week.day} <br />
-                  Night: {userData.week.night}
+                  <strong>
+                    Day:
+                  </strong> {userData.week.day} hr(s) <br />
+                  <strong>
+                    Night:
+                  </strong> {userData.week.night} hr(s)
                 </div>
                 :
                 <div>
-                  Night: {userData.week.night} <br />
-                  Day: {userData.week.day}
+                  <strong>
+                    Night:
+                  </strong> {userData.week.night} hr(s) <br />
+                  <strong>
+                    Day:
+                  </strong> {userData.week.day} hr(s)
                 </div>
               }
             </Card.Description>
