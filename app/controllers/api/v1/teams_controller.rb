@@ -40,6 +40,20 @@ class Api::V1::TeamsController < ApiController
     render json: { message: 'Team availability has been calculated.', data: data }, status: :ok
   end
 
+  def team_hours
+    if current_user
+      @team = current_user.team
+      data = []
+      @team.users.each do |user|
+        data.push(user_hours_count(user))
+      end
+      render json: { status: 'SUCCESS', message: 'Hour breakdown calculated.', data: data }, status: :ok
+    else
+      render json: { status: 'ERROR', message: 'Make sure user is logged in' }, status: :unprocessable_entity
+    end
+
+  end
+
   private
 
     def set_user
@@ -102,5 +116,61 @@ class Api::V1::TeamsController < ApiController
         data.push(userData)
       end
       return data
+    end
+
+    def user_hours_count(user)
+      # week
+      last_week_shifts = user.shifts.where(start_time: 1.week.ago...Time.now)
+
+      last_week_night_count = count_night_shifts(last_week_shifts)
+      last_week_day_count = count_all_shift_hours(last_week_shifts) - last_week_night_count
+
+      # all
+      all_shifts = user.shifts
+      all_night_count = count_night_shifts(all_shifts)
+      all_day_count = count_all_shift_hours(all_shifts) - all_night_count
+
+      data = {
+        week: {
+          day: last_week_day_count,
+          night: last_week_night_count
+        },
+        all: {
+          day: all_day_count,
+          night: all_night_count,
+        },
+        name: user.name,
+      }
+      data
+    end
+
+    def count_all_shift_hours(shifts)
+      output = 0
+      shifts.each do |shift|
+        output = output + get_shift_time_length(shift)
+      end
+      output
+    end
+
+    def count_night_shifts(shifts)
+      output = 0
+      shifts.each do |shift|
+        start_time = shift.start_time.in_time_zone('America/New_York')
+        start_night = start_time.change({ hour: 2, min: 0 })
+        end_night = start_time.change({ hour: 6, min: 59, sec: 59 })
+        puts 'test'
+        puts start_time
+        puts start_night
+        puts end_night
+        puts (start_night..end_night).cover? start_time
+        if start_time >= start_night and end_night > start_time
+          output = output + get_shift_time_length(shift)
+        end
+      end
+      output
+    end
+
+    def get_shift_time_length(shift)
+      ((shift.end_time - shift.start_time).to_f / 1.hour).round
     end
 end

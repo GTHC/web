@@ -32,6 +32,7 @@ Rails.application.routes.draw do
 
       # team
       get 'team/availability', to: 'teams#shift_availabilities'
+      get 'team/hours', to: 'teams#team_hours'
     end
   end
 end
