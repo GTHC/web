@@ -21,6 +21,11 @@ Rails.application.routes.draw do
   # Devise
   devise_for :users
 
+  # Analytics
+  authenticate :admin_user do
+    mount Blazer::Engine, at: "blazer"
+  end
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
@@ -35,12 +40,15 @@ Rails.application.routes.draw do
       post 'user/availability', to: 'users#update_availability'
       post 'user/avatar', to: 'users#update_avatar'
 
-      # team
-      get 'team/availability', to: 'teams#shift_availabilities'
-
       devise_scope :user do
         get "edit_password", to: "devise/passwords#edit"
       end
+
+      # team
+      get 'team/availability', to: 'teams#shift_availabilities'
+      get 'team/hours', to: 'teams#team_hours'
+
+
     end
   end
 end

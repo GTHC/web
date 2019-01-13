@@ -74,4 +74,7 @@ config.webpacker.check_yarn_integrity = true
   }
   # ActiveStorage
   config.active_storage.service = :local
+
+  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  config.force_ssl = false
 end

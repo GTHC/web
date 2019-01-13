@@ -5,6 +5,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+# Heroku TuneMyGC Resource
+gem 'tunemygc'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'
@@ -35,6 +37,10 @@ gem 'jbuilder'
 
 # Devise for User Auth
 gem 'devise', '~> 4.2'
+
+# Analytics
+gem 'ahoy_matey'
+gem 'blazer'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

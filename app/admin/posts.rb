@@ -13,4 +13,12 @@ ActiveAdmin.register Post do
 # end
   permit_params :title, :body
 
+  form do |f|
+    inputs do
+      input :title, required: true
+      input :body
+    end
+    actions
+  end
+
 end
