@@ -59,7 +59,7 @@ const changePasswordWithResetToken = data =>
     },
     method: "POST",
     url: "/api/v1/user/token_change_password",
-    push: "/",
+    push: "/login",
     data
   });
 
