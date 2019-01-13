@@ -58,6 +58,12 @@ class LoginFields extends Component {
           id="password"
           placeholder="Password"
           type="password"
+          onKeyPress={(e) => {
+            if (e.key == 'Enter') {
+              this.handleSignIn();
+            }
+          }}
+
         />
 
         {this.state.error ?
@@ -115,18 +121,18 @@ class LoginFields extends Component {
         <br />
         <br />
 
-        <div
+        <Button
+          basic
           onClick={() => {
             this.props.getResetPassword();
             this.props.push('/reset_password');
           }}
         >
         Forgot Password?
-        </div>
+      </Button>
       </div>
     );
   }
 }
 
 export default LoginFields;
-
