@@ -25,7 +25,7 @@ import {
   signup,
   signupNewTeam,
   clearError,
-} from './../actions/login'; 
+} from './../actions/login';
 import { getResetPassword } from '../actions/user';
 import { push } from './../actions/router';
 
@@ -75,12 +75,9 @@ class Login extends Component {
           } = this.props;
     const path = router.location.pathname;
     return (
-      <div style={{ flex: 1, backgroundColor: "white"}}>
-        <NavBarAlternate
-          push={push}
-          context='/login'
-        />
-        
+      <div>
+        <NavBarAlternate />
+
         <div className="login">
           <Container>
             <Card centered color="blue" className="login-card" style={{width: "520px", paddingBottom: "16px"}}>
