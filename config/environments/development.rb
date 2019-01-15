@@ -29,10 +29,12 @@ config.webpacker.check_yarn_integrity = true
     config.cache_store = :null_store
   end
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
-
   config.action_mailer.perform_caching = false
+
+  # Attempt to read encrypted secrets from `config/secrets.yml.enc`.
+  # Requires an encryption key in `ENV["RAILS_MASTER_KEY"]` or
+  # `config/secrets.yml.key`.
+  config.read_encrypted_secrets = true
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -56,6 +58,23 @@ config.webpacker.check_yarn_integrity = true
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.webpacker.check_yarn_integrity = false
 
+  config.action_mailer.default_url_options = { host: 'localhost:5000'}
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+
+  ActionMailer::Base.smtp_settings = {
+    :user_name => ENV['GTHC_EMAIL'],
+    :password => ENV['GTHC_EMAIL_PASSWORD'],
+    :domain => 'gthc.io',
+    :address => 'mail.privateemail.com',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
   # ActiveStorage
   config.active_storage.service = :local
+
+  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  config.force_ssl = false
 end
