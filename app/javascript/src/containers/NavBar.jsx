@@ -50,7 +50,10 @@ class NavBar extends Component {
     return (
       <div style={{ paddingBottom: '75px'}}>
         <Menu fixed="top" inverted color="blue" icon="labeled">
-          <Menu.Item header>
+          <Menu.Item
+            header
+            fitted="vertically"
+          >
             <Image src={logo} size="tiny" />
           </Menu.Item>
 

@@ -101,9 +101,6 @@ class LoginFields extends Component {
           Sign In
         </Button>
 
-        <br />
-        <br />
-
         <Button
           icon
           color="blue"

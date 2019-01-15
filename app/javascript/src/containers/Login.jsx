@@ -10,6 +10,8 @@ import { Container, Card, Menu, Input, Image } from 'semantic-ui-react';
 // Login components
 import { LoginFields, SignUpFields } from './../components';
 
+import NavBarAlternate from './NavBarAlternate';
+
 // redux actions
 import {
   toggleLoginType,
@@ -23,12 +25,12 @@ import {
   signup,
   signupNewTeam,
   clearError,
-} from './../actions/login'; 
+} from './../actions/login';
 import { getResetPassword } from '../actions/user';
 import { push } from './../actions/router';
 
 // logo
-import * as logo from './../images/gthc.png';
+import * as logo from './../images/gthc_long.png';
 
 class Login extends Component {
   constructor (props) {
@@ -74,27 +76,11 @@ class Login extends Component {
     const path = router.location.pathname;
     return (
       <div>
-        <Menu secondary>
-          <Menu.Item header>
-            <Image src={logo} size="tiny" />
-          </Menu.Item>
-          <Menu.Item
-            id='about'
-            active={path === '/about'}
-            onClick={this.handleClick}
-           >
-           About GTHC
-           </Menu.Item>
-           <Menu.Item
-            id='tenting101'
-            active={path === '/tenting101'}
-            onClick={this.handleClick}>
-            Tenting 101
-            </Menu.Item>
-      </Menu>
+        <NavBarAlternate />
+
         <div className="login">
-          <Container textalign="center" >
-            <Card centered fluid color="blue" className="login-card" >
+          <Container>
+            <Card centered color="blue" className="login-card" style={{width: "520px", paddingBottom: "16px"}}>
               <Card.Content>
                 <Card.Header>
                   { login.type === 'login' ?
@@ -103,9 +89,9 @@ class Login extends Component {
                       <Image src={logo} style={{
                         paddingBottom: '12px',
                         paddingLeft: '3px',
-                      }} size="tiny" />
+                      }} size="medium" />
                     </div>
-                   : '⛺⛺ Welcome to GTHC (Game Tenting Help Center) ⛺⛺'
+                   : 'Welcome to GTHC (Game Tenting Help Center) ⛺'
                   }
                 </Card.Header>
               </Card.Content>

@@ -39,4 +39,5 @@ yarn-debug.log*
 
 # production
 /public/assets
+/vendor/cache
 secrets.yml
