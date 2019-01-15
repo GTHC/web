@@ -30,7 +30,7 @@ import { getResetPassword } from '../actions/user';
 import { push } from './../actions/router';
 
 // logo
-import * as logo from './../images/gthc.png';
+import * as logo from './../images/gthc_long.png';
 
 class Login extends Component {
   constructor (props) {
@@ -89,7 +89,7 @@ class Login extends Component {
                       <Image src={logo} style={{
                         paddingBottom: '12px',
                         paddingLeft: '3px',
-                      }} size="tiny" />
+                      }} size="medium" />
                     </div>
                    : 'Welcome to GTHC (Game Tenting Help Center) ⛺'
                   }

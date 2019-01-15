@@ -33,7 +33,10 @@ class NavBarAlternate extends Component {
           stackable
           fixed="top"
         >
-          <Menu.Item header>
+          <Menu.Item
+            header
+            fitted="vertically"
+          >
             <Image src={logo} size="tiny" />
           </Menu.Item>
           {

@@ -13,7 +13,7 @@ import { Container, Menu, Card, Icon, Image, Message } from 'semantic-ui-react';
 
 // logos
 import * as kvilleLogo from './../images/kville.png';
-import * as logo from './../images/gthc.png';
+import * as logo from './../images/gthc_verbose.png';
 
 class About extends Component {
 
@@ -134,6 +134,7 @@ class About extends Component {
                   </Card.Content>
                 </Card>
                 </Card.Group>
+                <Image src={logo} size="large"/>
             </Card.Content>
           </Card>
         </Container>
