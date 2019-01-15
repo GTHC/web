@@ -4,6 +4,7 @@ const initialState = {
   isLoading: false,
   error: false,
   errorMessage: '',
+  passwordResetSuccess: false,
 };
 
 const user = (state=initialState, action) => {
@@ -12,6 +13,7 @@ const user = (state=initialState, action) => {
     isLoading: true,
     error: false,
     errorMessage: '',
+    passwordResetSuccess: false,
   };
   switch (action.type) {
     // POST /login
@@ -182,6 +184,59 @@ const user = (state=initialState, action) => {
       };
     }
 
+    case 'BEGIN_PASSWORD_RESET': {
+      return beginState;
+      
+    }
+
+    case 'FAILED_PASSWORD_RESET': {
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        errorMessage: action.payload.response.data.message,
+      }
+    }
+
+    case 'END_PASSWORD_RESET': {
+      return {
+        ...state,
+        isLoading: false,
+        passwordResetSuccess: true,
+      }
+    }
+
+    case 'GET_RESET_PASSWORD': {
+      return {
+        ...state,
+        passwordResetSuccess: false,
+      }
+    }
+
+    case 'INVALID_EMAIL': {
+      return {
+        ...state,
+        error: true,
+        errorMessage: "Please enter a valid email."
+      }
+    }
+
+    case 'PASSWORD_SHORT': {
+      return {
+        ...state,
+        error: true,
+        errorMessage: "Password must be at least 6 characters long."
+      }
+    }
+
+    case 'PASSWORD_MISMATCH': {
+      return {
+        ...state,
+        error: true,
+        errorMessage: "The passwords you entered do not match."
+      }
+    }
+
     // POST /ap1/v1/user/avatar
     case 'BEGIN_POST_AVATAR': {
       return beginState;
@@ -193,7 +248,7 @@ const user = (state=initialState, action) => {
         isLoading: false,
         error: true,
         errorMessage: action.payload.response.data.message,
-      };
+      }
     }
 
     case 'END_POST_AVATAR': {

@@ -100,6 +100,43 @@ class Api::V1::UsersController < ApiController
     end
   end
 
+  # POST /api/v1/user/token_reset_password
+  # Change user password using reset token
+  def token_reset_password
+    validate_reset_token_password_params
+
+    @user = User.reset_password_by_token(@reset_params)
+
+    if @user.errors.empty?
+        render json: { status: 'SUCCESS', message: 'Password has xpbeen reset.', email: params[:user_email]}, status: :ok
+      else 
+        render json: { status: 'ERROR', data: @user.errors, message: 'Server error prevented password from being reset.' }, status: :not_found
+      end
+  end
+
+  # POST /api/v1/user/forgot_password
+  # Initiate password reset process
+  def forgot_password
+    validate_forgot_password_params
+    
+    # Check if valid email that is registered to an GTHC account
+    @user = User.find_by_email(params[:user_email]);
+    if @user
+      @output = edit_password_url(@user, reset_password_token: '123')
+      puts 'test124'
+      puts @output
+      @user.send_reset_password_instructions
+  
+      if @user.errors.empty?
+        render json: { status: 'SUCCESS', message: 'Password reset sent.', email: params[:user_email]}, status: :ok        
+      else 
+        render json: { status: 'ERROR', message: 'Server error prevented email from being sent.' }, status: :not_found
+      end
+    else
+      render json: { status: 'ERROR', message: 'There is no user associated with that email.' }, status: :not_found
+    end
+  end
+
   # POST /api/v1/user/shifts
   # Add user to shift, and vice versa
   def shifts
@@ -189,6 +226,10 @@ class Api::V1::UsersController < ApiController
       end
     end
 
+    def validate_forgot_password_params
+      params.require([:user_email])
+    end
+
     def validate_login_params
       params.require([:email, :password])
     end
@@ -214,6 +255,15 @@ class Api::V1::UsersController < ApiController
         name: params[:name],
         phone: params[:phone],
       }
+    end
+
+    def validate_reset_token_password_params
+        params.require([:password, :password_confirmation, :token])
+        @reset_params = {
+          reset_password_token: params[:token],
+          password: params[:password],
+          password_confirmation: params[:password_confirmation]
+        }
     end
 
     def validate_params_update_with_password

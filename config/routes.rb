@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   get 'app/*path', to: 'pages#index'
   get 'tenting101', to: 'pages#index'
   get 'about', to: 'pages#index'
+  get 'reset_password', to: 'pages#index'
+  get 'edit_password', to: 'pages#index'
+  get 'edit_password.32', to: 'pages#index'
 
   # Login/Logout
   post 'login', to: 'api/v1/users#login'
@@ -27,6 +30,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :shifts, :teams, :captains, :users
+      post 'user/token_change_password', to: 'users#token_reset_password'
+      post 'user/forgot_password', to: 'users#forgot_password'
       get 'user/session', to: 'users#timeout'
       post 'user/shifts', to: 'users#shifts'
 
@@ -35,9 +40,15 @@ Rails.application.routes.draw do
       post 'user/availability', to: 'users#update_availability'
       post 'user/avatar', to: 'users#update_avatar'
 
+      devise_scope :user do
+        get "edit_password", to: "devise/passwords#edit"
+      end
+
       # team
       get 'team/availability', to: 'teams#shift_availabilities'
       get 'team/hours', to: 'teams#team_hours'
+
+
     end
   end
 end
