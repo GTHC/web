@@ -10,7 +10,7 @@ import { Container, Card, Menu, Input, Image } from 'semantic-ui-react';
 // Login components
 import { LoginFields, SignUpFields } from './../components';
 
-import NavBar from './NavBar';
+import NavBarAlternate from './NavBarAlternate';
 
 // redux actions
 import {
@@ -76,7 +76,11 @@ class Login extends Component {
     const path = router.location.pathname;
     return (
       <div style={{ flex: 1, backgroundColor: "white"}}>
-        <NavBarAl/>
+        <NavBarAlternate
+          push={push}
+          context='/login'
+        />
+        
         <div className="login">
           <Container>
             <Card centered color="blue" className="login-card" style={{width: "520px", paddingBottom: "16px"}}>
