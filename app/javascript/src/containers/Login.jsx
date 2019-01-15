@@ -10,6 +10,8 @@ import { Container, Card, Menu, Input, Image } from 'semantic-ui-react';
 // Login components
 import { LoginFields, SignUpFields } from './../components';
 
+import NavBar from './NavBar';
+
 // redux actions
 import {
   toggleLoginType,
@@ -70,28 +72,11 @@ class Login extends Component {
           } = this.props;
     const path = router.location.pathname;
     return (
-      <div>
-        <Menu secondary>
-          <Menu.Item header>
-            <Image src={logo} size="tiny" />
-          </Menu.Item>
-          <Menu.Item
-            id='about'
-            active={path === '/about'}
-            onClick={this.handleClick}
-           >
-           About GTHC
-           </Menu.Item>
-           <Menu.Item
-            id='tenting101'
-            active={path === '/tenting101'}
-            onClick={this.handleClick}>
-            Tenting 101
-            </Menu.Item>
-      </Menu>
+      <div style={{ flex: 1, backgroundColor: "white"}}>
+        <NavBarAl/>
         <div className="login">
-          <Container textalign="center" >
-            <Card centered fluid color="blue" className="login-card" >
+          <Container>
+            <Card centered color="blue" className="login-card" style={{width: "520px", paddingBottom: "16px"}}>
               <Card.Content>
                 <Card.Header>
                   { login.type === 'login' ?
@@ -102,7 +87,7 @@ class Login extends Component {
                         paddingLeft: '3px',
                       }} size="tiny" />
                     </div>
-                   : '⛺⛺ Welcome to GTHC (Game Tenting Help Center) ⛺⛺'
+                   : 'Welcome to GTHC (Game Tenting Help Center) ⛺'
                   }
                 </Card.Header>
               </Card.Content>
