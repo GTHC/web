@@ -33,14 +33,10 @@ class Api::V1::UsersController < ApiController
       password_confirmation: params[:password_confirmation],
       team_id: params[:team_id],
     )
-    if params[:availability]
-      @user.availability = params[:availability]
-    end
     @team = @user.team
     if @user.save
       bypass_sign_in @user
-      # Change availability from Strings to Integers
-      @user.availability.map! {|arr| arr.map.map(&:to_i) }
+
       render json: { status: 'SUCCESS', message: 'User saved and signed in', data: {
         user: @user,
         team: @team,
@@ -60,9 +56,6 @@ class Api::V1::UsersController < ApiController
       bypass_sign_in @user
       @team = @user.team
       if current_user
-        # Change availability from Strings to Integers
-        @user.availability.map! {|arr| arr.map.map(&:to_i) }
-
         # setting up data
         data = {
             user: @user.as_json,
@@ -109,7 +102,7 @@ class Api::V1::UsersController < ApiController
 
     if @user.errors.empty?
         render json: { status: 'SUCCESS', message: 'Password has xpbeen reset.', email: params[:user_email]}, status: :ok
-      else 
+      else
         render json: { status: 'ERROR', data: @user.errors, message: 'Server error prevented password from being reset.' }, status: :not_found
       end
   end
@@ -118,7 +111,7 @@ class Api::V1::UsersController < ApiController
   # Initiate password reset process
   def forgot_password
     validate_forgot_password_params
-    
+
     # Check if valid email that is registered to an GTHC account
     @user = User.find_by_email(params[:user_email]);
     if @user
@@ -126,10 +119,10 @@ class Api::V1::UsersController < ApiController
       puts 'test124'
       puts @output
       @user.send_reset_password_instructions
-  
+
       if @user.errors.empty?
-        render json: { status: 'SUCCESS', message: 'Password reset sent.', email: params[:user_email]}, status: :ok        
-      else 
+        render json: { status: 'SUCCESS', message: 'Password reset sent.', email: params[:user_email]}, status: :ok
+      else
         render json: { status: 'ERROR', message: 'Server error prevented email from being sent.' }, status: :not_found
       end
     else
@@ -188,20 +181,6 @@ class Api::V1::UsersController < ApiController
       render json: { message: 'Correct Password', check: true }, status: :ok
     else
       render json: { message: 'Incorrect Password', check: false }, status: :ok
-    end
-  end
-
-  # POST /api/v1/user/availability
-  def update_availability
-    validate_availability
-    @user = current_user
-    @user.availability = params[:availability]
-    if @user.save
-      # Change availability from Strings to Integers
-      @user.availability.map! {|arr| arr.map.map(&:to_i) }
-      render json: { status: 'SUCCESS', message: 'User availability updated successfully.', data: @user.availability }, status: :ok
-    else
-      render json: { status: 'ERROR', message: 'User availability not able to update.' }, status: :unprocessable_entity
     end
   end
 
@@ -276,10 +255,6 @@ class Api::V1::UsersController < ApiController
 
     def validate_params_password_check
       params.require([:password])
-    end
-
-    def validate_availability
-      params.require([:availability])
     end
 
     def validate_avatar_params

@@ -37,7 +37,6 @@ Rails.application.routes.draw do
 
       # user
       put 'user/password/check', to: 'users#password_check'
-      post 'user/availability', to: 'users#update_availability'
       post 'user/avatar', to: 'users#update_avatar'
 
       devise_scope :user do
@@ -45,7 +44,6 @@ Rails.application.routes.draw do
       end
 
       # team
-      get 'team/availability', to: 'teams#shift_availabilities'
       get 'team/hours', to: 'teams#team_hours'
 
 
