@@ -1,6 +1,4 @@
 class Api::V1::UsersController < ApiController
-  rescue_from ActionController::ParameterMissing, :with => :param_missing
-
   before_action :set_user
 
   def show
@@ -37,11 +35,13 @@ class Api::V1::UsersController < ApiController
     if @user.save
       bypass_sign_in @user
 
-      render json: { status: 'SUCCESS', message: 'User saved and signed in', data: {
-        user: @user,
-        team: @team,
-        captain: @team.captain
-        } }, status: :ok
+      data = format_user_data({
+          user: @user.as_json,
+          team: @team.as_json,
+          captain: @team.captain,
+        })
+
+      render json: { status: 'SUCCESS', message: 'User saved and signed in', data: data }, status: :ok
     else
       render json: { status: 'ERROR', message: 'User not saved', data: @user.errors }, status: :unprocessable_entity
     end
@@ -57,22 +57,11 @@ class Api::V1::UsersController < ApiController
       @team = @user.team
       if current_user
         # setting up data
-        data = {
+        data = format_user_data({
             user: @user.as_json,
             team: @team.as_json,
             captain: @team.captain,
-          }
-
-        # Processing data object as it is not an ActiveRecord
-        # add avatarURL if avatar
-        data[:user][:avatarURL] = url_for(@user.avatar) if @user.avatar.attached?
-
-        # add avatarURL to users in a team
-        data[:team][:users] = @team.users.as_json
-        data[:team][:users].each do |u|
-          user = User.find(u["id"])
-          u[:avatarURL] = url_for(user.avatar) if user.avatar.attached?
-        end
+          })
 
         render json: { status: 'SUCCESS', message: 'User Logged In', data: data  }, status: :ok
       else
@@ -259,9 +248,5 @@ class Api::V1::UsersController < ApiController
 
     def validate_avatar_params
       params.require(:avatarFile)
-    end
-
-    def param_missing(exception)
-      render json: { status: 'ERROR', message: exception }, status: :unprocessable_entity
     end
 end

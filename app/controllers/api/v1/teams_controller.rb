@@ -1,6 +1,4 @@
 class Api::V1::TeamsController < ApiController
-  rescue_from ActionController::ParameterMissing, :with => :param_missing
-
   before_action :set_user
   def show
   end
@@ -80,10 +78,6 @@ class Api::V1::TeamsController < ApiController
       @day = params[:day].to_i
       @s = params[:starting].to_i
       @e = params[:ending].to_i
-    end
-
-    def param_missing(exception)
-      render json: { status: 'ERROR', message: exception }, status: :unprocessable_entity
     end
 
     def user_hours_count(user)
