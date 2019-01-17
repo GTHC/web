@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_17_190533) do
+ActiveRecord::Schema.define(version: 2019_01_17_193636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,7 +105,6 @@ ActiveRecord::Schema.define(version: 2019_01_17_190533) do
   end
 
   create_table "availabilities", force: :cascade do |t|
-    t.datetime "day"
     t.datetime "start"
     t.datetime "end"
     t.datetime "created_at", null: false

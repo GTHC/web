@@ -15,7 +15,7 @@ class ApiController < ApplicationController
       data[:user][:avatarURL] = url_for(@user.avatar) if @user.avatar.attached?
 
       # add availability info to data
-      data[:user][:availabilities] = @user.availabilities.to_json
+      data[:user][:availabilities] = @user.availabilities.as_json
 
       ## team
       # add avatarURL and availabilities to users in a team
@@ -23,7 +23,7 @@ class ApiController < ApplicationController
       data[:team][:users].each do |u|
         user = User.find(u["id"])
         u[:avatarURL] = url_for(user.avatar) if user.avatar.attached?
-        u[:availabilities] = user.availabilities.to_json
+        u[:availabilities] = user.availabilities.as_json
       end
 
       data
