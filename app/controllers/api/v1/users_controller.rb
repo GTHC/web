@@ -19,7 +19,7 @@ class Api::V1::UsersController < ApiController
 
   # POST /api/v1/users
   def create
-    validate_params
+    helpers.validate_params
     if User.find_by_email(params[:email])
       return render json: { status: 'ERROR', message: 'User already created' }, status: :unprocessable_entity
     end
@@ -49,7 +49,7 @@ class Api::V1::UsersController < ApiController
 
   # POST /login
   def login
-    validate_login_params
+    helpers.validate_login_params
     @user = User.find_by_email(params[:email])
     if @user&.valid_password?(params[:password])
       @user.remember_me = true
@@ -85,7 +85,7 @@ class Api::V1::UsersController < ApiController
   # POST /api/v1/user/token_reset_password
   # Change user password using reset token
   def token_reset_password
-    validate_reset_token_password_params
+    helpers.validate_reset_token_password_params
 
     @user = User.reset_password_by_token(@reset_params)
 
@@ -99,7 +99,7 @@ class Api::V1::UsersController < ApiController
   # POST /api/v1/user/forgot_password
   # Initiate password reset process
   def forgot_password
-    validate_forgot_password_params
+    helpers.validate_forgot_password_params
 
     # Check if valid email that is registered to an GTHC account
     @user = User.find_by_email(params[:user_email]);
@@ -123,7 +123,7 @@ class Api::V1::UsersController < ApiController
   # Add user to shift, and vice versa
   def shifts
     puts Visits.last
-    validate_shift_params
+    helpers.validate_shift_params
     if Shift.all.ids.include? @s_id and User.all.ids.include? @u_id
       @user = User.find(@u_id)
       @shift = Shift.find(@s_id)
@@ -145,9 +145,9 @@ class Api::V1::UsersController < ApiController
   # PUT/PATCH /api/v1/user/:id
   def update
     if params[:password]
-      validate_params_update_with_password
+      helpers.validate_params_update_with_password
     else
-      validate_params_update
+      helpers.validate_params_update
     end
     if user = User.find(params[:id])
       user.update(@prime_params)
@@ -165,7 +165,7 @@ class Api::V1::UsersController < ApiController
   # PUT /api/v1/user/password/check
   # purpose - checks users password on the user setting page
   def password_check
-    validate_params_password_check
+    helpers.validate_params_password_check
     if current_user.valid_password? params[:password]
       render json: { message: 'Correct Password', check: true }, status: :ok
     else
@@ -175,7 +175,7 @@ class Api::V1::UsersController < ApiController
 
   # POST /api/v1/user/avatar
   def update_avatar
-    validate_avatar_params
+    helpers.validate_avatar_params
     current_user.avatar.attach(params[:avatarFile])
     if current_user.avatar.attached?
       render json: { status: 'SUCCESS', message: 'User avatar updated successfully', data: url_for(current_user.avatar) }, status: :ok
@@ -192,61 +192,5 @@ class Api::V1::UsersController < ApiController
       else
         @Users = User.all
       end
-    end
-
-    def validate_forgot_password_params
-      params.require([:user_email])
-    end
-
-    def validate_login_params
-      params.require([:email, :password])
-    end
-
-    def validate_params
-      params.require([:name,
-                      :email,
-                      :phone,
-                      :password,
-                      :password_confirmation,
-                      :team_id])
-    end
-
-    def validate_shift_params
-      params.require([:shift_id, :user_id])
-      @s_id = params[:shift_id].to_i
-      @u_id = params[:user_id].to_i
-    end
-
-    def validate_params_update
-      params.require([:name, :phone]);
-      @prime_params = {
-        name: params[:name],
-        phone: params[:phone],
-      }
-    end
-
-    def validate_reset_token_password_params
-        params.require([:password, :password_confirmation, :token])
-        @reset_params = {
-          reset_password_token: params[:token],
-          password: params[:password],
-          password_confirmation: params[:password_confirmation]
-        }
-    end
-
-    def validate_params_update_with_password
-        params.require([:password, :password_confirmation])
-        @prime_params = {
-          password: params[:password],
-          password_confirmation: params[:password_confirmation]
-        }
-    end
-
-    def validate_params_password_check
-      params.require([:password])
-    end
-
-    def validate_avatar_params
-      params.require(:avatarFile)
     end
 end
