@@ -184,6 +184,17 @@ class Api::V1::UsersController < ApiController
     end
   end
 
+  def update_availability
+    if current_user
+      helpers.validate_params_update_availability
+      @start = params[:start]
+      @end = params[:end]
+      @somewhat = params[:somewhat]
+      check_avail_overlap
+      render json: { data: current_user.availabilities }
+    end
+  end
+
   private
 
     def set_user
@@ -191,6 +202,46 @@ class Api::V1::UsersController < ApiController
         @user = User.find(params[:id])
       else
         @Users = User.all
+      end
+    end
+
+    # check_avail_overlap - it is meant to eventually create an
+    # availability record, but checks for overlaps before it does
+    def check_avail_overlap
+      avails = current_user.availabilities.where(somewhat: @somewhat)
+
+      # checks if start or end time of another availability is on top of the incoming availability
+      start_overlap = avails.where(start: @start..@end)
+      end_overlap = avails.where(end: @start..@end)
+
+      # checks if incoming avail is on within of another avail
+      # therefore it would not be needed
+      inter_overlap = avails.where('start <= ?', @start).where('availabilities.end >= ?', @end)
+
+      if inter_overlap.count > 0
+        # if there are similar availabilities that already exist,
+        # then there is no need to add another
+
+        return
+      elsif start_overlap.count > 0 || end_overlap.count > 0
+        # any slight overlap from other availabilities go here
+
+        # sets avail to be any start_overlap by default, but
+        # it will change to end_overlap if start is empty
+        avail = start_overlap.first
+        avail = end_overlap.first if start_overlap.first.nil?
+
+        avail.start = @start if avail.start > @start
+        avail.end = @end if avail.end < @end
+        avail.save
+      else
+        # unique availabilities go here (there are no overlaps)
+
+        avails.create!(
+          start: @start,
+          end: @end,
+          somewhat: @somewhat,
+        )
       end
     end
 end

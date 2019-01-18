@@ -54,4 +54,8 @@ module Api::V1::UsersHelper
   def validate_avatar_params
     params.require(:avatarFile)
   end
+
+  def validate_params_update_availability
+    params.require([:start, :end, :somewhat])
+  end
 end

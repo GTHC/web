@@ -38,6 +38,7 @@ Rails.application.routes.draw do
       # user
       put 'user/password/check', to: 'users#password_check'
       post 'user/avatar', to: 'users#update_avatar'
+      post 'user/availability', to: 'users#update_availability'
 
       devise_scope :user do
         get "edit_password", to: "devise/passwords#edit"
