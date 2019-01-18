@@ -91,9 +91,9 @@ class Api::V1::UsersController < ApiController
 
     if @user.errors.empty?
         render json: { status: 'SUCCESS', message: 'Password has xpbeen reset.', email: params[:user_email]}, status: :ok
-      else
-        render json: { status: 'ERROR', data: @user.errors, message: 'Server error prevented password from being reset.' }, status: :not_found
-      end
+    else
+      render json: { status: 'ERROR', data: @user.errors, message: 'Server error prevented password from being reset.' }, status: :not_found
+    end
   end
 
   # POST /api/v1/user/forgot_password
