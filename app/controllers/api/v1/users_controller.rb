@@ -190,8 +190,33 @@ class Api::V1::UsersController < ApiController
       @start = params[:start]
       @end = params[:end]
       @somewhat = params[:somewhat]
-      check_avail_overlap
-      render json: { data: current_user.availabilities }
+      begin
+        check_avail_overlap
+        render json: { status: 'SUCCESS', message: 'Availability has been updated.', data: current_user.availabilities }, status: :ok
+      rescue Exception
+        render json: { status: 'ERROR', message: 'Creating new availability has failed. Check logs.' }, status: :unprocessable_entity
+      end
+    else
+      render json: { status: 'ERROR', message: 'User needs to be logged in.' }, status: :unprocessable_entity
+    end
+  end
+
+  def destroy_availability
+    helpers.validate_params_destroy_availability
+    if current_user
+
+      if avail = current_user.availabilities.find(params[:id])
+        if avail.destroy
+          render json: { status: 'SUCCESS', message: 'Availability has been removed successfully', data: current_user.availabilities }, status: :ok
+
+        else
+          render json: { status: 'ERROR', message: 'Unable to remove availability record.' }, status: :unprocessable_entity
+        end
+      else
+        render json: { status: 'ERROR', message: 'Unable to find availability with such id. Check the id being sent.' }, status: :not_found
+      end
+    else
+      render json: { status: 'ERROR', message: 'User needs to be logged in.' }, status: :unprocessable_entity
     end
   end
 

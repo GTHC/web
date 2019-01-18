@@ -58,4 +58,8 @@ module Api::V1::UsersHelper
   def validate_params_update_availability
     params.require([:start, :end, :somewhat])
   end
+
+  def validate_params_destroy_availability
+    params.require([:id])
+  end
 end
