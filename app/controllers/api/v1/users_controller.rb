@@ -105,8 +105,6 @@ class Api::V1::UsersController < ApiController
     @user = User.find_by_email(params[:user_email]);
     if @user
       @output = edit_password_url(@user, reset_password_token: '123')
-      puts 'test124'
-      puts @output
       @user.send_reset_password_instructions
 
       if @user.errors.empty?
@@ -122,7 +120,6 @@ class Api::V1::UsersController < ApiController
   # POST /api/v1/user/shifts
   # Add user to shift, and vice versa
   def shifts
-    puts Visits.last
     helpers.validate_shift_params
     if Shift.all.ids.include? @s_id and User.all.ids.include? @u_id
       @user = User.find(@u_id)
