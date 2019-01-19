@@ -205,7 +205,8 @@ class Api::V1::UsersController < ApiController
     helpers.validate_params_destroy_availability
     if current_user
 
-      if avail = current_user.availabilities.find(params[:id])
+      if current_user.availabilities.exists? id: params[:id]
+        avail = current_user.availabilities.find(params[:id])
         if avail.destroy
           render json: { status: 'SUCCESS', message: 'Availability has been removed successfully', data: current_user.availabilities }, status: :ok
 

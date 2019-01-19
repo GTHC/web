@@ -4,30 +4,38 @@ class Api::V1::ShiftsController < ApiController
   # GET /api/v1/shifts/:id
   # GET team shift at ID
   def show
-    @id = params[:id]
-    @shifts = current_user.team.shifts
-    if @shifts.ids.include? @id
-      data = {
-        shift: @shift.find(@id)
-      }
-      render json: { status: 'SUCCESS', message: 'Shift found.', data: data } , status: :ok
+    if current_user
+      @id = params[:id]
+      @shifts = current_user.team.shifts
+      if @shifts.ids.include? @id
+        data = {
+          shift: @shift.find(@id)
+        }
+        render json: { status: 'SUCCESS', message: 'Shift found.', data: data } , status: :ok
+      else
+        render json: { status: 'ERROR', message: 'ID not found.' }, status: :unprocessable_entity
+      end
     else
-      render json: { status: 'ERROR', message: 'ID not found.' }, status: :unprocessable_entity
+      render json: { status: 'ERROR', message: 'User must be logged in.' }, status: :unprocessable_entity
     end
   end
 
   # GET /api/v1/shifts
   # GET all shifts
   def index
-    @shifts = current_user.team.shifts
-    if @shifts
-      data = {
-        user_shifts: format_shifts(current_user.shifts),
-        team_shifts: format_shifts(@shifts),
-      }
-      render json: { status: 'SUCCESS', message: 'Shifts found.', data: data } , status: :ok
+    if current_user
+      @shifts = current_user.team.shifts
+      if @shifts
+        data = {
+          user_shifts: format_shifts(current_user.shifts),
+          team_shifts: format_shifts(@shifts),
+        }
+        render json: { status: 'SUCCESS', message: 'Shifts found.', data: data } , status: :ok
+      else
+        render json: { status: 'ERROR', message: 'Shifts not found.' }, status: :unprocessable_entity
+      end
     else
-      render json: { status: 'ERROR', message: 'Shifts not found.' }, status: :unprocessable_entity
+      render json: { status: 'ERROR', message: 'User must be logged in.' }, status: :unprocessable_entity
     end
   end
 
