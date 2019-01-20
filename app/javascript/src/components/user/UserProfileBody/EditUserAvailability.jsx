@@ -3,7 +3,7 @@ import { Card, Button, Message } from 'semantic-ui-react';
 
 import Availability from '../../availability/index';
 
-class Schedule extends Component {
+class EditUserAvailability extends Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -53,4 +53,4 @@ class Schedule extends Component {
   }
 }
 
-export default Schedule;
+export default EditUserAvailability;

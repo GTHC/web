@@ -10,9 +10,6 @@ const initialState = {
     isCaptain: false,
     password: '',
     passwordConfirmation: '',
-
-    // default value is array of zeros
-    availability: (new Array(7)).fill().map(() => (new Array(20).fill(2))),
   },
   disableNext: true, // disable next button for signup
   // API
@@ -68,16 +65,6 @@ const login = (state=initialState, action) => {
           tentType: action.payload.tentType,
           isCaptain: action.payload.isCaptain,
           passcode: action.payload.passcode,
-        },
-      };
-    }
-
-    case 'SU_AVAIL': {
-      return {
-        ...state,
-        signUpData: {
-          ...state.signUpData,
-          availability: action.payload.availability,
         },
       };
     }

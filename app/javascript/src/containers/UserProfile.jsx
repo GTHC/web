@@ -12,7 +12,6 @@ import NavBar from './NavBar';
 import {
   postAvatar,
   updateUser,
-  updateAvailability,
 } from '../actions/user';
 
 class UserProfile extends Component {
@@ -20,7 +19,7 @@ class UserProfile extends Component {
     const {
       postAvatar,
       user,
-      updateUser, updateAvailability
+      updateUser,
     } = this.props;
     return (
       <div>
@@ -30,7 +29,6 @@ class UserProfile extends Component {
             userState={user}
             userData={user.data}
             updateUser={updateUser}
-            updateAvailability={updateAvailability}
             postAvatar={postAvatar}
           />
         </div>
@@ -51,8 +49,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      updateUser, 
-      updateAvailability,
+      updateUser,
       postAvatar,
     },
     dispatch);

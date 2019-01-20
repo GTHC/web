@@ -140,29 +140,6 @@ const user = (state=initialState, action) => {
       };
     }
 
-    case 'BEGIN_UPDATE_AVAIL': {
-      return beginState;
-    }
-
-    case 'FAILED_UPDATE_AVAIL': {
-      return {
-        ...state,
-        isLoading: false,
-        error: true,
-        errorMessage: action.payload.response.data.message,
-      };
-    }
-
-    case 'END_UPDATE_AVAIL': {
-      const data = state.data;
-      data.user.availability = action.payload.data.data;
-      return {
-        ...state,
-        isLoading: false,
-        data,
-      };
-    }
-
     // GET /api/v1/user/session
     case 'BEGIN_SESS_CHECK': {
       return beginState;
@@ -186,7 +163,7 @@ const user = (state=initialState, action) => {
 
     case 'BEGIN_PASSWORD_RESET': {
       return beginState;
-      
+
     }
 
     case 'FAILED_PASSWORD_RESET': {

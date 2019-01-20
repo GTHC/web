@@ -42,13 +42,6 @@ const updateTeamInfo = (teamInfo) => {
   };
 };
 
-const updateAvailInfo = availability => ({
-  type: 'SU_AVAIL',
-  payload: {
-    availability,
-  },
-});
-
 // API actions
 
 const getAllTeams = () => (
@@ -160,7 +153,6 @@ export {
   toggleDisableNext,
   updateUserInfo,
   updateTeamInfo,
-  updateAvailInfo,
   getAllTeams,
   login,
   logout,

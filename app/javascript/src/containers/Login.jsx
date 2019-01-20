@@ -18,7 +18,6 @@ import {
   toggleDisableNext,
   updateUserInfo,
   updateTeamInfo,
-  updateAvailInfo,
   getAllTeams,
   login,
   logout,
@@ -62,7 +61,6 @@ class Login extends Component {
             toggleDisableNext,
             updateUserInfo,
             updateTeamInfo,
-            updateAvailInfo,
             getAllTeams,
             loginUser,
             logoutUser,
@@ -116,7 +114,6 @@ class Login extends Component {
                     login={login}
                     updateUserInfo={updateUserInfo}
                     updateTeamInfo={updateTeamInfo}
-                    updateAvailInfo={updateAvailInfo}
                     getAllTeams={getAllTeams}
                     signup={signup}
                     signupNewTeam={signupNewTeam}
@@ -149,7 +146,6 @@ const mapDispatchToProps = (dispatch) => {
       toggleDisableNext: toggleDisableNext,
       updateUserInfo: updateUserInfo,
       updateTeamInfo: updateTeamInfo,
-      updateAvailInfo: updateAvailInfo,
       getAllTeams: getAllTeams,
       loginUser: login, // changed login and logout action names due to login state name
       logoutUser: logout,

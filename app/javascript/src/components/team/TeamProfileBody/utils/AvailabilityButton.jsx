@@ -9,28 +9,10 @@ import Availability from '../../../availability';
 class AvailabilityButton extends Component {
   constructor(props) {
     super(props);
-    const grid = this.translateToAvailabilityGrid(props.user.availability);
     this.state = {
       open: false,
       grid: grid,
     };
-  };
-
-  /**
-   * translateToAvailabilityGrid - the GET team request returns availability as a 2d array of strings rather than integers, so, this functions changes it to its appropraite data type
-   */
-  translateToAvailabilityGrid = availability => {
-    const output = [];
-    for (let i = 0; i < availability.length; i++) {
-      const row = [];
-      for (let j = 0; j < availability[i].length; j++) {
-        row.push(parseInt(availability[i][j]));
-      }
-
-      output.push(row);
-    }
-
-    return output;
   };
 
   open = () => this.setState({ open: true });
@@ -46,10 +28,7 @@ class AvailabilityButton extends Component {
         <Modal open={open} onClose={this.close}>
           <Modal.Header>{user.name}'s Availability</Modal.Header>
           <Modal.Content scrolling>
-            <Availability
-              fixed
-              grid={grid}
-            />
+            <Availability />
           </Modal.Content>
         </Modal>
       </div>
