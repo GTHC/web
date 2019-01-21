@@ -12,8 +12,10 @@ import NavBar from './NavBar';
 import {
   postAvatar,
   updateUser,
+  putAvail,
   postAvail,
   deleteAvail,
+  dragDropUpdate,
 } from '../actions/user';
 
 class UserProfile extends Component {
@@ -22,8 +24,10 @@ class UserProfile extends Component {
       postAvatar,
       user,
       updateUser,
+      putAvail,
       postAvail,
       deleteAvail,
+      dragDropUpdate,
     } = this.props;
     return (
       <div>
@@ -34,8 +38,10 @@ class UserProfile extends Component {
             userData={user.data}
             updateUser={updateUser}
             postAvatar={postAvatar}
+            putAvail={putAvail}
             postAvail={postAvail}
             deleteAvail={deleteAvail}
+            dragDropUpdate={dragDropUpdate}
           />
         </div>
       </div>
@@ -57,8 +63,10 @@ const mapDispatchToProps = (dispatch) => {
     {
       updateUser,
       postAvatar,
+      putAvail,
       postAvail,
       deleteAvail,
+      dragDropUpdate,
     },
     dispatch);
 };

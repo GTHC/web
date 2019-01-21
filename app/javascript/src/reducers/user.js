@@ -238,6 +238,8 @@ const user = (state=initialState, action) => {
       };
     }
 
+    /* Availability */
+
     // POST /api/v1/user/availability
     case 'BEGIN_POST_AVAIL': {
       return beginState;
@@ -282,6 +284,16 @@ const user = (state=initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        data,
+      };
+    }
+
+    // remove dragdrop lag
+    case 'AVAIL_DRAG_DROP': {
+      const data = state.data;
+      data.user.availabilities = action.payload;
+      return {
+        ...state,
         data,
       };
     }

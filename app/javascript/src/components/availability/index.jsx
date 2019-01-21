@@ -5,9 +5,6 @@ import Calendar from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import moment from 'moment';
 
-// components
-import CustomEvent from './CustomEvent';
-
 const localizer = Calendar.momentLocalizer(moment);
 
 const DragDropCal = withDragAndDrop(Calendar);
@@ -26,7 +23,7 @@ class Availability extends Component {
       return;
     }
 
-    const { deleteAvail, postAvail } = this.props;
+    const { putAvail, dragDropUpdate } = this.props;
     const { availabilities } = this.state;
 
     const idx = availabilities.indexOf(event);
@@ -36,23 +33,18 @@ class Availability extends Component {
     const nextEvents = [...availabilities];
     nextEvents.splice(idx, 1, updatedEvent);
 
-    this.setState({
-      availabilities: nextEvents,
-    });
-    console.log(event);
+    dragDropUpdate(nextEvents);
 
-    // deleteAvail(event.id);
-    // postAvail({
-    //   start,
-    //   end,
-    // });
+    putAvail(event.id, {
+      ...event,
+      start,
+      end,
+    });
   };
 
   handleSelectDrag = ({ event, start, end }) => {
     const { postAvail } = this.props;
-    const { availabilities } = this.state;
-    const newAvailability = { start, end, title: 'test' };
-    const newAvailabilities = [...availabilities, newAvailability];
+
     postAvail({
       start,
       end,

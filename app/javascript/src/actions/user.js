@@ -75,6 +75,24 @@ const postAvatar = data =>
     data,
   });
 
+const getResetPassword = () => (
+  { type: 'GET_RESET_PASSWORD' }
+);
+
+/* Availability */
+
+const putAvail = (id, data) =>
+  crud({
+    dispatch: {
+      begin: 'BEGIN_POST_AVAIL',
+      fail: 'FAILED_POST_AVAIL',
+      end: 'END_POST_AVAIL',
+    },
+    method: 'PUT',
+    url: `/api/v1/user/availability/${id}`,
+    data,
+  });
+
 const postAvail = data =>
   crud({
     dispatch: {
@@ -98,9 +116,10 @@ const deleteAvail = id =>
     url: `/api/v1/user/availability/${id}`,
   });
 
-const getResetPassword = () => (
-  { type: 'GET_RESET_PASSWORD' }
-);
+const dragDropUpdate = newAvailabilities => ({
+  type: 'AVAIL_DRAG_DROP',
+  payload: newAvailabilities,
+});
 
 export {
   updateUser,
@@ -112,6 +131,8 @@ export {
   invalidEmailError,
   passwordTooShortError,
   passwordMismatchError,
+  putAvail,
   postAvail,
   deleteAvail,
+  dragDropUpdate,
 };

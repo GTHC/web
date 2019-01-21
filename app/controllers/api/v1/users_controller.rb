@@ -181,7 +181,10 @@ class Api::V1::UsersController < ApiController
     end
   end
 
-  def update_availability
+  # availability
+
+  # POST /api/v1/user/availability
+  def create_availability
     if current_user
       helpers.validate_params_update_availability
       @start = params[:start]
@@ -189,7 +192,7 @@ class Api::V1::UsersController < ApiController
       @somewhat = params[:somewhat]
       begin
         check_avail_overlap
-        render json: { status: 'SUCCESS', message: 'Availability has been updated.', data: current_user.availabilities }, status: :ok
+        render json: { status: 'SUCCESS', message: 'Availability has been created.', data: current_user.availabilities }, status: :ok
       rescue Exception
         render json: { status: 'ERROR', message: 'Creating new availability has failed. Check logs.' }, status: :unprocessable_entity
       end
@@ -198,6 +201,27 @@ class Api::V1::UsersController < ApiController
     end
   end
 
+  # PUT /api/v1/user/availability/:id
+  def update_availability
+    if current_user
+      helpers.validate_params_update_availability
+      if current_user.availabilities.exists?(params[:id])
+        availability = current_user.availabilities.find(params[:id])
+        availability.update({
+          start: params[:start],
+          end: params[:end],
+          somewhat: params[:somewhat],
+        })
+        render json: { status: 'SUCCESS', message: 'Availability updated.', data: current_user.availabilities }, status: :ok
+      else
+        render json: { status: 'ERROR', message: 'Availability not found.' }, status: :not_found
+      end
+    else
+      render json: { status: 'ERROR', message: 'User needs to be logged in.' }, status: :unprocessable_entity
+    end
+  end
+
+  # DELETE /api/v1/user/availability/:id
   def destroy_availability
     helpers.validate_params_destroy_availability
     if current_user
