@@ -26,6 +26,7 @@ class Availability extends Component {
       return;
     }
 
+    const { deleteAvail, postAvail } = this.props;
     const { availabilities } = this.state;
 
     const idx = availabilities.indexOf(event);
@@ -38,19 +39,29 @@ class Availability extends Component {
     this.setState({
       availabilities: nextEvents,
     });
+    console.log(event);
+
+    // deleteAvail(event.id);
+    // postAvail({
+    //   start,
+    //   end,
+    // });
   };
 
   handleSelectDrag = ({ event, start, end }) => {
+    const { postAvail } = this.props;
     const { availabilities } = this.state;
     const newAvailability = { start, end, title: 'test' };
     const newAvailabilities = [...availabilities, newAvailability];
-    this.setState({
-      availabilities: newAvailabilities,
+    postAvail({
+      start,
+      end,
+      somewhat: false,
     });
   };
 
   render() {
-    const { availabilities } = this.state;
+    const { availabilities } = this.props;
     const events = availabilities.map(avail => ({
       ...avail,
       title: avail.somewhat ? 'Somewhat' : 'Available',

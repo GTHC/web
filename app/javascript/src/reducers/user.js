@@ -238,6 +238,54 @@ const user = (state=initialState, action) => {
       };
     }
 
+    // POST /api/v1/user/availability
+    case 'BEGIN_POST_AVAIL': {
+      return beginState;
+    }
+
+    case 'FAILED_POST_AVAIL': {
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        errorMessage: action.payload.response.data.message,
+      };
+    }
+
+    case 'END_POST_AVAIL': {
+      const data = state.data;
+      data.user.availabilities = action.payload.data.data;
+      return {
+        ...state,
+        isLoading: false,
+        data,
+      };
+    }
+
+    // DELETE /api/v1/user/availability/:id
+    case 'BEGIN_DELETE_AVAIL': {
+      return beginState;
+    }
+
+    case 'FAILED_DELETE_AVAIL': {
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        errorMessage: action.payload.response.data.message,
+      };
+    }
+
+    case 'END_DELETE_AVAIL': {
+      const data = state.data;
+      data.user.availabilities = action.payload.data.data;
+      return {
+        ...state,
+        isLoading: false,
+        data,
+      };
+    }
+
     default: {
       return state;
     }

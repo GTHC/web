@@ -9,10 +9,12 @@ class EditUserAvailability extends Component {
   }
 
   render () {
-    const { user } = this.props;
+    const { user, postAvail, deleteAvail } = this.props;
     return (
       <Availability
         availabilities={user.availabilities}
+        postAvail={postAvail}
+        deleteAvail={deleteAvail}
       />
     );
   }
