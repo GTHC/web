@@ -31,6 +31,14 @@ class Api::V1::UsersController < ApiController
       password_confirmation: params[:password_confirmation],
       team_id: params[:team_id],
     )
+    # creating user availabilities
+    params[:availabilities].each do |avail|
+      @user.availabilities.create!({
+        start: avail[:start],
+        end: avail[:end],
+        somewhat: avail[:somewhat]
+      })
+    end
     @team = @user.team
     if @user.save
       bypass_sign_in @user

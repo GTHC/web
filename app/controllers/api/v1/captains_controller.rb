@@ -22,6 +22,14 @@ class Api::V1::CaptainsController < ApiController
       password: params[:password],
       password_confirmation: params[:password_confirmation]
     )
+    # creating user availabilities
+    params[:availabilities].each do |avail|
+      @user.availabilities.create!({
+        start: avail[:start],
+        end: avail[:end],
+        somewhat: avail[:somewhat]
+      })
+    end
     # Create Captain
     @captain = Captain.create!(user_id: @user.id)
     # Create Team
