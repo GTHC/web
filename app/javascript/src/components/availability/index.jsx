@@ -17,12 +17,14 @@ class Availability extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      availData: {},
+      open: false,
       somewhat: false,
     };
   }
 
   moveEvent = ({ event, start, end, droppedOnAllDaySlot }) => {
-    if (droppedOnAllDaySlot || event.allDay) {
+    if (droppedOnAllDaySlot || event.allDay || this.props.fixed) {
       return;
     }
 
@@ -46,8 +48,12 @@ class Availability extends Component {
   };
 
   handleSelectDrag = ({ event, start, end }) => {
-    const { postAvail } = this.props;
+    const { postAvail, fixed } = this.props;
     const { somewhat } = this.state;
+
+    if (fixed) {
+      return;
+    }
 
     postAvail({
       start,
@@ -62,6 +68,18 @@ class Availability extends Component {
     });
   };
 
+  onSelectEvent = event => {
+    const { fixed } = this.props;
+    if (fixed) {
+      return;
+    }
+
+    this.setState({
+      availData: event,
+      open: true,
+    });
+  };
+
   eventPropGetter = ({ somewhat }) => ({
     style: {
       backgroundColor: somewhat ? '#CCCC00' : 'green',
@@ -69,7 +87,7 @@ class Availability extends Component {
   });
 
   render() {
-    const { availabilities } = this.props;
+    const { availabilities, fixed } = this.props;
     const { somewhat } = this.state;
     const events = availabilities.map(avail => ({
       ...avail,
@@ -84,24 +102,26 @@ class Availability extends Component {
 
     return (
       <div>
-        <SelectAvailType
-          value={somewhat}
-          handleChange={this.handleSomewhatChange}
-        />
+        {
+          !fixed &&
+          <SelectAvailType
+            value={somewhat}
+            handleChange={this.handleSomewhatChange}
+          />
+        }
         <DragDropCal
           resizeable
-          // components={components}
-          onEventDrop={this.moveEvent}
-          onEventResize={this.moveEvent}
+          popup
+          selectable={!fixed}
           step={30}
           timeslots={4}
-          selectable
-          popup
-          localizer={localizer}
-          defaultDate={new Date()}
           defaultView="day"
+          localizer={localizer}
           events={events}
-          // onSelectEvent={this.onSelectEvent}
+          defaultDate={new Date()}
+          onEventDrop={this.moveEvent}
+          onEventResize={this.moveEvent}
+          onSelectEvent={this.onSelectEvent}
           onSelectSlot={this.handleSelectDrag}
           eventPropGetter={this.eventPropGetter}
           style={{ height: '80vh' }}

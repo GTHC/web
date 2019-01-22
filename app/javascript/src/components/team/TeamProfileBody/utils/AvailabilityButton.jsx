@@ -11,7 +11,6 @@ class AvailabilityButton extends Component {
     super(props);
     this.state = {
       open: false,
-      grid: grid,
     };
   };
 
@@ -19,16 +18,19 @@ class AvailabilityButton extends Component {
   close = () => this.setState({ open: false });
 
   render() {
-    const { grid, open } = this.state;
+    const { open } = this.state;
     const { user } = this.props;
     return (
       <div>
         <Button icon="calendar" onClick={this.open}/>
 
-        <Modal open={open} onClose={this.close}>
+        <Modal closeIcon open={open} onClose={this.close}>
           <Modal.Header>{user.name}'s Availability</Modal.Header>
           <Modal.Content scrolling>
-            <Availability />
+            <Availability
+              fixed
+              availabilities={user.availabilities}
+            />
           </Modal.Content>
         </Modal>
       </div>
