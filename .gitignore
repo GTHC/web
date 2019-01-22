@@ -41,3 +41,4 @@ yarn-debug.log*
 /public/assets
 /vendor/cache
 secrets.yml
+package-lock.json

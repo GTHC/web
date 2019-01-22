@@ -1,15 +1,24 @@
-import axios from 'axios';
-import { push } from 'react-router-redux';
+import axios from "axios";
+import { push } from "react-router-redux";
 
-const crud = request => (dispatch) => {
+//const { INTERNAL_API_KEY } = process.env;
+const INTERNAL_API_KEY = "hellopass";
+
+const crud = request => dispatch => {
   dispatch({
-      type: request.dispatch.begin,
-    });
+    type: request.dispatch.begin
+  });
+
+  const secureRequestData = {
+    ...request.data,
+    api_key: INTERNAL_API_KEY
+  };
+
   const options = {
     method: request.method,
     url: request.url,
-    data: request.data ? request.data : null,
-  };
+    data: secureRequestData,
+  }
 
   // added options
   if (request.headers) {
@@ -17,20 +26,20 @@ const crud = request => (dispatch) => {
   }
 
   axios(options)
-    .then((res) => {
+    .then(res => {
       dispatch({
-            type: request.dispatch.end,
-            payload: res,
-          });
+        type: request.dispatch.end,
+        payload: res
+      });
       if (request.push) {
         dispatch(push(request.push));
       }
     })
-    .catch((err) => {
+    .catch(err => {
       dispatch({
-           type: request.dispatch.fail,
-           payload: err,
-         });
+        type: request.dispatch.fail,
+        payload: err
+      });
     });
 };
 
