@@ -88,7 +88,17 @@ const login = (state=initialState, action) => {
     }
 
     case '@@router/LOCATION_CHANGE': {
-      return initialState;
+      /*
+        this used to be "return initialState", but
+        the availabilities array was not updating properly
+       */
+      return {
+        ...initialState,
+        signUpData: {
+          ...initialState.signUpData,
+          availabilities: [],
+        },
+      };
     }
 
     // API actions for login
@@ -130,9 +140,20 @@ const login = (state=initialState, action) => {
         isLoading: false,
       };
     }
+
     // reset signup/login redux data when user login POST call is successful
     case 'END_LOGIN': {
-      return initialState;
+      /*
+        this used to be "return initialState", but
+        the availabilities array was not updating properly
+       */
+      return {
+        ...initialState,
+        signUpData: {
+          ...initialState.signUpData,
+          availabilities: [],
+        },
+      };
     }
 
     case 'CLEAR_ERROR': {

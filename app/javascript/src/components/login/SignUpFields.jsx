@@ -71,6 +71,7 @@ class SignUpFields extends Component {
             team_name: data.team,
             tent_type: data.tentType,
             passcode: data.passcode,
+            availabilities: data.availabilities,
           });
         } else {
           // API call to create user and add to team
@@ -81,8 +82,10 @@ class SignUpFields extends Component {
             password: data.password,
             password_confirmation: data.passwordConfirmation,
             team_id: data.teamID,
+            availabilities: data.availabilities,
           });
         }
+
         return;
       }
     }
