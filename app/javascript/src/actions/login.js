@@ -15,32 +15,32 @@ const toggleLoginType = (type) => {
   }
 };
 
-const toggleDisableNext = (val) => {
-  return {
-    type: 'SU_NEXT',
-    payload: val,
-  };
-};
+const toggleDisableNext = (val) => ({
+  type: 'SU_NEXT',
+  payload: val,
+});
 
-const updateUserInfo = (userInfo) => {
-  return {
-    type: 'SU_USER_INFO',
-    payload: userInfo,
-  };
-}
+const updateUserInfo = (userInfo) => ({
+  type: 'SU_USER_INFO',
+  payload: userInfo,
+});
 
-const updateTeamInfo = (teamInfo) => {
-  return {
-    type: 'SU_TEAM_INFO',
-    payload: {
-      team: teamInfo.team,
-      teamID: teamInfo.teamID,
-      tentType: teamInfo.tentType,
-      isCaptain: teamInfo.isCaptain,
-      passcode: teamInfo.passcode,
-    },
-  };
-};
+const updateTeamInfo = (teamInfo) => ({
+  type: 'SU_TEAM_INFO',
+  payload: {
+    team: teamInfo.team,
+    teamID: teamInfo.teamID,
+    tentType: teamInfo.tentType,
+    isCaptain: teamInfo.isCaptain,
+    passcode: teamInfo.passcode,
+  },
+});
+
+
+const updateAvailInfo = availabilities => ({
+  type: 'SU_AVAIL_INFO',
+  payload: availabilities,
+});
 
 // API actions
 
@@ -153,6 +153,7 @@ export {
   toggleDisableNext,
   updateUserInfo,
   updateTeamInfo,
+  updateAvailInfo,
   getAllTeams,
   login,
   logout,

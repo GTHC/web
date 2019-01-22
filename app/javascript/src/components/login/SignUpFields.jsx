@@ -93,7 +93,7 @@ class SignUpFields extends Component {
     const {
       login,
       toggleDisableNext,
-      updateUserInfo, updateTeamInfo,
+      updateUserInfo, updateTeamInfo, updateAvailInfo,
       getAllTeams,
       user,
     } = this.props;
@@ -125,7 +125,11 @@ class SignUpFields extends Component {
           />
         }
         { activeStep === 2 &&
-            <Availability />
+            <Availability
+              signup
+              availabilities={login.signUpData.availabilities}
+              updateAvailInfo={updateAvailInfo}
+            />
           }
         { activeStep === 3 &&
           <AllSet login={login} />

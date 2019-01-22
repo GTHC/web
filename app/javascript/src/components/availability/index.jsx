@@ -17,6 +17,7 @@ class Availability extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      availabilities: props.availabilities,
       availData: {},
       open: false,
       somewhat: false,
@@ -28,38 +29,49 @@ class Availability extends Component {
       return;
     }
 
-    const { putAvail, dragDropUpdate } = this.props;
+    const { signup, putAvail, dragDropUpdate, updateAvailInfo } = this.props;
     const { availabilities } = this.state;
 
-    const idx = availabilities.indexOf(event);
+    if (signup) {
+      const { availabilities } = this.state;
+      const newAvails = availabilities.map(avail => (
+        avail.id == event.id ? { ...event, start, end } : avail
+      ));
+      updateAvailInfo(newAvails);
+    } else {
+      dragDropUpdate(nextEvents);
 
-    const updatedEvent = { ...event, start, end };
-
-    const nextEvents = [...availabilities];
-    nextEvents.splice(idx, 1, updatedEvent);
-
-    dragDropUpdate(nextEvents);
-
-    putAvail(event.id, {
-      ...event,
-      start,
-      end,
-    });
+      putAvail(event.id, {
+        ...event,
+        start,
+        end,
+      });
+    }
   };
 
   handleSelectDrag = ({ event, start, end }) => {
-    const { postAvail, fixed } = this.props;
+    const { signup, fixed, updateAvailInfo, postAvail } = this.props;
     const { somewhat } = this.state;
 
     if (fixed) {
       return;
     }
 
-    postAvail({
-      start,
-      end,
-      somewhat,
-    });
+    if (signup) {
+      const { availabilities } = this.state;
+      const newAvails = availabilities;
+      newAvails.push({
+        start, end,
+        somewhat,
+      });
+      updateAvailInfo(newAvails);
+    } else {
+      postAvail({
+        start,
+        end,
+        somewhat,
+      });
+    }
   };
 
   handleSomewhatChange = () => {
