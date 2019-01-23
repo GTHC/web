@@ -7,6 +7,10 @@ import moment from 'moment';
 
 // components
 import SelectAvailType from './SelectAvailType';
+import ModalUpdate from './ModalUpdate';
+
+// utils
+import { generate } from 'randomstring';
 
 const localizer = Calendar.momentLocalizer(moment);
 
@@ -29,17 +33,18 @@ class Availability extends Component {
       return;
     }
 
-    const { signup, putAvail, dragDropUpdate, updateAvailInfo } = this.props;
-    const { availabilities } = this.state;
+    const { availabilities, signup, putAvail, dragDropUpdate, updateAvailInfo } = this.props;
 
     if (signup) {
-      const { availabilities } = this.state;
       const newAvails = availabilities.map(avail => (
-        avail.id == event.id ? { ...event, start, end } : avail
+        avail.tempID == event.tempID ? { ...event, start, end } : avail
       ));
       updateAvailInfo(newAvails);
     } else {
-      dragDropUpdate(nextEvents);
+      const newAvails = availabilities.map(avail => (
+        avail.id == event.id ? { ...event, start, end } : avail
+      ));
+      dragDropUpdate(newAvails);
 
       putAvail(event.id, {
         ...event,
@@ -50,7 +55,7 @@ class Availability extends Component {
   };
 
   handleSelectDrag = ({ event, start, end }) => {
-    const { signup, fixed, updateAvailInfo, postAvail } = this.props;
+    const { availabilities, signup, fixed, updateAvailInfo, postAvail } = this.props;
     const { somewhat } = this.state;
 
     if (fixed) {
@@ -58,9 +63,9 @@ class Availability extends Component {
     }
 
     if (signup) {
-      const { availabilities } = this.state;
       const newAvails = availabilities;
       newAvails.push({
+        tempID: generate(5),
         start, end,
         somewhat,
       });
@@ -81,15 +86,28 @@ class Availability extends Component {
   };
 
   onSelectEvent = event => {
-    const { fixed } = this.props;
+    const { fixed, signup } = this.props;
     if (fixed) {
       return;
     }
 
-    this.setState({
-      availData: event,
-      open: true,
-    });
+    if (signup) {
+      const { availabilities, updateAvailInfo } = this.props;
+      const newEvent = {
+        ...event,
+        somewhat: !event.somewhat,
+      };
+      const newAvails = availabilities.map(avail => (
+        avail.tempID == event.tempID ? newEvent : avail
+      ));
+      updateAvailInfo(newAvails);
+    } else {
+      this.setState({
+        availData: event,
+        open: true,
+      });
+    }
+
   };
 
   eventPropGetter = ({ somewhat }) => ({
@@ -98,9 +116,19 @@ class Availability extends Component {
     },
   });
 
+  // Modal functions
+  onOpen = () => this.setState({ open: true });
+  onClose = () => this.setState({ open: false });
+
   render() {
-    const { availabilities, fixed } = this.props;
-    const { somewhat } = this.state;
+    const {
+      availabilities,
+      fixed, signup,
+      deleteAvail, putAvail,
+    } = this.props;
+    const { availData, open, somewhat } = this.state;
+
+    // events for Calendar component
     const events = availabilities.map(avail => ({
       ...avail,
       title: avail.somewhat ? 'Somewhat Available' : 'Available',
@@ -121,6 +149,17 @@ class Availability extends Component {
             handleChange={this.handleSomewhatChange}
           />
         }
+        {
+          !signup && !fixed &&
+          <ModalUpdate
+            open={open}
+            event={availData}
+            onOpen={this.onOpen}
+            onClose={this.onClose}
+            deleteAvail={deleteAvail}
+            putAvail={putAvail}
+          />
+        }
         <DragDropCal
           resizeable
           popup
@@ -138,6 +177,7 @@ class Availability extends Component {
           eventPropGetter={this.eventPropGetter}
           style={{ height: '80vh' }}
         />
+
       </div>
     );
   }

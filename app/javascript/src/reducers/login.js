@@ -132,6 +132,7 @@ const login = (state=initialState, action) => {
         teamDropDownOptions,
       };
     }
+
     case 'FAILED_GET_TEAMS': {
       return {
         ...state,
