@@ -181,10 +181,13 @@ class Api::V1::TeamsController < ApiController
       ## 2: Available
       if is_avail
         data[:level] = 2
+        data[:color] = 'green'
       elsif is_somewhat
         data[:level] = 1
+        data[:color] = 'yellow'
       else
         data[:level] = 0
+        data[:color] = 'red'
       end
       data
     end
