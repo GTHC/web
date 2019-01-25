@@ -18,7 +18,6 @@ import {
   toggleDisableNext,
   updateUserInfo,
   updateTeamInfo,
-  updateAvailInfo,
   getAllTeams,
   login,
   logout,
@@ -33,7 +32,7 @@ import { push } from './../actions/router';
 import * as logo from './../images/gthc_long.png';
 
 class Login extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       activeItem: 'home',
@@ -57,33 +56,46 @@ class Login extends Component {
   render() {
     const { activeItem } = this.state;
     const { login,
-            user,
-            toggleLoginType,
-            toggleDisableNext,
-            updateUserInfo,
-            updateTeamInfo,
-            updateAvailInfo,
-            getAllTeams,
-            loginUser,
-            logoutUser,
-            signup,
-            signupNewTeam,
-            router,
-            getResetPassword,
-            push,
-            clearError,
-          } = this.props;
+      user,
+      toggleLoginType,
+      toggleDisableNext,
+      updateUserInfo,
+      updateTeamInfo,
+      getAllTeams,
+      loginUser,
+      logoutUser,
+      signup,
+      signupNewTeam,
+      router,
+      getResetPassword,
+      push,
+      clearError,
+    } = this.props;
     const path = router.location.pathname;
+
+    const cardStyle = login.type === 'login' ?
+      {
+        width: "520px",
+        paddingBottom: "16px",
+      } : {};
+
+
     return (
       <div>
         <NavBarAlternate />
 
         <div className="login">
           <Container>
-            <Card centered color="blue" className="login-card" style={{width: "520px", paddingBottom: "16px"}}>
+            <Card
+              centered
+              fluid={login.type !== 'login'}
+              color="blue"
+              className="login-card"
+              style={cardStyle}
+            >
               <Card.Content>
                 <Card.Header>
-                  { login.type === 'login' ?
+                  {login.type === 'login' ?
                     <div>
                       Sign in to
                       <Image src={logo} style={{
@@ -91,12 +103,12 @@ class Login extends Component {
                         paddingLeft: '3px',
                       }} size="medium" />
                     </div>
-                   : 'Welcome to GTHC (Game Tenting Help Center) ⛺'
+                    : 'Welcome to GTHC (Game Tenting Help Center) ⛺'
                   }
                 </Card.Header>
               </Card.Content>
               <Card.Content>
-                { login.type === 'login' &&
+                {login.type === 'login' &&
                   <LoginFields
                     toggleLoginType={toggleLoginType}
                     login={login}
@@ -106,9 +118,9 @@ class Login extends Component {
                     getResetPassword={getResetPassword}
                     push={push}
                     clearError={clearError}
-                    />
+                  />
                 }
-                { login.type === 'signup' &&
+                {login.type === 'signup' &&
                   <SignUpFields
                     user={user}
                     toggleLoginType={toggleLoginType}
@@ -116,12 +128,11 @@ class Login extends Component {
                     login={login}
                     updateUserInfo={updateUserInfo}
                     updateTeamInfo={updateTeamInfo}
-                    updateAvailInfo={updateAvailInfo}
                     getAllTeams={getAllTeams}
                     signup={signup}
                     signupNewTeam={signupNewTeam}
                     clearError={clearError}
-                    />
+                  />
                 }
               </Card.Content>
             </Card>
