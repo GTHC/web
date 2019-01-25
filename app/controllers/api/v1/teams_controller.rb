@@ -32,6 +32,7 @@ class Api::V1::TeamsController < ApiController
     end
   end
 
+  # GET /api/v1/team/hours
   def team_hours
     if current_user
       @team = current_user.team
@@ -44,6 +45,21 @@ class Api::V1::TeamsController < ApiController
       render json: { status: 'ERROR', message: 'Make sure user is logged in' }, status: :unprocessable_entity
     end
 
+  end
+
+  # PUT /api/v1/team/availabilities
+  def show_availabilities
+    if current_user
+      validate_avail_params
+      @team = current_user.team
+      data = []
+      @team.users.each do |user|
+        data.push(user_availability(user))
+      end
+      render json: { message: 'Availabilities has been calculated!', data: data }, status: :ok
+    else
+      render json: { message: 'User not logged in.', status: 'ERROR' }, status: :unprocessable_entity
+    end
   end
 
   private
@@ -73,11 +89,10 @@ class Api::V1::TeamsController < ApiController
       }
     end
 
-    def validate_shift_params
-      params.require([:day, :starting, :ending])
-      @day = params[:day].to_i
-      @s = params[:starting].to_i
-      @e = params[:ending].to_i
+    def validate_avail_params
+      params.require([:start_time, :end_time])
+      @start = params[:start_time].to_datetime
+      @end = params[:end_time].to_datetime
     end
 
     def user_hours_count(user)
@@ -131,5 +146,46 @@ class Api::V1::TeamsController < ApiController
 
     def get_shift_time_length(shift)
       ((shift.end_time - shift.start_time).to_f / 1.hour).round
+    end
+
+    def user_availability(user)
+      availabilities = user.availabilities
+
+      avail = availabilities.where(somewhat: false)
+      somewhat = availabilities.where(somewhat: true)
+
+      # Finding Full (non-somewhat) Availabilities
+      avail_query = avail.where('start < ? AND availabilities.end > ?', @start, @end)
+      is_avail = avail_query.length > 0
+
+      # Finding Somewhat Availabilities
+
+      ## These queries cover both availabilities that cover the shift
+      ## entirely or partly
+      somewhat_query_1 = somewhat.where('start < ? AND availabilities.end > ?', @start, @end)
+      somewhat_query_2 = somewhat.where('start > ? AND start < ?', @start, @end)
+      somewhat_query_3 = somewhat.where('availabilities.end > ? AND availabilities.end < ?', @start, @end)
+
+      is_somewhat = somewhat_query_1.length > 0 || somewhat_query_2.length > 0 || somewhat_query_3.length > 0
+
+      data = {
+        id: user.id,
+        name: user.name
+      }
+      # add avatar
+      data[:avatarURL] = url_for(user.avatar) if user.avatar.attached?
+
+      # level is the referring to availability level, which uses 0,1,2 to represent:
+      ## 0: Unavailable
+      ## 1: Somewhat Available
+      ## 2: Available
+      if is_avail
+        data[:level] = 2
+      elsif is_somewhat
+        data[:level] = 1
+      else
+        data[:level] = 0
+      end
+      data
     end
 end

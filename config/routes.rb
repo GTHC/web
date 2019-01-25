@@ -50,7 +50,7 @@ Rails.application.routes.draw do
 
       # team
       get 'team/hours', to: 'teams#team_hours'
-
+      put 'team/availabilities', to: 'teams#show_availabilities'
 
     end
   end
