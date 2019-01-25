@@ -164,9 +164,10 @@ class Availability extends Component {
           resizeable
           popup
           selectable={!fixed}
-          step={30}
-          timeslots={4}
-          defaultView="day"
+          step={15}
+          timeslots={8}
+          defaultView="week"
+          views={['week', 'day']}
           localizer={localizer}
           events={events}
           defaultDate={new Date()}
