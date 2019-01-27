@@ -83,7 +83,13 @@ class BigCal extends Component {
     }
   };
 
-  handleSelectDrag = ({ start, end }) => {
+  handleSelectDrag = ({ start, end, slots }) => {
+
+    // block all day creation
+    if (slots.length > 1 || start == end) {
+      return;
+    }
+
     const { createShift } = this.props;
     this.setState({
       start, end,

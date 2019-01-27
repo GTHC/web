@@ -54,7 +54,13 @@ class Availability extends Component {
     }
   };
 
-  handleSelectDrag = ({ event, start, end }) => {
+  handleSelectDrag = ({ start, end, slots }) => {
+
+    // block all day creation
+    if (slots.length > 1 || start == end) {
+      return;
+    }
+
     const { availabilities, signup, fixed, updateAvailInfo, postAvail } = this.props;
     const { somewhat } = this.state;
 
