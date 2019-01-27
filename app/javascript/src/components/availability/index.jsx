@@ -54,10 +54,14 @@ class Availability extends Component {
     }
   };
 
-  handleSelectDrag = ({ start, end, slots }) => {
+  handleSelectDrag = ({ start, end }) => {
+    // check if all day
+    // oneDay = hours*minutes*seconds*milliseconds
+    const oneDay = 24 * 60 * 60 * 1000;
+    const numOfDays = Math.abs((start.getTime() - end.getTime()) / (oneDay));
 
     // block all day creation
-    if (slots.length > 1 || start == end) {
+    if (start == end || numOfDays >= 1) {
       return;
     }
 
