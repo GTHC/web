@@ -55,7 +55,7 @@ class ResetPasswordEdit extends Component {
         return (
             <div>
                 <NavBarAlternate push={this.props.push} />
-                <Container style={{ width: "520px" }}>
+                <Container style={{ width: "520px", marginTop: "24px" }}>
                     <div>
                         <Header size="large">Reset Password</Header>
                         {params.reset_password_token ? (

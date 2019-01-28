@@ -54,7 +54,7 @@ class ResetPassword extends Component {
                 <NavBarAlternate
                     push={this.props.push}
                 />
-                <Container style={{ width: "520px" }}>
+                <Container style={{ width: "520px", marginTop: "24px" }}>
                     <div>
                         <Header size="large">Forgot Password?</Header>
 
