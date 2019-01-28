@@ -1,6 +1,6 @@
 import crud from './utils/crud';
 
-const getTeam = id => (
+const getTeam = id =>
   crud({
     dispatch: {
       begin: 'BEGIN_GET_TEAM',
@@ -9,10 +9,9 @@ const getTeam = id => (
     },
     method: 'GET',
     url: `/api/v1/teams/${id}`,
-  })
-);
+  });
 
-const updateTeam = (id, data) => (
+const updateTeam = (id, data) =>
   crud({
     dispatch: {
       begin: 'BEGIN_UPDATE_TEAM',
@@ -22,10 +21,6 @@ const updateTeam = (id, data) => (
     method: 'PUT',
     url: `/api/v1/teams/${id}`,
     data,
-  })
-);
+  });
 
-export {
-  getTeam,
-  updateTeam,
-};
+export { getTeam, updateTeam };

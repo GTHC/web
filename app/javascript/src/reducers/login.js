@@ -12,7 +12,7 @@ const initialState = {
     passwordConfirmation: '',
 
     // default value is array of zeros
-    availability: (new Array(7)).fill().map(() => (new Array(20).fill(2))),
+    availability: new Array(7).fill().map(() => new Array(20).fill(2)),
   },
   disableNext: true, // disable next button for signup
   // API
@@ -23,7 +23,7 @@ const initialState = {
   errorMessage: '',
 };
 
-const login = (state=initialState, action) => {
+const login = (state = initialState, action) => {
   switch (action.type) {
     // changing page type
     case 'START_LOGIN': {
@@ -56,7 +56,7 @@ const login = (state=initialState, action) => {
     }
 
     case 'SU_TEAM_INFO': {
-      const teamID = !action.payload.isCaptain ?  action.payload.teamID : null;
+      const teamID = !action.payload.isCaptain ? action.payload.teamID : null;
       // if user is not a captain then the teamID that is coming from the payload
       // can be discarded since it won't be used. Otherwise, the teamID is important.
       return {
@@ -64,7 +64,7 @@ const login = (state=initialState, action) => {
         signUpData: {
           ...state.signUpData,
           team: action.payload.team,
-          teamID: teamID,
+          teamID,
           tentType: action.payload.tentType,
           isCaptain: action.payload.isCaptain,
           passcode: action.payload.passcode,
@@ -102,21 +102,22 @@ const login = (state=initialState, action) => {
     }
     case 'END_GET_TEAMS': {
       // this formats the teams into data that can be read by the Dropdown component in the TeamSignUp component
-      const teamDropDownOptions = action.payload.data.map(
-        (team) => {
-          // having a serperate color variable rather than just saying team.tent_type avoids warnings although it would it still work
-          const tentType = team.tent_type.toLowerCase();
-          const color = (tentType.includes('black') ?
-          'black' : (tentType.includes('blue') ?
-          'blue' : null));
-          return {
-            key: team.id,
-            value: team.id,
-            text: `${team.name}`,
-            label: { color: color, empty: true, circular: true },
-          };
-        }
-      );
+      const teamDropDownOptions = action.payload.data.map(team => {
+        // having a serperate color variable rather than just saying team.tent_type avoids warnings although it would it still work
+        const tentType = team.tent_type.toLowerCase();
+        // eslint-disable-next-line no-nested-ternary
+        const color = tentType.includes('black')
+          ? 'black'
+          : tentType.includes('blue')
+          ? 'blue'
+          : null;
+        return {
+          key: team.id,
+          value: team.id,
+          text: `${team.name}`,
+          label: { color, empty: true, circular: true },
+        };
+      });
       return {
         ...state,
         teams: action.payload.data,
@@ -144,8 +145,11 @@ const login = (state=initialState, action) => {
         errorMessage: '',
       };
     }
+
+    default: {
+      return state;
+    }
   }
-  return state;
 };
 
 export default login;

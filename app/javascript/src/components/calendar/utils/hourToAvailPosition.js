@@ -5,11 +5,11 @@
  * @param {[boolean]} isEnd [tells function if this is for a start or end]
  * @return {[number]}      [row number in Availability grid]
  */
-const hourToAvailPosition = (date, isEnd=false) => {
+const hourToAvailPosition = date => {
   let output = date.getHours() - 4;
-  if (output == -4) {
+  if (output === -4) {
     output = 0; // 12 am
-  } else if (output == -3) {
+  } else if (output === -3) {
     output = 1; // 1 am
   } else if (output < 3) {
     output = 2; // 2 am - 7 am (night shift)

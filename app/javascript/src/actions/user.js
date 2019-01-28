@@ -1,6 +1,6 @@
 import crud from './utils/crud';
 
-const updateUser = (id, data) => (
+const updateUser = (id, data) =>
   crud({
     dispatch: {
       begin: 'BEGIN_UPDATE_USER',
@@ -10,10 +10,9 @@ const updateUser = (id, data) => (
     method: 'PUT',
     url: `/api/v1/users/${id}`,
     data,
-  })
-);
+  });
 
-const updateAvailability = data => (
+const updateAvailability = data =>
   crud({
     dispatch: {
       begin: 'BEGIN_UPDATE_AVAIL',
@@ -23,10 +22,9 @@ const updateAvailability = data => (
     method: 'POST',
     url: '/api/v1/user/availability',
     data,
-  })
-);
+  });
 
-const checkSession = () => (
+const checkSession = () =>
   crud({
     dispatch: {
       begin: 'BEGIN_SESS_CHECK',
@@ -35,62 +33,53 @@ const checkSession = () => (
     },
     method: 'GET',
     url: '/api/v1/user/session',
-  })
-);
+  });
 
 const initiatePasswordReset = data =>
   crud({
     dispatch: {
-      begin: "BEGIN_PASSWORD_RESET",
-      fail: "FAILED_PASSWORD_RESET",
-      end: "END_PASSWORD_RESET"
+      begin: 'BEGIN_PASSWORD_RESET',
+      fail: 'FAILED_PASSWORD_RESET',
+      end: 'END_PASSWORD_RESET',
     },
-    method: "POST",
-    url: "/api/v1/user/forgot_password",
-    data
+    method: 'POST',
+    url: '/api/v1/user/forgot_password',
+    data,
   });
 
 const changePasswordWithResetToken = data =>
   crud({
     dispatch: {
-      begin: "BEGIN_PASSWORD_RESET",
-      fail: "FAILED_PASSWORD_RESET",
-      end: "END_PASSWORD_RESET"
+      begin: 'BEGIN_PASSWORD_RESET',
+      fail: 'FAILED_PASSWORD_RESET',
+      end: 'END_PASSWORD_RESET',
     },
-    method: "POST",
-    url: "/api/v1/user/token_change_password",
-    push: "/login",
-    data
+    method: 'POST',
+    url: '/api/v1/user/token_change_password',
+    push: '/login',
+    data,
   });
 
-const invalidEmailError = () => (
-  { type: 'INVALID_EMAIL' }
-)
+const invalidEmailError = () => ({ type: 'INVALID_EMAIL' });
 
-const passwordTooShortError = () => (
-  { type: 'PASSWORD_SHORT' }
-)
+const passwordTooShortError = () => ({ type: 'PASSWORD_SHORT' });
 
-const passwordMismatchError = () => (
-  { type: 'PASSWORD_MISMATCH' }
-)
+const passwordMismatchError = () => ({ type: 'PASSWORD_MISMATCH' });
 
 const postAvatar = data =>
   crud({
-    headers: { "Content-Type": "form-data" },
+    headers: { 'Content-Type': 'form-data' },
     dispatch: {
-      begin: "BEGIN_POST_AVATAR",
-      fail: "FAILED_POST_AVATAR",
-      end: "END_POST_AVATAR"
+      begin: 'BEGIN_POST_AVATAR',
+      fail: 'FAILED_POST_AVATAR',
+      end: 'END_POST_AVATAR',
     },
-    method: "POST",
-    url: "/api/v1/user/avatar",
-    data
+    method: 'POST',
+    url: '/api/v1/user/avatar',
+    data,
   });
 
-const getResetPassword = () => (
-  { type: 'GET_RESET_PASSWORD' }
-);
+const getResetPassword = () => ({ type: 'GET_RESET_PASSWORD' });
 
 export {
   updateUser,
@@ -102,5 +91,5 @@ export {
   changePasswordWithResetToken,
   invalidEmailError,
   passwordTooShortError,
-  passwordMismatchError
+  passwordMismatchError,
 };

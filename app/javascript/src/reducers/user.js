@@ -7,7 +7,7 @@ const initialState = {
   passwordResetSuccess: false,
 };
 
-const user = (state=initialState, action) => {
+const user = (state = initialState, action) => {
   const beginState = {
     ...state,
     isLoading: true,
@@ -108,7 +108,7 @@ const user = (state=initialState, action) => {
     }
 
     case 'END_UPDATE_TEAM': {
-      const data = state.data;
+      const { data } = state;
       data.team = action.payload.data.data;
       return {
         ...state,
@@ -131,7 +131,7 @@ const user = (state=initialState, action) => {
     }
 
     case 'END_UPDATE_USER': {
-      const data = state.data;
+      const { data } = state;
       data.user = action.payload.data.data;
       return {
         ...state,
@@ -154,7 +154,7 @@ const user = (state=initialState, action) => {
     }
 
     case 'END_UPDATE_AVAIL': {
-      const data = state.data;
+      const { data } = state;
       data.user.availability = action.payload.data.data;
       return {
         ...state,
@@ -186,7 +186,6 @@ const user = (state=initialState, action) => {
 
     case 'BEGIN_PASSWORD_RESET': {
       return beginState;
-      
     }
 
     case 'FAILED_PASSWORD_RESET': {
@@ -195,7 +194,7 @@ const user = (state=initialState, action) => {
         isLoading: false,
         error: true,
         errorMessage: action.payload.response.data.message,
-      }
+      };
     }
 
     case 'END_PASSWORD_RESET': {
@@ -203,38 +202,38 @@ const user = (state=initialState, action) => {
         ...state,
         isLoading: false,
         passwordResetSuccess: true,
-      }
+      };
     }
 
     case 'GET_RESET_PASSWORD': {
       return {
         ...state,
         passwordResetSuccess: false,
-      }
+      };
     }
 
     case 'INVALID_EMAIL': {
       return {
         ...state,
         error: true,
-        errorMessage: "Please enter a valid email."
-      }
+        errorMessage: 'Please enter a valid email.',
+      };
     }
 
     case 'PASSWORD_SHORT': {
       return {
         ...state,
         error: true,
-        errorMessage: "Password must be at least 6 characters long."
-      }
+        errorMessage: 'Password must be at least 6 characters long.',
+      };
     }
 
     case 'PASSWORD_MISMATCH': {
       return {
         ...state,
         error: true,
-        errorMessage: "The passwords you entered do not match."
-      }
+        errorMessage: 'The passwords you entered do not match.',
+      };
     }
 
     // POST /ap1/v1/user/avatar
@@ -248,11 +247,11 @@ const user = (state=initialState, action) => {
         isLoading: false,
         error: true,
         errorMessage: action.payload.response.data.message,
-      }
+      };
     }
 
     case 'END_POST_AVATAR': {
-      const data = state.data;
+      const { data } = state;
       data.user.avatarURL = action.payload.data.data;
       return {
         ...state,

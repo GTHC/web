@@ -4,7 +4,7 @@ const initialState = {
   error: false,
 };
 
-const posts = (state=initialState, action) => {
+const posts = (state = initialState, action) => {
   switch (action.type) {
     case 'BEGIN_GET_POSTS': {
       return {

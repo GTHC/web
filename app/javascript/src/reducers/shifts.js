@@ -7,7 +7,7 @@ const initialState = {
   errorMessage: '',
 };
 
-const shifts = (state=initialState, action) => {
+const shifts = (state = initialState, action) => {
   const failedState = {
     ...state,
     isLoading: false,

@@ -1,6 +1,6 @@
 import crud from './utils/crud';
 
-const toggleLoginType = (type) => {
+const toggleLoginType = type => {
   switch (type) {
     case 'login': {
       return {
@@ -12,24 +12,30 @@ const toggleLoginType = (type) => {
         type: 'START_LOGIN',
       };
     }
+
+    default: {
+      return {
+        type: 'START_SIGNUP',
+      };
+    }
   }
 };
 
-const toggleDisableNext = (val) => {
+const toggleDisableNext = val => {
   return {
     type: 'SU_NEXT',
     payload: val,
   };
 };
 
-const updateUserInfo = (userInfo) => {
+const updateUserInfo = userInfo => {
   return {
     type: 'SU_USER_INFO',
     payload: userInfo,
   };
-}
+};
 
-const updateTeamInfo = (teamInfo) => {
+const updateTeamInfo = teamInfo => {
   return {
     type: 'SU_TEAM_INFO',
     payload: {
@@ -51,7 +57,7 @@ const updateAvailInfo = availability => ({
 
 // API actions
 
-const getAllTeams = () => (
+const getAllTeams = () =>
   crud({
     dispatch: {
       begin: 'BEGIN_GET_TEAMS',
@@ -59,9 +65,8 @@ const getAllTeams = () => (
       fail: 'FAILED_GET_TEAMS',
     },
     method: 'GET',
-    url: '/api/v1/teams'
-  })
-)
+    url: '/api/v1/teams',
+  });
 
 // API call made when logging in
 /**
@@ -71,7 +76,7 @@ const getAllTeams = () => (
  *  password: string
  * }
  */
-const login = (userData) => (
+const login = userData =>
   crud({
     dispatch: {
       begin: 'BEGIN_LOGIN',
@@ -81,11 +86,10 @@ const login = (userData) => (
     method: 'POST',
     url: '/login',
     push: '/app',
-    data: userData
-  })
-)
+    data: userData,
+  });
 
-const logout = () => (
+const logout = () =>
   crud({
     dispatch: {
       begin: 'BEGIN_LOGOUT',
@@ -95,8 +99,7 @@ const logout = () => (
     method: 'POST',
     url: '/logout',
     push: '/login',
-  })
-)
+  });
 
 // API call made for user signing up with existing team
 /**
@@ -109,7 +112,7 @@ const logout = () => (
  *  team_id: integer
  * }
  */
-const signup = (userData) => (
+const signup = userData =>
   crud({
     dispatch: {
       begin: 'BEGIN_SIGNUP',
@@ -120,8 +123,7 @@ const signup = (userData) => (
     url: '/api/v1/users',
     push: '/app',
     data: userData,
-  })
-);
+  });
 
 // API call made for user signing up with a new team
 /**
@@ -137,7 +139,7 @@ const signup = (userData) => (
  *  phone: string,
  * }
  */
-const signupNewTeam = (userData) => (
+const signupNewTeam = userData =>
   crud({
     dispatch: {
       begin: 'BEGIN_SIGNUP',
@@ -148,8 +150,7 @@ const signupNewTeam = (userData) => (
     url: '/api/v1/captains',
     push: '/app',
     data: userData,
-  })
-);
+  });
 
 const clearError = () => ({
   type: 'CLEAR_ERROR',

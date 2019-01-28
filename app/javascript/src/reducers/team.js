@@ -5,7 +5,7 @@ const initialState = {
   errorMessage: '',
 };
 
-const team = (state=initialState, action) => {
+const team = (state = initialState, action) => {
   switch (action.type) {
     case 'BEGIN_GET_TEAM': {
       return {

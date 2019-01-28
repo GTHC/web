@@ -1,15 +1,21 @@
 import * as moment from 'moment';
 
+// checks if two date objects are on the same day
+const isSameDay = (d1, d2) =>
+  d1.getDate() === d2.getDate() &&
+  d1.getMonth() === d2.getMonth() &&
+  d1.getFullYear() === d2.getFullYear();
+
 /**
  * genDateFormat - gives a date array of [YYYY, MM, DD] from a Date object
  * @param  {Date} date [Date object]
  * @return {String}
  */
-const genDateFormat = (date) => (moment(date).format('dddd, MMMM Do YYYY, h:mm a'));
+const genDateFormat = date => moment(date).format('dddd, MMMM Do YYYY, h:mm a');
 
-const genDateFormatWithoutTime = date => (moment(date).format('dddd, MMMM Do YYYY '));
+const genDateFormatWithoutTime = date => moment(date).format('dddd, MMMM Do YYYY ');
 
-const genDateJustTime = date => (moment(date).format('h:mm a'));
+const genDateJustTime = date => moment(date).format('h:mm a');
 
 /**
  * genDatesFormat - gives a string range between two dates
@@ -31,17 +37,12 @@ const genDatesFormat = (start, end) => {
     }
 
     return `${startString} - ${endString}`;
-  } else {
-    const startString = startMoment.format('dddd, MMMM Do YYYY, h:mm a');
-    const endString = endMoment.format('dddd, MMMM Do YYYY, h:mm a');
-    return `${startString} - ${endString}`;
   }
-};
 
-// checks if two date objects are on the same day
-const isSameDay = (d1, d2) => (d1.getDate() === d2.getDate()
-     && d1.getMonth() === d2.getMonth()
-     && d1.getFullYear() === d2.getFullYear());
+  const startString = startMoment.format('dddd, MMMM Do YYYY, h:mm a');
+  const endString = endMoment.format('dddd, MMMM Do YYYY, h:mm a');
+  return `${startString} - ${endString}`;
+};
 
 /**
  * timeIsLater - checks if string time is later in the day than limiter Date object
@@ -50,7 +51,6 @@ const isSameDay = (d1, d2) => (d1.getDate() === d2.getDate()
  * @return {boolean}          [is the time later than the limiter]
  */
 const timeIsLater = (time, dateLimit) => {
-
   // translates a time string to a new Date() with correct
   // time string -> moment w time
   const a = moment(time, 'hh:mm a');
@@ -59,7 +59,7 @@ const timeIsLater = (time, dateLimit) => {
   const limitString = moment(dateLimit).format('hh:mm a');
   const b = moment(limitString, 'hh:mm a');
 
-  return moment.max(a, b) == a;
+  return moment.max(a, b) === a;
 };
 
 /**

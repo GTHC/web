@@ -1,6 +1,7 @@
-const defineTentColors = (tentTypeInput) => {
+const defineTentColors = tentTypeInput => {
+  let tentType;
+  let tentTypeColor;
 
-  let tentType, tentTypeColor;
   switch (tentTypeInput.toLowerCase()) {
     case 'black': {
       tentType = 'Black';
@@ -36,8 +37,6 @@ const defineTentColors = (tentTypeInput) => {
   }
 
   return { tentType, tentTypeColor };
-}
-
-export {
-  defineTentColors,
 };
+
+export { defineTentColors };

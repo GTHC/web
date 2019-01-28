@@ -1,6 +1,6 @@
 import crud from './utils/crud';
 
-const getAllShifts = () => (
+const getAllShifts = () =>
   crud({
     dispatch: {
       begin: 'BEGIN_GET_SHIFTS',
@@ -9,10 +9,9 @@ const getAllShifts = () => (
     },
     method: 'GET',
     url: '/api/v1/shifts',
-  })
-);
+  });
 
-const updateShift = (id, data) => (
+const updateShift = (id, data) =>
   crud({
     dispatch: {
       begin: 'BEGIN_PUT_SHIFT',
@@ -22,10 +21,9 @@ const updateShift = (id, data) => (
     method: 'PUT',
     url: `/api/v1/shifts/${id}`,
     data,
-  })
-);
+  });
 
-const createShift = data => (
+const createShift = data =>
   crud({
     dispatch: {
       begin: 'BEGIN_POST_SHIFT',
@@ -35,10 +33,9 @@ const createShift = data => (
     method: 'POST',
     url: '/api/v1/shifts',
     data,
-  })
-);
+  });
 
-const deleteShift = id => (
+const deleteShift = id =>
   crud({
     dispatch: {
       begin: 'BEGIN_DELETE_SHIFT',
@@ -47,10 +44,9 @@ const deleteShift = id => (
     },
     method: 'DELETE',
     url: `/api/v1/shifts/${id}`,
-  })
-);
+  });
 
-const addUserToShift = (userID, shiftID) => (
+const addUserToShift = (userID, shiftID) =>
   crud({
     dispatch: {
       begin: 'BEGIN_POST_SHIFT',
@@ -63,12 +59,11 @@ const addUserToShift = (userID, shiftID) => (
       user_id: userID,
       shift_id: shiftID,
     },
-  })
-);
+  });
 
 const dragDropUpdate = (oldShifts, newShift) => {
   // NOTE: There is both a oldShift and oldShifts variable and the same for newShift and newShifts
-  const oldShift = oldShifts.find(shift => shift.id == newShift.id);
+  const oldShift = oldShifts.find(shift => shift.id === newShift.id);
   const index = oldShifts.indexOf(oldShift);
   const newShifts = [...oldShifts];
   newShifts.splice(index, 1, newShift);
@@ -78,11 +73,4 @@ const dragDropUpdate = (oldShifts, newShift) => {
   };
 };
 
-export {
-  getAllShifts,
-  updateShift,
-  createShift,
-  deleteShift,
-  addUserToShift,
-  dragDropUpdate,
-};
+export { getAllShifts, updateShift, createShift, deleteShift, addUserToShift, dragDropUpdate };

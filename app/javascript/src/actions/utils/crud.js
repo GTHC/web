@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { push } from 'react-router-redux';
 
-const crud = request => (dispatch) => {
+const crud = request => dispatch => {
   dispatch({
-      type: request.dispatch.begin,
-    });
+    type: request.dispatch.begin,
+  });
   const options = {
     method: request.method,
     url: request.url,
@@ -17,20 +17,20 @@ const crud = request => (dispatch) => {
   }
 
   axios(options)
-    .then((res) => {
+    .then(res => {
       dispatch({
-            type: request.dispatch.end,
-            payload: res,
-          });
+        type: request.dispatch.end,
+        payload: res,
+      });
       if (request.push) {
         dispatch(push(request.push));
       }
     })
-    .catch((err) => {
+    .catch(err => {
       dispatch({
-           type: request.dispatch.fail,
-           payload: err,
-         });
+        type: request.dispatch.fail,
+        payload: err,
+      });
     });
 };
 

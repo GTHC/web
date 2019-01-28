@@ -2,7 +2,7 @@ import React from 'react';
 
 import createHistory from 'history/createBrowserHistory';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { createDevTools } from 'redux-devtools';
 import { persistStore, persistCombineReducers } from 'redux-persist';
 import storage from 'redux-persist/es/storage';
@@ -11,7 +11,7 @@ import thunkMiddleware from 'redux-thunk';
 import LogMonitor from 'redux-devtools-log-monitor';
 import DockMonitor from 'redux-devtools-dock-monitor';
 
-import * as allReducers from './../reducers';
+import * as allReducers from '../reducers';
 
 const config = {
   key: 'test',
@@ -21,7 +21,7 @@ const config = {
 const reducer = {
   ...allReducers,
   router: routerReducer,
-}
+};
 
 const reducers = persistCombineReducers(config, reducer);
 
@@ -29,11 +29,7 @@ const history = createHistory();
 const middleware = routerMiddleware(history);
 
 const DevTools = createDevTools(
-  <DockMonitor
-    toggleVisibilityKey="ctrl-b"
-    changePositionKey="ctrl-q"
-    defaultIsVisible={false}
-  >
+  <DockMonitor toggleVisibilityKey="ctrl-b" changePositionKey="ctrl-q" defaultIsVisible={false}>
     <LogMonitor theme="tomorrow" />
   </DockMonitor>,
 );
@@ -41,27 +37,21 @@ const DevTools = createDevTools(
 let enhancer;
 
 if (process.env.NODE_ENV === 'development') {
+  // eslint-disable-next-line no-console
   console.log('Running in development!');
   enhancer = compose(
     applyMiddleware(middleware, thunkMiddleware),
     DevTools.instrument(),
   );
 } else {
-  enhancer = compose(
-    applyMiddleware(middleware, thunkMiddleware),
-  );
+  enhancer = compose(applyMiddleware(middleware, thunkMiddleware));
 }
 
 function configureStore() {
-
-  let store = createStore(reducers, undefined, enhancer);
-  let persistor = persistStore(store);
+  const store = createStore(reducers, undefined, enhancer);
+  const persistor = persistStore(store);
 
   return { store, persistor };
 }
 
-export {
-  configureStore,
-  history,
-  DevTools
-}
+export { configureStore, history, DevTools };

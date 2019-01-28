@@ -1,6 +1,6 @@
 import crud from './utils/crud';
 
-const getPosts = () => (
+const getPosts = () =>
   crud({
     dispatch: {
       begin: 'BEGIN_GET_POSTS',
@@ -9,9 +9,6 @@ const getPosts = () => (
     },
     method: 'GET',
     url: '/posts.json',
-  })
-);
+  });
 
-export {
-  getPosts
-};
+export { getPosts };
