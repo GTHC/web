@@ -20,7 +20,6 @@ else
       email: Faker::Internet.email,
       phone: Faker::PhoneNumber.cell_phone,
       team_id: i,
-      availability: Array.new(7, Array.new(20) { rand(0..2) }),
     )
     Captain.create!(
       user_id: @user.id
@@ -68,7 +67,6 @@ else
       phone: Faker::PhoneNumber.cell_phone,
       email: Faker::Internet.email,
       team_id: rand(1..5),
-      availability: Array.new(7, Array.new(20) { rand(0..2) }),
     );
   end
 

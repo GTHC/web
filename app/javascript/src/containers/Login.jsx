@@ -18,6 +18,7 @@ import {
   toggleDisableNext,
   updateUserInfo,
   updateTeamInfo,
+  updateAvailInfo,
   getAllTeams,
   login,
   logout,
@@ -61,6 +62,7 @@ class Login extends Component {
       toggleDisableNext,
       updateUserInfo,
       updateTeamInfo,
+      updateAvailInfo,
       getAllTeams,
       loginUser,
       logoutUser,
@@ -128,6 +130,7 @@ class Login extends Component {
                     login={login}
                     updateUserInfo={updateUserInfo}
                     updateTeamInfo={updateTeamInfo}
+                    updateAvailInfo={updateAvailInfo}
                     getAllTeams={getAllTeams}
                     signup={signup}
                     signupNewTeam={signupNewTeam}
@@ -156,17 +159,18 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      toggleLoginType: toggleLoginType,
-      toggleDisableNext: toggleDisableNext,
-      updateUserInfo: updateUserInfo,
-      updateTeamInfo: updateTeamInfo,
-      getAllTeams: getAllTeams,
-      loginUser: login, // changed login and logout action names due to login state name
       logoutUser: logout,
-      signup: signup,
-      signupNewTeam: signupNewTeam,
-      clearError: clearError,
-      push: push,
+      loginUser: login, // changed login and logout action names due to login state name
+      toggleLoginType,
+      toggleDisableNext,
+      updateUserInfo,
+      updateTeamInfo,
+      updateAvailInfo,
+      getAllTeams,
+      signup,
+      signupNewTeam,
+      clearError,
+      push,
       getResetPassword,
     },
     dispatch);
@@ -177,4 +181,3 @@ export default connect(mapStateToProps, mapDispatchToProps)(Login);
 export {
   Login
 };
-

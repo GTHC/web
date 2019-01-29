@@ -3,9 +3,8 @@ import React, { Component } from 'react';
 import { Form, Divider } from 'semantic-ui-react';
 
 // utils
-import getShiftAvailability from './../utils/getShiftAvailability';
-import hourToAvailPosition from './../utils/hourToAvailPosition';
 import PopupInfo from './../utils/PopupInfo';
+import getTeamAvailability from '../utils/getTeamAvailability';
 
 // images
 import * as defaultSrc from './../../../images/default_image.png';
@@ -30,42 +29,36 @@ class CreateShiftForm extends Component {
     // any changes made to ShiftTimeInput will update availabilities
     const props = this.props;
     if (prevProps.start_time !== props.start_time || prevProps.end_time !== props.end_time) {
-      this.getAvailabilities();
+      // TODO: Call API to get team availability
+      this.getAvailabilities(props.start_time, props.end_time);
     }
   }
 
   componentDidMount() {
     // Before the form mounts, we get all of the users availabilities for the possible shift
-    this.getAvailabilities();
+    // TODO: Call API to get team availability
+    const { start_time, end_time } = this.props;
+    this.getAvailabilities(start_time, end_time);
   }
 
-  getAvailabilities = () => {
-    const start = this.props.start_time;
-    const end = this.props.end_time;
-
-    const availStart = hourToAvailPosition(start);
-    const availEnd = hourToAvailPosition(end);
-    const availDay = start.getDay();
-    getShiftAvailability(availDay, availStart, availEnd)
+  getAvailabilities = (start, end) => {
+    getTeamAvailability(start, end)
     .then(res => {
       const { data } = res.data;
       const userOptions = [];
 
       // sorting users by availability and then alphabetically
       data.sort((a, b) => {
-        if (a.shift_availability == b.shift_availability) {
+        if (a.level == b.level) {
           if (a.name > b.name) { return 1; }
           if (a.name < b.name) { return -1; }
           return 0;
         } else {
-          return b.shift_availability - a.shift_availability;
+          return b.level - a.level;
         }
       });
 
       data.forEach(user => {
-        // choose color for availability
-        const color = user.shift_availability == 2 ? 'green' :
-        (user.shift_availability == 1 ? 'yellow' : 'red');
         let src = defaultSrc;
         if (user.avatarURL) {
           src = user.avatarURL;
@@ -76,7 +69,7 @@ class CreateShiftForm extends Component {
           key: user.id,
           value: user.id,
           text: user.name,
-          label: { color: color, circular: true, empty: true },
+          label: { color: user.color, circular: true, empty: true },
           image: { src: src, rounded: true },
         });
       });

@@ -1,6 +1,4 @@
 class Api::V1::UsersController < ApiController
-  rescue_from ActionController::ParameterMissing, :with => :param_missing
-
   before_action :set_user
 
   def show
@@ -21,7 +19,7 @@ class Api::V1::UsersController < ApiController
 
   # POST /api/v1/users
   def create
-    validate_params
+    helpers.validate_params
     if User.find_by_email(params[:email])
       return render json: { status: 'ERROR', message: 'User already created' }, status: :unprocessable_entity
     end
@@ -33,19 +31,25 @@ class Api::V1::UsersController < ApiController
       password_confirmation: params[:password_confirmation],
       team_id: params[:team_id],
     )
-    if params[:availability]
-      @user.availability = params[:availability]
+    # creating user availabilities
+    params[:availabilities].each do |avail|
+      @user.availabilities.create!({
+        start: avail[:start],
+        end: avail[:end],
+        somewhat: avail[:somewhat]
+      })
     end
     @team = @user.team
     if @user.save
       bypass_sign_in @user
-      # Change availability from Strings to Integers
-      @user.availability.map! {|arr| arr.map.map(&:to_i) }
-      render json: { status: 'SUCCESS', message: 'User saved and signed in', data: {
-        user: @user,
-        team: @team,
-        captain: @team.captain
-        } }, status: :ok
+
+      data = format_user_data({
+          user: @user.as_json,
+          team: @team.as_json,
+          captain: @team.captain,
+        })
+
+      render json: { status: 'SUCCESS', message: 'User saved and signed in', data: data }, status: :ok
     else
       render json: { status: 'ERROR', message: 'User not saved', data: @user.errors }, status: :unprocessable_entity
     end
@@ -53,33 +57,19 @@ class Api::V1::UsersController < ApiController
 
   # POST /login
   def login
-    validate_login_params
+    helpers.validate_login_params
     @user = User.find_by_email(params[:email])
     if @user&.valid_password?(params[:password])
       @user.remember_me = true
       bypass_sign_in @user
       @team = @user.team
       if current_user
-        # Change availability from Strings to Integers
-        @user.availability.map! {|arr| arr.map.map(&:to_i) }
-
         # setting up data
-        data = {
+        data = format_user_data({
             user: @user.as_json,
             team: @team.as_json,
             captain: @team.captain,
-          }
-
-        # Processing data object as it is not an ActiveRecord
-        # add avatarURL if avatar
-        data[:user][:avatarURL] = url_for(@user.avatar) if @user.avatar.attached?
-
-        # add avatarURL to users in a team
-        data[:team][:users] = @team.users.as_json
-        data[:team][:users].each do |u|
-          user = User.find(u["id"])
-          u[:avatarURL] = url_for(user.avatar) if user.avatar.attached?
-        end
+          })
 
         render json: { status: 'SUCCESS', message: 'User Logged In', data: data  }, status: :ok
       else
@@ -103,33 +93,31 @@ class Api::V1::UsersController < ApiController
   # POST /api/v1/user/token_reset_password
   # Change user password using reset token
   def token_reset_password
-    validate_reset_token_password_params
+    helpers.validate_reset_token_password_params
 
     @user = User.reset_password_by_token(@reset_params)
 
     if @user.errors.empty?
         render json: { status: 'SUCCESS', message: 'Password has xpbeen reset.', email: params[:user_email]}, status: :ok
-      else 
-        render json: { status: 'ERROR', data: @user.errors, message: 'Server error prevented password from being reset.' }, status: :not_found
-      end
+    else
+      render json: { status: 'ERROR', data: @user.errors, message: 'Server error prevented password from being reset.' }, status: :not_found
+    end
   end
 
   # POST /api/v1/user/forgot_password
   # Initiate password reset process
   def forgot_password
-    validate_forgot_password_params
-    
+    helpers.validate_forgot_password_params
+
     # Check if valid email that is registered to an GTHC account
     @user = User.find_by_email(params[:user_email]);
     if @user
       @output = edit_password_url(@user, reset_password_token: '123')
-      puts 'test124'
-      puts @output
       @user.send_reset_password_instructions
-  
+
       if @user.errors.empty?
-        render json: { status: 'SUCCESS', message: 'Password reset sent.', email: params[:user_email]}, status: :ok        
-      else 
+        render json: { status: 'SUCCESS', message: 'Password reset sent.', email: params[:user_email]}, status: :ok
+      else
         render json: { status: 'ERROR', message: 'Server error prevented email from being sent.' }, status: :not_found
       end
     else
@@ -140,8 +128,7 @@ class Api::V1::UsersController < ApiController
   # POST /api/v1/user/shifts
   # Add user to shift, and vice versa
   def shifts
-    puts Visits.last
-    validate_shift_params
+    helpers.validate_shift_params
     if Shift.all.ids.include? @s_id and User.all.ids.include? @u_id
       @user = User.find(@u_id)
       @shift = Shift.find(@s_id)
@@ -163,9 +150,9 @@ class Api::V1::UsersController < ApiController
   # PUT/PATCH /api/v1/user/:id
   def update
     if params[:password]
-      validate_params_update_with_password
+      helpers.validate_params_update_with_password
     else
-      validate_params_update
+      helpers.validate_params_update
     end
     if user = User.find(params[:id])
       user.update(@prime_params)
@@ -183,7 +170,7 @@ class Api::V1::UsersController < ApiController
   # PUT /api/v1/user/password/check
   # purpose - checks users password on the user setting page
   def password_check
-    validate_params_password_check
+    helpers.validate_params_password_check
     if current_user.valid_password? params[:password]
       render json: { message: 'Correct Password', check: true }, status: :ok
     else
@@ -191,28 +178,75 @@ class Api::V1::UsersController < ApiController
     end
   end
 
-  # POST /api/v1/user/availability
-  def update_availability
-    validate_availability
-    @user = current_user
-    @user.availability = params[:availability]
-    if @user.save
-      # Change availability from Strings to Integers
-      @user.availability.map! {|arr| arr.map.map(&:to_i) }
-      render json: { status: 'SUCCESS', message: 'User availability updated successfully.', data: @user.availability }, status: :ok
-    else
-      render json: { status: 'ERROR', message: 'User availability not able to update.' }, status: :unprocessable_entity
-    end
-  end
-
   # POST /api/v1/user/avatar
   def update_avatar
-    validate_avatar_params
+    helpers.validate_avatar_params
     current_user.avatar.attach(params[:avatarFile])
     if current_user.avatar.attached?
       render json: { status: 'SUCCESS', message: 'User avatar updated successfully', data: url_for(current_user.avatar) }, status: :ok
     else
       render json: { status: 'ERROR', message: 'User avatar not updated.' }, status: :unprocessable_entity
+    end
+  end
+
+  # availability
+
+  # POST /api/v1/user/availability
+  def create_availability
+    if current_user
+      helpers.validate_params_update_availability
+      @start = params[:start]
+      @end = params[:end]
+      @somewhat = params[:somewhat]
+      begin
+        check_avail_overlap
+        render json: { status: 'SUCCESS', message: 'Availability has been created.', data: current_user.availabilities }, status: :ok
+      rescue Exception
+        render json: { status: 'ERROR', message: 'Creating new availability has failed. Check logs.' }, status: :unprocessable_entity
+      end
+    else
+      render json: { status: 'ERROR', message: 'User needs to be logged in.' }, status: :unprocessable_entity
+    end
+  end
+
+  # PUT /api/v1/user/availability/:id
+  def update_availability
+    if current_user
+      helpers.validate_params_update_availability
+      if current_user.availabilities.exists?(params[:id])
+        availability = current_user.availabilities.find(params[:id])
+        availability.update({
+          start: params[:start],
+          end: params[:end],
+          somewhat: params[:somewhat],
+        })
+        render json: { status: 'SUCCESS', message: 'Availability updated.', data: current_user.availabilities }, status: :ok
+      else
+        render json: { status: 'ERROR', message: 'Availability not found.' }, status: :not_found
+      end
+    else
+      render json: { status: 'ERROR', message: 'User needs to be logged in.' }, status: :unprocessable_entity
+    end
+  end
+
+  # DELETE /api/v1/user/availability/:id
+  def destroy_availability
+    helpers.validate_params_destroy_availability
+    if current_user
+
+      if current_user.availabilities.exists? id: params[:id]
+        avail = current_user.availabilities.find(params[:id])
+        if avail.destroy
+          render json: { status: 'SUCCESS', message: 'Availability has been removed successfully', data: current_user.availabilities }, status: :ok
+
+        else
+          render json: { status: 'ERROR', message: 'Unable to remove availability record.' }, status: :unprocessable_entity
+        end
+      else
+        render json: { status: 'ERROR', message: 'Unable to find availability with such id. Check the id being sent.' }, status: :not_found
+      end
+    else
+      render json: { status: 'ERROR', message: 'User needs to be logged in.' }, status: :unprocessable_entity
     end
   end
 
@@ -226,67 +260,43 @@ class Api::V1::UsersController < ApiController
       end
     end
 
-    def validate_forgot_password_params
-      params.require([:user_email])
-    end
+    # check_avail_overlap - it is meant to eventually create an
+    # availability record, but checks for overlaps before it does
+    def check_avail_overlap
+      avails = current_user.availabilities.where(somewhat: @somewhat)
 
-    def validate_login_params
-      params.require([:email, :password])
-    end
+      # checks if start or end time of another availability is on top of the incoming availability
+      start_overlap = avails.where(start: @start..@end)
+      end_overlap = avails.where(end: @start..@end)
 
-    def validate_params
-      params.require([:name,
-                      :email,
-                      :phone,
-                      :password,
-                      :password_confirmation,
-                      :team_id])
-    end
+      # checks if incoming avail is on within of another avail
+      # therefore it would not be needed
+      inter_overlap = avails.where('start <= ?', @start).where('availabilities.end >= ?', @end)
 
-    def validate_shift_params
-      params.require([:shift_id, :user_id])
-      @s_id = params[:shift_id].to_i
-      @u_id = params[:user_id].to_i
-    end
+      if inter_overlap.count > 0
+        # if there are similar availabilities that already exist,
+        # then there is no need to add another
 
-    def validate_params_update
-      params.require([:name, :phone]);
-      @prime_params = {
-        name: params[:name],
-        phone: params[:phone],
-      }
-    end
+        return
+      elsif start_overlap.count > 0 || end_overlap.count > 0
+        # any slight overlap from other availabilities go here
 
-    def validate_reset_token_password_params
-        params.require([:password, :password_confirmation, :token])
-        @reset_params = {
-          reset_password_token: params[:token],
-          password: params[:password],
-          password_confirmation: params[:password_confirmation]
-        }
-    end
+        # sets avail to be any start_overlap by default, but
+        # it will change to end_overlap if start is empty
+        avail = start_overlap.first
+        avail = end_overlap.first if start_overlap.first.nil?
 
-    def validate_params_update_with_password
-        params.require([:password, :password_confirmation])
-        @prime_params = {
-          password: params[:password],
-          password_confirmation: params[:password_confirmation]
-        }
-    end
+        avail.start = @start if avail.start > @start
+        avail.end = @end if avail.end < @end
+        avail.save
+      else
+        # unique availabilities go here (there are no overlaps)
 
-    def validate_params_password_check
-      params.require([:password])
-    end
-
-    def validate_availability
-      params.require([:availability])
-    end
-
-    def validate_avatar_params
-      params.require(:avatarFile)
-    end
-
-    def param_missing(exception)
-      render json: { status: 'ERROR', message: exception }, status: :unprocessable_entity
+        avails.create!(
+          start: @start,
+          end: @end,
+          somewhat: @somewhat,
+        )
+      end
     end
 end

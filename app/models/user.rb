@@ -11,4 +11,5 @@ class User < ApplicationRecord
   has_many :visits, class_name: "Ahoy::Visit"
   has_one_attached :avatar
 
+  has_many :availabilities
 end

@@ -22,8 +22,13 @@ class Api::V1::CaptainsController < ApiController
       password: params[:password],
       password_confirmation: params[:password_confirmation]
     )
-    if params[:availability]
-      @user.availability = params[:availability]
+    # creating user availabilities
+    params[:availabilities].each do |avail|
+      @user.availabilities.create!({
+        start: avail[:start],
+        end: avail[:end],
+        somewhat: avail[:somewhat]
+      })
     end
     # Create Captain
     @captain = Captain.create!(user_id: @user.id)
@@ -44,13 +49,15 @@ class Api::V1::CaptainsController < ApiController
       bypass_sign_in @user
       @user.team_id = @team.id
       @user.save
-      # Change availability from Strings to Integers
-      @user.availability.map! {|arr| arr.map.map(&:to_i) }
-      render json: { status: 'SUCCESS', message: 'User, Captain, and Team created, and User signed in', data: {
-        user: @user,
-        team: @team,
-        captain: @captain,
-        } }, status: :ok
+
+      # setting up data
+      data = format_user_data({
+          user: @user.as_json,
+          team: @team.as_json,
+          captain: @team.captain,
+        })
+
+      render json: { status: 'SUCCESS', message: 'User, Captain, and Team created, and User signed in', data: data }, status: :ok
     end
 
   end

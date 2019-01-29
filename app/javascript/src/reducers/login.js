@@ -10,9 +10,7 @@ const initialState = {
     isCaptain: false,
     password: '',
     passwordConfirmation: '',
-
-    // default value is array of zeros
-    availability: (new Array(7)).fill().map(() => (new Array(20).fill(2))),
+    availabilities: [],
   },
   disableNext: true, // disable next button for signup
   // API
@@ -72,12 +70,12 @@ const login = (state=initialState, action) => {
       };
     }
 
-    case 'SU_AVAIL': {
+    case 'SU_AVAIL_INFO': {
       return {
         ...state,
         signUpData: {
           ...state.signUpData,
-          availability: action.payload.availability,
+          availabilities: action.payload,
         },
       };
     }
@@ -90,7 +88,17 @@ const login = (state=initialState, action) => {
     }
 
     case '@@router/LOCATION_CHANGE': {
-      return initialState;
+      /*
+        this used to be "return initialState", but
+        the availabilities array was not updating properly
+       */
+      return {
+        ...initialState,
+        signUpData: {
+          ...initialState.signUpData,
+          availabilities: [],
+        },
+      };
     }
 
     // API actions for login
@@ -124,6 +132,7 @@ const login = (state=initialState, action) => {
         teamDropDownOptions,
       };
     }
+
     case 'FAILED_GET_TEAMS': {
       return {
         ...state,
@@ -132,9 +141,20 @@ const login = (state=initialState, action) => {
         isLoading: false,
       };
     }
+
     // reset signup/login redux data when user login POST call is successful
     case 'END_LOGIN': {
-      return initialState;
+      /*
+        this used to be "return initialState", but
+        the availabilities array was not updating properly
+       */
+      return {
+        ...initialState,
+        signUpData: {
+          ...initialState.signUpData,
+          availabilities: [],
+        },
+      };
     }
 
     case 'CLEAR_ERROR': {

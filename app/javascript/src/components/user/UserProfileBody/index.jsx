@@ -5,7 +5,7 @@ import UserPane from './UserPane';
 import EditUserPane from './EditUserPane';
 import EditPasswordPane from './EditPasswordPane';
 import EditUserAvatar from './EditUserAvatar';
-import Schedule from './Schedule';
+import EditUserAvailability from './EditUserAvailability';
 
 export default class UserProfileBody extends Component {
   render () {
@@ -25,7 +25,7 @@ export default class UserProfileBody extends Component {
         <EditUserAvatar user={userData.user} {...this.props} />
       </Tab.Pane> },
       { menuItem: 'Edit User\'s Availability', render: () => <Tab.Pane>
-        <Schedule user={userData.user} {...this.props} />
+        <EditUserAvailability user={userData.user} {...this.props} />
       </Tab.Pane> },
     ];
 

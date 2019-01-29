@@ -71,7 +71,7 @@ class SignUpFields extends Component {
             team_name: data.team,
             tent_type: data.tentType,
             passcode: data.passcode,
-            availability: data.availability,
+            availabilities: data.availabilities,
           });
         } else {
           // API call to create user and add to team
@@ -82,18 +82,24 @@ class SignUpFields extends Component {
             password: data.password,
             password_confirmation: data.passwordConfirmation,
             team_id: data.teamID,
-            availability: data.availability,
+            availabilities: data.availabilities,
           });
         }
+
         return;
       }
     }
-  }
+  };
 
   render() {
     const { activeStep } = this.state;
-    const { login, toggleDisableNext, updateUserInfo, updateTeamInfo, updateAvailInfo, getAllTeams, user } = this.props;
-    const grid = login.signUpData.availability;
+    const {
+      login,
+      toggleDisableNext,
+      updateUserInfo, updateTeamInfo, updateAvailInfo,
+      getAllTeams,
+      user,
+    } = this.props;
     const steps = [
       { key: 'user', icon: 'user', title: 'User Credentials', description: 'Create your account with your email.', active: (activeStep === 0) },
       { key: 'team', active: true, icon: 'users', title: 'Team Information', description: 'Let us know which team you are on!', active: (activeStep === 1) },
@@ -123,8 +129,9 @@ class SignUpFields extends Component {
         }
         { activeStep === 2 &&
             <Availability
-              grid={grid}
-              updateAvailState={updateAvailInfo}
+              signup
+              availabilities={login.signUpData.availabilities}
+              updateAvailInfo={updateAvailInfo}
             />
           }
         { activeStep === 3 &&

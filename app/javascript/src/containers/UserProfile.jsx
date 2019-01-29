@@ -12,7 +12,10 @@ import NavBar from './NavBar';
 import {
   postAvatar,
   updateUser,
-  updateAvailability,
+  putAvail,
+  postAvail,
+  deleteAvail,
+  dragDropUpdate,
 } from '../actions/user';
 
 class UserProfile extends Component {
@@ -20,7 +23,11 @@ class UserProfile extends Component {
     const {
       postAvatar,
       user,
-      updateUser, updateAvailability
+      updateUser,
+      putAvail,
+      postAvail,
+      deleteAvail,
+      dragDropUpdate,
     } = this.props;
     return (
       <div>
@@ -30,8 +37,11 @@ class UserProfile extends Component {
             userState={user}
             userData={user.data}
             updateUser={updateUser}
-            updateAvailability={updateAvailability}
             postAvatar={postAvatar}
+            putAvail={putAvail}
+            postAvail={postAvail}
+            deleteAvail={deleteAvail}
+            dragDropUpdate={dragDropUpdate}
           />
         </div>
       </div>
@@ -51,9 +61,12 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      updateUser, 
-      updateAvailability,
+      updateUser,
       postAvatar,
+      putAvail,
+      postAvail,
+      deleteAvail,
+      dragDropUpdate,
     },
     dispatch);
 };

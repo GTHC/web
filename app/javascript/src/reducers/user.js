@@ -140,29 +140,6 @@ const user = (state=initialState, action) => {
       };
     }
 
-    case 'BEGIN_UPDATE_AVAIL': {
-      return beginState;
-    }
-
-    case 'FAILED_UPDATE_AVAIL': {
-      return {
-        ...state,
-        isLoading: false,
-        error: true,
-        errorMessage: action.payload.response.data.message,
-      };
-    }
-
-    case 'END_UPDATE_AVAIL': {
-      const data = state.data;
-      data.user.availability = action.payload.data.data;
-      return {
-        ...state,
-        isLoading: false,
-        data,
-      };
-    }
-
     // GET /api/v1/user/session
     case 'BEGIN_SESS_CHECK': {
       return beginState;
@@ -186,7 +163,7 @@ const user = (state=initialState, action) => {
 
     case 'BEGIN_PASSWORD_RESET': {
       return beginState;
-      
+
     }
 
     case 'FAILED_PASSWORD_RESET': {
@@ -257,6 +234,66 @@ const user = (state=initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        data,
+      };
+    }
+
+    /* Availability */
+
+    // POST /api/v1/user/availability
+    case 'BEGIN_POST_AVAIL': {
+      return beginState;
+    }
+
+    case 'FAILED_POST_AVAIL': {
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        errorMessage: action.payload.response.data.message,
+      };
+    }
+
+    case 'END_POST_AVAIL': {
+      const data = state.data;
+      data.user.availabilities = action.payload.data.data;
+      return {
+        ...state,
+        isLoading: false,
+        data,
+      };
+    }
+
+    // DELETE /api/v1/user/availability/:id
+    case 'BEGIN_DELETE_AVAIL': {
+      return beginState;
+    }
+
+    case 'FAILED_DELETE_AVAIL': {
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        errorMessage: action.payload.response.data.message,
+      };
+    }
+
+    case 'END_DELETE_AVAIL': {
+      const data = state.data;
+      data.user.availabilities = action.payload.data.data;
+      return {
+        ...state,
+        isLoading: false,
+        data,
+      };
+    }
+
+    // remove dragdrop lag
+    case 'AVAIL_DRAG_DROP': {
+      const data = state.data;
+      data.user.availabilities = action.payload;
+      return {
+        ...state,
         data,
       };
     }

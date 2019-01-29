@@ -1,6 +1,4 @@
 class Api::V1::TeamsController < ApiController
-  rescue_from ActionController::ParameterMissing, :with => :param_missing
-
   before_action :set_user
   def show
   end
@@ -34,12 +32,7 @@ class Api::V1::TeamsController < ApiController
     end
   end
 
-  def shift_availabilities
-    validate_shift_params
-    data = team_availability(@day, @s, @e)
-    render json: { message: 'Team availability has been calculated.', data: data }, status: :ok
-  end
-
+  # GET /api/v1/team/hours
   def team_hours
     if current_user
       @team = current_user.team
@@ -52,6 +45,21 @@ class Api::V1::TeamsController < ApiController
       render json: { status: 'ERROR', message: 'Make sure user is logged in' }, status: :unprocessable_entity
     end
 
+  end
+
+  # PUT /api/v1/team/availabilities
+  def show_availabilities
+    if current_user
+      validate_avail_params
+      @team = current_user.team
+      data = []
+      @team.users.each do |user|
+        data.push(user_availability(user))
+      end
+      render json: { message: 'Availabilities has been calculated!', data: data }, status: :ok
+    else
+      render json: { message: 'User not logged in.', status: 'ERROR' }, status: :unprocessable_entity
+    end
   end
 
   private
@@ -81,41 +89,10 @@ class Api::V1::TeamsController < ApiController
       }
     end
 
-    def validate_shift_params
-      params.require([:day, :starting, :ending])
-      @day = params[:day].to_i
-      @s = params[:starting].to_i
-      @e = params[:ending].to_i
-    end
-
-    def param_missing(exception)
-      render json: { status: 'ERROR', message: exception }, status: :unprocessable_entity
-    end
-
-    # find the lowest availability value (0, 1, or 2) in a range of time on
-    # a certain day for each user in a team
-    def team_availability(day, s, e)
-      # s is starting time position, and e is ending time pos
-      @team = current_user.team
-      data = [];
-      for user in @team.users
-        user.availability.map! {|arr| arr.map.map(&:to_i)}
-        avail = user.availability[day]
-        min_avail = avail[s]
-        for i in s..e
-          if avail[i] < min_avail
-            min_avail = avail[i]
-          end
-        end
-        userData = {
-            id: user.id,
-            name: user.name,
-            shift_availability: min_avail
-            }
-        userData[:avatarURL] = url_for(user.avatar) if user.avatar.attached?
-        data.push(userData)
-      end
-      return data
+    def validate_avail_params
+      params.require([:start_time, :end_time])
+      @start = params[:start_time].to_datetime
+      @end = params[:end_time].to_datetime
     end
 
     def user_hours_count(user)
@@ -169,5 +146,52 @@ class Api::V1::TeamsController < ApiController
 
     def get_shift_time_length(shift)
       ((shift.end_time - shift.start_time).to_f / 1.hour).round
+    end
+
+    def user_availability(user)
+      availabilities = user.availabilities
+
+      avail = availabilities.where(somewhat: false)
+      somewhat = availabilities.where(somewhat: true)
+
+      # Finding Full (non-somewhat) Availabilities
+      avail_query = avail.where('start <= ? AND availabilities.end >= ?', @start, @end)
+      is_avail = avail_query.length > 0
+
+      # Finding Somewhat Availabilities
+
+      ## These queries cover both availabilities that cover the shift
+      ## entirely (query_0) or partly (query_1 & 2)
+      somewhat_query_1 = somewhat.where('start <= ? AND availabilities.end >= ?', @start, @end)
+
+      # TODO: Decide on whether or not to use query 1 and 2
+      # somewhat_query_2 = somewhat.where('start >= ? AND start <= ?', @start, @end)
+      # somewhat_query_3 = somewhat.where('availabilities.end >= ? AND availabilities.end <= ?', @start, @end)
+
+      is_somewhat = somewhat_query_1.length > 0
+      # || somewhat_query_2.length > 0 || somewhat_query_3.length > 0
+
+      data = {
+        id: user.id,
+        name: user.name
+      }
+      # add avatar
+      data[:avatarURL] = url_for(user.avatar) if user.avatar.attached?
+
+      # level is the referring to availability level, which uses 0,1,2 to represent:
+      ## 0: Unavailable
+      ## 1: Somewhat Available
+      ## 2: Available
+      if is_avail
+        data[:level] = 2
+        data[:color] = 'green'
+      elsif is_somewhat
+        data[:level] = 1
+        data[:color] = 'yellow'
+      else
+        data[:level] = 0
+        data[:color] = 'red'
+      end
+      data
     end
 end

@@ -37,17 +37,20 @@ Rails.application.routes.draw do
 
       # user
       put 'user/password/check', to: 'users#password_check'
-      post 'user/availability', to: 'users#update_availability'
       post 'user/avatar', to: 'users#update_avatar'
+
+      ## user availability
+      post 'user/availability', to: 'users#create_availability'
+      put 'user/availability/:id', to: 'users#update_availability'
+      delete 'user/availability/:id', to: 'users#destroy_availability'
 
       devise_scope :user do
         get "edit_password", to: "devise/passwords#edit"
       end
 
       # team
-      get 'team/availability', to: 'teams#shift_availabilities'
       get 'team/hours', to: 'teams#team_hours'
-
+      put 'team/availabilities', to: 'teams#show_availabilities'
 
     end
   end

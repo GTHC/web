@@ -1,161 +1,198 @@
 import React, { Component } from 'react';
 
-// semantic-ui
-import { Grid, Segment, Divider, Button, Icon, Card } from 'semantic-ui-react';
+// calendar components
+import Calendar from 'react-big-calendar';
+import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
+import moment from 'moment';
 
-const times = [
-  '12:00 - 1:00 am',
-  '1:00 - 2:00 am',
-  'Night Shift 🌜',
-  '7:00 - 8:00 am',
-  '8:00 - 9:00 am',
-  '9:00 - 10:00 am',
-  '10:00 - 11:00 am',
-  '11:00 - 12:00 pm',
-  '12:00 - 1:00 pm',
-  '1:00 - 2:00 pm',
-  '2:00 - 3:00 pm',
-  '3:00 - 4:00 pm',
-  '4:00 - 5:00 pm',
-  '5:00 - 6:00 pm',
-  '6:00 - 7:00 pm',
-  '7:00 - 8:00 pm',
-  '8:00 - 9:00 pm',
-  '9:00 - 10:00 pm',
-  '10:00 - 11:00 pm',
-  '11:00 - 12:00 am',
-];
+// components
+import SelectAvailType from './SelectAvailType';
+import ModalUpdate from './ModalUpdate';
 
-const days = [
-  'Times',
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-];
+// utils
+import { generate } from 'randomstring';
+
+const localizer = Calendar.momentLocalizer(moment);
+
+const DragDropCal = withDragAndDrop(Calendar);
 
 class Availability extends Component {
+
   constructor(props) {
     super(props);
-    let grid = (new Array(7)).fill().map(() => (new Array(20).fill(2)));
-    if (props.grid !== undefined) {
-      grid = props.grid;
-    }
-
     this.state = {
-      grid: grid,
+      availabilities: props.availabilities,
+      availData: {},
+      open: false,
+      somewhat: false,
     };
-
-    this.handleClick = this.handleClick.bind(this);
-    this.renderColumns = this.renderColumns.bind(this);
   }
 
-
-  handleClick = (row, column) => {
-    if (this.props.fixed) {
+  moveEvent = ({ event, start, end, droppedOnAllDaySlot }) => {
+    if (droppedOnAllDaySlot || event.allDay || this.props.fixed) {
       return;
     }
 
-    const { updateAvailState } = this.props;
-    const setNewNumber = (val) => (val < 2 ? ++val : 0);
+    const { availabilities, signup, putAvail, dragDropUpdate, updateAvailInfo } = this.props;
 
-    const grid = this.state.grid;
-    const value = grid[row][column];
-    grid[row][column] = setNewNumber(value);
-    this.setState({ grid });
-    updateAvailState(grid); //updating states in higher level components
-  };
+    if (signup) {
+      const newAvails = availabilities.map(avail => (
+        avail.tempID == event.tempID ? { ...event, start, end } : avail
+      ));
+      updateAvailInfo(newAvails);
+    } else {
+      const newAvails = availabilities.map(avail => (
+        avail.id == event.id ? { ...event, start, end } : avail
+      ));
+      dragDropUpdate(newAvails);
 
-  renderColumns = (col) => {
-    let data = [];
-    for (let i = 0; i < 7; i++) {
-      data.push(
-          <Grid.Column textAlign="center" key={i} onClick={() => this.handleClick(i, col)}>
-            {this.renderIcon(this.state.grid[i][col])}
-          </Grid.Column>
-      );
-    }
-
-    return data;
-  };
-
-  renderIcon = (type) => {
-    switch (type) {
-      case 0: {
-        return (
-          <Icon color='red' name='cancel' size='large' />
-        );
-      }
-
-      case 1: {
-        return (
-          <Icon color='yellow' name='question circle' size='large' />
-        );
-      }
-
-      case 2: {
-        return (
-          <Icon color='green' name='checkmark' size='large' />
-        );
-      }
-
-      default: {
-        return (
-          <Icon color='red' name='cancel' size='large' />
-        );
-      }
+      putAvail(event.id, {
+        ...event,
+        start,
+        end,
+      });
     }
   };
 
-  renderKey = () => (
-    <div>
-      <Grid relaxed="very" padded>
-        <Grid.Row columns={3}>
-          <Grid.Column textAlign="center">
-            <h4> Unavailable </h4> <Icon color='red' name='cancel' size='large' />
-          </Grid.Column>
-          <Grid.Column textAlign="center">
-            <h4> Somewhat Available </h4> <Icon color='yellow' name='question circle' size='large' />
-          </Grid.Column>
-          <Grid.Column textAlign="center">
-            <h4> Available </h4> <Icon color='green' name='checkmark' size='large' />
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row columns={1}>
-          <Grid.Column textAlign="center">
-            <i>Click icons below to select availability.</i>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+  handleSelectDrag = ({ start, end }) => {
+    // check if all day
+    // oneDay = hours*minutes*seconds*milliseconds
+    const oneDay = 24 * 60 * 60 * 1000;
+    const numOfDays = Math.abs((start.getTime() - end.getTime()) / (oneDay));
 
-    </div>
-  );
+    // block all day creation
+    if (start == end || numOfDays >= 1) {
+      return;
+    }
+
+    const { availabilities, signup, fixed, updateAvailInfo, postAvail } = this.props;
+    const { somewhat } = this.state;
+
+    if (fixed) {
+      return;
+    }
+
+    if (signup) {
+      const newAvails = availabilities;
+      newAvails.push({
+        tempID: generate(5),
+        start, end,
+        somewhat,
+      });
+      updateAvailInfo(newAvails);
+    } else {
+      postAvail({
+        start,
+        end,
+        somewhat,
+      });
+    }
+  };
+
+  handleSomewhatChange = () => {
+    this.setState({
+      somewhat: !this.state.somewhat,
+    });
+  };
+
+  onSelectEvent = event => {
+    const { fixed, signup } = this.props;
+    if (fixed) {
+      return;
+    }
+
+    if (signup) {
+      const { availabilities, updateAvailInfo } = this.props;
+      const newEvent = {
+        ...event,
+        somewhat: !event.somewhat,
+      };
+      const newAvails = availabilities.map(avail => (
+        avail.tempID == event.tempID ? newEvent : avail
+      ));
+      updateAvailInfo(newAvails);
+    } else {
+      this.setState({
+        availData: event,
+        open: true,
+      });
+    }
+
+  };
+
+  eventPropGetter = ({ somewhat }) => ({
+    style: {
+      backgroundColor: somewhat ? '#CCCC00' : 'green',
+    },
+  });
+
+  // Modal functions
+  onOpen = () => this.setState({ open: true });
+  onClose = () => this.setState({ open: false });
 
   render() {
+    const {
+      availabilities,
+      fixed, signup,
+      deleteAvail, putAvail,
+    } = this.props;
+    const { availData, open, somewhat } = this.state;
+
+    // events for Calendar component
+    const events = availabilities.map(avail => ({
+      ...avail,
+      title: avail.somewhat ? 'Somewhat Available' : 'Available',
+      start: new Date(avail.start),
+      end: new Date(avail.end),
+    }));
+
+    const components = {
+      event: CustomEvent,
+    };
+
     return (
       <div>
-        {this.renderKey()}
-        <Grid columns='equal' celled >
-          <Grid columns={8} padded>
-          {days.map(day => (
-            <Grid.Column textAlign="center" key={day} color='green'>
-              <Grid.Row style={{ height: '10%' }}>{day}</Grid.Row>
-            </Grid.Column>
-          ))}
-          </Grid>
-          {times.map((time, row) => (
-            <Grid.Row key={time} style={{ height: '6.5%' }}>
-              <Grid.Column> {time} </Grid.Column>
-              {this.renderColumns(row)}
-            </Grid.Row>
-          ))}
-        </Grid>
+        {
+          !fixed &&
+          <SelectAvailType
+            value={somewhat}
+            handleChange={this.handleSomewhatChange}
+          />
+        }
+        {
+          !signup && !fixed &&
+          <ModalUpdate
+            open={open}
+            event={availData}
+            onOpen={this.onOpen}
+            onClose={this.onClose}
+            deleteAvail={deleteAvail}
+            putAvail={putAvail}
+          />
+        }
+        <DragDropCal
+          resizeable
+          popup
+          selectable={!fixed}
+          step={15}
+          timeslots={8}
+          defaultView="week"
+          views={['week', 'day']}
+          localizer={localizer}
+          events={events}
+          defaultDate={new Date()}
+          onEventDrop={this.moveEvent}
+          onEventResize={this.moveEvent}
+          onSelectEvent={this.onSelectEvent}
+          onSelectSlot={this.handleSelectDrag}
+          eventPropGetter={this.eventPropGetter}
+          style={{ height: '80vh' }}
+        />
+
       </div>
     );
   }
+
 }
 
 export default Availability;
