@@ -111,6 +111,7 @@ class LineMonitorPosts extends Component {
         styled
         key="posts"
         panels={rootPanels}
+        defaultActiveIndex={0}
       />
     );
   }
