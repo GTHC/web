@@ -81,12 +81,11 @@ class Login extends Component {
         paddingBottom: "16px",
       } : {};
 
-
     return (
       <div>
         <NavBarAlternate />
 
-        <div className="login">
+        <div className={login.type}>
           <Container>
             <Card
               centered
