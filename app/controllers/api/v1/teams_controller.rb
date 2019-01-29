@@ -155,18 +155,21 @@ class Api::V1::TeamsController < ApiController
       somewhat = availabilities.where(somewhat: true)
 
       # Finding Full (non-somewhat) Availabilities
-      avail_query = avail.where('start < ? AND availabilities.end > ?', @start, @end)
+      avail_query = avail.where('start <= ? AND availabilities.end >= ?', @start, @end)
       is_avail = avail_query.length > 0
 
       # Finding Somewhat Availabilities
 
       ## These queries cover both availabilities that cover the shift
-      ## entirely or partly
-      somewhat_query_1 = somewhat.where('start < ? AND availabilities.end > ?', @start, @end)
-      somewhat_query_2 = somewhat.where('start > ? AND start < ?', @start, @end)
-      somewhat_query_3 = somewhat.where('availabilities.end > ? AND availabilities.end < ?', @start, @end)
+      ## entirely (query_0) or partly (query_1 & 2)
+      somewhat_query_1 = somewhat.where('start <= ? AND availabilities.end >= ?', @start, @end)
 
-      is_somewhat = somewhat_query_1.length > 0 || somewhat_query_2.length > 0 || somewhat_query_3.length > 0
+      # TODO: Decide on whether or not to use query 1 and 2
+      # somewhat_query_2 = somewhat.where('start >= ? AND start <= ?', @start, @end)
+      # somewhat_query_3 = somewhat.where('availabilities.end >= ? AND availabilities.end <= ?', @start, @end)
+
+      is_somewhat = somewhat_query_1.length > 0
+      # || somewhat_query_2.length > 0 || somewhat_query_3.length > 0
 
       data = {
         id: user.id,
