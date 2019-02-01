@@ -41,8 +41,8 @@ Rails.application.routes.draw do
 
       ## user availability
       post 'user/availability', to: 'users#create_availability'
-      put 'user/availability/:id', to: 'users#update_availability'
-      delete 'user/availability/:id', to: 'users#destroy_availability'
+      put 'user/availability/:a_id', to: 'users#update_availability'
+      delete 'user/availability/:a_id', to: 'users#destroy_availability'
 
       devise_scope :user do
         get "edit_password", to: "devise/passwords#edit"

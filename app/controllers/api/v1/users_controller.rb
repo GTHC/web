@@ -209,12 +209,12 @@ class Api::V1::UsersController < ApiController
     end
   end
 
-  # PUT /api/v1/user/availability/:id
+  # PUT /api/v1/user/availability/:a_id
   def update_availability
     if current_user
       helpers.validate_params_update_availability
-      if current_user.availabilities.exists?(params[:id])
-        availability = current_user.availabilities.find(params[:id])
+      if current_user.availabilities.exists?(params[:a_id])
+        availability = current_user.availabilities.find(params[:a_id])
         availability.update({
           start: params[:start],
           end: params[:end],
@@ -229,13 +229,13 @@ class Api::V1::UsersController < ApiController
     end
   end
 
-  # DELETE /api/v1/user/availability/:id
+  # DELETE /api/v1/user/availability/:a_id
   def destroy_availability
     helpers.validate_params_destroy_availability
     if current_user
 
-      if current_user.availabilities.exists? id: params[:id]
-        avail = current_user.availabilities.find(params[:id])
+      if current_user.availabilities.exists? id: params[:a_id]
+        avail = current_user.availabilities.find(params[:a_id])
         if avail.destroy
           render json: { status: 'SUCCESS', message: 'Availability has been removed successfully', data: current_user.availabilities }, status: :ok
 

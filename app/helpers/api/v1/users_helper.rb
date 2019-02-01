@@ -60,6 +60,6 @@ module Api::V1::UsersHelper
   end
 
   def validate_params_destroy_availability
-    params.require([:id])
+    params.require([:a_id])
   end
 end
