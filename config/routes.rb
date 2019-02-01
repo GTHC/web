@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get 'about', to: 'pages#index'
   get 'reset_password', to: 'pages#index'
   get 'edit_password', to: 'pages#index'
-  get 'edit_password.32', to: 'pages#index'
+  get 'edit_password.*', to: 'pages#index'
 
   # Login/Logout
   post 'login', to: 'api/v1/users#login'
