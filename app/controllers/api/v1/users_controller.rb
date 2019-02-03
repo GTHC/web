@@ -1,10 +1,12 @@
 class Api::V1::UsersController < ApiController
-  before_action :set_user
+  # before_action :set_user
 
   def show
+    set_user
   end
 
   def index
+    set_user
   end
 
   # purpose - checks if users' session is still live
