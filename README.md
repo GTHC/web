@@ -47,3 +47,13 @@ Things you may want to cover:
 
 ## Setup
 1. Make sure you the yarn package manager installed by running: `npm i -g yarn`
+
+ a. `yarn` is a great alternative to `npm` as a dependency manager for Node.js. Read more [here](https://yarnpkg.com/en/).
+
+2. `yarn run setup`
+
+ a. This yarn script should run all of the necessary shell scripts to setup your Docker containers, bundle (ruby gems) dependencies, and your node dependencies.
+
+3. `yarn dev:start`
+
+  a. This will start a local developer server, by default that will be on port 5000. (`https://localhost:5000`)

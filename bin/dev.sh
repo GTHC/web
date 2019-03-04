@@ -42,7 +42,7 @@ if [[ !($docker =~ .*kville-scheduler_app.*) && !($docker =~ .*kville-scheduler_
 then
   echo "📦 Building containers 📦"
   docker-compose up -d
-  echo "💪 POSTGRES 💪"
+  echo "💾 POSTGRES 💾"
   docker-compose run app ./bin/db-setup.sh
 fi
 
