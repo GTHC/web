@@ -46,6 +46,9 @@ Things you may want to cover:
   a. [PostgreSQL](https://www.postgresql.org/download/)
 
 ## Setup
+
+__Disclaimer:__ Windows users, it is highly recommended that the entire setup process should be done through the Windows Subsystem for Linux (WSL). Setting up WSL can be found [here](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+
 1. Make sure you the yarn package manager installed by running: `npm i -g yarn`
 
  a. `yarn` is a great alternative to `npm` as a dependency manager for Node.js. Read more [here](https://yarnpkg.com/en/).
