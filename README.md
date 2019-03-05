@@ -26,6 +26,7 @@ Things you may want to cover:
 ## Table of Context
 1. [Installation](#Installation)
 2. [Setup](#Setup)
+3. [Configuration](#configuration)
 
 ## Installation
 1. Install Docker and `docker-compose`. Please follow the instructions on how to do so in the links below.
@@ -64,3 +65,6 @@ __Disclaimer:__ Windows users, it is highly recommended that the entire setup pr
 
 ### Local Software Versioning
 It is required that your system is running `Rails 5.0+` for the local development to function properly. It is recommended to use the most recent version of Node, but anything above `Node 8.x` shall work. 
+
+## Configuration
+__Important:__ There are private environment variables needed for certain aspects of the application. Therefore, it will be required that you have a `.env` file in the root of your project __before__ running anything. Please contact the project leaders (Aman or Anesu) for this information. __Finally, the .env file should not be pushed to github under no circumstances!__
