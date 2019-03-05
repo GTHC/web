@@ -61,3 +61,6 @@ __Disclaimer:__ Windows users, it is highly recommended that the entire setup pr
 3. `yarn dev:start`
 
     a. This will start a local developer server, by default that will be on port 5000. (`https://localhost:5000`)
+
+### Local Software Versioning
+It is required that your system is running `Rails 5.0+` for the local development to function properly. It is recommended to use the most recent version of Node, but anything above `Node 8.x` shall work. 
