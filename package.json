@@ -47,6 +47,7 @@
   },
   "scripts": {
     "start": "foreman start -f Procfile.dev",
+    "setup": "./bin/setup.sh",
     "prod": "foreman start -f Procfile.prod",
     "clean:branch": "./bin/clean-branch.sh",
     "webpacker": "ruby bin/webpack-dev-server",
