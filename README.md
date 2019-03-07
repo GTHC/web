@@ -1,3 +1,7 @@
+# GTHC - Game Tenting Help Center
+
+![Logo](/app/javascript/src/images/gthc_long.png)
+
 # README
 
 <!-- This README would normally document whatever steps are necessary to get the
