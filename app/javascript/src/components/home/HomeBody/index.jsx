@@ -42,7 +42,7 @@ class HomeBody extends Component {
           <Grid.Column>
             <DukeTwitterTimeline/>
           </Grid.Column>
-          <Grid.Column width={9}>
+          <Grid.Column width={8}>
             <CountDownTimer/>
             <UpcomingGame/>
           </Grid.Column>
