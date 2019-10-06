@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
 
+  # Active Admin
   resources :posts
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
   # Page rendering
   root 'pages#index'
   get 'app', to: 'pages#index'
@@ -17,6 +19,9 @@ Rails.application.routes.draw do
   post 'login', to: 'api/v1/users#login'
   get 'login', to:'pages#index'
   post 'logout', to: 'api/v1/users#logout'
+
+  #oauth
+  get '/auth/:provider/callback', to: 'sessions#create'
 
   # Devise
   devise_for :users
