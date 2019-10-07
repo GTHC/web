@@ -2,8 +2,8 @@ class SessionsController < ApplicationController
   def create
     puts 'test'
     puts auth_hash
-    # @user = User.find_or_create_from_auth_hash(auth_hash)
-    # self.current_user = @user
+    @user = User.find_or_create_from_auth_hash(auth_hash)
+    self.current_user = @user
     redirect_to '/'
   end
 
