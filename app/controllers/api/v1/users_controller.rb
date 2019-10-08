@@ -12,7 +12,7 @@ class Api::V1::UsersController < ApiController
   # purpose - checks if users' session is still live
   # GET /api/v1/user/session
   def timeout
-    if current_user
+    if !session[:user_id].nil?
       render json: { message: 'User logged in.', status: true }
     else
       render json: { message: 'User not logged in.', status: false }

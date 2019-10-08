@@ -16,15 +16,12 @@ Rails.application.routes.draw do
   get 'edit_password.*', to: 'pages#index'
 
   # Login/Logout
-  post 'login', to: 'api/v1/users#login'
   get 'login', to:'pages#index'
-  post 'logout', to: 'api/v1/users#logout'
+  # post 'login', to: 'api/v1/users#login'
+  post 'logout', to: 'sessions#destroy'
 
   #oauth
   get '/auth/:provider/callback', to: 'sessions#create'
-
-  # Devise
-  devise_for :users
 
   # Analytics
   authenticate :admin_user do
@@ -48,10 +45,6 @@ Rails.application.routes.draw do
       post 'user/availability', to: 'users#create_availability'
       put 'user/availability/:a_id', to: 'users#update_availability'
       delete 'user/availability/:a_id', to: 'users#destroy_availability'
-
-      devise_scope :user do
-        get "edit_password", to: "devise/passwords#edit"
-      end
 
       # team
       get 'team/hours', to: 'teams#team_hours'
