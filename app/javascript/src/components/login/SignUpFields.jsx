@@ -24,8 +24,7 @@ class SignUpFields extends Component {
   handleButtonClick = (e, data) => {
     const { activeStep } = this.state;
     const {
-      toggleLoginType, toggleDisableNext,
-      login,
+      toggleDisableNext,
       signup,
       signupNewTeam,
       clearError,
@@ -36,7 +35,6 @@ class SignUpFields extends Component {
     switch (data.id) {
       case 'back': {
         if (activeStep === 0) {
-          toggleLoginType(login.type);
           return;
         }
         this.setState({ activeStep: activeStep - 1 });
@@ -56,7 +54,7 @@ class SignUpFields extends Component {
         }
         return;
       }
-      case 'signup': {
+      case 'final': {
         // signup button click
         const data = login.signUpData; // data collected from signup fields
         if (data.isCaptain) {
@@ -155,7 +153,7 @@ class SignUpFields extends Component {
           <Button.Group fluid>
             <Button id="back" content='Back' icon='left arrow' labelPosition='left' color="red" onClick={this.handleButtonClick} />
             <Button.Or />
-            <Button id="signup" content='Sign Up and Login' icon='sign in' labelPosition='right' color="green" onClick={this.handleButtonClick} />
+            <Button id="final" content='Sign Up and Login' icon='sign in' labelPosition='right' color="green" onClick={this.handleButtonClick} />
           </Button.Group>
         }
         <br />

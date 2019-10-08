@@ -75,10 +75,6 @@ const postAvatar = data =>
     data,
   });
 
-const getResetPassword = () => (
-  { type: 'GET_RESET_PASSWORD' }
-);
-
 /* Availability */
 
 const putAvail = (id, data) =>

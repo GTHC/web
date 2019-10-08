@@ -1,15 +1,11 @@
 const initialState = {
-  type: 'login', // login or signup
   signUpData: {
     name: '',
-    email: '',
     phone: '',
     team: '',
     teamID: null,
     tentType: '',
     isCaptain: false,
-    password: '',
-    passwordConfirmation: '',
     availabilities: [],
   },
   disableNext: true, // disable next button for signup
@@ -45,10 +41,7 @@ const login = (state=initialState, action) => {
         signUpData: {
           ...state.signUpData,
           name: action.payload.name,
-          email: action.payload.email,
           phone: action.payload.phone,
-          password: action.payload.password,
-          passwordConfirmation: action.payload.passwordConfirmation,
         },
       };
     }

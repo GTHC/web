@@ -1,20 +1,5 @@
 import crud from './utils/crud';
 
-const toggleLoginType = (type) => {
-  switch (type) {
-    case 'login': {
-      return {
-        type: 'START_SIGNUP',
-      };
-    }
-    case 'signup': {
-      return {
-        type: 'START_LOGIN',
-      };
-    }
-  }
-};
-
 const toggleDisableNext = (val) => ({
   type: 'SU_NEXT',
   payload: val,
@@ -56,28 +41,6 @@ const getAllTeams = () => (
   })
 )
 
-// API call made when logging in
-/**
- * @param  {[Object]} userData
- * {
- *  email: string
- *  password: string
- * }
- */
-const login = (userData) => (
-  crud({
-    dispatch: {
-      begin: 'BEGIN_LOGIN',
-      end: 'END_LOGIN',
-      fail: 'FAILED_LOGIN',
-    },
-    method: 'POST',
-    url: '/login',
-    push: '/app',
-    data: userData
-  })
-)
-
 const logout = () => (
   crud({
     dispatch: {
@@ -91,73 +54,16 @@ const logout = () => (
   })
 )
 
-// API call made for user signing up with existing team
-/**
- * @param  {[Object]} userData
- * {
- *  name: string
- *  email: string
- *  password: string
- *  password_confirmation: string
- *  team_id: integer
- * }
- */
-const signup = (userData) => (
-  crud({
-    dispatch: {
-      begin: 'BEGIN_SIGNUP',
-      end: 'END_SIGNUP',
-      fail: 'FAILED_SIGNUP',
-    },
-    method: 'POST',
-    url: '/api/v1/users',
-    push: '/app',
-    data: userData,
-  })
-);
-
-// API call made for user signing up with a new team
-/**
- * @param  {[Object]} userData
- * {
- *  name: string
- *  email: string
- *  password: string
- *  password_confirmation: string
- *  team_name: string,
- *  tent_type: string (black, dblack, blue, dblue, or white)
- *  passcode: string,
- *  phone: string,
- * }
- */
-const signupNewTeam = (userData) => (
-  crud({
-    dispatch: {
-      begin: 'BEGIN_SIGNUP',
-      end: 'END_SIGNUP',
-      fail: 'FAILED_SIGNUP',
-    },
-    method: 'POST',
-    url: '/api/v1/captains',
-    push: '/app',
-    data: userData,
-  })
-);
-
 const clearError = () => ({
   type: 'CLEAR_ERROR',
 });
 
 export {
-  toggleLoginType,
   toggleDisableNext,
   updateUserInfo,
   updateTeamInfo,
   updateAvailInfo,
   getAllTeams,
-  login,
   logout,
-  signup,
-  signupNewTeam,
   clearError,
 };

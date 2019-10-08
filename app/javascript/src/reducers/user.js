@@ -183,13 +183,6 @@ const user = (state=initialState, action) => {
       }
     }
 
-    case 'GET_RESET_PASSWORD': {
-      return {
-        ...state,
-        passwordResetSuccess: false,
-      }
-    }
-
     case 'INVALID_EMAIL': {
       return {
         ...state,
