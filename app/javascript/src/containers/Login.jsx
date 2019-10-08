@@ -5,7 +5,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // semantic ui components
-import { Container, Card, Menu, Input, Image } from 'semantic-ui-react';
+import { Button, Container, Card, Menu, Input, Image } from 'semantic-ui-react';
+
+import Link from 'react-router-dom/Link'
 
 // Login components
 import { LoginFields, SignUpFields } from './../components';
@@ -29,16 +31,24 @@ import {
 import { getResetPassword } from '../actions/user';
 import { push } from './../actions/router';
 
-// logo
+// images
+import * as loginButtonLight from './../images/netid-login.png';
+import * as loginButtonDark from './../images/netid-login-dark.png';
 import * as logo from './../images/gthc_long.png';
+
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       activeItem: 'home',
+      loginButton: loginButtonLight,
     };
   }
+
+  changeButtonToDark = () => (this.setState({ loginButton: loginButtonDark }));
+
+  changeButtonToLight = () => (this.setState({ loginButton: loginButtonLight }));
 
   handleClick = (e, data) => {
     // data.id is the id element in the component that is clicked
@@ -109,7 +119,13 @@ class Login extends Component {
                 </Card.Header>
               </Card.Content>
               <Card.Content>
-                {login.type === 'login' &&
+                <Image
+                  src={this.state.loginButton}
+                  href="/auth/duke_oauth2"
+                  onMouseEnter={this.changeButtonToDark}
+                  onMouseLeave={this.changeButtonToLight}
+                />
+                {/* {login.type === 'login' &&
                   <LoginFields
                     toggleLoginType={toggleLoginType}
                     login={login}
@@ -135,7 +151,7 @@ class Login extends Component {
                     signupNewTeam={signupNewTeam}
                     clearError={clearError}
                   />
-                }
+                } */}
               </Card.Content>
             </Card>
           </Container>
