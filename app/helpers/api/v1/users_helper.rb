@@ -24,24 +24,12 @@ module Api::V1::UsersHelper
 
   def validate_params_update
     params.require([:name, :phone]);
-    @prime_params = {
-      name: params[:name],
-      phone: params[:phone],
-    }
   end
 
   def validate_reset_token_password_params
       params.require([:password, :password_confirmation, :token])
       @reset_params = {
         reset_password_token: params[:token],
-        password: params[:password],
-        password_confirmation: params[:password_confirmation]
-      }
-  end
-
-  def validate_params_update_with_password
-      params.require([:password, :password_confirmation])
-      @prime_params = {
         password: params[:password],
         password_confirmation: params[:password_confirmation]
       }

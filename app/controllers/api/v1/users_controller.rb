@@ -9,6 +9,17 @@ class Api::V1::UsersController < ApiController
     set_user
   end
 
+  # PUT/PATCH /api/v1/user/:id
+  def update
+    if user = User.find(params[:id])
+      user.update(helpers.validate_params_update)
+
+      render json: { status: 'SUCCESS', message: 'User successfully updated.', data: user }, staus: :ok
+    else
+      render json: { status: 'ERROR', message: 'User not found' }, status: :not_found
+    end
+  end
+
   # purpose - checks if users' session is still live
   # GET /api/v1/user/session
   def timeout
@@ -16,44 +27,6 @@ class Api::V1::UsersController < ApiController
       render json: { message: 'User logged in.', status: true }
     else
       render json: { message: 'User not logged in.', status: false }
-    end
-  end
-
-  # POST /api/v1/users
-  def create
-    helpers.validate_params
-    if User.find_by_email(params[:email])
-      return render json: { status: 'ERROR', message: 'User already created' }, status: :unprocessable_entity
-    end
-    @user = User.create!(
-      name: params[:name],
-      email: params[:email],
-      phone: params[:phone],
-      password: params[:password],
-      password_confirmation: params[:password_confirmation],
-      team_id: params[:team_id],
-    )
-    # creating user availabilities
-    params[:availabilities].each do |avail|
-      @user.availabilities.create!({
-        start: avail[:start],
-        end: avail[:end],
-        somewhat: avail[:somewhat]
-      })
-    end
-    @team = @user.team
-    if @user.save
-      bypass_sign_in @user
-
-      data = format_user_data({
-          user: @user.as_json,
-          team: @team.as_json,
-          captain: @team.captain,
-        })
-
-      render json: { status: 'SUCCESS', message: 'User saved and signed in', data: data }, status: :ok
-    else
-      render json: { status: 'ERROR', message: 'User not saved', data: @user.errors }, status: :unprocessable_entity
     end
   end
 
@@ -146,26 +119,6 @@ class Api::V1::UsersController < ApiController
       end
     else
       render json: { status: 'ERROR', message: 'Shift and/or User not found.' }, status: :not_found
-    end
-  end
-
-  # PUT/PATCH /api/v1/user/:id
-  def update
-    if params[:password]
-      helpers.validate_params_update_with_password
-    else
-      helpers.validate_params_update
-    end
-    if user = User.find(params[:id])
-      user.update(@prime_params)
-
-      # this is needed because Devise signs out a user if update() is called
-      if params[:password]
-        bypass_sign_in user
-      end
-      render json: { status: 'SUCCESS', message: 'User successfully updated.', data: user }, staus: :ok
-    else
-      render json: { status: 'ERROR', message: 'User not found' }, status: :not_found
     end
   end
 
