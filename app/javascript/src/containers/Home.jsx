@@ -5,17 +5,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // redux actions
-import {
-  login,
-  logout,
-} from './../actions/login';
+import { logout } from './../actions/user';
 import { getAllShifts } from '../actions/shifts';
 import { getPosts } from './../actions/posts';
 
 // components
 import HomeBody from './../components/home/HomeBody';
 import NavBar from './NavBar';
-import { Button } from 'semantic-ui-react';
 
 
 class Home extends Component {
@@ -48,7 +44,6 @@ class Home extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    login: state.login,
     posts: state.posts,
   };
 };
@@ -56,7 +51,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      loginUser: login, // changed login and logout action names due to login state name
       logoutUser: logout,
       getAllShifts,
       getPosts,

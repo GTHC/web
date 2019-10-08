@@ -117,6 +117,20 @@ const dragDropUpdate = newAvailabilities => ({
   payload: newAvailabilities,
 });
 
+// POST /logout
+const logout = () => (
+  crud({
+    dispatch: {
+      begin: 'BEGIN_LOGOUT',
+      end: 'END_LOGOUT',
+      fail: 'FAILED_LOGOUT',
+    },
+    method: 'POST',
+    url: '/logout',
+    push: '/login',
+  })
+)
+
 export {
   updateUser,
   checkSession,
@@ -131,4 +145,5 @@ export {
   postAvail,
   deleteAvail,
   dragDropUpdate,
+  logout,
 };

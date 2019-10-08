@@ -92,7 +92,7 @@ class SignUpFields extends Component {
   render() {
     const { activeStep } = this.state;
     const {
-      login,
+      loginState,
       toggleDisableNext,
       updateUserInfo, updateTeamInfo, updateAvailInfo,
       getAllTeams,
