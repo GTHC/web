@@ -21,7 +21,7 @@ const checkSession = () => (
       end: 'END_SESS_CHECK',
     },
     method: 'GET',
-    url: '/api/v1/user/session',
+    url: '/api/v1/sessions',
   })
 );
 

@@ -32,13 +32,12 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :shifts, :teams, :captains, :users
-      post 'user/token_change_password', to: 'users#token_reset_password'
-      post 'user/forgot_password', to: 'users#forgot_password'
-      get 'user/session', to: 'users#timeout'
+      resources :sessions, only: [:index]
+
+      # user shifts
       post 'user/shifts', to: 'users#shifts'
 
-      # user
-      put 'user/password/check', to: 'users#password_check'
+      # user avatar
       post 'user/avatar', to: 'users#update_avatar'
 
       ## user availability
@@ -46,8 +45,10 @@ Rails.application.routes.draw do
       put 'user/availability/:a_id', to: 'users#update_availability'
       delete 'user/availability/:a_id', to: 'users#destroy_availability'
 
-      # team
+      # team hour breakdown
       get 'team/hours', to: 'teams#team_hours'
+
+      # team availabilities
       put 'team/availabilities', to: 'teams#show_availabilities'
 
     end

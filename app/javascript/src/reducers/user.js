@@ -140,7 +140,7 @@ const user = (state=initialState, action) => {
       };
     }
 
-    // GET /api/v1/user/session
+    // GET /api/v1/session
     case 'BEGIN_SESS_CHECK': {
       return beginState;
     }

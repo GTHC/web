@@ -33,7 +33,6 @@ class Home extends Component {
           <div className="body">
             <HomeBody posts={posts} />
           </div>
-
         </div>
     );
   }

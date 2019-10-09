@@ -6,13 +6,13 @@ class SessionsController < ApplicationController
     if @user.nil?
       redirect_to '/'
     else
-      log_in @user
+      helpers.log_in @user
       redirect_to '/app/'
     end
   end
 
   def destroy
-   log_out
+   helpers.log_out
    redirect_to '/'
   end
 
