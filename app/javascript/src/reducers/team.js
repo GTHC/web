@@ -57,6 +57,14 @@ const team = (state=initialState, action) => {
       };
     }
 
+    case 'END_SESS_CHECK': {
+      const response = action.payload.data
+      return {
+        ...state,
+        data: response.data.team,
+      }
+    }
+
     default: {
       return state;
     }

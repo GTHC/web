@@ -10,8 +10,9 @@ import { getAllShifts } from '../actions/shifts';
 import { getPosts } from './../actions/posts';
 
 // components
-import HomeBody from './../components/home/HomeBody';
 import NavBar from './NavBar';
+import HomeBody from './../components/home/HomeBody';
+import SignUp from  './../components/signup';
 
 
 class Home extends Component {
@@ -29,10 +30,17 @@ class Home extends Component {
 
     return (
         <div>
-          <NavBar />
-          <div className="body">
-            <HomeBody posts={posts} />
-          </div>
+          {
+            user.data && user.data.team_id ?
+            <div>
+              <NavBar />
+              <div className="body">
+                <HomeBody posts={posts} />
+              </div>
+            </div>
+            :
+            <SignUp />
+          }
         </div>
     );
   }

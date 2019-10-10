@@ -154,10 +154,12 @@ const user = (state=initialState, action) => {
     }
 
     case 'END_SESS_CHECK': {
+      const response = action.payload.data
       return {
         ...state,
         isLoading: false,
-        isLoggedIn: action.payload.data.status && state.data,
+        isLoggedIn: response.status && state.data,
+        data: response.data.user,
       };
     }
 
