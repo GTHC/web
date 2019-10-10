@@ -158,7 +158,7 @@ const user = (state=initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        isLoggedIn: response.status && state.data,
+        isLoggedIn: response.status,
         data: response.data.user,
       };
     }
