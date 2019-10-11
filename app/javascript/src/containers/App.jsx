@@ -9,7 +9,7 @@ import { checkSession } from '../actions/user';
 
 import { Route, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
-import { ConnectedSwitch } from './../components';
+import ConnectedSwitch from './../components/utils/switch';
 
 // components
 import Home from './Home';
