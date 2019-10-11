@@ -105,7 +105,7 @@ class TeamSignUp extends Component {
     const { setDisableNext, teams } = this.props;
     return (
       <div>
-        <div>
+        <div style={{ textAlign: "center"}}>
           <Button basic={stepType !== 1} content='Create A Team' color="blue" onClick={() => {
               this.setState({
                 teamType: 'create',
@@ -142,6 +142,7 @@ class TeamSignUp extends Component {
                   onChange={this.onInputChange}
                 />
                 <Form.Dropdown
+                  upward
                   id="tentType"
                   fluid
                   label="Team Type"
@@ -162,6 +163,7 @@ class TeamSignUp extends Component {
         {stepType === 2 ?
           <div>
             <Form.Dropdown
+              upward
               fluid
               label="Team Names"
               placeholder='Find your team'

@@ -5,8 +5,8 @@ class AllSet extends Component {
     const data = this.props.data;
     const teamData = data.teamData;
     return (
-      <div>
-        Looks like you're all set! Make sure everything below is correct.
+      <div style={{ textAlign: "center"}}>
+        <h3>Looks like you're all set! Make sure everything below is correct.</h3>
         <br />
         <br />
         <strong>Name: </strong>

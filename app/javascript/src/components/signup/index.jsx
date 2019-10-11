@@ -39,7 +39,7 @@ class SignUp extends Component {
           Welcome to GTHC!
         </Modal.Header>
 
-        <Modal.Content scrolling>
+        <Modal.Content>
           <Fields
             // signup data
             data={this.state}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // semantic-ui
-import { Step } from 'semantic-ui-react';
+import { Header, Step } from 'semantic-ui-react';
 
 // components
 import Buttons from './Buttons';
@@ -9,6 +9,9 @@ import UserSignUp from './steps/UserSignUp';
 import TeamSignUp from './steps/TeamSignUp';
 import Availability from './../availability';
 import AllSet from './steps/AllSet';
+
+// images
+import * as gthc from './../../images/gthc_verbose.png';
 
 class Fields extends Component {
   constructor(props) {
@@ -98,7 +101,10 @@ class Fields extends Component {
           </div>
           :
           <div>
-            It seems it is your first time on GTHC! Welcome, and get your self set up by choosing or creating your team, and adding your schedule availabilty!
+            <Header>Making it official!</Header>
+            <p>
+              It seems it is your first time on GTHC! Get your self set up by setting up your user details, choosing or creating your tenting team, and adding your schedule availabilty!
+            </p>
           </div>
         }
         <Buttons
