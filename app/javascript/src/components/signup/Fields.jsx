@@ -8,6 +8,7 @@ import Buttons from './Buttons';
 import UserSignUp from './steps/UserSignUp';
 import TeamSignUp from './steps/TeamSignUp';
 import Availability from './../availability';
+import AllSet from './steps/AllSet';
 
 class Fields extends Component {
   constructor(props) {
@@ -71,7 +72,9 @@ class Fields extends Component {
       }
       case 4: {
         // all set
-        return;
+        return (
+          <AllSet data={data} />
+        );
       }
     }
   }

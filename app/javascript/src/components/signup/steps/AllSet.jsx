@@ -2,27 +2,16 @@ import React, { Component } from 'react';
 
 class AllSet extends Component {
   render() {
-    const data = this.props.login.signUpData;
-    const tentType = {
-      'black': 'Black',
-      'dblack': 'Dirty Black',
-      'blue': 'Blue',
-      'dblue': 'Dirty Blue',
-      'white': 'White'
-    };
+    const data = this.props.data;
+    const teamData = data.teamData;
     return (
       <div>
-        By clicking "Login" you are confirming that the following information is correct:
+        Looks like you're all set! Make sure everything below is correct.
         <br />
         <br />
         <strong>Name: </strong>
         <br />
         { data.name }
-        <br />
-        <br />
-        <strong>Email:</strong>
-        <br/>
-        { data.email }
         <br />
         <br />
         <strong>Phone:</strong>
@@ -32,12 +21,12 @@ class AllSet extends Component {
         <br />
         <strong>Team: </strong>
         <br />
-        { data.team }
+        { teamData.team }
         <br />
         <br />
         <strong>Tent Type:</strong>
         <br/>
-        { data.tentType }
+        { teamData.tentType }
       </div>
     );
   }
