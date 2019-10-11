@@ -5,24 +5,41 @@ import { Step } from 'semantic-ui-react';
 
 // components
 import Buttons from './Buttons';
+import UserSignUp from './steps/UserSignUp';
 
 class Fields extends Component {
   constructor(props) {
     super(props);
     this.state = {
       activeStep: 0,
+      disableNext: false,
     }
   }
 
-  updateStep = (newStep) => {
-    this.setState({ activeStep: newStep })
+  updateStep = (activeStep) => {
+    this.setState({ activeStep })
+  }
+
+  setDisableNext = (newVal) => {
+    console.log('here');
+    console.log('newval', newVal);
+    this.setState({
+      disableNext: newVal,
+    })
   }
 
   renderStep = (step) => {
+    const { data, updateData } = this.props;
     switch(step) {
       case 1: {
         // name and phone
-        return;
+        return (
+          <UserSignUp
+            data={data}
+            updateData={updateData}
+            setDisableNext={this.setDisableNext}
+          />
+        );
       }
       case 2: {
         // team
@@ -40,7 +57,7 @@ class Fields extends Component {
   }
 
   render() {
-    const { activeStep } = this.state;
+    const { activeStep, disableNext } = this.state;
 
     const steps = [
       { key: 'user', icon: 'user', title: 'User Details', description: 'Add your name and phone number.', active: (activeStep === 1) },
@@ -54,7 +71,7 @@ class Fields extends Component {
           <div>
             <Step.Group fluid size="tiny" items={steps} stackable='tablet' />
 
-            {this.renderContent(activeStep)}
+            {this.renderStep(activeStep)}
           </div>
           :
           <div>
@@ -63,6 +80,7 @@ class Fields extends Component {
         }
         <Buttons
           activeStep={activeStep}
+          disableNext={disableNext}
           updateStep={this.updateStep}
         />
       </div>

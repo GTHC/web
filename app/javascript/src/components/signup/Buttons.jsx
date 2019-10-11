@@ -26,7 +26,7 @@ class Buttons extends Component {
   }
 
   render() {
-    const { activeStep } = this.props;
+    const { activeStep, disableNext } = this.props;
     return (
       <div>
         {
@@ -57,7 +57,7 @@ class Buttons extends Component {
                   color="green"
                   icon='right arrow'
                   labelPosition='right'
-                  // disabled={login.disableNext}
+                  disabled={disableNext}
                   onClick={this.handleButtonClick}
                 />
               </Button.Group>
