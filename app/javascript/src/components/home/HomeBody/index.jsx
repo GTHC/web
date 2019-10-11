@@ -23,6 +23,11 @@ import UpcomingGame from './widgets/UpcomingGame';
 
 class HomeBody extends Component {
 
+  componentDidMount() {
+    this.props.getAllShifts();
+    this.props.getPosts();
+  }
+
   render() {
     const { posts } = this.props;
 

@@ -16,7 +16,7 @@ import * as logo from './../images/gthc.png';
 
 class NavBar extends Component {
   handleLogout = () => {
-    this.props.logoutUser();
+    this.props.logout();
   }
 
   handleClick = (e, data) => {
@@ -121,7 +121,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      logoutUser: logout,
+      logout: logout,
       push: push,
     },
     dispatch);

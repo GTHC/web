@@ -11,7 +11,7 @@ import PasscodeCheck from './utils/PasscodeCheck';
 class TeamSignUp extends Component {
   constructor(props) {
     super(props);
-    const data = props.login.signUpData;
+    const data = props.data.teamData;
     this.state = {
       /**
        * stepType: This will define what is displayed for this step.
@@ -40,7 +40,7 @@ class TeamSignUp extends Component {
     // checks if next button should be active or not
     // (useful for situations where user comes from a future page)
     if (data.team && data.tentType && data.passcode) {
-      props.toggleDisableNext(false);
+      props.setDisableNext(false);
     }
   }
 
@@ -51,17 +51,19 @@ class TeamSignUp extends Component {
   }
 
   validInput = () => {
-    const { stepType, team, tentType, teamType, correctPasscode } = this.state;
-    const { toggleDisableNext, updateTeamInfo, login } = this.props;
+    const { stepType, team, tentType, correctPasscode } = this.state;
+    const { setDisableNext, updateData } = this.props;
     if (stepType === 1 && (team === '' || tentType === '')) {
       this.setState({ errorMessage: 'Make sure all fields are filled.' });
-      toggleDisableNext(true);
+      setDisableNext(true);
     } else if (stepType == 2 && !correctPasscode) {
-      toggleDisableNext(true);
+      setDisableNext(true);
     } else if (stepType > 0) {
       this.setState({ errorMessage: '' });
-      updateTeamInfo(this.state);
-      toggleDisableNext(false);
+      updateData({
+        teamData: this.state,
+      });
+      setDisableNext(false);
     }
   };
 
@@ -75,7 +77,7 @@ class TeamSignUp extends Component {
     const toTitleCase = (str) => {
       return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
     };
-    const { teams } = this.props.login;
+    const teams = this.props.teams.all;
     const team = teams.find(team => team.id === data.value);
     const tentType = toTitleCase(team.tent_type);
     this.setState({
@@ -100,7 +102,7 @@ class TeamSignUp extends Component {
 
   render() {
     const { stepType, team, tentType, passcode, errorMessage, showJoinPasscode } = this.state;
-    const { toggleDisableNext, login } = this.props;
+    const { setDisableNext, teams } = this.props;
     return (
       <div>
         <div>
@@ -114,7 +116,7 @@ class TeamSignUp extends Component {
                 passcode: generate(5).toUpperCase(),
                 showJoinPasscode: false,
               });
-              toggleDisableNext(true);
+              setDisableNext(true);
             }}
           />
           <Button basic={stepType !== 2} content='Join A Team' color="blue" onClick={() => {
@@ -124,7 +126,7 @@ class TeamSignUp extends Component {
                 isCaptain: false,
                 correctPasscode: false,
               });
-              toggleDisableNext(true);
+              setDisableNext(true);
             }}
           />
         </div>
@@ -165,7 +167,7 @@ class TeamSignUp extends Component {
               placeholder='Find your team'
               search
               selection
-              options={login.teamDropDownOptions}
+              options={teams.teamDropDownOptions}
               onChange={this.teamDropDownChange}
             />
             {

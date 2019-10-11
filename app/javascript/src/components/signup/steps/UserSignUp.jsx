@@ -65,7 +65,7 @@ class UserSignUp extends Component {
           />
         </Form>
         <br />
-        <Message color="blue" header="Remember!">
+        <Message color="blue">
           <Icon name="pencil" />
           Make sure you fill in all fields.
         </Message>

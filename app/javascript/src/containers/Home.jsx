@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 // redux actions
 import { logout } from './../actions/user';
 import { getAllShifts } from '../actions/shifts';
+import { getAllTeams } from '../actions/teams';
 import { getPosts } from './../actions/posts';
 
 // components
@@ -16,17 +17,12 @@ import SignUp from  './../components/signup';
 
 
 class Home extends Component {
-  componentDidMount() {
-    this.props.getAllShifts();
-    this.props.getPosts();
-  }
-
   handleLogout = () => {
-    this.props.logoutUser();
+    this.props.logout();
   };
 
   render() {
-    const { user, posts } = this.props;
+    const { user, posts, teams, getAllTeams, getAllShifts, getPosts } = this.props;
 
     return (
         <div>
@@ -35,11 +31,15 @@ class Home extends Component {
             <div>
               <NavBar />
               <div className="body">
-                <HomeBody posts={posts} />
+                <HomeBody
+                  getAllShifts={getAllShifts}
+                  posts={posts}
+                  getPosts={getPosts}
+                />
               </div>
             </div>
             :
-            <SignUp />
+            <SignUp teams={teams} getAllTeams={getAllTeams} />
           }
         </div>
     );
@@ -52,15 +52,17 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
     posts: state.posts,
+    teams: state.teams,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      logoutUser: logout,
       getAllShifts,
+      getAllTeams,
       getPosts,
+      logout,
     },
     dispatch);
 };

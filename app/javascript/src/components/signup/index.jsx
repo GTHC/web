@@ -12,9 +12,19 @@ class SignUp extends Component {
     this.state = {
       name: '',
       phone: '',
-      team_id: null,
+      teamData: {
+        team: '',
+        teamID: null,
+        tentType: null,
+        isCaptain: false,
+        passcode: '',
+      },
       availabilities: [],
     }
+  }
+
+  componentWillMount() {
+    this.props.getAllTeams();
   }
 
   updateData = newData => {
@@ -22,16 +32,20 @@ class SignUp extends Component {
   }
 
   render() {
+    const { teams, getAllTeams } = this.props;
     return (
       <Modal open size="fullscreen">
         <Modal.Header>
           Welcome to GTHC!
         </Modal.Header>
 
-        <Modal.Content>
+        <Modal.Content scrolling>
           <Fields
+            // signup data
             data={this.state}
             updateData={this.updateData}
+            // team info for signup dropdown
+            teams={teams}
           />
         </Modal.Content>
       </Modal>

@@ -5,7 +5,6 @@ import { Button } from 'semantic-ui-react';
 class Buttons extends Component {
 
   handleButtonClick = (e, data) => {
-    console.log('here');
     const { activeStep, updateStep } = this.props;
     switch(data.id) {
       case 'back': {

@@ -6,6 +6,7 @@ import { Step } from 'semantic-ui-react';
 // components
 import Buttons from './Buttons';
 import UserSignUp from './steps/UserSignUp';
+import TeamSignUp from './steps/TeamSignUp';
 
 class Fields extends Component {
   constructor(props) {
@@ -21,15 +22,13 @@ class Fields extends Component {
   }
 
   setDisableNext = (newVal) => {
-    console.log('here');
-    console.log('newval', newVal);
     this.setState({
       disableNext: newVal,
     })
   }
 
   renderStep = (step) => {
-    const { data, updateData } = this.props;
+    const { data, updateData, teams } = this.props;
     switch(step) {
       case 1: {
         // name and phone
@@ -43,7 +42,15 @@ class Fields extends Component {
       }
       case 2: {
         // team
-        return;
+        return (
+          <TeamSignUp
+            data={data}
+            updateData={updateData}
+            setDisableNext={this.setDisableNext}
+            // team dropdown props
+            teams={teams}
+          />
+        );
       }
       case 3: {
         // availability
