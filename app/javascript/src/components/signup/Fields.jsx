@@ -7,6 +7,7 @@ import { Step } from 'semantic-ui-react';
 import Buttons from './Buttons';
 import UserSignUp from './steps/UserSignUp';
 import TeamSignUp from './steps/TeamSignUp';
+import Availability from './../availability';
 
 class Fields extends Component {
   constructor(props) {
@@ -24,6 +25,12 @@ class Fields extends Component {
   setDisableNext = (newVal) => {
     this.setState({
       disableNext: newVal,
+    })
+  }
+
+  updateAvailInfo = (availabilities) => {
+    this.props.updateData({
+      availabilities,
     })
   }
 
@@ -54,7 +61,13 @@ class Fields extends Component {
       }
       case 3: {
         // availability
-        return;
+        return (
+          <Availability
+            signup
+            availabilities={data.availabilities}
+            updateAvailInfo={this.updateAvailInfo}
+          />
+        );
       }
       case 4: {
         // all set
