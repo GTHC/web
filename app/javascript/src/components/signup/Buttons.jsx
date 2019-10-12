@@ -5,7 +5,7 @@ import { Button, Divider } from 'semantic-ui-react';
 class Buttons extends Component {
 
   handleButtonClick = (e, data) => {
-    const { activeStep, updateStep } = this.props;
+    const { activeStep, updateStep, signup } = this.props;
     switch(data.id) {
       case 'back': {
         if (activeStep > 0) {
@@ -17,6 +17,10 @@ class Buttons extends Component {
         if (activeStep < 5) {
           updateStep(activeStep + 1)
         }
+        return;
+      }
+      case 'final': {
+        signup()
         return;
       }
       default:

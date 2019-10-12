@@ -23,7 +23,7 @@ class TeamSignUp extends Component {
       stepType: 0,
 
       // User is either creating or joining a team (used in validInput())
-      teamType: '',
+      type: props.data.type,
       team: data.team,
       teamID: data.teamID,
       tentType: data.tentType,
@@ -61,6 +61,7 @@ class TeamSignUp extends Component {
     } else if (stepType > 0) {
       this.setState({ errorMessage: '' });
       updateData({
+        type: this.state.type,
         teamData: this.state,
       });
       setDisableNext(false);
@@ -108,7 +109,7 @@ class TeamSignUp extends Component {
         <div style={{ textAlign: "center"}}>
           <Button basic={stepType !== 1} content='Create A Team' color="blue" onClick={() => {
               this.setState({
-                teamType: 'create',
+                type: 'create',
                 stepType: 1,
                 isCaptain: true,
                 team: '',
@@ -121,7 +122,7 @@ class TeamSignUp extends Component {
           />
           <Button basic={stepType !== 2} content='Join A Team' color="blue" onClick={() => {
               this.setState({
-                teamType: 'join',
+                type: 'join',
                 stepType: 2,
                 isCaptain: false,
                 correctPasscode: false,

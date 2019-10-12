@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // redux actions
-import { logout } from './../actions/user';
+import { logout, signupUser } from './../actions/user';
 import { getAllShifts } from '../actions/shifts';
 import { getAllTeams } from '../actions/teams';
 import { getPosts } from './../actions/posts';
@@ -22,7 +22,12 @@ class Home extends Component {
   };
 
   render() {
-    const { user, posts, teams, getAllTeams, getAllShifts, getPosts } = this.props;
+    const {
+      // states
+      user, posts, teams,
+      // actions
+      getAllTeams, getAllShifts, getPosts, signupUser
+    } = this.props;
 
     return (
         <div>
@@ -39,7 +44,12 @@ class Home extends Component {
               </div>
             </div>
             :
-            <SignUp teams={teams} getAllTeams={getAllTeams} />
+            <SignUp
+              userID={user.data.id}
+              teams={teams}
+              getAllTeams={getAllTeams}
+              signupUser={signupUser}
+            />
           }
         </div>
     );
@@ -63,6 +73,7 @@ const mapDispatchToProps = (dispatch) => {
       getAllTeams,
       getPosts,
       logout,
+      signupUser,
     },
     dispatch);
 };

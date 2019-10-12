@@ -10,6 +10,7 @@ class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      type: '',
       name: '',
       phone: '',
       teamData: {
@@ -31,6 +32,12 @@ class SignUp extends Component {
     this.setState({ ...newData })
   }
 
+  signup = () => {
+    const { signupUser, userID } = this.props;
+    console.log(userID, this.state);
+    signupUser(userID, this.state)
+  }
+
   render() {
     const { teams, getAllTeams } = this.props;
     return (
@@ -46,6 +53,8 @@ class SignUp extends Component {
             updateData={this.updateData}
             // team info for signup dropdown
             teams={teams}
+            // signup action
+            signup={this.signup}
           />
         </Modal.Content>
       </Modal>

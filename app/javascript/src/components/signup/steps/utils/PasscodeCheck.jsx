@@ -35,7 +35,6 @@ class PasscodeCheck extends Component {
           <Message
             positive
             attached
-            compact
             icon
             hidden={!foundPasscode}
           >

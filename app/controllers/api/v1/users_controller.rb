@@ -9,12 +9,59 @@ class Api::V1::UsersController < ApiController
     set_user
   end
 
-  # PUT/PATCH /api/v1/user/:id
+  # PUT/PATCH /api/v1/users/:id
   def update
     if user = User.find(params[:id])
       user.update(helpers.validate_params_update)
 
       render json: { status: 'SUCCESS', message: 'User successfully updated.', data: user }, staus: :ok
+    else
+      render json: { status: 'ERROR', message: 'User not found' }, status: :not_found
+    end
+  end
+
+  # PUT /api/v1/users/signup/:id
+  def signup
+    if user = User.find(params[:id])
+      helpers.validate_params_update
+      # user details
+      user.name = params[:name]
+      user.phone = params[:phone]
+      # user's team
+      if params[:type] == "create"
+        captain = Captain.create!(user_id: user.id)
+        teamData = params[:teamData]
+        team = Team.create!(
+          name: teamData[:name],
+          tent_type: teamData[:tentType],
+          passcode: teamData[:passcode],
+          captain_id: captain.id,
+        )
+        user.team_id = team.id
+      elsif params[:type] == "join"
+        user.team_id = params[:teamData][:teamID]
+      end
+      # user's availabilities
+      params[:availabilities].each do |a|
+        user.availabilities.create!({
+          start: a[:start],
+          end: a[:end],
+          somewhat: a[:somewhat]
+        })
+      end
+      if !user.save
+        render json: { status: 'ERROR', message: 'User data unable to be saved', data: @user.errors }, status: :unprocessable_entity
+      else
+        # setting up data
+        team = user.team
+        data = format_user_data({
+            user: user.as_json,
+            team: team.as_json,
+            captain: team.captain,
+          })
+
+        render json: { status: 'SUCCESS', message: 'User signed up successfully!', data: data }, status: :ok
+      end
     else
       render json: { status: 'ERROR', message: 'User not found' }, status: :not_found
     end

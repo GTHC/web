@@ -12,6 +12,7 @@ class ApiController < ApplicationController
       ## user
       # Processing data object as it is not an ActiveRecord
       # add avatarURL if avatar
+      @user = User.find(data[:user][:id])
       data[:user][:avatarURL] = url_for(@user.avatar) if @user.avatar.attached?
 
       # add availability info to data

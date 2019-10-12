@@ -140,6 +140,14 @@ const user = (state=initialState, action) => {
       };
     }
 
+    case 'END_UPDATE_USER_SIGNUP': {
+      return {
+        ...state,
+        data:  action.payload.data.data,
+        isLoading: false,
+      };
+    }
+
     // GET /api/v1/session
     case 'BEGIN_SESS_CHECK': {
       return beginState;

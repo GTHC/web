@@ -11,10 +11,6 @@ Rails.application.routes.draw do
   get 'app/*path', to: 'pages#index'
   get 'tenting101', to: 'pages#index'
   get 'about', to: 'pages#index'
-  get 'reset_password', to: 'pages#index'
-  get 'edit_password', to: 'pages#index'
-  get 'edit_password.*', to: 'pages#index'
-
   # Login/Logout
   get 'login', to:'pages#index'
   # post 'login', to: 'api/v1/users#login'
@@ -33,6 +29,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :shifts, :teams, :captains, :users
       resources :sessions, only: [:index]
+
+      # user signups
+      put 'users/signup/:id', to: 'users#signup'
 
       # user shifts
       post 'user/shifts', to: 'users#shifts'

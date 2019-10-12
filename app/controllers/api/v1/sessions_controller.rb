@@ -10,11 +10,11 @@ class Api::V1::SessionsController < ApiController
         captain: nil,
       }
       if team = user.team
-        data = format_user_data({
+        data = {
           user: user,
           team: user.team,
           captain: user.team.captain,
-        })
+        }
       end
       render json: { message: 'User logged in.', status: true, data: data }
     else

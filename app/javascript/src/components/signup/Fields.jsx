@@ -10,9 +10,6 @@ import TeamSignUp from './steps/TeamSignUp';
 import Availability from './../availability';
 import AllSet from './steps/AllSet';
 
-// images
-import * as gthc from './../../images/gthc_verbose.png';
-
 class Fields extends Component {
   constructor(props) {
     super(props);
@@ -111,6 +108,7 @@ class Fields extends Component {
           activeStep={activeStep}
           disableNext={disableNext}
           updateStep={this.updateStep}
+          signup={this.props.signup}
         />
       </div>
     );
