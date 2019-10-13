@@ -131,11 +131,9 @@ const user = (state=initialState, action) => {
     }
 
     case 'END_UPDATE_USER': {
-      const data = state.data;
-      data.user = action.payload.data.data;
       return {
         ...state,
-        data,
+        data: action.payload.data.data,
         isLoading: false,
       };
     }
@@ -143,7 +141,7 @@ const user = (state=initialState, action) => {
     case 'END_UPDATE_USER_SIGNUP': {
       return {
         ...state,
-        data:  action.payload.data.data,
+        data:  action.payload.data.data.user,
         isLoading: false,
       };
     }

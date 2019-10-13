@@ -21,7 +21,7 @@ class AllSet extends Component {
         <br />
         <strong>Team: </strong>
         <br />
-        { teamData.team }
+        { teamData.name }
         <br />
         <br />
         <strong>Tent Type:</strong>

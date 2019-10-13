@@ -65,6 +65,15 @@ const team = (state=initialState, action) => {
       }
     }
 
+    // if signup is successfull capture team data
+    case 'END_UPDATE_USER_SIGNUP': {
+      return {
+        ...state,
+        data:  action.payload.data.data.team,
+        isLoading: false,
+      };
+    }
+
     default: {
       return state;
     }

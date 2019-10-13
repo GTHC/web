@@ -9,7 +9,7 @@ import { defineTentColors } from './../../utils/tent'
 export default class UserPane extends Component {
   render () {
     const { team } = this.props;
-    const { tentType, tentTypeColor } = defineTentColors(team.tent_type);
+    const { tentType, tentTypeColor } = defineTentColors(team.data.tent_type);
 
     return (
       <div>

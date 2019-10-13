@@ -14,7 +14,7 @@ class SignUp extends Component {
       name: '',
       phone: '',
       teamData: {
-        team: '',
+        name: '',
         teamID: null,
         tentType: null,
         isCaptain: false,

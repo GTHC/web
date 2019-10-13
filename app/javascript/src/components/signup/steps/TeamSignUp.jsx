@@ -24,7 +24,7 @@ class TeamSignUp extends Component {
 
       // User is either creating or joining a team (used in validInput())
       type: props.data.type,
-      team: data.team,
+      name: data.name,
       teamID: data.teamID,
       tentType: data.tentType,
       isCaptain: false,
@@ -39,7 +39,7 @@ class TeamSignUp extends Component {
 
     // checks if next button should be active or not
     // (useful for situations where user comes from a future page)
-    if (data.team && data.tentType && data.passcode) {
+    if (data.name && data.tentType && data.passcode) {
       props.setDisableNext(false);
     }
   }
@@ -51,9 +51,9 @@ class TeamSignUp extends Component {
   }
 
   validInput = () => {
-    const { stepType, team, tentType, correctPasscode } = this.state;
+    const { stepType, name, tentType, correctPasscode } = this.state;
     const { setDisableNext, updateData } = this.props;
-    if (stepType === 1 && (team === '' || tentType === '')) {
+    if (stepType === 1 && (name === '' || tentType === '')) {
       this.setState({ errorMessage: 'Make sure all fields are filled.' });
       setDisableNext(true);
     } else if (stepType == 2 && !correctPasscode) {
@@ -82,7 +82,7 @@ class TeamSignUp extends Component {
     const team = teams.find(team => team.id === data.value);
     const tentType = toTitleCase(team.tent_type);
     this.setState({
-      team: team.name,
+      name: team.name,
       teamID: team.id,
       tentType: tentType,
       passcode: team.passcode,
@@ -102,7 +102,7 @@ class TeamSignUp extends Component {
   ));
 
   render() {
-    const { stepType, team, tentType, passcode, errorMessage, showJoinPasscode } = this.state;
+    const { stepType, name, tentType, passcode, errorMessage, showJoinPasscode } = this.state;
     const { setDisableNext, teams } = this.props;
     return (
       <div>
@@ -112,7 +112,7 @@ class TeamSignUp extends Component {
                 type: 'create',
                 stepType: 1,
                 isCaptain: true,
-                team: '',
+                name: '',
                 tentType: '',
                 passcode: generate(5).toUpperCase(),
                 showJoinPasscode: false,
@@ -136,8 +136,8 @@ class TeamSignUp extends Component {
               <div>
                 <Form.Input
                   fluid
-                  value={team}
-                  id="team"
+                  value={name}
+                  id="name"
                   label="Team Name"
                   placeholder="Team Name"
                   onChange={this.onInputChange}
