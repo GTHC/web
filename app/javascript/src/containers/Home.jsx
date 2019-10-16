@@ -5,39 +5,52 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // redux actions
-import {
-  login,
-  logout,
-} from './../actions/login';
+import { logout, signupUser } from './../actions/user';
 import { getAllShifts } from '../actions/shifts';
+import { getAllTeams } from '../actions/teams';
 import { getPosts } from './../actions/posts';
 
 // components
-import HomeBody from './../components/home/HomeBody';
 import NavBar from './NavBar';
-import { Button } from 'semantic-ui-react';
+import HomeBody from './../components/home/HomeBody';
+import SignUp from  './../components/signup';
 
 
 class Home extends Component {
-  componentDidMount() {
-    this.props.getAllShifts();
-    this.props.getPosts();
-  }
-
   handleLogout = () => {
-    this.props.logoutUser();
+    this.props.logout();
   };
 
   render() {
-    const { user, posts } = this.props;
+    const {
+      // states
+      user, posts, teams,
+      // actions
+      getAllTeams, getAllShifts, getPosts, signupUser
+    } = this.props;
 
     return (
         <div>
-          <NavBar />
-          <div className="body">
-            <HomeBody posts={posts} />
-          </div>
-
+          {
+            user.data && user.data.team_id ?
+            <div>
+              <NavBar />
+              <div className="body">
+                <HomeBody
+                  getAllShifts={getAllShifts}
+                  posts={posts}
+                  getPosts={getPosts}
+                />
+              </div>
+            </div>
+            :
+            <SignUp
+              userID={user.data.id}
+              teams={teams}
+              getAllTeams={getAllTeams}
+              signupUser={signupUser}
+            />
+          }
         </div>
     );
   }
@@ -48,18 +61,19 @@ class Home extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    login: state.login,
     posts: state.posts,
+    teams: state.teams,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      loginUser: login, // changed login and logout action names due to login state name
-      logoutUser: logout,
       getAllShifts,
+      getAllTeams,
       getPosts,
+      logout,
+      signupUser,
     },
     dispatch);
 };

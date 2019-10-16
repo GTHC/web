@@ -1,5 +1,19 @@
 import crud from './utils/crud';
 
+const signupUser = (id, data) => (
+  crud({
+    dispatch: {
+      begin: 'BEGIN_UPDATE_USER',
+      end: 'END_UPDATE_USER_SIGNUP',
+      fail: 'FAILED_UPDATE_USER',
+    },
+    method: 'PUT',
+    push: '/app/',
+    url: `/api/v1/users/signup/${id}`,
+    data,
+  })
+)
+
 const updateUser = (id, data) => (
   crud({
     dispatch: {
@@ -21,45 +35,8 @@ const checkSession = () => (
       end: 'END_SESS_CHECK',
     },
     method: 'GET',
-    url: '/api/v1/user/session',
+    url: '/api/v1/sessions',
   })
-);
-
-const initiatePasswordReset = data =>
-  crud({
-    dispatch: {
-      begin: 'BEGIN_PASSWORD_RESET',
-      fail: 'FAILED_PASSWORD_RESET',
-      end: 'END_PASSWORD_RESET',
-    },
-    method: 'POST',
-    url: '/api/v1/user/forgot_password',
-    data,
-  });
-
-const changePasswordWithResetToken = data =>
-  crud({
-    dispatch: {
-      begin: 'BEGIN_PASSWORD_RESET',
-      fail: 'FAILED_PASSWORD_RESET',
-      end: 'END_PASSWORD_RESET',
-    },
-    method: 'POST',
-    url: '/api/v1/user/token_change_password',
-    push: '/login',
-    data,
-  });
-
-const invalidEmailError = () => (
-  { type: 'INVALID_EMAIL' }
-);
-
-const passwordTooShortError = () => (
-  { type: 'PASSWORD_SHORT' }
-);
-
-const passwordMismatchError = () => (
-  { type: 'PASSWORD_MISMATCH' }
 );
 
 const postAvatar = data =>
@@ -74,10 +51,6 @@ const postAvatar = data =>
     url: '/api/v1/user/avatar',
     data,
   });
-
-const getResetPassword = () => (
-  { type: 'GET_RESET_PASSWORD' }
-);
 
 /* Availability */
 
@@ -121,18 +94,28 @@ const dragDropUpdate = newAvailabilities => ({
   payload: newAvailabilities,
 });
 
+// POST /logout
+const logout = () => (
+  crud({
+    dispatch: {
+      begin: 'BEGIN_LOGOUT',
+      end: 'END_LOGOUT',
+      fail: 'FAILED_LOGOUT',
+    },
+    method: 'POST',
+    url: '/logout',
+    push: '/login',
+  })
+)
+
 export {
+  signupUser,
   updateUser,
   checkSession,
   postAvatar,
-  initiatePasswordReset,
-  getResetPassword,
-  changePasswordWithResetToken,
-  invalidEmailError,
-  passwordTooShortError,
-  passwordMismatchError,
   putAvail,
   postAvail,
   deleteAvail,
   dragDropUpdate,
+  logout,
 };

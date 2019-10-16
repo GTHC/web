@@ -28,19 +28,9 @@ class Dashboard extends Component {
 const mapStateToProps = state => {
   return {
     user: state.user,
-    login: state.login,
     shifts: state.shifts,
   };
 };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators(
-//     {
-//       loginUser: login, // changed login and logout action names due to login state name
-//       logoutUser: logout,
-//     },
-//     dispatch);
-// };
 
 export default connect(mapStateToProps)(Dashboard);
 

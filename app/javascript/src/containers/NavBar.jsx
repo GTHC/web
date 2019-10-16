@@ -5,10 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // redux actions
-import {
-  login,
-  logout,
-} from './../actions/login';
+import { logout } from './../actions/user';
 import { push } from './../actions/router';
 
 // components
@@ -19,7 +16,7 @@ import * as logo from './../images/gthc.png';
 
 class NavBar extends Component {
   handleLogout = () => {
-    this.props.logoutUser();
+    this.props.logout();
   }
 
   handleClick = (e, data) => {
@@ -117,7 +114,6 @@ class NavBar extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    login: state.login,
     router: state.router,
   };
 };
@@ -125,8 +121,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      loginUser: login, // changed login and logout action names due to login state name
-      logoutUser: logout,
+      logout: logout,
       push: push,
     },
     dispatch);

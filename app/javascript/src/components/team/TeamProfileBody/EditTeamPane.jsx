@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Form, Message, Loader, Dimmer } from 'semantic-ui-react';
 
 // utils
-import dropdownOptions from '../../login/signup/utils/dropdownOptions';
+import dropdownOptions from './../../signup/steps/utils/dropdownOptions';
 
 export default class EditTeamPane extends Component {
 

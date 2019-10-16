@@ -11,7 +11,7 @@ import PasscodeCheck from './utils/PasscodeCheck';
 class TeamSignUp extends Component {
   constructor(props) {
     super(props);
-    const data = props.login.signUpData;
+    const data = props.data.teamData;
     this.state = {
       /**
        * stepType: This will define what is displayed for this step.
@@ -23,8 +23,8 @@ class TeamSignUp extends Component {
       stepType: 0,
 
       // User is either creating or joining a team (used in validInput())
-      teamType: '',
-      team: data.team,
+      type: props.data.type,
+      name: data.name,
       teamID: data.teamID,
       tentType: data.tentType,
       isCaptain: false,
@@ -39,8 +39,8 @@ class TeamSignUp extends Component {
 
     // checks if next button should be active or not
     // (useful for situations where user comes from a future page)
-    if (data.team && data.tentType && data.passcode) {
-      props.toggleDisableNext(false);
+    if (data.name && data.tentType && data.passcode) {
+      props.setDisableNext(false);
     }
   }
 
@@ -51,17 +51,20 @@ class TeamSignUp extends Component {
   }
 
   validInput = () => {
-    const { stepType, team, tentType, teamType, correctPasscode } = this.state;
-    const { toggleDisableNext, updateTeamInfo, login } = this.props;
-    if (stepType === 1 && (team === '' || tentType === '')) {
+    const { stepType, name, tentType, correctPasscode } = this.state;
+    const { setDisableNext, updateData } = this.props;
+    if (stepType === 1 && (name === '' || tentType === '')) {
       this.setState({ errorMessage: 'Make sure all fields are filled.' });
-      toggleDisableNext(true);
+      setDisableNext(true);
     } else if (stepType == 2 && !correctPasscode) {
-      toggleDisableNext(true);
+      setDisableNext(true);
     } else if (stepType > 0) {
       this.setState({ errorMessage: '' });
-      updateTeamInfo(this.state);
-      toggleDisableNext(false);
+      updateData({
+        type: this.state.type,
+        teamData: this.state,
+      });
+      setDisableNext(false);
     }
   };
 
@@ -75,11 +78,11 @@ class TeamSignUp extends Component {
     const toTitleCase = (str) => {
       return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
     };
-    const { teams } = this.props.login;
+    const teams = this.props.teams.all;
     const team = teams.find(team => team.id === data.value);
     const tentType = toTitleCase(team.tent_type);
     this.setState({
-      team: team.name,
+      name: team.name,
       teamID: team.id,
       tentType: tentType,
       passcode: team.passcode,
@@ -99,32 +102,32 @@ class TeamSignUp extends Component {
   ));
 
   render() {
-    const { stepType, team, tentType, passcode, errorMessage, showJoinPasscode } = this.state;
-    const { toggleDisableNext, login } = this.props;
+    const { stepType, name, tentType, passcode, errorMessage, showJoinPasscode } = this.state;
+    const { setDisableNext, teams } = this.props;
     return (
       <div>
-        <div>
+        <div style={{ textAlign: "center"}}>
           <Button basic={stepType !== 1} content='Create A Team' color="blue" onClick={() => {
               this.setState({
-                teamType: 'create',
+                type: 'create',
                 stepType: 1,
                 isCaptain: true,
-                team: '',
+                name: '',
                 tentType: '',
                 passcode: generate(5).toUpperCase(),
                 showJoinPasscode: false,
               });
-              toggleDisableNext(true);
+              setDisableNext(true);
             }}
           />
           <Button basic={stepType !== 2} content='Join A Team' color="blue" onClick={() => {
               this.setState({
-                teamType: 'join',
+                type: 'join',
                 stepType: 2,
                 isCaptain: false,
                 correctPasscode: false,
               });
-              toggleDisableNext(true);
+              setDisableNext(true);
             }}
           />
         </div>
@@ -133,13 +136,14 @@ class TeamSignUp extends Component {
               <div>
                 <Form.Input
                   fluid
-                  value={team}
-                  id="team"
+                  value={name}
+                  id="name"
                   label="Team Name"
                   placeholder="Team Name"
                   onChange={this.onInputChange}
                 />
                 <Form.Dropdown
+                  upward
                   id="tentType"
                   fluid
                   label="Team Type"
@@ -160,12 +164,13 @@ class TeamSignUp extends Component {
         {stepType === 2 ?
           <div>
             <Form.Dropdown
+              upward
               fluid
               label="Team Names"
               placeholder='Find your team'
               search
               selection
-              options={login.teamDropDownOptions}
+              options={teams.teamDropDownOptions}
               onChange={this.teamDropDownChange}
             />
             {

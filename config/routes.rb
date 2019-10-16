@@ -1,25 +1,23 @@
 Rails.application.routes.draw do
 
+  # Active Admin
   resources :posts
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
   # Page rendering
   root 'pages#index'
   get 'app', to: 'pages#index'
   get 'app/*path', to: 'pages#index'
   get 'tenting101', to: 'pages#index'
   get 'about', to: 'pages#index'
-  get 'reset_password', to: 'pages#index'
-  get 'edit_password', to: 'pages#index'
-  get 'edit_password.*', to: 'pages#index'
-
   # Login/Logout
-  post 'login', to: 'api/v1/users#login'
   get 'login', to:'pages#index'
-  post 'logout', to: 'api/v1/users#logout'
+  # post 'login', to: 'api/v1/users#login'
+  post 'logout', to: 'sessions#destroy'
 
-  # Devise
-  devise_for :users
+  #oauth
+  get '/auth/:provider/callback', to: 'sessions#create'
 
   # Analytics
   authenticate :admin_user do
@@ -30,13 +28,15 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :shifts, :teams, :captains, :users
-      post 'user/token_change_password', to: 'users#token_reset_password'
-      post 'user/forgot_password', to: 'users#forgot_password'
-      get 'user/session', to: 'users#timeout'
+      resources :sessions, only: [:index]
+
+      # user signups
+      put 'users/signup/:id', to: 'users#signup'
+
+      # user shifts
       post 'user/shifts', to: 'users#shifts'
 
-      # user
-      put 'user/password/check', to: 'users#password_check'
+      # user avatar
       post 'user/avatar', to: 'users#update_avatar'
 
       ## user availability
@@ -44,12 +44,10 @@ Rails.application.routes.draw do
       put 'user/availability/:a_id', to: 'users#update_availability'
       delete 'user/availability/:a_id', to: 'users#destroy_availability'
 
-      devise_scope :user do
-        get "edit_password", to: "devise/passwords#edit"
-      end
-
-      # team
+      # team hour breakdown
       get 'team/hours', to: 'teams#team_hours'
+
+      # team availabilities
       put 'team/availabilities', to: 'teams#show_availabilities'
 
     end

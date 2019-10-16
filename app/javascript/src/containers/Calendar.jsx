@@ -51,7 +51,6 @@ class Calendar extends Component {
 const mapStateToProps = state => {
   return {
     user: state.user,
-    login: state.login,
     shifts: state.shifts,
     team: state.team,
   };
