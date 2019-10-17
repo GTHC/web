@@ -1,9 +1,8 @@
 GIT
-  remote: http://gitlab.oit.duke.edu/colab/omniauth-duke-oauth2.git
-  revision: 5eaf67596985b0672c81ab48592bfce9318bf8bb
-  ref: 5eaf6759
+  remote: https://github.com/GTHC/duke-oauth.git
+  revision: adcdf619f562d120b052238003d29561b275d8b8
   specs:
-    omniauth-duke-oauth2 (1.0.0)
+    omniauth-gthc-oauth2 (1.0.0)
       omniauth (~> 1.1)
       omniauth-oauth2 (~> 1.3)
 
@@ -143,7 +142,7 @@ GEM
     execjs (2.7.0)
     faker (1.9.1)
       i18n (>= 0.7)
-    faraday (0.16.2)
+    faraday (0.17.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.25)
     ffi (1.9.25-x86-mingw32)
@@ -357,7 +356,7 @@ DEPENDENCIES
   foreman
   jbuilder
   omniauth (~> 1.3.2)
-  omniauth-duke-oauth2!
+  omniauth-gthc-oauth2!
   pg (~> 0.18)
   puma (~> 3.7)
   rails (~> 5.2.0)

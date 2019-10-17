@@ -4,6 +4,7 @@ class User < ApplicationRecord
   # TODO(Aman): Properly remove devise and its attributes from User model
   # devise :database_authenticatable, :registerable,
   #        :recoverable, :rememberable, :trackable, :validatable
+  validates :email, :uniqueness => {:allow_blank => true}
 
   belongs_to :team, optional: true
 
@@ -17,7 +18,7 @@ class User < ApplicationRecord
 
   def self.find_or_create_by_oauth(omniauth_hash)
     case omniauth_hash.provider
-    when 'duke_oauth2'
+    when 'gthc_oauth2'
       netid = omniauth_hash.info.netid
       user = find_by(netid: netid) || create!(netid: netid)
       user

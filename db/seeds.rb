@@ -15,8 +15,6 @@ else
   for i in 1..5
     @user = User.create!(
       name: Faker::Name.name,
-      password: 'password',
-      password_confirmation: 'password',
       email: Faker::Internet.email,
       phone: Faker::PhoneNumber.cell_phone,
       team_id: i,
@@ -62,8 +60,6 @@ else
   for i in 1..25
     User.create!(
       name: Faker::Name.name,
-      password: 'password',
-      password_confirmation: 'password',
       phone: Faker::PhoneNumber.cell_phone,
       email: Faker::Internet.email,
       team_id: rand(1..5),
