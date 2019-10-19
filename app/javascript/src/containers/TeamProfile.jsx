@@ -12,11 +12,6 @@ import NavBar from './NavBar';
 import { updateTeam, getTeam } from '../actions/team';
 
 class TeamProfile extends Component {
-  componentDidMount() {
-    const { getTeam, user } = this.props;
-    const userData = user.data;
-    getTeam(userData.user.team_id);
-  }
 
   render () {
     const { user, team, updateTeam } = this.props;
@@ -25,9 +20,8 @@ class TeamProfile extends Component {
         <NavBar />
         <div className="body">
           <TeamProfileBody
-            teamState={team}
-            userState={user}
-            userData={user.data}
+            team={team}
+            user={user}
             updateTeam={updateTeam}
           />
         </div>

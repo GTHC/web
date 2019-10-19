@@ -34,7 +34,7 @@ class UserProfile extends Component {
         <NavBar />
         <div className="body">
           <UserProfileBody
-            userState={user}
+            user={user}
             userData={user.data}
             updateUser={updateUser}
             postAvatar={postAvatar}

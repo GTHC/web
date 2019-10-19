@@ -225,11 +225,12 @@ const user = (state=initialState, action) => {
         ...state,
         isLoading: false,
         error: true,
-        errorMessage: action.payload.response.data.message,
+        errorMessage: action.payload.message,
       }
     }
 
     case 'END_POST_AVATAR': {
+      console.log('pay', action.payload)
       const data = state.data;
       data.user.avatarURL = action.payload.data.data;
       return {
@@ -251,7 +252,7 @@ const user = (state=initialState, action) => {
         ...state,
         isLoading: false,
         error: true,
-        errorMessage: action.payload.response.data.message,
+        errorMessage: action.payload.message,
       };
     }
 
@@ -281,7 +282,7 @@ const user = (state=initialState, action) => {
 
     case 'END_DELETE_AVAIL': {
       const data = state.data;
-      data.user.availabilities = action.payload.data.data;
+      data.availabilities = action.payload.data.data;
       return {
         ...state,
         isLoading: false,
@@ -292,7 +293,7 @@ const user = (state=initialState, action) => {
     // remove dragdrop lag
     case 'AVAIL_DRAG_DROP': {
       const data = state.data;
-      data.user.availabilities = action.payload;
+      data.availabilities = action.payload;
       return {
         ...state,
         data,

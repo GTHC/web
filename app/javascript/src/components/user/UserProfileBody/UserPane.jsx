@@ -5,8 +5,8 @@ import * as defaultSrc from '../../../images/default_image.png';
 
 export default class UserPane extends Component {
   render () {
-    const { user } = this.props;
-    const src = user.avatarURL || defaultSrc;
+    const data = this.props.user.data;
+    const src = data.avatarURL || defaultSrc;
     return (
       <div>
         <Image
@@ -22,15 +22,15 @@ export default class UserPane extends Component {
           />
         <br />
         <strong>Name: </strong>
-        <Label>{ user.name }</Label>
+        <Label>{ data.name }</Label>
         <br />
         <br />
-        <strong>Email: </strong>
-        <Label>{ user.email }</Label>
+        <strong>NetID: </strong>
+        <Label>{ data.netid }</Label>
         <br />
         <br />
         <strong>Phone: </strong>
-        <Label>{ user.phone }</Label>
+        <Label>{ data.phone }</Label>
       </div>
     );
   }

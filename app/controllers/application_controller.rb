@@ -19,6 +19,12 @@ class ApplicationController < ActionController::Base
 
   def validate_token(token)
     # TODO: (amanmibra) add introspect token check
+    # client_id = ENV['OAUTH_CLIENT']
+    # client_secret = ENV['OAUTH_KEY']
+    # # auth_value = Base64.encode64("#{client_id}:#{client_secret}")
+    # introspect = token.get("https://#{client_id}:#{client_secret}@oauth.oit.duke.edu/oidc/introspect?token=#{token[:id_token]}")
+    # puts 'intro'
+    # puts introspect
     true
   end
 

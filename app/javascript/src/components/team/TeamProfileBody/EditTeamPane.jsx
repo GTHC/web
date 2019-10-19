@@ -10,11 +10,11 @@ export default class EditTeamPane extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: props.team.name,
-      tentType: props.team.tent_type,
+      name: props.team.data.name,
+      tentType: props.team.data.tent_type,
       disabled: false,
       savePressed: false,
-      loading: props.userState.isLoading,
+      loading: props.user.isLoading,
     };
   }
 
@@ -52,9 +52,9 @@ export default class EditTeamPane extends Component {
   );
 
   renderIsCaptain = () => {
-    const { team, captain, user, userState } = this.props;
+    const { user } = this.props;
     const { disabled, name, tentType, loading, savePressed } = this.state;
-    const error = userState.error;
+    const error = user.error;
     return (
       <div>
         <Message positive attached>
@@ -124,11 +124,13 @@ export default class EditTeamPane extends Component {
   };
 
   render () {
-    const { captain, user } = this.props;
+    const { team, user } = this.props;
+    console.log(team);
+    const captain = team.data.captain
     return (
       <div>
         {
-          captain.user_id === user.id ?
+          captain.user_id === user.data.id ?
           this.renderIsCaptain()
           :
           this.renderError()

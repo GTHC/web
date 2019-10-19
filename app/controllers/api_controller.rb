@@ -17,6 +17,8 @@ class ApiController < ApplicationController
     end
 
     def format_user_data(data)
+      puts 'data'
+      puts data
       ## user
       # Processing data object as it is not an ActiveRecord
       # add avatarURL if avatar
@@ -25,15 +27,18 @@ class ApiController < ApplicationController
       data[:user][:avatarURL] = url_for(@user.avatar) if @user.avatar.attached?
 
       # add availability info to data
-      data[:user][:availabilities] = @user.availabilities.as_json
+      data[:user][:availabilities] = @user.availabilities.as_json if @user.availabilities
 
       ## team
       # add avatarURL and availabilities to users in a team
-      data[:team][:users] = @team.users.as_json
-      data[:team][:users].each do |u|
-        user = User.find(u["id"])
-        u[:avatarURL] = url_for(user.avatar) if user.avatar.attached?
-        u[:availabilities] = user.availabilities.as_json
+      if data[:team]
+        data[:team][:captain] = @team.captain.as_json
+        data[:team][:users] = @team.users.as_json
+        data[:team][:users].each do |u|
+          user = User.find(u["id"])
+          u[:avatarURL] = url_for(user.avatar) if user.avatar.attached?
+          u[:availabilities] = user.availabilities.as_json
+        end
       end
 
       data

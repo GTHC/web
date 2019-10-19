@@ -12,7 +12,8 @@ import * as defaultSrc from './../../../images/default_image.png';
 class TeamTablePane extends Component {
 
   renderCellWithAvatar = user => {
-    const { captain_id } = this.props.teamData;
+    const data = this.props.team.data;
+    const { captain_id } = data;
     const isCaptain = user.id == captain_id;
     const src = user.avatarURL || defaultSrc;
     return (
@@ -31,7 +32,8 @@ class TeamTablePane extends Component {
   };
 
   render() {
-    const { users } = this.props.teamData;
+    const data = this.props.team.data;
+    const { users } = data;
     return (
       <div>
         <Table

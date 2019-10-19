@@ -15,7 +15,7 @@ class EditUserAvailability extends Component {
     } = this.props;
     return (
       <Availability
-        availabilities={user.availabilities}
+        availabilities={user.data.availabilities}
         putAvail={putAvail}
         postAvail={postAvail}
         deleteAvail={deleteAvail}
