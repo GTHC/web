@@ -61,7 +61,7 @@ class Login extends Component {
               <Card.Content>
                 <Image
                   src={this.state.loginButton}
-                  href="/auth/gthc_oauth2"
+                  href="/auth2/redirect"
                   onMouseEnter={this.changeButtonToDark}
                   onMouseLeave={this.changeButtonToLight}
                 />

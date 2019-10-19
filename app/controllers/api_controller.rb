@@ -3,11 +3,6 @@ class ApiController < ApplicationController
 
   before_action :set_default_format, :is_authenticated
 
-  def validate_token(token)
-    # TODO: (amanmibra) add introspect token check
-    true
-  end
-
   private
     def set_default_format
       request.format = :json

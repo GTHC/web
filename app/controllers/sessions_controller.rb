@@ -13,6 +13,11 @@ class SessionsController < ApplicationController
     end
   end
 
+  def redirect
+    client = oauth_client
+    redirect_to client.auth_code.authorize_url(redirect_uri: ENV['OAUTH_REDIRECT'])
+  end
+
   def destroy
    helpers.log_out
    redirect_to '/'

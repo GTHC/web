@@ -14,8 +14,12 @@ class ApplicationController < ActionController::Base
       :authorize_url =>  "/oidc/authorize",
       :token_url =>  "/oidc/token"
     )
-
     client
+  end
+
+  def validate_token(token)
+    # TODO: (amanmibra) add introspect token check
+    true
   end
 
   # def create_oauth_client
