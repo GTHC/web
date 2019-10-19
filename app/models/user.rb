@@ -18,7 +18,8 @@ class User < ApplicationRecord
 
   def self.find_or_create_by_oauth(user_info)
     netid = user_info["dukeNetID"]
-    user = find_by(netid: netid) || create!(netid: netid)
+    name = user_info["name"]
+    user = find_by(netid: netid) || create!(netid: netid, name: name)
     user
   end
 

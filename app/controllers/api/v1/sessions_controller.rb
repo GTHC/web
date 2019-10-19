@@ -2,7 +2,7 @@ class Api::V1::SessionsController < ApiController
   # purpose - checks if users' session is still live
   # GET /api/v1/sessions
   def index
-    if !session[:user_id].nil?
+    if !session[:user_id].nil? && validate_token(session[:token])
       user = User.find(session[:user_id])
       data = {
         user: user,

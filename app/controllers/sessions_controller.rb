@@ -7,8 +7,8 @@ class SessionsController < ApplicationController
       redirect_to '/'
     else
       user_info = JSON.parse(token.get('/oidc/userinfo').body)
-      @user = User.find_or_create_by_oauth(user_info)
-      helpers.log_in @user
+      user = User.find_or_create_by_oauth(user_info)
+      helpers.log_in(user, token)
       redirect_to '/app/'
     end
   end

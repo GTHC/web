@@ -18,28 +18,29 @@ class ApplicationController < ActionController::Base
     client
   end
 
-  def create_oauth_client
-    require 'oauth2'
-    client_id = ENV['OAUTH_CLIENT']
-    client_secret = ENV['OAUTH_KEY']
-    @@client = OAuth2::Client.new(
-       client_id,
-       client_secret,
-      :site => "https://oauth.oit.duke.edu/oidc",
-      :authorize_url =>  "/oidc/authorize",
-      :token_url =>  "/oidc/token"
-    )
-    url = @@client.auth_code.authorize_url(redirect_uri: ENV['OAUTH_REDIRECT'])
-    puts url
-    token = @@client.auth_code.get_token('N72HtE', redirect_uri: ENV['OAUTH_REDIRECT'])
-    puts token
-    user_info = JSON.parse(token.get('/oidc/userinfo').body)
-    puts user_info
-    auth_value = Base64.encode64("#{client_id}:#{client_secret}").gsub("\n", "")
-    introspect = token.get('/oidc/introspect', :headers => {'Authorization' => "Basic #{auth_value}"})
-
-    puts introspect
-  end
+  # def create_oauth_client
+  #   require 'oauth2'
+  #   client_id = ENV['OAUTH_CLIENT']
+  #   client_secret = ENV['OAUTH_KEY']
+  #   @@client = OAuth2::Client.new(
+  #      client_id,
+  #      client_secret,
+  #     :site => "https://oauth.oit.duke.edu/oidc",
+  #     :authorize_url =>  "/oidc/authorize",
+  #     :token_url =>  "/oidc/token"
+  #   )
+  #   url = @@client.auth_code.authorize_url(redirect_uri: ENV['OAUTH_REDIRECT'])
+  #   puts url
+  #   token = @@client.auth_code.get_token('glPSUX', redirect_uri: ENV['OAUTH_REDIRECT'])
+  #   puts token
+  #   user_info = JSON.parse(token.get('/oidc/userinfo').body)
+  #   puts user_info
+  #   auth_value = Base64.encode64("#{client_id}:#{client_secret}").gsub("\n", "")
+  #   introspect = token.post('/oidc/introspect', :headers => {'Authorization' => "Basic #{client_secret}"})
+  #
+  #   puts 'introspect'
+  #   puts introspect
+  # end
 end
 
 =begin
