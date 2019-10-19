@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/GTHC/duke-oauth.git
-  revision: adcdf619f562d120b052238003d29561b275d8b8
+  revision: b3d088a8ee1d37d91f8200319b2d37ab99b301be
   specs:
-    omniauth-gthc-oauth2 (1.0.0)
+    omniauth-gthc-oauth2 (1.0.2)
       omniauth (~> 1.1)
       omniauth-oauth2 (~> 1.3)
 
@@ -202,7 +202,7 @@ GEM
     mini_mime (1.0.1)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
-    multi_json (1.13.1)
+    multi_json (1.14.1)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     nio4r (2.3.1)
@@ -227,7 +227,7 @@ GEM
     pg (0.19.0-x86-mingw32)
     public_suffix (3.0.3)
     puma (3.12.0)
-    rack (2.0.6)
+    rack (2.0.7)
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -355,6 +355,7 @@ DEPENDENCIES
   faker
   foreman
   jbuilder
+  oauth2
   omniauth (~> 1.3.2)
   omniauth-gthc-oauth2!
   pg (~> 0.18)

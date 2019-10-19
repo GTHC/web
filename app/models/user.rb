@@ -16,16 +16,10 @@ class User < ApplicationRecord
 
   has_many :availabilities
 
-  def self.find_or_create_by_oauth(omniauth_hash)
-    case omniauth_hash.provider
-    when 'gthc_oauth2'
-      netid = omniauth_hash.info.netid
-      user = find_by(netid: netid) || create!(netid: netid)
-      user
-    else
-      logger.error "Unknown OmniAuth provider #{omniauth_hash.provider}"
-      nil
-    end
+  def self.find_or_create_by_oauth(user_info)
+    netid = user_info["dukeNetID"]
+    user = find_by(netid: netid) || create!(netid: netid)
+    user
   end
 
 end

@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   post 'logout', to: 'sessions#destroy'
 
   #oauth
-  get '/auth/:provider/callback', to: 'sessions#create'
+  get '/auth2/callback', to: 'sessions#create'
 
   # Analytics
   authenticate :admin_user do

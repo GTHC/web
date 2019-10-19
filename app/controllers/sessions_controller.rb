@@ -1,11 +1,13 @@
 class SessionsController < ApplicationController
   def create
-    puts 'test'
-    puts auth_hash
-    @user = User.find_or_create_by_oauth(auth_hash)
-    if @user.nil?
+    client = oauth_client
+    redirect_uri = ENV['OAUTH_REDIRECT']
+    token = client.auth_code.get_token(params[:code], redirect_uri: redirect_uri)
+    if !validate_token(token)
       redirect_to '/'
     else
+      user_info = JSON.parse(token.get('/oidc/userinfo').body)
+      @user = User.find_or_create_by_oauth(user_info)
       helpers.log_in @user
       redirect_to '/app/'
     end

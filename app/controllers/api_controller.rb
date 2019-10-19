@@ -1,11 +1,23 @@
 class ApiController < ApplicationController
   rescue_from ActionController::ParameterMissing, :with => :param_missing
 
-  before_action :set_default_format
+  before_action :set_default_format, :is_authenticated
 
+  def validate_token(token)
+
+  end
+  
   private
     def set_default_format
       request.format = :json
+    end
+
+    def is_authenticated
+      if !session[:user_id].nil? and validate_token session[:token]
+
+      else
+        render json: { message: 'User not logged in.', status: false }
+      end
     end
 
     def format_user_data(data)
