@@ -12,7 +12,10 @@ class Api::V1::UsersController < ApiController
   # PUT/PATCH /api/v1/users/:id
   def update
     if user = User.find(params[:id])
-      user.update(helpers.validate_params_update)
+      helpers.validate_params_update
+      name = params[:name]
+      phone = params[:phone]
+      user.update({ name: name, phone: phone })
 
       render json: { status: 'SUCCESS', message: 'User successfully updated.', data: user }, staus: :ok
     else

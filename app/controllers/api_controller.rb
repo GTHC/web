@@ -17,8 +17,6 @@ class ApiController < ApplicationController
     end
 
     def format_user_data(data)
-      puts 'data'
-      puts data
       ## user
       # Processing data object as it is not an ActiveRecord
       # add avatarURL if avatar

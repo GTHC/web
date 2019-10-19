@@ -37,7 +37,7 @@ export default class UserPane extends Component {
       name,
       phone,
     };
-    updateUser(user.id, data);
+    updateUser(user.data.id, data);
     this.setState({ savePressed: true });
   };
 
