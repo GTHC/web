@@ -21,6 +21,8 @@ class User < ApplicationRecord
     netid = user_info["dukeNetID"]
     name = user_info["name"]
     email = user_info["email"]
+
+    # make sure User does not through any index errors
     if email == "" || email == nil
       email = netid + "@duke.edu"
     end
