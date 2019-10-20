@@ -17,7 +17,7 @@ export default class UserPane extends Component {
             attached: 'bottom',
             size: 'small'
           }}
-          size='small'
+          size='medium'
           floated='left'
           />
         <br />
@@ -27,6 +27,10 @@ export default class UserPane extends Component {
         <br />
         <strong>NetID: </strong>
         <Label>{ data.netid }</Label>
+        <br />
+        <br />
+        <strong>Email: </strong>
+        <Label>{ data.email }</Label>
         <br />
         <br />
         <strong>Phone: </strong>

@@ -14,13 +14,13 @@ export default class UserProfileBody extends Component {
       { menuItem: 'User Information', render: () => <Tab.Pane>
         <UserPane user={user}/>
       </Tab.Pane>, },
-      { menuItem: 'Edit User\'s Information', render: () => <Tab.Pane>
+      { menuItem: 'Edit Information', render: () => <Tab.Pane>
         <EditUserPane {...this.props} />
       </Tab.Pane>, },
-      { menuItem: 'Edit User\'s Avatar', render: () => <Tab.Pane>
+      { menuItem: 'Edit Avatar', render: () => <Tab.Pane>
         <EditUserAvatar {...this.props} />
       </Tab.Pane> },
-      { menuItem: 'Edit User\'s Availability', render: () => <Tab.Pane>
+      { menuItem: 'Edit Availability', render: () => <Tab.Pane>
         <EditUserAvailability {...this.props} />
       </Tab.Pane> },
     ];
