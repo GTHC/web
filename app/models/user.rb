@@ -17,9 +17,14 @@ class User < ApplicationRecord
   has_many :availabilities
 
   def self.find_or_create_by_oauth(user_info)
+    puts user_info
     netid = user_info["dukeNetID"]
     name = user_info["name"]
-    user = find_by(netid: netid) || create!(netid: netid, name: name)
+    email = user_info["email"]
+    if email == "" || email == nil
+      email = netid + "@duke.edu"
+    end
+    user = find_by(netid: netid) || create!(netid: netid, name: name, email: email)
     user
   end
 
