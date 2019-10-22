@@ -22,7 +22,7 @@ class User < ApplicationRecord
     name = user_info["name"]
     email = user_info["email"]
 
-    # make sure User does not through any index errors
+    # make sure User does not throw any index errors
     if email == "" || email == nil
       email = netid + "@duke.edu"
     end

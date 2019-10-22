@@ -85,5 +85,3 @@ gem 'active_skin'
 
 #Oauth
 gem 'oauth2'
-gem 'omniauth', '~> 1.3.2'
-gem 'omniauth-gthc-oauth2', git: 'https://github.com/GTHC/duke-oauth.git'

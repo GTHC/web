@@ -3,6 +3,10 @@ class ApiController < ApplicationController
 
   before_action :set_default_format, :is_authenticated
 
+  def current_user
+    @current_user ||= session[:user_id] && User.find_by(id: session[:user_id])
+  end
+
   private
     def set_default_format
       request.format = :json
