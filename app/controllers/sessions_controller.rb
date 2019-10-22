@@ -3,12 +3,15 @@ class SessionsController < ApplicationController
     client = oauth_client
     redirect_uri = ENV['OAUTH_REDIRECT']
     token = client.auth_code.get_token(params[:code], redirect_uri: redirect_uri)
-    if !validate_token(token)
+    puts 'TOKEN'
+    puts params[:code]
+    puts token.token
+    if !validate_token(token.token)
       redirect_to '/'
     else
       user_info = JSON.parse(token.get('/oidc/userinfo').body)
       user = User.find_or_create_by_oauth(user_info)
-      helpers.log_in(user, token)
+      helpers.log_in(user, token.token)
       redirect_to '/app/'
     end
   end
@@ -19,13 +22,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-   helpers.log_out
-   redirect_to '/'
-  end
-
-  protected
-
-  def auth_hash
-    request.env['omniauth.auth']
+    revoke_token session[:token]
+    helpers.log_out
+    redirect_to '/'
   end
 end

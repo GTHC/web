@@ -38,10 +38,8 @@ class TeamTablePane extends Component {
     // sort users by captaincy, then alphabetically
     const users = data.users.sort((a, b) => {
       if (a.id == captain.user_id) {
-        console.log('here a', a);
         return -1;
       } else if (b.id == captain.user_id) {
-        console.log('here b', b);
         return 1;
       }
       const nameA = a.name.toLowerCase()
