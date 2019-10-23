@@ -4,6 +4,7 @@ class ApiController < ApplicationController
   before_action :set_default_format, :is_authenticated
 
   def current_user
+    # TODO: (amanmibra) Open non-web
     @current_user ||= session[:user_id] && User.find_by(id: session[:user_id])
   end
 
@@ -13,10 +14,9 @@ class ApiController < ApplicationController
     end
 
     def is_authenticated
-      if !session[:user_id].nil? and validate_token session[:token]
-
-      else
-        render json: { message: 'User not logged in.', status: false }
+      # TODO: (amanmibra) Open non-web
+      if session[:user_id].nil? or !validate_token(session[:token])
+        render json: { message: 'Authentication failed. Check token or user session.', status: false }
       end
     end
 
