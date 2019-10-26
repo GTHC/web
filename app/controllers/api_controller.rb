@@ -23,10 +23,7 @@ class ApiController < ApplicationController
     def is_authenticated
       if params[:mobile]
         if params[:user_netid].nil? or !validate_token(params[:token])
-          puts 'tst'
-          puts params[:user_netid].nil?
-          puts !validate_token(params[:token])
-          render json: { message: 'Authentication failed. Check token or user session.', status: false }
+          render json: { message: 'Authentication failed. Make sure your parameters also contain a netid and a valid token.', status: false }
         end
       else
         if session[:user_id].nil? or !validate_token(session[:token])
