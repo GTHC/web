@@ -4,8 +4,15 @@ class ApiController < ApplicationController
   before_action :set_default_format, :is_authenticated
 
   def current_user
-    # TODO: (amanmibra) Open non-web
-    @current_user ||= session[:user_id] && User.find_by(id: session[:user_id])
+    if params[:mobile]
+      token = OAuth2::AccessToken.new(oauth_client, params[:token])
+      user_info = JSON.parse(token.get('/oidc/userinfo').body)
+      @current_user = User.find_or_create_by_oauth(user_info)
+      @current_user
+    else
+      @current_user ||= session[:user_id] && User.find_by(id: session[:user_id])
+      @current_user
+    end
   end
 
   private
@@ -14,9 +21,17 @@ class ApiController < ApplicationController
     end
 
     def is_authenticated
-      # TODO: (amanmibra) Open non-web
-      if session[:user_id].nil? or !validate_token(session[:token])
-        render json: { message: 'Authentication failed. Check token or user session.', status: false }
+      if params[:mobile]
+        if params[:user_netid].nil? or !validate_token(params[:token])
+          puts 'tst'
+          puts params[:user_netid].nil?
+          puts !validate_token(params[:token])
+          render json: { message: 'Authentication failed. Check token or user session.', status: false }
+        end
+      else
+        if session[:user_id].nil? or !validate_token(session[:token])
+          render json: { message: 'Authentication failed. Check token or user session.', status: false }
+        end
       end
     end
 
