@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 
 // redux
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 // semantic ui components
-import { Container, Card, Image } from 'semantic-ui-react';
+import { Container, Card, Dimmer, Image, Loader } from 'semantic-ui-react';
 
 import NavBarAlternate from './NavBarAlternate';
 
@@ -44,6 +43,9 @@ class Login extends Component {
 
         <div className="login">
           <Container>
+            <Dimmer active={this.props.user.isLoading}>
+              <Loader content='Logging in' />
+            </Dimmer>
             <Card
               centered
               color="blue"
@@ -74,4 +76,14 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+export default connect(mapStateToProps)(Login);
+
+export {
+  Login
+};
