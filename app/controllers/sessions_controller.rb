@@ -3,9 +3,6 @@ class SessionsController < ApplicationController
     client = oauth_client
     redirect_uri = ENV['OAUTH_REDIRECT']
     token = client.auth_code.get_token(params[:code], redirect_uri: redirect_uri)
-    puts 'TOKEN'
-    puts params[:code]
-    puts token.token
     if !validate_token(token.token)
       redirect_to '/'
     else
