@@ -26,7 +26,7 @@ const user = (state=initialState, action) => {
         ...initialState,
         isLoading: false,
         error: true,
-        errorMessage: action.payload.response.data.message,
+        errorMessage: action.payload.response,
         errorObject: action.payload,
       };
     }

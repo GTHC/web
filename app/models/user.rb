@@ -17,7 +17,6 @@ class User < ApplicationRecord
   has_many :availabilities
 
   def self.find_or_create_by_oauth(user_info)
-    puts user_info
     netid = user_info["dukeNetID"]
     name = user_info["name"]
     email = user_info["email"]

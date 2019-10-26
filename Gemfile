@@ -85,3 +85,6 @@ gem 'active_skin'
 
 #Oauth
 gem 'oauth2'
+
+#Cors
+gem 'rack-cors'
