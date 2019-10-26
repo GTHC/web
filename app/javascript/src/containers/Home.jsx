@@ -17,10 +17,6 @@ import SignUp from  './../components/signup';
 
 
 class Home extends Component {
-  handleLogout = () => {
-    this.props.logout();
-  };
-
   render() {
     const {
       // states

@@ -39,33 +39,24 @@ class NavBarAlternate extends Component {
           >
             <Image src={logo} size="tiny" />
           </Menu.Item>
-          {
-            path !== '/about' &&
+          <Menu.Item
+            id="login"
+            onClick={() => this.navigateTo('/login')}
+          >
+            <Icon name="sign in" />
+            Login
+          </Menu.Item>
             <Menu.Item
               id="about"
               onClick={() => this.navigateTo('/about')}>
               About GTHC
             </Menu.Item>
-          }
-          {
-            path !== '/login' &&
-            <Menu.Item
-              id="login"
-              onClick={() => this.navigateTo('/login')}
-            >
-              <Icon name="sign in" />
-              Login
-            </Menu.Item>
-          }
-          {
-            path !== '/tenting101' &&
             <Menu.Item
               id="tenting101"
               onClick={() => this.navigateTo('/tenting101')}
             >
                 Tenting 101
             </Menu.Item>
-          }
         </Menu>
       </div>
     );

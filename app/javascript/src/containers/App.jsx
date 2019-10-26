@@ -11,7 +11,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import ConnectedSwitch from './../components/utils/switch';
 
-// components
+// containers
 import Home from './Home';
 import Login from './Login';
 import Dashboard from './Dashboard';
@@ -20,6 +20,7 @@ import UserProfile from './UserProfile';
 import TeamProfile from './TeamProfile';
 import Tenting101 from './Tenting101';
 import About from './About';
+import Logout from './Logout';
 
 // styles
 import './../styles';
@@ -65,6 +66,7 @@ class App extends Component {
             )} />
             <Route path='/tenting101' component={Tenting101} />
             <Route path='/about' component={About} />
+            <Route path='/logout' component={Logout} />
           </ConnectedSwitch>
         </ConnectedRouter>
     );
