@@ -22,7 +22,7 @@ class ApiController < ApplicationController
 
     def is_authenticated
       if params[:mobile]
-        if params[:user_netid].nil? or !validate_token(params[:token])
+        if !validate_token(params[:token])
           render json: { message: 'Authentication failed. Make sure your parameters also contain a netid and a valid token.', status: false }, status: :unauthorized
         end
       else
