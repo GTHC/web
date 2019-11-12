@@ -6,10 +6,10 @@ export default class UserPane extends Component {
     super(props);
     this.state = {
       disabled: false,
-      name: props.user.name,
-      phone: props.user.phone,
+      name: props.user.data.name,
+      phone: props.user.data.phone,
       savePressed: false,
-      loading: props.userState.isLoading,
+      loading: props.user.isLoading,
     };
   }
 
@@ -37,13 +37,13 @@ export default class UserPane extends Component {
       name,
       phone,
     };
-    updateUser(user.id, data);
+    updateUser(user.data.id, data);
     this.setState({ savePressed: true });
   };
 
   render () {
     const { disabled, name, phone, loading, savePressed } = this.state;
-    const { error } = this.props.userState;
+    const { error } = this.props.user;
 
     return (
       <div>

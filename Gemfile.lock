@@ -1,13 +1,4 @@
 GIT
-  remote: http://gitlab.oit.duke.edu/colab/omniauth-duke-oauth2.git
-  revision: 5eaf67596985b0672c81ab48592bfce9318bf8bb
-  ref: 5eaf6759
-  specs:
-    omniauth-duke-oauth2 (1.0.0)
-      omniauth (~> 1.1)
-      omniauth-oauth2 (~> 1.3)
-
-GIT
   remote: https://github.com/doabit/semantic-ui-sass.git
   revision: 6c8e8dabb46b50fb5e01a4766a63c362501f0dc8
   specs:
@@ -143,7 +134,7 @@ GEM
     execjs (2.7.0)
     faker (1.9.1)
       i18n (>= 0.7)
-    faraday (0.16.2)
+    faraday (0.17.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.25)
     ffi (1.9.25-x86-mingw32)
@@ -158,7 +149,6 @@ GEM
     has_scope (0.7.2)
       actionpack (>= 4.1)
       activesupport (>= 4.1)
-    hashie (3.6.0)
     i18n (1.3.0)
       concurrent-ruby (~> 1.0)
     inherited_resources (1.9.0)
@@ -203,7 +193,7 @@ GEM
     mini_mime (1.0.1)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
-    multi_json (1.13.1)
+    multi_json (1.14.1)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     nio4r (2.3.1)
@@ -217,18 +207,13 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
-    omniauth (1.3.2)
-      hashie (>= 1.2, < 4)
-      rack (>= 1.0, < 3)
-    omniauth-oauth2 (1.5.0)
-      oauth2 (~> 1.1)
-      omniauth (~> 1.2)
     orm_adapter (0.5.0)
     pg (0.19.0)
     pg (0.19.0-x86-mingw32)
     public_suffix (3.0.3)
     puma (3.12.0)
-    rack (2.0.6)
+    rack (2.0.7)
+    rack-cors (1.0.3)
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -356,10 +341,10 @@ DEPENDENCIES
   faker
   foreman
   jbuilder
-  omniauth (~> 1.3.2)
-  omniauth-duke-oauth2!
+  oauth2
   pg (~> 0.18)
   puma (~> 3.7)
+  rack-cors
   rails (~> 5.2.0)
   rails_12factor
   sass-rails (~> 5.0)

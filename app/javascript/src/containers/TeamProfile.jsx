@@ -10,12 +10,12 @@ import NavBar from './NavBar';
 
 // actions
 import { updateTeam, getTeam } from '../actions/team';
+import { checkSession } from '../actions/user';
 
 class TeamProfile extends Component {
-  componentDidMount() {
-    const { getTeam, user } = this.props;
-    const userData = user.data;
-    getTeam(userData.user.team_id);
+
+  componentWillMount() {
+    this.props.checkSession();
   }
 
   render () {
@@ -25,9 +25,8 @@ class TeamProfile extends Component {
         <NavBar />
         <div className="body">
           <TeamProfileBody
-            teamState={team}
-            userState={user}
-            userData={user.data}
+            team={team}
+            user={user}
             updateTeam={updateTeam}
           />
         </div>
@@ -48,6 +47,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
+      checkSession,
       updateTeam,
       getTeam,
     },

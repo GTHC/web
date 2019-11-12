@@ -10,6 +10,7 @@ import NavBar from './NavBar';
 
 // redux actions
 import {
+  checkSession,
   postAvatar,
   updateUser,
   putAvail,
@@ -19,6 +20,11 @@ import {
 } from '../actions/user';
 
 class UserProfile extends Component {
+
+  componentWillMount() {
+    this.props.checkSession();
+  }
+
   render () {
     const {
       postAvatar,
@@ -34,7 +40,7 @@ class UserProfile extends Component {
         <NavBar />
         <div className="body">
           <UserProfileBody
-            userState={user}
+            user={user}
             userData={user.data}
             updateUser={updateUser}
             postAvatar={postAvatar}
@@ -60,6 +66,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
+      checkSession,
       updateUser,
       postAvatar,
       putAvail,

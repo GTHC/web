@@ -4,6 +4,7 @@ class User < ApplicationRecord
   # TODO(Aman): Properly remove devise and its attributes from User model
   # devise :database_authenticatable, :registerable,
   #        :recoverable, :rememberable, :trackable, :validatable
+  validates :email, :uniqueness => {:allow_blank => true}
 
   belongs_to :team, optional: true
 
@@ -15,16 +16,17 @@ class User < ApplicationRecord
 
   has_many :availabilities
 
-  def self.find_or_create_by_oauth(omniauth_hash)
-    case omniauth_hash.provider
-    when 'duke_oauth2'
-      netid = omniauth_hash.info.netid
-      user = find_by(netid: netid) || create!(netid: netid)
-      user
-    else
-      logger.error "Unknown OmniAuth provider #{omniauth_hash.provider}"
-      nil
+  def self.find_or_create_by_oauth(user_info)
+    netid = user_info["dukeNetID"]
+    name = user_info["name"]
+    email = user_info["email"]
+
+    # make sure User does not throw any index errors
+    if email == "" || email == nil
+      email = netid + "@duke.edu"
     end
+    user = find_by(netid: netid) || create!(netid: netid, name: name, email: email)
+    user
   end
 
 end

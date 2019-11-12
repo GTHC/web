@@ -11,7 +11,7 @@ class SignUp extends Component {
     super(props);
     this.state = {
       type: '',
-      name: '',
+      name: props.userName,
       phone: '',
       teamData: {
         name: '',
@@ -34,12 +34,11 @@ class SignUp extends Component {
 
   signup = () => {
     const { signupUser, userID } = this.props;
-    console.log(userID, this.state);
     signupUser(userID, this.state)
   }
 
   render() {
-    const { teams, getAllTeams } = this.props;
+    const { teams } = this.props;
     return (
       <Modal open size="fullscreen">
         <Modal.Header>

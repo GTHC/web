@@ -104,7 +104,6 @@ const logout = () => (
     },
     method: 'POST',
     url: '/logout',
-    push: '/login',
   })
 )
 
