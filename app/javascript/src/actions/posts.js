@@ -8,7 +8,7 @@ const getPosts = () => (
       fail: 'FAILED_GET_POSTS',
     },
     method: 'GET',
-    url: '/posts.json',
+    url: '/posts',
   })
 );
 
