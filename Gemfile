@@ -84,5 +84,7 @@ gem 'activeadmin'
 gem 'active_skin'
 
 #Oauth
-gem 'omniauth', '~> 1.3.2'
-gem 'omniauth-duke-oauth2', git: 'http://gitlab.oit.duke.edu/colab/omniauth-duke-oauth2.git', ref: '5eaf6759'
+gem 'oauth2'
+
+#Cors
+gem 'rack-cors'

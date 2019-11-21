@@ -12,7 +12,10 @@ class Api::V1::UsersController < ApiController
   # PUT/PATCH /api/v1/users/:id
   def update
     if user = User.find(params[:id])
-      user.update(helpers.validate_params_update)
+      helpers.validate_params_update
+      name = params[:name]
+      phone = params[:phone]
+      user.update({ name: name, phone: phone })
 
       render json: { status: 'SUCCESS', message: 'User successfully updated.', data: user }, staus: :ok
     else
@@ -67,77 +70,6 @@ class Api::V1::UsersController < ApiController
     end
   end
 
-
-  # POST /login
-  def login
-    helpers.validate_login_params
-    @user = User.find_by_email(params[:email])
-    if @user&.valid_password?(params[:password])
-      @user.remember_me = true
-      bypass_sign_in @user
-      @team = @user.team
-      if current_user
-        # setting up data
-        data = format_user_data({
-            user: @user.as_json,
-            team: @team.as_json,
-            captain: @team.captain,
-          })
-
-        render json: { status: 'SUCCESS', message: 'User Logged In', data: data  }, status: :ok
-      else
-        render json: { status: 'ERROR', message: 'Error while Logging In' }, status: :unauthorized
-      end
-    else
-      render json: { status: 'ERROR', message: 'Incorrect Email or Password' }, status: :unauthorized
-    end
-  end
-
-  # POST /logout
-  def logout
-    sign_out current_user
-    if !current_user
-      render json: { status: 'SUCCESS', message: 'User Logged Out' }, status: :ok
-    else
-      render json: { status: 'ERROR', message: 'Error while Logging Out' }, status: :unauthorized
-    end
-  end
-
-  # POST /api/v1/user/token_reset_password
-  # Change user password using reset token
-  def token_reset_password
-    helpers.validate_reset_token_password_params
-
-    @user = User.reset_password_by_token(@reset_params)
-
-    if @user.errors.empty?
-        render json: { status: 'SUCCESS', message: 'Password has xpbeen reset.', email: params[:user_email]}, status: :ok
-    else
-      render json: { status: 'ERROR', data: @user.errors, message: 'Server error prevented password from being reset.' }, status: :not_found
-    end
-  end
-
-  # POST /api/v1/user/forgot_password
-  # Initiate password reset process
-  def forgot_password
-    helpers.validate_forgot_password_params
-
-    # Check if valid email that is registered to an GTHC account
-    @user = User.find_by_email(params[:user_email]);
-    if @user
-      @output = edit_password_url(@user, reset_password_token: '123')
-      @user.send_reset_password_instructions
-
-      if @user.errors.empty?
-        render json: { status: 'SUCCESS', message: 'Password reset sent.', email: params[:user_email]}, status: :ok
-      else
-        render json: { status: 'ERROR', message: 'Server error prevented email from being sent.' }, status: :not_found
-      end
-    else
-      render json: { status: 'ERROR', message: 'There is no user associated with that email.' }, status: :not_found
-    end
-  end
-
   # POST /api/v1/user/shifts
   # Add user to shift, and vice versa
   def shifts
@@ -157,17 +89,6 @@ class Api::V1::UsersController < ApiController
       end
     else
       render json: { status: 'ERROR', message: 'Shift and/or User not found.' }, status: :not_found
-    end
-  end
-
-  # PUT /api/v1/user/password/check
-  # purpose - checks users password on the user setting page
-  def password_check
-    helpers.validate_params_password_check
-    if current_user.valid_password? params[:password]
-      render json: { message: 'Correct Password', check: true }, status: :ok
-    else
-      render json: { message: 'Incorrect Password', check: false }, status: :ok
     end
   end
 

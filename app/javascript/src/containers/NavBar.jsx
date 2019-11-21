@@ -36,6 +36,8 @@ class NavBar extends Component {
       case 'Team Profile':
         this.props.push('/app/team')
         break;
+      case 'Logout':
+        this.props.push('/logout')
       default:
         return;
     }
@@ -100,10 +102,18 @@ class NavBar extends Component {
               User Profile
             </Menu.Item>
 
-            <Menu.Item as='a' onClick={this.handleLogout}>
+            <Menu.Item
+              as='a'
+              onClick={this.handleClick}
+            >
               <Icon name="sign out" />
               Logout
             </Menu.Item>
+
+            {/* <Menu.Item as='a' onClick={this.handleLogout}>
+              <Icon name="sign out" />
+              Logout
+            </Menu.Item> */}
           </Menu.Menu>
         </Menu>
       </div>

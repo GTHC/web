@@ -60,6 +60,6 @@
     "dev:db:migrate": "docker-compose run app rails db:migrate",
     "prod:start": "./bin/prod-start.sh",
     "prod:build": "./bin/build-production.sh",
-    "prod:build:staging": "./bin/build-staging.sh"
+    "staging:build": "./bin/build-staging.sh"
   }
 }

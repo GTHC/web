@@ -23,9 +23,8 @@ import { getTeam } from '../actions/team';
 class Calendar extends Component {
   componentDidMount() {
     const { getAllShifts, getTeam, user } = this.props;
-    const userData = user.data;
     getAllShifts();
-    getTeam(userData.user.team_id);
+    getTeam(user.data.team_id);
   }
 
   render () {

@@ -24,7 +24,7 @@ const posts = (state=initialState, action) => {
 
     case 'END_GET_POSTS': {
       return {
-        data: action.payload.data,
+        data: action.payload.data.data,
         isLoading: false,
         error: false,
       };

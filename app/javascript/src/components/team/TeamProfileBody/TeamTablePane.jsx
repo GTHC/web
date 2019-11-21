@@ -12,7 +12,8 @@ import * as defaultSrc from './../../../images/default_image.png';
 class TeamTablePane extends Component {
 
   renderCellWithAvatar = user => {
-    const { captain_id } = this.props.teamData;
+    const data = this.props.team.data;
+    const { captain_id } = data;
     const isCaptain = user.id == captain_id;
     const src = user.avatarURL || defaultSrc;
     return (
@@ -31,7 +32,29 @@ class TeamTablePane extends Component {
   };
 
   render() {
-    const { users } = this.props.teamData;
+    const data = this.props.team.data;
+    const captain = data.captain;
+
+    // sort users by captaincy, then alphabetically
+    const users = data.users.sort((a, b) => {
+      if (a.id == captain.user_id) {
+        return -1;
+      } else if (b.id == captain.user_id) {
+        return 1;
+      }
+      const nameA = a.name.toLowerCase()
+      const nameB = b.name.toLowerCase()
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      // names must be equal
+      return 0;
+    });
+
     return (
       <div>
         <Table

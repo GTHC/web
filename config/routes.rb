@@ -13,11 +13,11 @@ Rails.application.routes.draw do
   get 'about', to: 'pages#index'
   # Login/Logout
   get 'login', to:'pages#index'
-  # post 'login', to: 'api/v1/users#login'
+  get 'logout', to: 'pages#index'
   post 'logout', to: 'sessions#destroy'
-
   #oauth
-  get '/auth/:provider/callback', to: 'sessions#create'
+  get 'auth2/redirect', to: 'sessions#redirect'
+  get '/auth2/callback', to: 'sessions#create'
 
   # Analytics
   authenticate :admin_user do

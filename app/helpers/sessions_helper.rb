@@ -1,10 +1,11 @@
 module SessionsHelper
   def log_out
     session.delete(:user_id)
-    @current_user = nil
+    session.delete(:token)
   end
 
-  def log_in(user)
+  def log_in(user, token)
     session[:user_id] = user.id
+    session[:token] = token
   end
 end

@@ -6,11 +6,10 @@ import * as default_image from '../../../images/default_image.png';
 // utils
 import { defineTentColors } from './../../utils/tent'
 
-export default class UserPane extends Component {
+export default class TeamPane extends Component {
   render () {
-    const { team } = this.props;
-    const { tentType, tentTypeColor } = defineTentColors(team.data.tent_type);
-
+    const data = this.props.team.data;
+    const { tentType, tentTypeColor } = defineTentColors(data.tent_type);
     return (
       <div>
         <Image
@@ -25,7 +24,7 @@ export default class UserPane extends Component {
           />
         <br />
         <strong>Team Name: </strong>
-        <Label>{ team.name }</Label>
+        <Label>{ data.name }</Label>
         <br />
         <br />
         <strong>Tent Type: </strong>
@@ -33,7 +32,7 @@ export default class UserPane extends Component {
         <br />
         <br />
         <strong>Passcode: </strong>
-        <Label>{ team.passcode }</Label>
+        <Label>{ data.passcode }</Label>
       </div>
     );
   }

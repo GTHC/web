@@ -17,10 +17,6 @@ import SignUp from  './../components/signup';
 
 
 class Home extends Component {
-  handleLogout = () => {
-    this.props.logout();
-  };
-
   render() {
     const {
       // states
@@ -46,6 +42,7 @@ class Home extends Component {
             :
             <SignUp
               userID={user.data.id}
+              userName={user.data.name}
               teams={teams}
               getAllTeams={getAllTeams}
               signupUser={signupUser}

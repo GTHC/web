@@ -13,9 +13,9 @@ class EditUserAvatar extends Component {
     this.state = {
       avatarFile: null,
       disabled: true,
-      loading: props.userState.isLoading,
+      loading: props.user.isLoading,
       savePressed: false,
-      src: props.user.avatarURL || defaultSrc,
+      src: props.user.data.avatarURL || defaultSrc,
     };
   }
 
@@ -49,8 +49,7 @@ class EditUserAvatar extends Component {
   };
 
   render() {
-    const { user } = this.props;
-    const { error } = this.props.userState;
+    const { error } = this.props.user;
     const {
       disabled,
       loading,
