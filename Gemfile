@@ -88,3 +88,6 @@ gem 'oauth2'
 
 #Cors
 gem 'rack-cors'
+
+# GTHC - Olson Tenting Algorithim
+gem 'gthc'
