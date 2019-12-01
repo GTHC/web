@@ -1,4 +1,5 @@
 class Api::V1::ShiftsController < ApiController
+  skip_before_action :is_authenticated, only: [:olson]
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
 
   # GET /api/v1/shifts/:id
@@ -108,6 +109,12 @@ class Api::V1::ShiftsController < ApiController
     end
   end
 
+  def olson
+    render json: {
+      data: format_olson(Time.now, "Black")
+    }
+  end
+
   private
 
   def validate_params
@@ -144,10 +151,10 @@ class Api::V1::ShiftsController < ApiController
     data
   end
 
-  def format_olson(date)
+  def format_olson(date, phase)
     date = date.in_time_zone('America/New_York')
     start_slot = date.beginning_of_day
-    team = current_user.team
+    team = User.find(31).team
     people = [] # arr of Person elements
     slotGrid = [] # arr of Slot arrays
     team.users.each do | user, index |
@@ -166,7 +173,7 @@ class Api::V1::ShiftsController < ApiController
          user.id,
          start_slot,
          end_slot,
-         "Black", #TODO: Take in user input
+         phase,
          is_night,
          status,
          # row = i, position of slot on scheduleGrid
@@ -190,13 +197,13 @@ class Api::V1::ShiftsController < ApiController
       slotGrid.push slots
     end
 
-    return people, slotsGrid
+    return people, slotGrid
   end
 
   def get_availability_of_slot(user, start_slot, end_slot)
-    start_relations = user.availabilities.where(start_time: start_slot..end_slot)
+    start_relations = user.availabilities.where(start: start_slot..end_slot)
 
-    end_relations = user.availabilities.where(end_time: start_slot..end_slot)
+    end_relations = user.availabilities.where(end: start_slot..end_slot)
 
     start_relations.or(end_relations)
   end
