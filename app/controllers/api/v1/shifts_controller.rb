@@ -110,8 +110,9 @@ class Api::V1::ShiftsController < ApiController
   end
 
   def olson
+    people, slotGrid = format_olson(Time.now, "Black")
     render json: {
-      data: format_olson(Time.now, "Black"),
+      data: GTHC::Olson.driver(people, slotGrid),
     }
   end
 
@@ -157,7 +158,7 @@ class Api::V1::ShiftsController < ApiController
 
     people = [] # arr of Person elements
     slotGrid = [] # arr of Slot arrays
-    team.users.each do | user, index |
+    team.users.each_with_index do | user, index |
       start_slot = date.beginning_of_day
       slots = []
       person = GTHC::Olson.Person.new(
