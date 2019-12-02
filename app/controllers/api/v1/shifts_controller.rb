@@ -111,7 +111,7 @@ class Api::V1::ShiftsController < ApiController
 
   def olson
     render json: {
-      data: format_olson(Time.now, "Black")
+      data: format_olson(Time.now, "Black"),
     }
   end
 
@@ -153,11 +153,12 @@ class Api::V1::ShiftsController < ApiController
 
   def format_olson(date, phase)
     date = date.in_time_zone('America/New_York')
-    start_slot = date.beginning_of_day
     team = User.find(31).team
+
     people = [] # arr of Person elements
     slotGrid = [] # arr of Slot arrays
     team.users.each do | user, index |
+      start_slot = date.beginning_of_day
       slots = []
       person = GTHC::Olson.Person.new(
         user.id,
