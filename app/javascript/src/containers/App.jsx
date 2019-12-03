@@ -40,6 +40,9 @@ const AppRoutes = () => (
 
 
 class App extends Component {
+  componentDidMount() {
+    this.props.checkSession();
+  }
 
   render() {
     const { history, user } = this.props;
@@ -78,7 +81,15 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      checkSession,
+    },
+    dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 export {
   Login
