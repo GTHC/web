@@ -14,7 +14,7 @@ import { checkSession } from '../actions/user';
 
 class TeamProfile extends Component {
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.checkSession();
   }
 

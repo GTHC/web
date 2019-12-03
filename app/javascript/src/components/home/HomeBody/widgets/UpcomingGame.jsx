@@ -21,7 +21,7 @@ class UpcomingGame extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     // grab ESPN upcoming game data
     getUpcomingGame()
       .then(res => {
