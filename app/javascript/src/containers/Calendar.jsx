@@ -11,6 +11,7 @@ import { Card } from 'semantic-ui-react';
 import BigCal from '../components/calendar';
 
 // redux actions
+import { checkSession } from './../actions/user';
 import {
   getAllShifts,
   updateShift,
@@ -22,7 +23,8 @@ import { getTeam } from '../actions/team';
 
 class Calendar extends Component {
   componentDidMount() {
-    const { getAllShifts, getTeam, user } = this.props;
+    const { getAllShifts, getTeam, user, checkSession } = this.props;
+    checkSession();
     getAllShifts();
     getTeam(user.data.team_id);
   }
@@ -58,6 +60,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
+      checkSession,
       getAllShifts,
       updateShift,
       createShift,

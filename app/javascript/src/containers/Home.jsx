@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // redux actions
-import { logout, signupUser } from './../actions/user';
+import { checkSession, logout, signupUser } from './../actions/user';
 import { getAllShifts } from '../actions/shifts';
 import { getAllTeams } from '../actions/teams';
 import { getPosts } from './../actions/posts';
@@ -17,6 +17,10 @@ import SignUp from  './../components/signup';
 
 
 class Home extends Component {
+  componentDidMount() {
+    this.props.checkSession();
+  }
+
   render() {
     const {
       // states
@@ -66,6 +70,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
+      checkSession,
       getAllShifts,
       getAllTeams,
       getPosts,

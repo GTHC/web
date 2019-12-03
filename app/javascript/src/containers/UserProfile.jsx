@@ -21,7 +21,7 @@ import {
 
 class UserProfile extends Component {
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.checkSession();
   }
 
