@@ -1,6 +1,6 @@
 import React from 'react';
 
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { createDevTools } from 'redux-devtools';
@@ -25,7 +25,7 @@ const reducer = {
 
 const reducers = persistCombineReducers(config, reducer);
 
-const history = createHistory();
+const history = createBrowserHistory();
 const middleware = routerMiddleware(history);
 
 const DevTools = createDevTools(
