@@ -4,11 +4,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+// redux actions
+import { checkSession } from './../actions/user';
+
 // components
 import NavBar from './NavBar';
 import DashboardBody from '../components/dashboard/DashboardBody';
 
 class Dashboard extends Component {
+  componentDidMount() {
+    this.props.checkSession();
+  }
+
   render () {
     const { shifts } = this.props;
 
@@ -32,7 +39,15 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Dashboard);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      checkSession,
+    },
+    dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
 
 export {
   Dashboard,

@@ -31,7 +31,7 @@ class BreakdownHours extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     getHourBreakdown()
     .then(res => {
       const { data } = res.data;
