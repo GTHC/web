@@ -159,6 +159,8 @@ class Api::V1::ShiftsController < ApiController
     people = [] # arr of Person elements
     slotGrid = [] # arr of Slot arrays
     team.users.each_with_index do | user, index |
+      user.remove_shifts_by_date(date)
+
       start_slot = date.beginning_of_day
       slots = []
       person = GTHC::Olson.Person.new(
