@@ -222,11 +222,7 @@ class Api::V1::ShiftsController < ApiController
   end
 
   def get_availability_of_slot(user, start_slot, end_slot)
-    start_relations = user.availabilities.where(start: start_slot..end_slot)
-
-    end_relations = user.availabilities.where(end: start_slot..end_slot)
-
-    start_relations.or(end_relations)
+    user.availabilities.where('start <= ? AND availabilities.end >= ?', start_slot, end_slot)
   end
 
   def get_status_of_slot(user, start_slot, end_slot)
@@ -244,6 +240,6 @@ class Api::V1::ShiftsController < ApiController
     start_night = start_slot.change({ hour: 2, min: 0 })
     end_night = start_slot.change({ hour: 6, min: 59, sec: 59 })
 
-    start_slot >= start_night and end_night > start_slot
+    start_slot >= start_night and end_night >= start_slot
   end
 end
