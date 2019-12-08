@@ -111,7 +111,7 @@ class Api::V1::ShiftsController < ApiController
 
   def olson
     helpers.validate_olson_params
-    people, slotGrid = helpers.format_olson(params[:date], params[:phase])
+    people, slotGrid = helpers.format_olson(params[:date], params[:phase], current_user)
     _, olson_slots = GTHC::Olson.driver(people, slotGrid)
     olson_slots.each do |slot|
       if slot[:ids].length > 0
@@ -121,7 +121,7 @@ class Api::V1::ShiftsController < ApiController
           note: 'Feel free to edit any of the shift data by clicking the update button.',
           start_time: slot[:startDate],
           end_time: slot[:endDate],
-          team_id: User.find(31).team.id #TODO current_user
+          team_id: current_user.team.id
         )
         # add shifts to user record
         slot[:ids].each do |id|

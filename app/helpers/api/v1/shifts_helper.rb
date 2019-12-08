@@ -6,9 +6,9 @@ module Api::V1::ShiftsHelper
     ])
   end
 
-  def format_olson(date, phase)
+  def format_olson(date, phase, user)
     date = date.in_time_zone('America/New_York')
-    team = User.find(31).team #TODO: Update to current_user
+    team = user.team
 
     people = [] # arr of Person elements
     slotGrid = [] # arr of Slot arrays
