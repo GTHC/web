@@ -90,4 +90,4 @@ gem 'oauth2'
 gem 'rack-cors'
 
 # GTHC - Olson Tenting Algorithim
-gem 'gthc', '~> 0.1.6'
+gem 'gthc', '~> 0.1.7'

@@ -112,7 +112,7 @@ class Api::V1::ShiftsController < ApiController
   def olson
     helpers.validate_olson_params
     people, slotGrid = helpers.format_olson(params[:date], params[:phase])
-    olson_slots = GTHC::Olson.driver(people, slotGrid)
+    _, olson_slots = GTHC::Olson.driver(people, slotGrid)
     olson_slots.each do |slot|
       if slot[:ids].length > 0
         # create shift based on olson slots with people assigned
@@ -130,7 +130,6 @@ class Api::V1::ShiftsController < ApiController
       end
     end
     render json: {
-      slotGrid: slotGrid,
       data: olson_slots,
     }
   end
