@@ -33,8 +33,10 @@ class Calendar extends Component {
   }
 
   onOlsonClick = () => {
-    runOlson(new Date(), "Black");
-    this.props.getAllShifts();
+    runOlson(new Date(), "Black")
+    .then(() => {
+      this.props.getAllShifts();
+    })
   }
 
   render () {
