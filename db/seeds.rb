@@ -66,6 +66,7 @@ else
     );
   end
 
+  # Shift
   for i in 1..100
     @team = Team.order("RANDOM()").first
     @ids = @team.users.ids.sample rand(1..5)
@@ -83,6 +84,19 @@ else
     for @id in @ids[1..-1]
       @curr_user = User.find(@id)
       @curr_user.shifts << @shift
+    end
+  end
+
+  # Availability
+  User.all.each do |user|
+    for i in 1...10
+      start = Time.now + rand(-10..10).hours + rand(-2..2).days
+      end_time = start + rand(1..2).hours
+      user.availabilities.create!(
+        start: start,
+        end: end_time,
+        somewhat: [true, false].sample
+      )
     end
   end
 
