@@ -42,6 +42,8 @@ gem 'devise', '~> 4.2'
 gem 'ahoy_matey'
 gem 'blazer'
 
+gem 'jsonapi-resources'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -4,6 +4,23 @@
 
 # README
 
+## Testing Notifications
+
+1. Run the console    
+```
+yarn dev:console
+```
+
+2. Initialize a new notification   
+```
+notif = Notification.new
+```
+
+3. Send the notification   
+```
+notif.send_notification('Your K-Ville shift starts in 30 minutes!')
+```
+
 <!-- This README would normally document whatever steps are necessary to get the
 application up and running.
 
