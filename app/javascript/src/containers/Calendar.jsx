@@ -8,7 +8,9 @@ import { bindActionCreators } from 'redux';
 import NavBar from './NavBar';
 import { Button, Card } from 'semantic-ui-react';
 
+// components
 import BigCal from '../components/calendar';
+import Automate from '../components/automate';
 
 // redux actions
 import { checkSession } from './../actions/user';
@@ -32,8 +34,8 @@ class Calendar extends Component {
     getTeam(user.data.team_id);
   }
 
-  onOlsonClick = () => {
-    runOlson(new Date(), "Black")
+  onOlsonClick = (date, phase) => {
+    runOlson(date, phase)
     .then(() => {
       this.props.getAllShifts();
     })
@@ -45,7 +47,7 @@ class Calendar extends Component {
         <NavBar />
         <div className="body">
           <Card fluid raised>
-            <Button onClick={this.onOlsonClick}> Automate </Button>
+            <Automate onOlsonClick={this.onOlsonClick}/>
             <Card.Content>
               <div className="calendar">
                 <BigCal {...this.props} />
