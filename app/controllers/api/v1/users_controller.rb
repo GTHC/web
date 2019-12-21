@@ -9,6 +9,14 @@ class Api::V1::UsersController < ApiController
     set_user
   end
 
+  # GET /api/v1/user
+  def user
+    render json: {
+      message: 'SUCCESS',
+      data: current_user,
+    }, status: :ok
+  end
+
   # PUT/PATCH /api/v1/users/:id
   def update
     if user = User.find(params[:id])
