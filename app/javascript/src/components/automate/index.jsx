@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // semantic-ui
-import { Button, Divider, Dropdown, Header, Modal, Checkbox } from 'semantic-ui-react';
+import { Button, Form, Divider, Header, Message, Modal, Checkbox } from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
 
 class Automate extends Component {
@@ -10,11 +10,30 @@ class Automate extends Component {
     super(props);
     this.state = {
       open: false,
-      date: (new Date()).toDateString(),
+      error: false,
+      date: this.formatDate((new Date())),
+      dateTo: '',
       clear: true,
       phase: "Black",
     }
   }
+
+  formatDate = (date) => {
+  var monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ];
+
+  var day = date.getDate();
+  var monthIndex = date.getMonth();
+  var year = date.getFullYear();
+
+  return `${monthNames[monthIndex]} ${day} ${year}`;
+}
+
+
 
   handleChange = (e, {name, value}) => {
     this.setState({ [name]: value });
@@ -25,10 +44,24 @@ class Automate extends Component {
   }
 
   onClick = () => {
+    if (!this.checkInputs()) {
+      return;
+    }
     const { phase, clear } = this.state;
     const date = new Date(this.state.date)
     this.props.onOlsonClick(date, phase, clear);
     this.close()
+  }
+
+  checkInputs = () => {
+    const { date } = this.state;
+    if (date.trim() == '' || (new Date(date)).getTime() == NaN) {
+      this.setState({ error: true })
+      return false;
+    } else {
+      this.setState({ error: false })
+      return true;
+    }
   }
 
   close = () => {
@@ -83,6 +116,8 @@ class Automate extends Component {
           </Modal.Description>
           <Divider />
           <DateInput
+            clearable={false}
+            label='Date - From (Required)'
             closable
             placeholder='Date'
             name='date'
@@ -92,20 +127,37 @@ class Automate extends Component {
             value={this.state.date}
             onChange={this.handleChange}
           />
-          <Dropdown
+          <DateInput
+            clearable={false}
+            minDate={this.state.date}
+            label='To (Optional)'
+            closable
+            placeholder='Date'
+            name='dateTo'
+            dateFormat="MMMM D YYYY"
+            iconPosition='left'
+            popupPosition='bottom right'
+            value={this.state.dateTo}
+            onChange={this.handleChange}
+          />
+          <Form.Dropdown
             name="phase"
             selection
-            placeholder='Tenting Type'
+            label='Tenting Type'
             options={phaseDropdownOptions}
             onChange={this.handleChange}
             defaultValue={this.state.phase}
           />
-          <br />
-          <br />
           <Checkbox
             label="Clear older shifts on same day(s)"
             checked={this.state.clear}
             onChange={this.handleCheckboxChange}
+          />
+          <Message
+            warning
+            hidden={!this.state.error}
+            icon="warning sign"
+            header="Fill in Required Date"
           />
         </Modal.Content>
         <Modal.Actions>
