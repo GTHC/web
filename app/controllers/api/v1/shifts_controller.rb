@@ -111,7 +111,7 @@ class Api::V1::ShiftsController < ApiController
 
   def olson
     helpers.validate_olson_params
-    people, slotGrid = helpers.format_olson(params[:date], params[:phase], current_user)
+    people, slotGrid = helpers.format_olson(params[:date], params[:phase], params[:clear], current_user)
     _, olson_slots = GTHC::Olson.driver(people, slotGrid)
     olson_slots.each do |slot|
       if slot[:ids].length > 0

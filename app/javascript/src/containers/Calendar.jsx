@@ -34,8 +34,8 @@ class Calendar extends Component {
     getTeam(user.data.team_id);
   }
 
-  onOlsonClick = (date, phase) => {
-    runOlson(date, phase)
+  onOlsonClick = (date, phase, clear) => {
+    runOlson(date, phase, clear)
     .then(() => {
       this.props.getAllShifts();
     })

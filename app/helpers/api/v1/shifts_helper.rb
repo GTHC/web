@@ -2,18 +2,21 @@ module Api::V1::ShiftsHelper
   def validate_olson_params
     params.require([
       :date,
-      :phase
+      :phase,
+      :clear,
     ])
   end
 
-  def format_olson(date, phase, current_user)
+  def format_olson(date, phase, clear, current_user)
     date = date.in_time_zone('America/New_York')
     team = current_user.team
 
     people = [] # arr of Person elements
     slotGrid = [] # arr of Slot arrays
     team.users.each_with_index do | user, index |
-      # user.remove_shifts_by_date(date)
+      if clear
+        user.remove_shifts_by_date(date)
+      end
       dayFree, nightFree = get_free_count user
       dayScheduled, nightScheduled = get_scheduled_count user
 

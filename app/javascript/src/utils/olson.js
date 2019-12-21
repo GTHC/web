@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-const runOlson = (date, phase) => (
+const runOlson = (date, phase, clear) => (
   axios.put('/api/v1/olson', {
     date,
     phase,
+    clear,
   })
 )
 

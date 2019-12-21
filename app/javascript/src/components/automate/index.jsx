@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // semantic-ui
-import { Button, Divider, Dropdown, Header, Modal } from 'semantic-ui-react';
+import { Button, Divider, Dropdown, Header, Modal, Checkbox } from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
 
 class Automate extends Component {
@@ -11,6 +11,7 @@ class Automate extends Component {
     this.state = {
       open: false,
       date: (new Date()).toDateString(),
+      clear: true,
       phase: "Black",
     }
   }
@@ -19,9 +20,14 @@ class Automate extends Component {
     this.setState({ [name]: value });
   }
 
+  handleCheckboxChange = (_, { checked }) => {
+    this.setState({ clear: checked })
+  }
+
   onClick = () => {
+    const { phase, clear } = this.state;
     const date = new Date(this.state.date)
-    this.props.onOlsonClick(date, this.state.phase);
+    this.props.onOlsonClick(date, phase, clear);
     this.close()
   }
 
@@ -93,6 +99,13 @@ class Automate extends Component {
             options={phaseDropdownOptions}
             onChange={this.handleChange}
             defaultValue={this.state.phase}
+          />
+          <br />
+          <br />
+          <Checkbox
+            label="Clear older shifts on same day(s)"
+            checked={this.state.clear}
+            onChange={this.handleCheckboxChange}
           />
         </Modal.Content>
         <Modal.Actions>
