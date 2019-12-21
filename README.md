@@ -51,13 +51,21 @@ Things you may want to cover:
 
     a. [PostgreSQL](https://www.postgresql.org/download/)
 
+5. Make sure you the yarn package manager installed by running: `npm i -g yarn`
+
+   a. `yarn` is a great alternative to `npm` as a dependency manager for Node.js. Read more [here](https://yarnpkg.com/en/).
+
 ## Setup
 
 __Disclaimer:__ Windows users, it is highly recommended that the entire setup process should be done through the Windows Subsystem for Linux (WSL). Setting up WSL can be found [here](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
-1. Make sure you the yarn package manager installed by running: `npm i -g yarn`
+__Pre-req:__ As mentioned in [configuration](#Configuration), you must recieve the `.env` file from GTHC project leaders before beginning setup process.
 
-   a. `yarn` is a great alternative to `npm` as a dependency manager for Node.js. Read more [here](https://yarnpkg.com/en/).
+1. Install all packages/dependancies.
+    
+    a. Run `bundle install`
+    
+    b. Run `yarn install`
 
 2. `yarn run setup`
 
@@ -66,6 +74,8 @@ __Disclaimer:__ Windows users, it is highly recommended that the entire setup pr
 3. `yarn dev:start`
 
     a. This will start a local developer server, by default that will be on port 5000. (`https://localhost:5000`)
+    
+    b. Always run this command from here on out to start the local server.
 
 ### Local Software Versioning
 It is required that your system is running `Rails 5.0+` for the local development to function properly. It is recommended to use the most recent version of Node, but anything above `Node 8.x` shall work. 
