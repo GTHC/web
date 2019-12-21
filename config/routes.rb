@@ -29,6 +29,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :shifts, :teams, :captains, :users
       resources :sessions, only: [:index]
+      
+      # get user data by current_user
+      get 'user', to: 'users#user'
 
       # user signups
       put 'users/signup/:id', to: 'users#signup'
