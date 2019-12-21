@@ -89,14 +89,19 @@ else
 
   # Availability
   User.all.each do |user|
-    for i in 1...10
-      start = Time.now + rand(-10..10).hours + rand(-2..2).days
-      end_time = start + rand(1..2).hours
-      user.availabilities.create!(
-        start: start,
-        end: end_time,
-        somewhat: [true, false].sample
-      )
+    start = Time.now.in_time_zone('America/New_York').beginning_of_day
+    while start < start.end_of_day - 1.hour
+      status = [0, 0, 1, 2].sample
+      end_time = start + (30.minutes * (status + 1))
+      # Unavailable, Somewhat, Available
+      if status > 0
+        user.availabilities.create!(
+          start: start,
+          end: end_time,
+          somewhat: status == 1
+        )
+      end
+      start = end_time
     end
   end
 
