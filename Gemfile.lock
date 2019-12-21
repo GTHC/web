@@ -146,7 +146,7 @@ GEM
     geocoder (1.5.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
-    gthc (0.1.8)
+    gthc (0.1.11)
     has_scope (0.7.2)
       actionpack (>= 4.1)
       activesupport (>= 4.1)
@@ -341,7 +341,7 @@ DEPENDENCIES
   devise (~> 4.2)
   faker
   foreman
-  gthc (~> 0.1.8)
+  gthc (~> 0.1.11)
   jbuilder
   oauth2
   pg (~> 0.18)

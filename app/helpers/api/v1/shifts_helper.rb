@@ -6,21 +6,24 @@ module Api::V1::ShiftsHelper
     ])
   end
 
-  def format_olson(date, phase, user)
+  def format_olson(date, phase, current_user)
     date = date.in_time_zone('America/New_York')
-    team = user.team
+    team = current_user.team
 
     people = [] # arr of Person elements
     slotGrid = [] # arr of Slot arrays
     team.users.each_with_index do | user, index |
-      user.remove_shifts_by_date(date)
+      # user.remove_shifts_by_date(date)
+      dayFree, nightFree = get_free_count user
+      dayScheduled, nightScheduled = get_scheduled_count user
 
       start_slot = date.beginning_of_day
       slots = []
       person = GTHC::Olson.Person.new(
         user.id,
         user.name,
-        0,0,0,0
+        dayFree, nightFree,
+        dayScheduled, nightScheduled
       )
       # 30 min slots
       for i in 0...48
@@ -56,6 +59,48 @@ module Api::V1::ShiftsHelper
     end
 
     return people, slotGrid
+  end
+
+  def get_free_count(user)
+    all_avail = user.availabilities
+    nightFree = count_night_avails all_avail
+    dayFree = all_avail.length - nightFree
+    return dayFree, nightFree
+  end
+
+  def get_scheduled_count(user)
+    all_shifts = user.shifts
+    nightScheduled = count_night_shifts all_shifts
+    dayScheduled = all_shifts.length - nightScheduled
+    return dayScheduled, nightScheduled
+  end
+
+  def count_night_avails(availabilities)
+    output = 0
+    availabilities.each do |avail|
+      start_time = avail.start.in_time_zone('America/New_York')
+      start_night = start_time.change({ hour: 2, min: 0 })
+      end_night = start_time.change({ hour: 6, min: 59, sec: 59 })
+      if start_time >= start_night and end_night > start_time
+        avail_length = ((avail.end - avail.start).to_f / 1.hour).round
+        output = output + avail_length
+      end
+    end
+    output
+  end
+
+  def count_night_shifts(shifts)
+    output = 0
+    shifts.each do |shift|
+      start_time = shift.start_time.in_time_zone('America/New_York')
+      start_night = start_time.change({ hour: 2, min: 0 })
+      end_night = start_time.change({ hour: 6, min: 59, sec: 59 })
+      if start_time >= start_night and end_night > start_time
+        shift_length = ((shift.end_time - shift.start_time).to_f / 1.hour).round
+        output = output + shift_length
+      end
+    end
+    output
   end
 
   def get_availability_of_slot(user, start_slot, end_slot)
