@@ -16,4 +16,9 @@
 
 <body>
 <h1>OneSignal Test</h1>
+
+<% if current_user %>
+    <p><%= current_user.netid %></p>
+<% end %>
+
 </body>
