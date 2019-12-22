@@ -124,9 +124,9 @@ class Api::V1::UsersController < ApiController
   end
 
   # PUT /api/v1/user/availability/:a_id
-  def update_availability
-    helpers.test_print
+  def update_availability    
     if current_user
+      helpers.send_notification(current_user.netid)
       helpers.validate_params_update_availability
       if current_user.availabilities.exists?(params[:a_id])
         availability = current_user.availabilities.find(params[:a_id])

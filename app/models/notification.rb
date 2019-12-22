@@ -2,11 +2,7 @@ require 'net/http'
 require 'jsonapi-resources'
 
 class Notification < ApplicationRecord
-	def test
-		puts 'This is a test.'
-	end
-
-	def send_notification(netid, title='title', content='content')
+	def send_notification(netid, title='Title', content='Content')
         params = {"app_id" => "b290fd9a-eedf-44b0-8bfd-6a37646957b6", 
                   "headings" => {"en" => title},
                   "contents" => {"en" => content},
@@ -22,6 +18,8 @@ class Notification < ApplicationRecord
 		    'Authorization' => "Basic NDY3ZjU0NTktZTUwNy00ODQyLWFmNTMtN2IzYjAyZjI5MGYx")
 		request.body = params.as_json.to_json
 		response = http.request(request)
-		puts response.body
+        puts response.body
+        # todo: save the response.body[id] as a notification id 
+        # this can be used to cancel the notification when needed
 	end
 end
