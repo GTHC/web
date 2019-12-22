@@ -125,6 +125,7 @@ class Api::V1::UsersController < ApiController
 
   # PUT /api/v1/user/availability/:a_id
   def update_availability
+    helpers.test_print
     if current_user
       helpers.validate_params_update_availability
       if current_user.availabilities.exists?(params[:a_id])

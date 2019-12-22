@@ -1,5 +1,4 @@
 <head>
-
 <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
 <script>
   var OneSignal = window.OneSignal || [];
@@ -8,9 +7,14 @@
       appId: "b290fd9a-eedf-44b0-8bfd-6a37646957b6",
     });
   });
+
+  let netid = '<%= current_user.netid %>'; 
+  console.log(netid)
+  OneSignal.push(function() {
+        OneSignal.setExternalUserId(netid);
+        console.log('Set external User ID to netid.'); 
+    });
 </script>
-
-
 </head>
 
 
@@ -18,7 +22,9 @@
 <h1>OneSignal Test</h1>
 
 <% if current_user %>
-    <p><%= current_user.netid %></p>
+    <p><%= current_user.netid %>
+    <%= current_user.to_json %>
+    </p>
 <% end %>
 
 </body>
