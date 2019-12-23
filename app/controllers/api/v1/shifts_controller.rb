@@ -41,6 +41,10 @@ class Api::V1::ShiftsController < ApiController
 
   # POST /api/v1/shifts
   def create
+    # notif = Notification.create(shift: )
+    # Create a notification for shift.start - 30 min
+    # helpers.create_notification(current_user.netid) # Send now for testing
+    # Store the notification ID
     validate_params
     @shift = Shift.create!(
       title: params[:title],
@@ -63,7 +67,14 @@ class Api::V1::ShiftsController < ApiController
           user_shifts: format_shifts(current_user.shifts),
           team_shifts: format_shifts(current_user.team.shifts),
         }
-      render json: { status: 'SUCCESS', message: 'Shift created.', data: data }, status: :ok
+      render json: { status: 'SUCCESS', message: 'Shift created.', data: data },status: :ok
+      notif = Notification.new
+      notif.test
+      start_time = @shift.start_time
+      netids = @shift.users.collect(&:netid)
+      notif.send_notification(netids=netids,
+                                title='Test from Controller',
+                                content=start_time)
     else
       render json: { status: 'ERROR', message: 'Shift not created.', data: @shift.errors }, status: :unprocessable_entity
     end
@@ -71,7 +82,9 @@ class Api::V1::ShiftsController < ApiController
 
   # PUT /api/v1/shifts/:id
   # PATCH /api/v1/shifts/:id
-  def update
+  def update    
+    # Delete the notification for the current shift using its ID 
+    # Create a new notification for new shift.start - 30 
     validate_params
     if shift = Shift.find(params[:id])
       if params[:user_ids]

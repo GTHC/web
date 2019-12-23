@@ -2,11 +2,17 @@ require 'net/http'
 require 'jsonapi-resources'
 
 class Notification < ApplicationRecord
-	def send_notification(netid, title='Title', content='Content')
+    belongs_to :shift
+
+    def test
+        puts "Test------------------------------------------------------"
+    end
+
+    def send_notification(netids, title='Title', content='Content')
         params = {"app_id" => "b290fd9a-eedf-44b0-8bfd-6a37646957b6", 
                   "headings" => {"en" => title},
                   "contents" => {"en" => content},
-                  "include_external_user_ids" => [netid],
+                  "include_external_user_ids" => netids,
                   # "included_segments" => ["All"],
                   # "include_player_ids" => ['08751c80-ab03-4fee-9480-1089e7e5ec4b']                
                 }
