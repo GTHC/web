@@ -1,5 +1,4 @@
 class Api::V1::ShiftsController < ApiController
-  skip_before_action :is_authenticated, only: [:olson]
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
 
   # GET /api/v1/shifts/:id

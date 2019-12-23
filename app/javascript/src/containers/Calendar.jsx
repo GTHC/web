@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 
 // components
 import NavBar from './NavBar';
-import { Button, Card } from 'semantic-ui-react';
+import { Card, Dimmer, Loader } from 'semantic-ui-react';
 
 // components
 import BigCal from '../components/calendar';
@@ -27,6 +27,14 @@ import { getTeam } from '../actions/team';
 import runOlson from '../utils/olson';
 
 class Calendar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loader: false,
+      loaderContent: '',
+    }
+  }
+
   componentDidMount() {
     const { getAllShifts, getTeam, user, checkSession } = this.props;
     checkSession();
@@ -34,16 +42,39 @@ class Calendar extends Component {
     getTeam(user.data.team_id);
   }
 
-  onOlsonClick = (date, phase, clear) => {
-    runOlson(date, phase, clear)
-    .then(() => {
+  onOlsonClick = (date, phase, clear, numOfDays) => {
+    if (this.state.loader == false) {
+      this.setState({ loader: true, loaderContent: 'Creating Shifts...' })
+    }
+    if (numOfDays == 0) {
       this.props.getAllShifts();
-    })
+      this.setState({ loader: false, loaderContent: '' })
+      return;
+    } else {
+      runOlson(date, phase, clear)
+      .then(() => {
+        if (numOfDays - 1 == 1) {
+          this.setState({ loaderContent: `Creating Shifts for 1 more day...` })
+        } else {
+          this.setState({ loaderContent: `Creating Shifts for ${numOfDays - 1} more days...`})
+        }
+        const nextDate = new Date(date.getTime() + (3600 * 1000 * 24))
+        this.onOlsonClick(nextDate, phase, clear, numOfDays - 1)
+      })
+      .catch(err => {
+        console.log('ERR: ', err);
+      })
+    }
   }
 
+
   render () {
+    const { loader, loaderContent } = this.state;
     return (
       <div>
+        <Dimmer active={loader}>
+          <Loader content={loaderContent} />
+        </Dimmer>
         <NavBar />
         <div className="body">
           <Card fluid raised>

@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 
 // semantic-ui
-import { Button, Form, Divider, Header, Message, Modal, Checkbox } from 'semantic-ui-react';
+import {
+  Button,
+  Checkbox,
+  Divider,
+  Form,
+  Header,
+  Message,
+  Modal,
+} from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
 
 class Automate extends Component {
@@ -11,9 +19,9 @@ class Automate extends Component {
     this.state = {
       open: false,
       error: false,
+      clear: true,
       date: this.formatDate((new Date())),
       dateTo: '',
-      clear: true,
       phase: "Black",
     }
   }
@@ -47,15 +55,27 @@ class Automate extends Component {
     if (!this.checkInputs()) {
       return;
     }
-    const { phase, clear } = this.state;
-    const date = new Date(this.state.date)
-    this.props.onOlsonClick(date, phase, clear);
+    const { phase, clear, date, dateTo } = this.state;
+    const { onOlsonClick } = this.props;
+    const startDate = new Date(date)
+    const endDate = new Date(dateTo)
+
+    if (isNaN(endDate.getTime()) || startDate.getTime() == endDate.getTime()) {
+      this.setState({ loader: true })
+      onOlsonClick(startDate, phase, clear, 1)
+    } else {
+      const diffTime = Math.abs(endDate - startDate);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      onOlsonClick(startDate, phase, clear, diffDays + 1)
+
+    }
     this.close()
   }
 
   checkInputs = () => {
     const { date } = this.state;
-    if (date.trim() == '' || (new Date(date)).getTime() == NaN) {
+    if (date.trim() == '' ||  isNaN((new Date(date)).getTime())) {
       this.setState({ error: true })
       return false;
     } else {
@@ -97,6 +117,8 @@ class Automate extends Component {
         label: { empty: true, circular: true },
       }
     ];
+
+    const { clear, date, dateTo, error, phase} = this.state;
     return (
       <Modal
         closeIcon
@@ -124,12 +146,12 @@ class Automate extends Component {
             dateFormat="MMMM D YYYY"
             iconPosition='left'
             popupPosition='bottom right'
-            value={this.state.date}
+            value={date}
             onChange={this.handleChange}
           />
           <DateInput
             clearable={false}
-            minDate={this.state.date}
+            minDate={date}
             label='To (Optional)'
             closable
             placeholder='Date'
@@ -137,7 +159,7 @@ class Automate extends Component {
             dateFormat="MMMM D YYYY"
             iconPosition='left'
             popupPosition='bottom right'
-            value={this.state.dateTo}
+            value={dateTo}
             onChange={this.handleChange}
           />
           <Form.Dropdown
@@ -146,16 +168,16 @@ class Automate extends Component {
             label='Tenting Type'
             options={phaseDropdownOptions}
             onChange={this.handleChange}
-            defaultValue={this.state.phase}
+            defaultValue={phase}
           />
           <Checkbox
             label="Clear older shifts on same day(s)"
-            checked={this.state.clear}
+            checked={clear}
             onChange={this.handleCheckboxChange}
           />
           <Message
             warning
-            hidden={!this.state.error}
+            hidden={!error}
             icon="warning sign"
             header="Fill in Required Date"
           />
