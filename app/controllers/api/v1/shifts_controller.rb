@@ -70,7 +70,9 @@ class Api::V1::ShiftsController < ApiController
       render json: { status: 'SUCCESS', message: 'Shift created.', data: data },status: :ok
       notif = Notification.new
       notif.test
-      start_time = @shift.start_time
+      
+      # Notification time is 30 minutes before the shift
+      # notif.start_time = @shift.start_time - 30*60
       netids = @shift.users.collect(&:netid)
       notif.send_notification(netids=netids,
                                 title='Test from Controller',
