@@ -20,6 +20,7 @@ import UserProfile from './UserProfile';
 import TeamProfile from './TeamProfile';
 import Tenting101 from './Tenting101';
 import About from './About';
+import AboutUs from './AboutUs';
 import Logout from './Logout';
 
 // styles
@@ -37,6 +38,7 @@ const AppRoutes = () => (
     <Route exact path="/app/*" component={Home} />
   </ConnectedSwitch>
 );
+
 
 
 class App extends Component {
@@ -65,7 +67,8 @@ class App extends Component {
               <Login />
             )} />
             <Route path='/tenting101' component={Tenting101} />
-            <Route path='/about' component={About} />
+            <Route path='/about/aboutgthc' component={About} />
+            <Route path='/about/aboutus' component={AboutUs}/>
             <Route path='/logout' component={Logout} />
           </ConnectedSwitch>
         </ConnectedRouter>

@@ -7,3 +7,19 @@
 .about-card {
   background-color: blue;
 }
+
+.origins {
+  padding-top: 48px;
+}
+
+.mission {
+  padding-top: 60px;
+}
+
+.origins h2{
+line-height: 200%;
+}
+.mission h2 {
+  line-height: 200%;
+
+}
