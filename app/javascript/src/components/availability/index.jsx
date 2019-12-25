@@ -112,13 +112,21 @@ class Availability extends Component {
       ));
       updateAvailInfo(newAvails);
     } else {
-      this.setState({
-        availData: event,
-        open: true,
-      });
+      const { putAvail } = this.props;
+      const newEvent = {
+        ...event,
+        somewhat: !event.somewhat,
+      };
+      putAvail(event.id, newEvent);
     }
-
   };
+
+  onDoubleClickEvent = event => {
+    this.setState({
+      availData: event,
+      open: true,
+    });
+  }
 
   eventPropGetter = ({ somewhat }) => ({
     style: {
@@ -154,13 +162,6 @@ class Availability extends Component {
       <div>
         {
           !fixed &&
-          <SelectAvailType
-            value={somewhat}
-            handleChange={this.handleSomewhatChange}
-          />
-        }
-        {
-          !signup && !fixed &&
           <ModalUpdate
             open={open}
             event={availData}
@@ -184,6 +185,7 @@ class Availability extends Component {
           onEventDrop={this.moveEvent}
           onEventResize={this.moveEvent}
           onSelectEvent={this.onSelectEvent}
+          onDoubleClickEvent={this.onDoubleClickEvent}
           onSelectSlot={this.handleSelectDrag}
           eventPropGetter={this.eventPropGetter}
           style={{ height: '80vh' }}
