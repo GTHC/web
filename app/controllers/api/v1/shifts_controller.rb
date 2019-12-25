@@ -87,7 +87,7 @@ class Api::v1::ShiftsController < ApiController
     # Delete the notification for the current shift using its ID 
     # Create a new notification for new shift.start - 30 
     validate_params
-    if shift == Shift.find(params[:id])
+    if shift = Shift.find(params[:id])
       if params[:user_ids]
         shift.users = []
         params[:user_ids].each do |id|
