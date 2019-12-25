@@ -160,7 +160,7 @@ class AboutUs extends Component {
                 <Image rounded src='https://i.imgur.com/IOWY7S9.jpg'/>
                   <Card.Content>
                     <Card.Header> Shyam Pradheep </Card.Header>
-                    <Card.Description> Abdulla is a class of 2020 undergraduate majoring in Computer Science and Biology from Woodbridge, VA. He currently does research with Duke BME and Duke Neurology and is also involved with multiple clubs on campus such as Habitat for Humanity and Relay for Life. This is also Abdulla’s first web development project and he thanks all of his teammates for their guidance/coding wisdom. </Card.Description>
+                    <Card.Description>  </Card.Description>
                   </Card.Content>
                   <Card.Content extra>
                     <a>
