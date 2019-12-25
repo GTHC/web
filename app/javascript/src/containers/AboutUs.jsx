@@ -41,8 +41,7 @@ class AboutUs extends Component {
                   <Image src='https://i.imgur.com/MTS8Gg9.jpg' size='medium'/>
                   <Card.Content>
                   <Card.Header>Aman Ibrahim</Card.Header>
-                  <Card.Meta>One of the Three Amigos</Card.Meta>
-                  <Card.Description> Aman Ibrahim, a North Carolina native, is a Duke student in the class of 2020. He is a Computer Science major, and is working towards an Islamic Studies Certificate and an Electrical and Computer Engineering minor. He is incredibly versed in web development and is a full stack engineer. </Card.Description>
+                  <Card.Meta>Class of 2020</Card.Meta>
                 </Card.Content>
                 <Card.Content extra>
                 <a>
@@ -58,8 +57,7 @@ class AboutUs extends Component {
                 <Image src='https://i.imgur.com/9aBaBVM.jpg'/>
                 <Card.Content>
                   <Card.Header> Vinit Parekh </Card.Header>
-                  <Card.Meta> One of the Three Amigos </Card.Meta>
-                  <Card.Description> Vinit is part of the graduating class of 2020 studying a combination of Neuroscience, Computer Science, and Statistics. He is involved with many organizations on campus like Fix My Campus and Scale and Coin to name a few. This is his first web development project, and he thanks his teammates Aman, Anesu, and Rikki  for teaching and helping him about full stack web development.</Card.Description>
+                  <Card.Meta>Class of 2020</Card.Meta>
                 </Card.Content>
                 <Card.Content extra>
                   <a>
@@ -73,8 +71,7 @@ class AboutUs extends Component {
                 <Image src='https://i.imgur.com/rdxlOsq.jpg' />
                 <Card.Content>
                   <Card.Header> Rikki Kendall </Card.Header>
-                  <Card.Meta> One of the Three Amigos </Card.Meta>
-                  <Card.Description> Rikki is part of the graduating class of 2020 studying Computer Science with an AMES Minor. He is a member of the Line Monitors, Air Force ROTC, and DEID Bolivia where he built two bridges the past two summers. Rikki intends to commission as a 2nd Lieutenant in the United States Air Force once he graduates. </Card.Description>
+                  <Card.Meta> Class of 2020</Card.Meta>
                 </Card.Content>
                 <Card.Content extra>
                   <a>
@@ -90,7 +87,7 @@ class AboutUs extends Component {
                   <Image rounded src='https://i.imgur.com/LGLJXsS.jpg' />
                   <Card.Content>
                     <Card.Header> Anesu Mafuvadze </Card.Header>
-                    <Card.Description> Anesu is part of the graduating class of 2020 studying Computer Science with a minor in Education. He enjoys all things basketball. His favorite basketball team is the Los Angeles Lakers. When he is not in his dorm, he can be found in Wilson gym playing pickup basketball. </Card.Description>
+                    <Card.Meta>Class of 2020</Card.Meta>
                   </Card.Content>
                   <Card.Content extra>
                     <a>
@@ -104,7 +101,7 @@ class AboutUs extends Component {
                   <Image rounded src='https://i.imgur.com/Ks3OAV1.jpg' />
                   <Card.Content>
                     <Card.Header> Abdulla Shahid </Card.Header>
-                    <Card.Description> Abdulla is a class of 2020 undergraduate majoring in Computer Science and Biology from Woodbridge, VA. He currently does research with Duke BME and Duke Neurology and is also involved with multiple clubs on campus such as Habitat for Humanity and Relay for Life. This is also Abdulla’s first web development project and he thanks all of his teammates for their guidance/coding wisdom. </Card.Description>
+                    <Card.Meta>Class of 2020</Card.Meta>
                   </Card.Content>
                   <Card.Content extra>
                     <a>
@@ -118,7 +115,7 @@ class AboutUs extends Component {
                   <Image rounded src='https://i.imgur.com/BJNB5pt.jpg'/>
                   <Card.Content>
                     <Card.Header> Shamikh Hossain </Card.Header>
-                    <Card.Description> Abdulla is a class of 2020 undergraduate majoring in Computer Science and Biology from Woodbridge, VA. He currently does research with Duke BME and Duke Neurology and is also involved with multiple clubs on campus such as Habitat for Humanity and Relay for Life. This is also Abdulla’s first web development project and he thanks all of his teammates for their guidance/coding wisdom. </Card.Description>
+                    <Card.Meta>Class of 2020</Card.Meta>
                   </Card.Content>
                   <Card.Content extra>
                     <a>
@@ -132,7 +129,7 @@ class AboutUs extends Component {
                 <Image rounded src='https://i.imgur.com/aTQ8Uee.jpg'/>
                   <Card.Content>
                     <Card.Header> Ansh Nanda </Card.Header>
-                    <Card.Description> Abdulla is a class of 2020 undergraduate majoring in Computer Science and Biology from Woodbridge, VA. He currently does research with Duke BME and Duke Neurology and is also involved with multiple clubs on campus such as Habitat for Humanity and Relay for Life. This is also Abdulla’s first web development project and he thanks all of his teammates for their guidance/coding wisdom. </Card.Description>
+                    <Card.Meta>Class of 2020</Card.Meta>
                   </Card.Content>
                   <Card.Content extra>
                     <a>
@@ -146,7 +143,7 @@ class AboutUs extends Component {
                 <Image rounded src='https://i.imgur.com/srhOIE3.jpg'/>
                   <Card.Content>
                     <Card.Header> Sam Dale </Card.Header>
-                    <Card.Description> Abdulla is a class of 2020 undergraduate majoring in Computer Science and Biology from Woodbridge, VA. He currently does research with Duke BME and Duke Neurology and is also involved with multiple clubs on campus such as Habitat for Humanity and Relay for Life. This is also Abdulla’s first web development project and he thanks all of his teammates for their guidance/coding wisdom. </Card.Description>
+                    <Card.Meta>Class of 2020</Card.Meta>
                   </Card.Content>
                   <Card.Content extra>
                     <a>
@@ -160,7 +157,7 @@ class AboutUs extends Component {
                 <Image rounded src='https://i.imgur.com/IOWY7S9.jpg'/>
                   <Card.Content>
                     <Card.Header> Shyam Pradheep </Card.Header>
-                    <Card.Description>  </Card.Description>
+                    <Card.Meta>Class of 2020</Card.Meta>
                   </Card.Content>
                   <Card.Content extra>
                     <a>
@@ -174,7 +171,7 @@ class AboutUs extends Component {
                   <Image rounded src='https://i.imgur.com/eKHGF1p.jpg' />
                   <Card.Content>
                     <Card.Header> Ahmad Khan </Card.Header>
-                    <Card.Description>Ahmad is a class of 2022 undergraduate hailing from the suburbs of Chicago; he made the smart decision to ditch the Pratt track for a more casual lifestyle. He loves all things tech related, especially computer hardware and cars. Ahmad likes to build computers and window shop for rare sneakers in his free time: he hopes to design his own pair of kicks one day.</Card.Description>
+                    <Card.Meta>Class of 2020</Card.Meta>
                   </Card.Content>
                   <Card.Content extra>
                     <a>
@@ -188,7 +185,7 @@ class AboutUs extends Component {
                 <Image rounded src='https://i.imgur.com/QdJCTFA.jpg'/>
                   <Card.Content>
                     <Card.Header> Ameer Syedibrahim </Card.Header>
-                    <Card.Description> Abdulla is a class of 2020 undergraduate majoring in Computer Science and Biology from Woodbridge, VA. He currently does research with Duke BME and Duke Neurology and is also involved with multiple clubs on campus such as Habitat for Humanity and Relay for Life. This is also Abdulla’s first web development project and he thanks all of his teammates for their guidance/coding wisdom. </Card.Description>
+                    <Card.Meta>Class of 2020</Card.Meta>
                   </Card.Content>
                   <Card.Content extra>
                     <a>
@@ -202,7 +199,7 @@ class AboutUs extends Component {
                 <Image rounded src='https://i.imgur.com/Fy1TH4H.jpg'/>
                   <Card.Content>
                     <Card.Header> Mohammad Khatami </Card.Header>
-                    <Card.Description> Abdulla is a class of 2020 undergraduate majoring in Computer Science and Biology from Woodbridge, VA. He currently does research with Duke BME and Duke Neurology and is also involved with multiple clubs on campus such as Habitat for Humanity and Relay for Life. This is also Abdulla’s first web development project and he thanks all of his teammates for their guidance/coding wisdom. </Card.Description>
+                    <Card.Meta>Class of 2020</Card.Meta>
                   </Card.Content>
                   <Card.Content extra>
                     <a>
@@ -216,7 +213,7 @@ class AboutUs extends Component {
                 <Image rounded src='https://i.imgur.com/9Y8t1Nn.jpg'/>
                   <Card.Content>
                     <Card.Header> Yasser Elmzoudi </Card.Header>
-                    <Card.Description> Abdulla is a class of 2020 undergraduate majoring in Computer Science and Biology from Woodbridge, VA. He currently does research with Duke BME and Duke Neurology and is also involved with multiple clubs on campus such as Habitat for Humanity and Relay for Life. This is also Abdulla’s first web development project and he thanks all of his teammates for their guidance/coding wisdom. </Card.Description>
+                    <Card.Meta>Class of 2020</Card.Meta>
                   </Card.Content>
                   <Card.Content extra>
                     <a>
@@ -230,7 +227,7 @@ class AboutUs extends Component {
                 <Image rounded src='https://i.imgur.com/PiXEG0z.jpg'/>
                   <Card.Content>
                     <Card.Header> Amjad Syedibrahim </Card.Header>
-                    <Card.Description> Abdulla is a class of 2020 undergraduate majoring in Computer Science and Biology from Woodbridge, VA. He currently does research with Duke BME and Duke Neurology and is also involved with multiple clubs on campus such as Habitat for Humanity and Relay for Life. This is also Abdulla’s first web development project and he thanks all of his teammates for their guidance/coding wisdom. </Card.Description>
+                    <Card.Meta>Class of 2020</Card.Meta>
                   </Card.Content>
                   <Card.Content extra>
                     <a>
@@ -244,7 +241,7 @@ class AboutUs extends Component {
                 <Image rounded src='https://i.imgur.com/g0QT2AK.jpg'/>
                   <Card.Content>
                     <Card.Header> Elijah Straight </Card.Header>
-                    <Card.Description> Abdulla is a class of 2020 undergraduate majoring in Computer Science and Biology from Woodbridge, VA. He currently does research with Duke BME and Duke Neurology and is also involved with multiple clubs on campus such as Habitat for Humanity and Relay for Life. This is also Abdulla’s first web development project and he thanks all of his teammates for their guidance/coding wisdom. </Card.Description>
+                    <Card.Meta>Class of 2020</Card.Meta>
                   </Card.Content>
                   <Card.Content extra>
                     <a>
