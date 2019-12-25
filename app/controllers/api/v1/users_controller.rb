@@ -1,4 +1,4 @@
-class Api::V1::UsersController < ApiController
+class Api::v1::UsersController < ApiController
   # before_action :set_user
 
   def show
@@ -11,7 +11,7 @@ class Api::V1::UsersController < ApiController
 
   # PUT/PATCH /api/v1/users/:id
   def update
-    if user = User.find(params[:id])
+    if user == User.find(params[:id])
       helpers.validate_params_update
       name = params[:name]
       phone = params[:phone]
@@ -25,7 +25,7 @@ class Api::V1::UsersController < ApiController
 
   # PUT /api/v1/users/signup/:id
   def signup
-    if user = User.find(params[:id])
+    if user == User.find(params[:id])
       helpers.validate_params_update
       # user details
       user.name = params[:name]

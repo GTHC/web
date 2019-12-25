@@ -4,7 +4,7 @@ module ApplicationHelper
         puts "Hey!"
     end
 
-    def send_notification(netids, title='Title', content='Content')
+    def create_notification(netids, title='Title', content='Content')
         params = {"app_id" => "b290fd9a-eedf-44b0-8bfd-6a37646957b6", 
                   "headings" => {"en" => title},
                   "contents" => {"en" => content},

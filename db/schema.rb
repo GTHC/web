@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_10_052847) do
+ActiveRecord::Schema.define(version: 2019_12_25_002331) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,6 +178,10 @@ ActiveRecord::Schema.define(version: 2019_12_10_052847) do
     t.integer "notification_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "shift"
+    t.datetime "start_time"
+    t.text "userids", default: [], array: true
+    t.text "onesignal_ids", default: [], array: true
   end
 
   create_table "posts", force: :cascade do |t|

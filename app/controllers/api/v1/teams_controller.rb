@@ -1,4 +1,4 @@
-class Api::V1::TeamsController < ApiController
+class Api::v1::TeamsController < ApiController
   before_action :set_user
   def show
   end

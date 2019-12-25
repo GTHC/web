@@ -1,4 +1,4 @@
-class Api::V1::CaptainsController < ApiController
+class Api::v1::CaptainsController < ApiController
   before_action :set_user
   def show
   end

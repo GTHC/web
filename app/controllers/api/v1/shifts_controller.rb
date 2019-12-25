@@ -1,4 +1,4 @@
-class Api::V1::ShiftsController < ApiController
+class Api::v1::ShiftsController < ApiController
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
 
   # GET /api/v1/shifts/:id
@@ -41,10 +41,6 @@ class Api::V1::ShiftsController < ApiController
 
   # POST /api/v1/shifts
   def create
-    # notif = Notification.create(shift: )
-    # Create a notification for shift.start - 30 min
-    # helpers.create_notification(current_user.netid) # Send now for testing
-    # Store the notification ID
     validate_params
     @shift = Shift.create!(
       title: params[:title],
@@ -67,14 +63,17 @@ class Api::V1::ShiftsController < ApiController
           user_shifts: format_shifts(current_user.shifts),
           team_shifts: format_shifts(current_user.team.shifts),
         }
-      render json: { status: 'SUCCESS', message: 'Shift created.', data: data },status: :ok
+      render json: { status: 'SUCCESS', message: 'Shift created.', data: data }, status: :ok
       notif = Notification.new
       notif.test
-      
+      # notif = Notification.create(shift: )
+      # Create a notification for shift.start - 30 min
+      # helpers.create_notification(current_user.netid) # Send now for testing
+      # Store the notification ID
       # Notification time is 30 minutes before the shift
       # notif.start_time = @shift.start_time - 30*60
       netids = @shift.users.collect(&:netid)
-      notif.send_notification(netids=netids,
+      notif.create_notification(netids=netids,
                                 title='Test from Controller',
                                 content=start_time)
     else
@@ -90,7 +89,7 @@ class Api::V1::ShiftsController < ApiController
     validate_params
     if shift == Shift.find(params[:id])
       if params[:user_ids]
-        shift.users = [];
+        shift.users = []
         params[:user_ids].each do |id|
           @user = User.find(id)
           shift.users << @user
