@@ -48,12 +48,12 @@ class NavBarAlternate extends Component {
           </Menu.Item>
             <Menu.Item
               id="about"
-              onClick={() => this.navigateTo('/about/aboutgthc')}>
+              onClick={() => this.navigateTo('/about/gthc')}>
               About GTHC
             </Menu.Item>
             <Menu.Item 
               id="aboutus" 
-              onClick={() => this.navigateTo('/about/aboutus')}>
+              onClick={() => this.navigateTo('/about/us')}>
                 About Us
               </Menu.Item>
             <Menu.Item
