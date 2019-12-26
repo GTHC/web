@@ -52,14 +52,6 @@ class Api::V1::UsersController < ApiController
       elsif params[:type] == "join"
         user.team_id = params[:teamData][:teamID]
       end
-      # user's availabilities
-      params[:availabilities].each do |a|
-        user.availabilities.create!({
-          start: a[:start],
-          end: a[:end],
-          somewhat: a[:somewhat]
-        })
-      end
       if !user.save
         render json: { status: 'ERROR', message: 'User data unable to be saved', data: @user.errors }, status: :unprocessable_entity
       else
