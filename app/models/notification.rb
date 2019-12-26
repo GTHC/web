@@ -1,13 +1,14 @@
 require 'net/http'
+require 'json'
 require 'jsonapi-resources'
 
 class Notification < ApplicationRecord
     belongs_to :shift
 
-    def test
-        puts 'Test'
-    end
-
+		# @param [Array] netids (OneSignal External IDs)
+		# @param [String] title of notification
+		# @param [String] content of notification
+		# @return [String] OneSignal ID of scheduled notification
     def create_notification(netids, title='Title', content='Content')
         params = {'app_id' => 'b290fd9a-eedf-44b0-8bfd-6a37646957b6', 
                   'headings' => {'en' => title},
@@ -24,14 +25,17 @@ class Notification < ApplicationRecord
 		    'Authorization' => 'Basic NDY3ZjU0NTktZTUwNy00ODQyLWFmNTMtN2IzYjAyZjI5MGYx')
 				request.body = params.as_json.to_json
 				response = http.request(request)
-        puts response.body
-        # todo: save the response.body[id] as a notification id
-        # this can be used to cancel the notification when needed
+				data = JSON.parse(response.body)
+				data.has_key?('id') ? data['id'] : nil
+			# this can be used to cancel the notification when needed
+		end
+
+		# notif
+		def test(netids, title='Title', content='Content')
+			'ONESIGNALID'
 		end
 
     def cancel_notification(onesignal_id)
-      netids = []
-      c = 1
-      v = create_notification(netids)
+      10
     end
 end

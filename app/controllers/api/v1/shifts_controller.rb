@@ -1,4 +1,4 @@
-class Api::v1::ShiftsController < ApiController
+class Api::V1::ShiftsController < ApiController
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
 
   # GET /api/v1/shifts/:id
@@ -64,18 +64,21 @@ class Api::v1::ShiftsController < ApiController
           team_shifts: format_shifts(current_user.team.shifts),
         }
       render json: { status: 'SUCCESS', message: 'Shift created.', data: data }, status: :ok
-      notif = Notification.new
-      notif.test
-      # notif = Notification.create(shift: )
-      # Create a notification for shift.start - 30 min
-      # helpers.create_notification(current_user.netid) # Send now for testing
-      # Store the notification ID
+      notification = Notification.new
+      notification.userids = @shift.users.collect(&:netid)
       # Notification time is 30 minutes before the shift
-      # notif.start_time = @shift.start_time - 30*60
-      netids = @shift.users.collect(&:netid)
-      notif.create_notification(netids=netids,
-                                title='Test from Controller',
-                                content=start_time)
+      notification.start_time = @shift.start_time - 30*60
+      onesignal_id = notification.test(
+          notification.userids,
+          title='Test from Controller',
+          content=notification.start_time)
+      if onesignal_id
+        notification.onesignal_ids << onesignal_id
+      end
+      puts notification.to_json
+      notification.save
+      @shift.notifications << notification
+      puts notification.to_json
     else
       render json: { status: 'ERROR', message: 'Shift not created.', data: @shift.errors }, status: :unprocessable_entity
     end
