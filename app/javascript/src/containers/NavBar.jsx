@@ -30,6 +30,9 @@ class NavBar extends Component {
       case 'Calendar':
         this.props.push('/app/calendar')
         break;
+      case 'Availability':
+        this.props.push('/app/availability')
+        break;
       case 'User Profile':
         this.props.push('/app/user')
         break;
@@ -81,6 +84,15 @@ class NavBar extends Component {
           >
             <Icon name="calendar" />
             Calendar
+          </Menu.Item>
+
+          <Menu.Item
+            as='a'
+            active={path === '/app/availability'}
+            onClick={this.handleClick}
+          >
+            <Icon name="checked calendar" />
+            Availability
           </Menu.Item>
 
           <Menu.Menu position="right">

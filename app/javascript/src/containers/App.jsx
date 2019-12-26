@@ -16,6 +16,7 @@ import Home from './Home';
 import Login from './Login';
 import Dashboard from './Dashboard';
 import Calendar from './Calendar';
+import Availability from './Availability';
 import UserProfile from './UserProfile';
 import TeamProfile from './TeamProfile';
 import Tenting101 from './Tenting101';
@@ -32,6 +33,7 @@ const AppRoutes = () => (
     <Route exact path="/app/" component={Home} />
     <Route exact path="/app/dashboard" component={Dashboard} />
     <Route exact path="/app/calendar" component={Calendar} />
+    <Route exact path="/app/availability" component={Availability} />
     <Route exact path="/app/user" component={UserProfile} />
     <Route exact path="/app/team" component={TeamProfile} />
     <Route exact path="/app/*" component={Home} />

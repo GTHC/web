@@ -12,7 +12,7 @@ const localizer = Calendar.momentLocalizer(moment);
 
 const DragDropCal = withDragAndDrop(Calendar);
 
-class Availability extends Component {
+class AvailCal extends Component {
 
   constructor(props) {
     super(props);
@@ -158,4 +158,4 @@ class Availability extends Component {
 
 }
 
-export default Availability;
+export default AvailCal;
