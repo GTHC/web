@@ -73,7 +73,7 @@ __Pre-req:__ As mentioned in [configuration](#Configuration), you must recieve t
 
 3. `yarn dev:start`
 
-    a. This will start a local developer server, by default that will be on port 5000. (`https://localhost:5000`)
+    a. This will start a local developer server, by default that will be on port 5000. (`http://localhost:5000`)
     
     b. Always run this command from here on out to start the local server.
 
