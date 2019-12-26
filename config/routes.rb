@@ -13,8 +13,7 @@ Rails.application.routes.draw do
   get 'about', to: 'pages#index'
   get 'about/gthc', to: 'pages#index'
   get 'about/us', to: 'pages#index'
-  # get 'about/*path', to: 'pages#index'
-  # get 'about/aboutus', to: 'about#aboutus'
+  
 
   # Login/Logout
   get 'login', to:'pages#index'
