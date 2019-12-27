@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_25_002331) do
+ActiveRecord::Schema.define(version: 2019_12_27_021443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,6 +199,7 @@ ActiveRecord::Schema.define(version: 2019_12_25_002331) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.string "title"
+    t.string "notification_id"
   end
 
   create_table "teams", force: :cascade do |t|

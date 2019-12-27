@@ -64,21 +64,16 @@ class Api::V1::ShiftsController < ApiController
           team_shifts: format_shifts(current_user.team.shifts),
         }
       render json: { status: 'SUCCESS', message: 'Shift created.', data: data }, status: :ok
-      notification = Notification.new
-      notification.userids = @shift.users.collect(&:netid)
+      # Send to all shift members
+      netids = @shift.users.collect(&:netid)
       # Notification time is 30 minutes before the shift
-      notification.start_time = @shift.start_time - 30*60
-      onesignal_id = notification.test(
-          notification.userids,
-          title='Test from Controller',
-          content=notification.start_time)
-      if onesignal_id
-        notification.onesignal_ids << onesignal_id
-      end
-      puts notification.to_json
-      notification.save
-      @shift.notifications << notification
-      puts notification.to_json
+      time = @shift.start_time - 30*60
+      onesignal_id = helpers.create_notification(netids,
+                                                 title='Title',
+                                                 content='Content',
+                                                 time=nil)
+      @shift.notification_id = onesignal_id if onesignal_id
+      puts @shift.to_json
     else
       render json: { status: 'ERROR', message: 'Shift not created.', data: @shift.errors }, status: :unprocessable_entity
     end
@@ -86,9 +81,7 @@ class Api::V1::ShiftsController < ApiController
 
   # PUT /api/v1/shifts/:id
   # PATCH /api/v1/shifts/:id
-  def update    
-    # Delete the notification for the current shift using its ID 
-    # Create a new notification for new shift.start - 30 
+  def update
     validate_params
     if shift = Shift.find(params[:id])
       if params[:user_ids]
@@ -99,6 +92,22 @@ class Api::V1::ShiftsController < ApiController
         end
       end
       shift.update(@prime_params)
+      # Cancel previous notification and create a new one
+      if shift.saved_change_to_start_time? or shift.saved_change_to_users?
+        # Delete the notification for the current shift using its ID
+        #  Check if this returns true
+        cancel_notification(shift.notification_id) if shift.notification_id
+        # Create a new notification for new shift.start - 30
+        netids = shift.users.collect(&:netid)
+        # Notification time is 30 minutes before the shift
+        time = shift.start_time - 30*60
+        new_onesignal_id = helpers.create_notification(netids,
+                                                       title='Title',
+                                                       content='Content',
+                                                       time=time)
+        shift.notification_id = new_onesignal_id if new_onesignal_id
+        shift.save
+      end
       data = {
         shift: format_shifts([shift]),
         user_shifts: format_shifts(current_user.shifts),
