@@ -124,14 +124,14 @@ class Automate extends Component {
         closeIcon
         closeOnDimmerClick={false}
         open={this.state.open}
-        trigger={<Button primary>Generate Shifts</Button>}
+        trigger={<Button primary><h3>Generate Shifts</h3></Button>}
         onOpen={this.open}
         onClose={this.close}
       >
         <Header icon="fire" content="Create shifts based on team availability!"/>
         <Modal.Content>
           <Modal.Description>
-            <b>GTHC's Tenting Algorithm works best when everyone has their availabilities up to date!</b>
+            <b>GTHC's Schedule Automation works best when everyone has their availabilities up to date!</b>
             <p>
               GTHC can automatically create shifts and assign them based on user availability, and tenting rules based on tenting type. Just fill in which date and tenting type you would like to automate scheduling for below.
             </p>
