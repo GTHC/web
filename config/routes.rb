@@ -54,6 +54,8 @@ Rails.application.routes.draw do
       # team availabilities
       put 'team/availabilities', to: 'teams#show_availabilities'
 
+      # schedule automation
+      put 'olson', to: 'shifts#olson'
     end
   end
 end

@@ -108,6 +108,31 @@ class Api::V1::ShiftsController < ApiController
     end
   end
 
+  def olson
+    helpers.validate_olson_params
+    people, slotGrid = helpers.format_olson(params[:date], params[:phase], params[:clear], current_user)
+    _, olson_slots = GTHC::Olson.driver(people, slotGrid)
+    olson_slots.each do |slot|
+      if slot[:ids].length > 0
+        # create shift based on olson slots with people assigned
+        shift = Shift.create!(
+          title: 'GTHC Generated Shift',
+          note: 'Feel free to edit any of the shift data by clicking the update button.',
+          start_time: slot[:startDate],
+          end_time: slot[:endDate],
+          team_id: current_user.team.id
+        )
+        # add shifts to user record
+        slot[:ids].each do |id|
+          User.find(id).shifts << shift
+        end
+      end
+    end
+    render json: {
+      data: olson_slots,
+    }
+  end
+
   private
 
   def validate_params

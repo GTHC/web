@@ -131,6 +131,7 @@ class BigCal extends Component {
       <div>
         <DragDropCal
           resizeable
+          showMultiDayTimes
           onEventDrop={this.moveEvent}
           onEventResize={this.resizeEvent}
           step={30}

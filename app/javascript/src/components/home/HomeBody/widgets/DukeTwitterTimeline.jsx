@@ -4,7 +4,7 @@ import { Card } from 'semantic-ui-react';
 import { Timeline } from 'react-twitter-widgets';
 
 const DukeTwitterTimeline = () => (
-  <Card>
+  <Card fluid>
     <Card.Content>
       <div>
         <Timeline
