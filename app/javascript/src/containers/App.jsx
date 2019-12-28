@@ -20,6 +20,7 @@ import UserProfile from './UserProfile';
 import TeamProfile from './TeamProfile';
 import Tenting101 from './Tenting101';
 import About from './About';
+import Privacy from './Privacy';
 import Logout from './Logout';
 
 // styles
@@ -66,6 +67,7 @@ class App extends Component {
             )} />
             <Route path='/tenting101' component={Tenting101} />
             <Route path='/about' component={About} />
+            <Route path='/privacy' component={Privacy} />
             <Route path='/logout' component={Logout} />
           </ConnectedSwitch>
         </ConnectedRouter>
