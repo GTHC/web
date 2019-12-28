@@ -34,7 +34,7 @@ module ApplicationHelper
 		end
 
     # @note Test notification parameters without hitting OneSignal API.
-		def test_create_notification(netids, time=nil, title='Title', content='Content')
+		def test_create_notification(netids, title='Title', content='Content', time=nil)
 			params = {'app_id' => 'b290fd9a-eedf-44b0-8bfd-6a37646957b6',
 								'headings' => {'en' => title},
 								'contents' => {'en' => content},

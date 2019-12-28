@@ -68,10 +68,10 @@ class Api::V1::ShiftsController < ApiController
       netids = @shift.users.collect(&:netid)
       # Notification time is 30 minutes before the shift
       time = @shift.start_time - 30*60
-      onesignal_id = helpers.create_notification(netids,
-                                                 title='Title',
-                                                 content='Content',
-                                                 time=nil)
+      onesignal_id = helpers.test_create_notification(netids,
+                                                      title='Title',
+                                                      content='Content',
+                                                      time=nil) # test -> send immediately
       @shift.notification_id = onesignal_id if onesignal_id
       puts @shift.to_json
     else
@@ -83,8 +83,10 @@ class Api::V1::ShiftsController < ApiController
   # PATCH /api/v1/shifts/:id
   def update
     validate_params
+    update_users = false
     if shift = Shift.find(params[:id])
       if params[:user_ids]
+        update_users = true
         shift.users = []
         params[:user_ids].each do |id|
           @user = User.find(id)
@@ -92,19 +94,18 @@ class Api::V1::ShiftsController < ApiController
         end
       end
       shift.update(@prime_params)
-      # Cancel previous notification and create a new one
-      if shift.saved_change_to_start_time? or shift.saved_change_to_users?
+      # If new start time or new users, cancel old notification and create new one
+      if shift.saved_change_to_start_time? or update_users
         # Delete the notification for the current shift using its ID
-        #  Check if this returns true
-        cancel_notification(shift.notification_id) if shift.notification_id
+        helpers.cancel_notification(shift.notification_id) if shift.notification_id
         # Create a new notification for new shift.start - 30
         netids = shift.users.collect(&:netid)
         # Notification time is 30 minutes before the shift
         time = shift.start_time - 30*60
-        new_onesignal_id = helpers.create_notification(netids,
+        new_onesignal_id = helpers.test_create_notification(netids,
                                                        title='Title',
                                                        content='Content',
-                                                       time=time)
+                                                       time=nil) # test -> send immediately
         shift.notification_id = new_onesignal_id if new_onesignal_id
         shift.save
       end
