@@ -29,4 +29,11 @@ class User < ApplicationRecord
     user
   end
 
+  def remove_shifts_by_date(date)
+    shifts_to_remove = shifts.where(start_time: date.beginning_of_day..date.end_of_day)
+    shifts_to_remove.each do |shift|
+      shift.destroy
+    end
+  end
+
 end
