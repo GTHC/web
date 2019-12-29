@@ -7,7 +7,7 @@ import { Card } from 'semantic-ui-react';
 import { Timeline } from 'react-twitter-widgets';
 
 const LineMonitorTwitterTimeline = () => (
-  <Card>
+  <Card fluid>
     <Card.Content>
       <div>
         <Timeline

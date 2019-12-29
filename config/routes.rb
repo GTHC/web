@@ -13,8 +13,7 @@ Rails.application.routes.draw do
   get 'about', to: 'pages#index'
   get 'about/gthc', to: 'pages#index'
   get 'about/us', to: 'pages#index'
-  
-
+  get 'privacy', to: 'pages#index'
   # Login/Logout
   get 'login', to:'pages#index'
   get 'logout', to: 'pages#index'
@@ -33,6 +32,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :shifts, :teams, :captains, :users
       resources :sessions, only: [:index]
+
+      # get user data by current_user
+      get 'user', to: 'users#user'
 
       # user signups
       put 'users/signup/:id', to: 'users#signup'
@@ -54,6 +56,8 @@ Rails.application.routes.draw do
       # team availabilities
       put 'team/availabilities', to: 'teams#show_availabilities'
 
+      # schedule automation
+      put 'olson', to: 'shifts#olson'
     end
   end
 end

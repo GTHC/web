@@ -12,16 +12,17 @@ import { ConnectedRouter } from "react-router-redux";
 import ConnectedSwitch from "./../components/utils/switch";
 
 // containers
-import Home from "./Home";
-import Login from "./Login";
-import Dashboard from "./Dashboard";
-import Calendar from "./Calendar";
-import UserProfile from "./UserProfile";
-import TeamProfile from "./TeamProfile";
-import Tenting101 from "./Tenting101";
-import About from "./About";
+import Home from './Home';
+import Login from './Login';
+import Dashboard from './Dashboard';
+import Calendar from './Calendar';
+import UserProfile from './UserProfile';
+import TeamProfile from './TeamProfile';
+import Tenting101 from './Tenting101';
+import About from './About';
 import AboutUs from "./AboutUs";
-import Logout from "./Logout";
+import Privacy from './Privacy';
+import Logout from './Logout';
 
 // styles
 import "./../styles";
@@ -47,38 +48,31 @@ class App extends Component {
   render() {
     const { history, user } = this.props;
     return (
-      <ConnectedRouter history={history}>
-        <ConnectedSwitch>
-          <Route
-            exact
-            path="/"
-            render={() => {
-              return user.isLoggedIn ? (
-                <Redirect to="/app" />
-              ) : (
-                <Redirect to="/login" />
-              );
-            }}
-          />
-          <Route
-            path="/app"
-            render={() =>
-              user.isLoggedIn ? <AppRoutes /> : <Redirect to="/login" />
-            }
-          />
-          <Route
-            path="/login"
-            render={() =>
-              user.isLoggedIn ? <Redirect to="/app" /> : <Login />
-            }
-          />
-          <Route path="/tenting101" component={Tenting101} />
-          <Route exact path="/about" component={About} />
-          <Route path="/about/gthc" component={About} />
-          <Route path="/about/us" component={AboutUs} />
-          <Route path="/logout" component={Logout} />
-        </ConnectedSwitch>
-      </ConnectedRouter>
+        <ConnectedRouter history={history}>
+          <ConnectedSwitch>
+            <Route exact path="/" render={() => {
+              return (user.isLoggedIn ?
+                <Redirect to="/app" /> :
+                <Redirect to="/login" />)
+            }}/>
+            <Route path="/app" render={() => (
+              user.isLoggedIn ?
+              <AppRoutes /> :
+              <Redirect to="/login" />
+            )} />
+            <Route path="/login" render={() => (
+              user.isLoggedIn ?
+              <Redirect to="/app" /> :
+              <Login />
+            )} />
+            <Route path='/tenting101' component={Tenting101} />
+            <Route exact path="/about" component={About} />
+            <Route path="/about/gthc" component={About} />
+            <Route path="/about/us" component={AboutUs} />
+            <Route path='/privacy' component={Privacy} />
+            <Route path='/logout' component={Logout} />
+          </ConnectedSwitch>
+        </ConnectedRouter>
     );
   }
 }

@@ -19,6 +19,7 @@ docker=$(docker ps )
 if [[ !($docker =~ .*kville-scheduler_app.*) && !($docker =~ .*kville-scheduler_db.*) ]]
 then
   echo "📦 Building containers 📦"
+  docker-compose build
   docker-compose up -d
   echo "💾 Setting up database 💾"
   docker-compose run app ./bin/db-setup.sh
