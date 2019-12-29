@@ -11,11 +11,9 @@ Rails.application.routes.draw do
   get 'app/*path', to: 'pages#index'
   get 'tenting101', to: 'pages#index'
   get 'about', to: 'pages#index'
-  get 'about/aboutgthc', to: 'pages#index'
-  get 'about/aboutus', to: 'pages#index'
-  # get 'about/*path', to: 'pages#index'
-  # get 'about/aboutus', to: 'about#aboutus'
-
+  get 'about/gthc', to: 'pages#index'
+  get 'about/us', to: 'pages#index'
+  get 'privacy', to: 'pages#index'
   # Login/Logout
   get 'login', to:'pages#index'
   get 'logout', to: 'pages#index'
@@ -34,7 +32,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :shifts, :teams, :captains, :users
       resources :sessions, only: [:index]
-      
+
       # get user data by current_user
       get 'user', to: 'users#user'
 
@@ -58,6 +56,8 @@ Rails.application.routes.draw do
       # team availabilities
       put 'team/availabilities', to: 'teams#show_availabilities'
 
+      # schedule automation
+      put 'olson', to: 'shifts#olson'
     end
   end
 end
