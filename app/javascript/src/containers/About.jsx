@@ -123,7 +123,7 @@ class About extends Component {
             </Container>
           </div>
 
-          <Image src={logo} size="large" centered="true" />
+          <Image src={logo} size="large" centered />
         </div>
       </div>
     );

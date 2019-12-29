@@ -55,10 +55,8 @@ class AboutUs extends Component {
                       <Card.Meta>Class of 2020</Card.Meta>
                     </Card.Content>
                     <Card.Content extra>
-                      <a>
-                        <Icon name="user" />
-                        Founder
-                      </a>
+                      <Icon name="user" />
+                      Founder
                     </Card.Content>
                   </Card>
 
@@ -69,10 +67,8 @@ class AboutUs extends Component {
                       <Card.Meta>Class of 2020</Card.Meta>
                     </Card.Content>
                     <Card.Content extra>
-                      <a>
-                        <Icon name="user" />
-                        Co-Founder
-                      </a>
+                      <Icon name="user" />
+                      Co-Founder
                     </Card.Content>
                   </Card>
 
@@ -83,10 +79,8 @@ class AboutUs extends Component {
                       <Card.Meta> Class of 2020</Card.Meta>
                     </Card.Content>
                     <Card.Content extra>
-                      <a>
-                        <Icon name="user" />
-                        Co-Founder
-                      </a>
+                      <Icon name="user" />
+                      Co-Founder
                     </Card.Content>
                   </Card>
                 </Card.Group>
@@ -99,10 +93,8 @@ class AboutUs extends Component {
                       <Card.Meta>Class of 2020</Card.Meta>
                     </Card.Content>
                     <Card.Content extra>
-                      <a>
-                        <Icon name="user" />
-                        Co-Founder
-                      </a>
+                      <Icon name="user" />
+                      Co-Founder
                     </Card.Content>
                   </Card>
 
@@ -113,10 +105,8 @@ class AboutUs extends Component {
                       <Card.Meta>Class of 2020</Card.Meta>
                     </Card.Content>
                     <Card.Content extra>
-                      <a>
-                        <Icon name="user" />
-                        Developer
-                      </a>
+                      <Icon name="user" />
+                      Developer
                     </Card.Content>
                   </Card>
 
@@ -127,122 +117,8 @@ class AboutUs extends Component {
                       <Card.Meta>Class of 2020</Card.Meta>
                     </Card.Content>
                     <Card.Content extra>
-                      <a>
-                        <Icon name="user" />
-                        Developer
-                      </a>
-                    </Card.Content>
-                  </Card>
-
-                  <Card centered>
-                    <Image rounded src="https://i.imgur.com/IOWY7S9.jpg" />
-                    <Card.Content>
-                      <Card.Header> Shyam Pradheep </Card.Header>
-                      <Card.Meta>Class of 2020</Card.Meta>
-                    </Card.Content>
-                    <Card.Content extra>
-                      <a>
-                        <Icon name="user" />
-                        Marketing
-                      </a>
-                    </Card.Content>
-                  </Card>
-
-                  <Card centered>
-                    <Image rounded src="https://i.imgur.com/srhOIE3.jpg" />
-                    <Card.Content>
-                      <Card.Header> Sam Dale </Card.Header>
-                      <Card.Meta>Class of 2022</Card.Meta>
-                    </Card.Content>
-                    <Card.Content extra>
-                      <a>
-                        <Icon name="user" />
-                        Marketing
-                      </a>
-                    </Card.Content>
-                  </Card>
-
-                  <Card centered>
-                    <Image rounded src="https://i.imgur.com/GGQ2qx6.jpg" />
-                    <Card.Content>
-                      <Card.Header> Ahmad Khan </Card.Header>
-                      <Card.Meta>Class of 2022</Card.Meta>
-                    </Card.Content>
-                    <Card.Content extra>
-                      <a>
-                        <Icon name="user" />
-                        Junior Developer
-                      </a>
-                    </Card.Content>
-                  </Card>
-
-                  <Card centered>
-                    <Image rounded src="https://i.imgur.com/QdJCTFA.jpg" />
-                    <Card.Content>
-                      <Card.Header> Ameer Syedibrahim </Card.Header>
-                      <Card.Meta>Class of 2022</Card.Meta>
-                    </Card.Content>
-                    <Card.Content extra>
-                      <a>
-                        <Icon name="user" />
-                        Junior Developer
-                      </a>
-                    </Card.Content>
-                  </Card>
-
-                  <Card centered>
-                    <Image rounded src="https://i.imgur.com/Fy1TH4H.jpg" />
-                    <Card.Content>
-                      <Card.Header> Mohammad Khatami </Card.Header>
-                      <Card.Meta>Class of 2022</Card.Meta>
-                    </Card.Content>
-                    <Card.Content extra>
-                      <a>
-                        <Icon name="user" />
-                        Junior Developer
-                      </a>
-                    </Card.Content>
-                  </Card>
-
-                  <Card centered>
-                    <Image rounded src="https://i.imgur.com/9Y8t1Nn.jpg" />
-                    <Card.Content>
-                      <Card.Header> Yasser Elmzoudi </Card.Header>
-                      <Card.Meta>Class of 2022</Card.Meta>
-                    </Card.Content>
-                    <Card.Content extra>
-                      <a>
-                        <Icon name="user" />
-                        Junior Developer
-                      </a>
-                    </Card.Content>
-                  </Card>
-
-                  <Card centered>
-                    <Image rounded src="https://i.imgur.com/PiXEG0z.jpg" />
-                    <Card.Content>
-                      <Card.Header> Amjad Syedibrahim </Card.Header>
-                      <Card.Meta>Class of 2022</Card.Meta>
-                    </Card.Content>
-                    <Card.Content extra>
-                      <a>
-                        <Icon name="user" />
-                        Junior Developer
-                      </a>
-                    </Card.Content>
-                  </Card>
-
-                  <Card centered>
-                    <Image rounded src="https://i.imgur.com/g0QT2AK.jpg" />
-                    <Card.Content>
-                      <Card.Header> Elijah Straight </Card.Header>
-                      <Card.Meta>Class of 2023</Card.Meta>
-                    </Card.Content>
-                    <Card.Content extra>
-                      <a>
-                        <Icon name="user" />
-                        Junior Developer
-                      </a>
+                      <Icon name="user" />
+                      Developer
                     </Card.Content>
                   </Card>
 
@@ -253,16 +129,122 @@ class AboutUs extends Component {
                       <Card.Meta>Class of 2023</Card.Meta>
                     </Card.Content>
                     <Card.Content extra>
-                      <a>
-                        <Icon name="user" />
-                        Junior Developer
-                      </a>
+                      <Icon name="user" />
+                      Developer
+                    </Card.Content>
+                  </Card>
+
+                  <Card centered>
+                    <Image rounded src="https://i.imgur.com/IOWY7S9.jpg" />
+                    <Card.Content>
+                      <Card.Header> Shyam Pradheep </Card.Header>
+                      <Card.Meta>Class of 2020</Card.Meta>
+                    </Card.Content>
+                    <Card.Content extra>
+                      <Icon name="user" />
+                      Marketing
+                    </Card.Content>
+                  </Card>
+
+                  <Card centered>
+                    <Image rounded src="https://i.imgur.com/srhOIE3.jpg" />
+                    <Card.Content>
+                      <Card.Header> Sam Dale </Card.Header>
+                      <Card.Meta>Class of 2022</Card.Meta>
+                    </Card.Content>
+                    <Card.Content extra>
+                      <Icon name="user" />
+                      Marketing
+                    </Card.Content>
+                  </Card>
+
+                  <Card centered>
+                    <Image rounded src="https://i.imgur.com/5wDQajQ.jpg" />
+                    <Card.Content>
+                      <Card.Header> Omar Benallal</Card.Header>
+                      <Card.Meta>Class of 2021</Card.Meta>
+                    </Card.Content>
+                    <Card.Content extra>
+                      <Icon name="user" />
+                      Marketing
+                    </Card.Content>
+                  </Card>
+
+                  <Card centered>
+                    <Image rounded src="https://i.imgur.com/GGQ2qx6.jpg" />
+                    <Card.Content>
+                      <Card.Header> Ahmad Khan </Card.Header>
+                      <Card.Meta>Class of 2022</Card.Meta>
+                    </Card.Content>
+                    <Card.Content extra>
+                      <Icon name="user" />
+                      Junior Developer
+                    </Card.Content>
+                  </Card>
+
+                  <Card centered>
+                    <Image rounded src="https://i.imgur.com/QdJCTFA.jpg" />
+                    <Card.Content>
+                      <Card.Header> Ameer Syedibrahim </Card.Header>
+                      <Card.Meta>Class of 2022</Card.Meta>
+                    </Card.Content>
+                    <Card.Content extra>
+                      <Icon name="user" />
+                      Junior Developer
+                    </Card.Content>
+                  </Card>
+
+                  <Card centered>
+                    <Image rounded src="https://i.imgur.com/Fy1TH4H.jpg" />
+                    <Card.Content>
+                      <Card.Header> Mohammad Khatami </Card.Header>
+                      <Card.Meta>Class of 2022</Card.Meta>
+                    </Card.Content>
+                    <Card.Content extra>
+                      <Icon name="user" />
+                      Junior Developer
+                    </Card.Content>
+                  </Card>
+
+                  <Card centered>
+                    <Image rounded src="https://i.imgur.com/9Y8t1Nn.jpg" />
+                    <Card.Content>
+                      <Card.Header> Yasser Elmzoudi </Card.Header>
+                      <Card.Meta>Class of 2022</Card.Meta>
+                    </Card.Content>
+                    <Card.Content extra>
+                      <Icon name="user" />
+                      Junior Developer
+                    </Card.Content>
+                  </Card>
+
+                  <Card centered>
+                    <Image rounded src="https://i.imgur.com/PiXEG0z.jpg" />
+                    <Card.Content>
+                      <Card.Header> Amjad Syedibrahim </Card.Header>
+                      <Card.Meta>Class of 2022</Card.Meta>
+                    </Card.Content>
+                    <Card.Content extra>
+                      <Icon name="user" />
+                      Junior Developer
+                    </Card.Content>
+                  </Card>
+
+                  <Card centered>
+                    <Image rounded src="https://i.imgur.com/g0QT2AK.jpg" />
+                    <Card.Content>
+                      <Card.Header> Elijah Straight </Card.Header>
+                      <Card.Meta>Class of 2023</Card.Meta>
+                    </Card.Content>
+                    <Card.Content extra>
+                      <Icon name="user" />
+                      Junior Developer
                     </Card.Content>
                   </Card>
                 </Card.Group>
               </Card.Content>
             </Card>
-            <Image src={logo} size="large" centered="true" />
+            <Image src={logo} size="large" centered />
           </Container>
         </div>
       </div>
