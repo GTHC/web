@@ -35,19 +35,21 @@ class Availability extends Component {
     return (
       <div>
         <NavBar />
-        <Card fluid raised>
-          <Card.Content>
-            <div className="calendar">
-              <AvailCal
-                availabilities={user.data.availabilities}
-                putAvail={putAvail}
-                postAvail={postAvail}
-                deleteAvail={deleteAvail}
-                dragDropUpdate={dragDropUpdate}
-              />
-            </div>
-          </Card.Content>
-        </Card>
+        <div className="body">
+          <Card fluid raised>
+            <Card.Content>
+              <div className="calendar">
+                <AvailCal
+                  availabilities={user.data.availabilities}
+                  putAvail={putAvail}
+                  postAvail={postAvail}
+                  deleteAvail={deleteAvail}
+                  dragDropUpdate={dragDropUpdate}
+                />
+              </div>
+            </Card.Content>
+          </Card>
+        </div>
       </div>
     );
   }
