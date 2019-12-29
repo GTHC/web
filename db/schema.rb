@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_27_021443) do
+ActiveRecord::Schema.define(version: 2019_12_29_215054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,10 +178,11 @@ ActiveRecord::Schema.define(version: 2019_12_27_021443) do
     t.integer "notification_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "shift"
     t.datetime "start_time"
-    t.text "userids", default: [], array: true
-    t.text "onesignal_ids", default: [], array: true
+    t.string "content"
+    t.string "title"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -242,6 +243,7 @@ ActiveRecord::Schema.define(version: 2019_12_27_021443) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "notifications", "users"
   add_foreign_key "user_shifts", "shifts"
   add_foreign_key "user_shifts", "users"
 end

@@ -34,15 +34,15 @@ module ApplicationHelper
 		end
 
     # @note Test notification parameters without hitting OneSignal API.
-		def test_create_notification(netids, title='Title', content='Content', time=nil)
+		def test_create_notification(netids, title='Title', content='Content', time=nil,  print_params=false)
 			params = {'app_id' => 'b290fd9a-eedf-44b0-8bfd-6a37646957b6',
 								'headings' => {'en' => title},
 								'contents' => {'en' => content},
 								'include_external_user_ids' => netids
 			}
 			params['send_after'] = time if time
-			puts "Params:", params
-			"Time: #{time} Title: #{title} Content: #{content} NetIDs: #{netids.join(', ')}"
+			puts "Params:", params if print_params
+			"<Notification (time: #{time} title: #{title} content: #{content} netids: #{netids.join(', ')})>"
 		end
 
 		# @note Cancel a created notification using its OneSignal ID.

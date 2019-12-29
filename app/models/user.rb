@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   has_many :availabilities
+  has_many :notifications
 
   def self.find_or_create_by_oauth(user_info)
     netid = user_info['dukeNetID']

@@ -3,7 +3,7 @@ require 'json'
 require 'jsonapi-resources'
 
 class Notification < ApplicationRecord
-    belongs_to :shift
+    belongs_to :user
 
 		## @param [Array] netids (OneSignal External IDs)
 		## @param [String] title of notification
