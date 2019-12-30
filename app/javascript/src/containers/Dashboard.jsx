@@ -7,8 +7,11 @@ import { bindActionCreators } from 'redux';
 // redux actions
 import { checkSession } from './../actions/user';
 
-// components
+// containers
 import NavBar from './NavBar';
+
+// components
+import AvailMessage from '../components/availability/AvailMessage';
 import DashboardBody from '../components/dashboard/DashboardBody';
 
 class Dashboard extends Component {
@@ -17,12 +20,13 @@ class Dashboard extends Component {
   }
 
   render () {
-    const { shifts } = this.props;
+    const { user, shifts } = this.props;
 
     return (
       <div>
         <NavBar />
         <div className="body">
+          <AvailMessage availabilities={user.data.availabilities} />
           <DashboardBody shifts={shifts} />
         </div>
       </div>

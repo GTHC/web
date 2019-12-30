@@ -121,11 +121,6 @@ class NavBar extends Component {
               <Icon name="sign out" />
               Logout
             </Menu.Item>
-
-            {/* <Menu.Item as='a' onClick={this.handleLogout}>
-              <Icon name="sign out" />
-              Logout
-            </Menu.Item> */}
           </Menu.Menu>
         </Menu>
       </div>
