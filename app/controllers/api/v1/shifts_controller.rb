@@ -64,14 +64,7 @@ class Api::V1::ShiftsController < ApiController
           team_shifts: format_shifts(current_user.team.shifts),
       }
       render json: { status: 'SUCCESS', message: 'Shift created.', data: data }, status: :ok
-      # Send to all shift members
-      netids = @shift.users.collect(&:netid)
-      # Notification time is 30 minutes before the shift
-      time = @shift.start_time - 30*60
-      title = 'Title'
-      content = 'Content'
-      onesignal_id = helpers.test_create_notification(netids, title, content,
-                                                      time=nil) # test -> send immediately
+      onesignal_id = shift_notification(@shift)
       @shift.notification_id = onesignal_id if onesignal_id
       puts @shift.to_json
 
@@ -104,19 +97,16 @@ class Api::V1::ShiftsController < ApiController
       shift.update(@prime_params)
       # If new start time or new users, cancel old notification and create new one
       if shift.saved_change_to_start_time? or update_users
-        # Delete the notification for the current shift using its ID
-        helpers.cancel_notification(shift.notification_id) if shift.notification_id
-        # Create a new notification for new shift.start - 30
-        netids = shift.users.collect(&:netid)
-        # Notification time is 30 minutes before the shift
-        time = shift.start_time - 30*60
-        title = 'Title'
-        content = 'Content'
-        new_onesignal_id = helpers.test_create_notification(netids, title, content,
-                                                            time=nil) # test -> send immediately
+        helpers.destroy_notification(shift.notification_id)
+        new_onesignal_id = shift_notification(shift, test=true)
         shift.notification_id = new_onesignal_id if new_onesignal_id
         shift.save
-
+        # Create new db record of notification for the user
+        userids = shift.users.collect(&:id)
+        userids.each do |id|
+          @user = User.find(id)
+          @user.notifications.create(start_time: time, title: title, content: content, notification_id: new_onesignal_id)
+        end
       end
       data = {
           shift: format_shifts([shift]),
@@ -132,11 +122,7 @@ class Api::V1::ShiftsController < ApiController
   # DELETE /api/v1/shifts/:id
   def destroy
     shift = Shift.find(params[:id])
-    if shift.notification_id
-      helpers.cancel_notification(shift.notification_id)
-      notification = Notification.find_by(notification_id: shift.notification_id)
-      notification.destroy
-    end
+    helpers.destroy_notification(shift.notification_id)
     shift.destroy
     if shift.destroyed?
       data = {
@@ -150,6 +136,7 @@ class Api::V1::ShiftsController < ApiController
   end
 
   private
+
 
   def validate_params
     params.require([

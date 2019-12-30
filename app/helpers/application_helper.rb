@@ -5,13 +5,31 @@ module ApplicationHelper
 			puts "Test"
     end
 
+    def shift_notification(shift, title=nil, content=nil, test=false, min_before=30,
+													 send_now=false)
+			# Send to all shift members
+			netids = shift.users.collect(&:netid)
+			# Notification time is min_before minutes before shift, if not sending now
+			time = send_now ? nil : shift.start_time - min_before*60
+			title = "Upcoming Shift Reminder" if title.nil?
+			if content.nil?
+				content = "Hey! Your tent shift in K-Ville starts in #{min_before} minutes!"
+			end
+			if test
+				onesignal_id = test_create_notification(netids, title, content, time)
+			else
+				onesignal_id = create_notification(netids, title, content, time)
+			end
+			onesignal_id
+		end
+
     # @note Function to create a scheduled notification for a list of users
     # by netid, which is mapped to a OneSignal device by an external ID.
 		# @param [Array] netids (OneSignal External IDs)
 		# @param [String] title of notification
 		# @param [String] content of notification
 		# @return [String] OneSignal ID of scheduled notification
-		def create_notification(netids, title='Title', content='Content', time=nil)
+		def create_notification(netids, title, content time=nil)
 			params = {'app_id' => 'b290fd9a-eedf-44b0-8bfd-6a37646957b6',
 								'headings' => {'en' => title},
 								'contents' => {'en' => content},
@@ -42,7 +60,8 @@ module ApplicationHelper
 			}
 			params['send_after'] = time if time
 			puts "Params:", params if print_params
-			"<Notification (time: #{time} title: #{title} content: #{content} netids: #{netids.join(', ')})>"
+			"{Notification time: #{time}, title: #{title}, content: #{content},
+			 netids: #{netids.join(', ')}}"
 		end
 
 		# @note Cancel a created notification using its OneSignal ID.
@@ -63,6 +82,19 @@ module ApplicationHelper
 			data = JSON.parse(response.body)
 			result = data.has_key?('success') ? data['success'] : false
 			ActiveModel::Type::Boolean.new.cast(result)
+		end
+
+		# @note Clear old notification on deletion or update.
+    # Wrapper method that deletes notification on both OneSignal and the db.
+		# @param [String] notification_id OneSignal Notification ID.
+		def destroy_notification(notification_id)
+			puts "Clearing Notification ID: #{notification_id}"
+			if notification_id
+				# Destroy all notification with this OneSignal ID
+				Notification.destroy_by(notification_id: notification_id)
+				# Cancel the OneSignal scheduled notification
+				cancel_notification(notification_id)
+			end
 		end
 
 end
