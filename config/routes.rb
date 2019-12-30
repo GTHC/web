@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get 'app/*path', to: 'pages#index'
   get 'tenting101', to: 'pages#index'
   get 'about', to: 'pages#index'
+  get 'about/gthc', to: 'pages#index'
+  get 'about/us', to: 'pages#index'
   get 'privacy', to: 'pages#index'
   # Login/Logout
   get 'login', to:'pages#index'
