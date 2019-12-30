@@ -4,7 +4,7 @@ import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import moment from 'moment';
 
 // semantic-ui
-import { Button, Modal } from 'semantic-ui-react';
+import { Button, Modal, Icon } from 'semantic-ui-react';
 
 // components
 import ShiftViewModal from './ShiftViewModal';
@@ -132,6 +132,23 @@ class BigCal extends Component {
     }
   }
 
+  titleAccessor = (shift) => {
+    const users = shift.users;
+    const names = users.map(e => e.name).sort()
+    console.log(names);
+    return (
+      <div>
+        <p>{shift.title}</p>
+        { users.length > 0 &&
+          <div>
+            <Icon name="users"/>
+            {names.join(", ")}
+          </div>
+        }
+      </div>
+    )
+  }
+
   render() {
     const {
       start, end,
@@ -166,6 +183,7 @@ class BigCal extends Component {
           onSelectEvent={this.onSelectEvent}
           onSelectSlot={this.handleSelectDrag}
           eventPropGetter={this.eventPropGetter}
+          titleAccessor={this.titleAccessor}
         />
         {/* Shift View Modal */}
         <Modal
