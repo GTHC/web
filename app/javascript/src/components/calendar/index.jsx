@@ -135,7 +135,6 @@ class BigCal extends Component {
   titleAccessor = (shift) => {
     const users = shift.users;
     const names = users.map(e => e.name).sort()
-    console.log(names);
     return (
       <div>
         <p>{shift.title}</p>
