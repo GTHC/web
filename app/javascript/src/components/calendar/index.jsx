@@ -112,6 +112,26 @@ class BigCal extends Component {
     this.onClose('view');
   };
 
+  /**
+   * eventPropGetter - adds styles to each event component based
+   * changes color of shift if user is assigned or not
+   */
+  eventPropGetter = ({ users }) => {
+    const currentUser = this.props.user.data;
+    let color = '#e0e1e2' // gray
+    let textColor = 'black'
+    if (users && users.some(e => e.id == currentUser.id)) {
+      color = '#2185d0' // royal blue
+      textColor = 'white'
+    }
+    return {
+      style: {
+        backgroundColor: color,
+        color: textColor,
+      }
+    }
+  }
+
   render() {
     const {
       start, end,
@@ -130,21 +150,22 @@ class BigCal extends Component {
     return (
       <div>
         <DragDropCal
+          popup
           resizeable
+          selectable
           showMultiDayTimes
+          style={{ height: '80vh' }}
           onEventDrop={this.moveEvent}
           onEventResize={this.resizeEvent}
           step={30}
           timeslots={4}
-          selectable
-          popup
           localizer={localizer}
           defaultDate={new Date()}
           defaultView="day"
           events={events}
           onSelectEvent={this.onSelectEvent}
           onSelectSlot={this.handleSelectDrag}
-          style={{ height: '80vh' }}
+          eventPropGetter={this.eventPropGetter}
         />
         {/* Shift View Modal */}
         <Modal
