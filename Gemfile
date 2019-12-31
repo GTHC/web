@@ -36,7 +36,7 @@ gem 'jbuilder'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Devise for User Auth
-gem 'devise', '~> 4.2'
+gem 'devise', '~> 4.7'
 
 # Analytics
 gem 'ahoy_matey'
