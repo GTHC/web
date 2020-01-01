@@ -189,11 +189,32 @@ class BreakdownHours extends Component {
           {this.renderDropDown()}
           <br/>
           <br/>
+
+          <Card.Group>
+            {
+              !loaded &&
+              <div class="ui segment">
+               <div class="ui active transition visible inverted dimmer">
+                 <div class="content"><div class="ui inverted text loader"><b>Loading</b></div></div>
+               </div>
+               <img
+                 src="https://react.semantic-ui.com/images/wireframe/short-paragraph.png"
+                 class="ui image"
+               />
+               <br/>
+               <br/>
+             </div>
+
+            }
+          </Card.Group>
+
           <Card.Group>
             {
               loaded && data.map(userData => this.renderUserCard(userData))
+
             }
           </Card.Group>
+
           {
             error &&
             <div>
