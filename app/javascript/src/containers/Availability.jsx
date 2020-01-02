@@ -37,6 +37,9 @@ class Availability extends Component {
         <NavBar />
         <div className="body">
           <Card fluid raised>
+            <Card.Content textAlign="center">
+              <h5>Drag and drop to add an availability event. Click an availability event to edit.</h5>
+            </Card.Content>
             <Card.Content>
               <div className="calendar">
                 <AvailCal
