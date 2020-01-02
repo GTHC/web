@@ -14,37 +14,55 @@ module ApplicationHelper
 			if content.nil?
 				content = "Hey! Your tent shift in K-Ville starts in #{min_before} minutes!"
 			end
-			if test
-				onesignal_id = test_create_notification(netids, title, content, time)
-			else
-				onesignal_id = create_notification(netids, title, content, time)
-			end
+			onesignal_id = create_notification(netids, recipient_type = 'netids',
+																				 title, content, time, test)
 			# Store notification record in db for each user
 			userids = shift.users.collect(&:id)
 			userids.each do |id|
 				@user = User.find(id)
 				@user.notifications.create(start_time: time, title: title, content: content, notification_id: onesignal_id)
-				end
-				#puts @user.notifications.pluck(:start_time, :title, :content)
+			end
+			#puts @user.notifications.pluck(:start_time, :title, :content)
+			onesignal_id
+		end
+
+		def post_notification(title, content, test: false)
+			# Send to all members
+			onesignal_id = create_notification(['All'], recipient_type = 'all',
+																				 title, content, time, test)
+			#puts @user.notifications.pluck(:start_time, :title, :content)
 			onesignal_id
 		end
 
     # @note Function to create a scheduled notification for a list of users
     # by netid, which is mapped to a OneSignal device by an external ID.
-		# @param [Array] netids (OneSignal External IDs)
+		# @param [Array] recipients
+    # @param [String] recipient_type, one of (netids, all, players)
 		# @param [String] title of notification
 		# @param [String] content of notification
 		# @return [String] OneSignal ID of scheduled notification
-		def create_notification(netids, title, content, time)
-			params = {'app_id' => 'b290fd9a-eedf-44b0-8bfd-6a37646957b6',
-								'headings' => {'en' => title},
-								'contents' => {'en' => content},
-								'include_external_user_ids' => netids,
-								# 'included_segments' => ['All'],
-								# 'include_player_ids' => ['08751c80-ab03-4fee-9480-1089e7e5ec4b']
-			}
+		def create_notification(recipients, recipient_type, title, content, time,
+														test: false)
+			if recipient_type == 'netids'
+				params = {'app_id' => 'b290fd9a-eedf-44b0-8bfd-6a37646957b6',
+									'headings' => {'en' => title}, 'contents' => {'en' => content},
+									'include_external_user_ids' => recipients}
+			elsif recipient_type == 'all'
+				params = {'app_id' => 'b290fd9a-eedf-44b0-8bfd-6a37646957b6',
+									'headings' => {'en' => title}, 'contents' => {'en' => content},
+									 'included_segments' => ['All']}
+			elsif recipient_type == 'players'
+				params = {'app_id' => 'b290fd9a-eedf-44b0-8bfd-6a37646957b6',
+									'headings' => {'en' => title}, 'contents' => {'en' => content},
+									'include_player_ids' => recipients}
+			else # assume sending to test users
+				params = {'app_id' => 'b290fd9a-eedf-44b0-8bfd-6a37646957b6',
+									'headings' => {'en' => title}, 'contents' => {'en' => content},
+									'included_segments' => ['Test Users']}
+			end
 			params['send_after'] = time if time
 			puts "Params:", params
+			return params.to_json if test
 			uri = URI.parse('https://onesignal.com/api/v1/notifications')
 			http = Net::HTTP.new(uri.host, uri.port)
 			http.use_ssl = true
@@ -56,16 +74,16 @@ module ApplicationHelper
 		end
 
     # @note Test notification parameters without hitting OneSignal API.
-		def test_create_notification(netids, title: 'Title', content: 'Content', time: nil,  print_params: false)
+		def test_create_notification(recipients, recipient_type, title: 'Title', content: 'Content', time: nil,  print_params: false)
 			params = {'app_id' => 'b290fd9a-eedf-44b0-8bfd-6a37646957b6',
 								'headings' => {'en' => title},
 								'contents' => {'en' => content},
-								'include_external_user_ids' => netids
+								'include_external_user_ids' => recipients
 			}
 			params['send_after'] = time if time
 			puts "Params:", params if print_params
-			"{Notification time: #{time}, title: #{title}, content: #{content},
-			 netids: #{netids.join(', ')}}"
+			"{Notification time: #{time}, title: #{title}, recipient_type: #{recipient_type}, content: #{content},
+			 netids: #{recipients.join(', ')}}"
 		end
 
 		# @note Cancel a created notification using its OneSignal ID.
