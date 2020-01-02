@@ -10,8 +10,11 @@ import { getAllShifts } from '../actions/shifts';
 import { getAllTeams } from '../actions/teams';
 import { getPosts } from './../actions/posts';
 
-// components
+// containers
 import NavBar from './NavBar';
+
+// components
+import AvailMessage from './../components/availability/AvailMessage';
 import HomeBody from './../components/home/HomeBody';
 import SignUp from  './../components/signup';
 
@@ -36,6 +39,9 @@ class Home extends Component {
             <div>
               <NavBar />
               <div className="body">
+                <AvailMessage
+                  availabilities={user.data.availabilities}
+                />
                 <HomeBody
                   getAllShifts={getAllShifts}
                   posts={posts}

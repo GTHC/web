@@ -19,8 +19,7 @@ class SignUp extends Component {
         tentType: null,
         isCaptain: false,
         passcode: '',
-      },
-      availabilities: [],
+      }
     }
   }
 

@@ -4,7 +4,6 @@ import { Tab } from 'semantic-ui-react';
 import UserPane from './UserPane';
 import EditUserPane from './EditUserPane';
 import EditUserAvatar from './EditUserAvatar';
-import EditUserAvailability from './EditUserAvailability';
 
 export default class UserProfileBody extends Component {
   render () {
@@ -19,9 +18,6 @@ export default class UserProfileBody extends Component {
       </Tab.Pane>, },
       { menuItem: 'Edit Avatar', render: () => <Tab.Pane>
         <EditUserAvatar {...this.props} />
-      </Tab.Pane> },
-      { menuItem: 'Edit Availability', render: () => <Tab.Pane>
-        <EditUserAvailability {...this.props} />
       </Tab.Pane> },
     ];
 
