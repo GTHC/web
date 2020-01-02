@@ -64,17 +64,10 @@ class Api::V1::ShiftsController < ApiController
           team_shifts: format_shifts(current_user.team.shifts),
       }
       render json: { status: 'SUCCESS', message: 'Shift created.', data: data }, status: :ok
-      onesignal_id = shift_notification(@shift)
+      # Shift notification
+      onesignal_id = helpers.shift_notification(@shift, send_now: true)
       @shift.notification_id = onesignal_id if onesignal_id
       puts @shift.to_json
-
-      userids = @shift.users.collect(&:id)
-      userids.each do |id|
-        @user = User.find(id)
-        @user.notifications.create(start_time: time, title: title, content: content,
-                                   notification_id: onesignal_id)
-        #puts @user.notifications.pluck(:start_time, :title, :content)
-      end
     else
       render json: { status: 'ERROR', message: 'Shift not created.', data: @shift.errors }, status: :unprocessable_entity
     end
@@ -98,15 +91,9 @@ class Api::V1::ShiftsController < ApiController
       # If new start time or new users, cancel old notification and create new one
       if shift.saved_change_to_start_time? or update_users
         helpers.destroy_notification(shift.notification_id)
-        new_onesignal_id = shift_notification(shift, test=true)
+        new_onesignal_id = helpers.shift_notification(shift, send_now: true)
         shift.notification_id = new_onesignal_id if new_onesignal_id
         shift.save
-        # Create new db record of notification for the user
-        userids = shift.users.collect(&:id)
-        userids.each do |id|
-          @user = User.find(id)
-          @user.notifications.create(start_time: time, title: title, content: content, notification_id: new_onesignal_id)
-        end
       end
       data = {
           shift: format_shifts([shift]),

@@ -5,8 +5,7 @@ module ApplicationHelper
 			puts "Test"
     end
 
-    def shift_notification(shift, title=nil, content=nil, test=false, min_before=30,
-													 send_now=false)
+    def shift_notification(shift, title: nil, content: nil, test: false, min_before: 30, send_now: false)
 			# Send to all shift members
 			netids = shift.users.collect(&:netid)
 			# Notification time is min_before minutes before shift, if not sending now
@@ -20,6 +19,13 @@ module ApplicationHelper
 			else
 				onesignal_id = create_notification(netids, title, content, time)
 			end
+			# Store notification record in db for each user
+			userids = shift.users.collect(&:id)
+			userids.each do |id|
+				@user = User.find(id)
+				@user.notifications.create(start_time: time, title: title, content: content, notification_id: onesignal_id)
+				end
+				#puts @user.notifications.pluck(:start_time, :title, :content)
 			onesignal_id
 		end
 
@@ -29,7 +35,7 @@ module ApplicationHelper
 		# @param [String] title of notification
 		# @param [String] content of notification
 		# @return [String] OneSignal ID of scheduled notification
-		def create_notification(netids, title, content time=nil)
+		def create_notification(netids, title, content, time)
 			params = {'app_id' => 'b290fd9a-eedf-44b0-8bfd-6a37646957b6',
 								'headings' => {'en' => title},
 								'contents' => {'en' => content},
@@ -42,9 +48,7 @@ module ApplicationHelper
 			uri = URI.parse('https://onesignal.com/api/v1/notifications')
 			http = Net::HTTP.new(uri.host, uri.port)
 			http.use_ssl = true
-			request = Net::HTTP::Post.new(uri.path,
-																		'Content-Type'  => 'application/json;charset=utf-8',
-																		'Authorization' => 'Basic NDY3ZjU0NTktZTUwNy00ODQyLWFmNTMtN2IzYjAyZjI5MGYx')
+			request = Net::HTTP::Post.new(uri.path,	'Content-Type'  => 'application/json;charset=utf-8', 'Authorization' => 'Basic NDY3ZjU0NTktZTUwNy00ODQyLWFmNTMtN2IzYjAyZjI5MGYx')
 			request.body = params.as_json.to_json
 			response = http.request(request)
 			data = JSON.parse(response.body)
@@ -52,7 +56,7 @@ module ApplicationHelper
 		end
 
     # @note Test notification parameters without hitting OneSignal API.
-		def test_create_notification(netids, title='Title', content='Content', time=nil,  print_params=false)
+		def test_create_notification(netids, title: 'Title', content: 'Content', time: nil,  print_params: false)
 			params = {'app_id' => 'b290fd9a-eedf-44b0-8bfd-6a37646957b6',
 								'headings' => {'en' => title},
 								'contents' => {'en' => content},
@@ -74,9 +78,7 @@ module ApplicationHelper
 			uri = URI.parse('https://onesignal.com/api/v1/notifications')
 			http = Net::HTTP.new(uri.host, uri.port)
 			http.use_ssl = true
-			request = Net::HTTP::Delete.new(uri.path,
-																		'Content-Type'  => 'application/json;charset=utf-8',
-																		'Authorization' => 'Basic NDY3ZjU0NTktZTUwNy00ODQyLWFmNTMtN2IzYjAyZjI5MGYx')
+			request = Net::HTTP::Delete.new(uri.path, 'Content-Type'  => 'application/json;charset=utf-8', 'Authorization' => 'Basic NDY3ZjU0NTktZTUwNy00ODQyLWFmNTMtN2IzYjAyZjI5MGYx')
 			request.body = params.as_json.to_json
 			response = http.request(request)
 			data = JSON.parse(response.body)
@@ -84,14 +86,14 @@ module ApplicationHelper
 			ActiveModel::Type::Boolean.new.cast(result)
 		end
 
-		# @note Clear old notification on deletion or update.
+		# @note Helper function to clear old notification on deletion or update.
     # Wrapper method that deletes notification on both OneSignal and the db.
 		# @param [String] notification_id OneSignal Notification ID.
 		def destroy_notification(notification_id)
-			puts "Clearing Notification ID: #{notification_id}"
+			puts "Cancelling Notification ID: #{notification_id}"
 			if notification_id
 				# Destroy all notification with this OneSignal ID
-				Notification.destroy_by(notification_id: notification_id)
+				Notification.where(notification_id: notification_id).destroy_all
 				# Cancel the OneSignal scheduled notification
 				cancel_notification(notification_id)
 			end
