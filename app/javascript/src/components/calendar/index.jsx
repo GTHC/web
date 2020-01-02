@@ -140,7 +140,12 @@ class BigCal extends Component {
         <p>{shift.title}</p>
         { users.length > 0 &&
           <div>
-            <Icon name="users"/>
+            {
+              users.length == 1 ?
+              <Icon name="user" />
+              :
+              <Icon name="users" />
+            }
             {names.join(", ")}
           </div>
         }
