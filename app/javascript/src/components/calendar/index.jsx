@@ -4,7 +4,7 @@ import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import moment from 'moment';
 
 // semantic-ui
-import { Button, Modal } from 'semantic-ui-react';
+import { Button, Modal, Icon } from 'semantic-ui-react';
 
 // components
 import ShiftViewModal from './ShiftViewModal';
@@ -112,6 +112,47 @@ class BigCal extends Component {
     this.onClose('view');
   };
 
+  /**
+   * eventPropGetter - adds styles to each event component based
+   * changes color of shift if user is assigned or not
+   */
+  eventPropGetter = ({ users }) => {
+    const currentUser = this.props.user.data;
+    let color = '#e0e1e2' // gray
+    let textColor = 'black'
+    if (users && users.some(e => e.id == currentUser.id)) {
+      color = '#2185d0' // royal blue
+      textColor = 'white'
+    }
+    return {
+      style: {
+        backgroundColor: color,
+        color: textColor,
+      }
+    }
+  }
+
+  titleAccessor = (shift) => {
+    const users = shift.users;
+    const names = users.map(e => e.name).sort()
+    return (
+      <div>
+        <p>{shift.title}</p>
+        { users.length > 0 &&
+          <div>
+            {
+              users.length == 1 ?
+              <Icon name="user" />
+              :
+              <Icon name="users" />
+            }
+            {names.join(", ")}
+          </div>
+        }
+      </div>
+    )
+  }
+
   render() {
     const {
       start, end,
@@ -130,21 +171,23 @@ class BigCal extends Component {
     return (
       <div>
         <DragDropCal
+          popup
           resizeable
+          selectable
           showMultiDayTimes
+          style={{ height: '80vh' }}
           onEventDrop={this.moveEvent}
           onEventResize={this.resizeEvent}
           step={30}
           timeslots={4}
-          selectable
-          popup
           localizer={localizer}
           defaultDate={new Date()}
           defaultView="day"
           events={events}
           onSelectEvent={this.onSelectEvent}
           onSelectSlot={this.handleSelectDrag}
-          style={{ height: '80vh' }}
+          eventPropGetter={this.eventPropGetter}
+          titleAccessor={this.titleAccessor}
         />
         {/* Shift View Modal */}
         <Modal
