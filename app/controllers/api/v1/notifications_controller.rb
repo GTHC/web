@@ -7,7 +7,7 @@ class Api::V1::NotificationsController < ApiController
       @notifications = user.notifications
       @posts = Post.all
         data = {
-            notifications: user.notifications,
+            shift_notifications: user.notifications,
             announcements: @posts
         }
         render json: { status: 'SUCCESS', message: "Notifications for user with netid #{user.netid} found.", data: data } , status: :ok

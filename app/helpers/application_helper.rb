@@ -3,6 +3,7 @@ require 'uri'
 
 module ApplicationHelper
 
+
     def shift_notification(shift, title: nil, content: nil, test: false, min_before: 10, send_now: false)
 			# Send to all shift members
 			netids = shift.users.collect(&:netid)
@@ -12,7 +13,7 @@ module ApplicationHelper
 			if content.nil?
 				content = "Hey! Your tent shift in K-Ville starts in #{min_before} minutes!"
 			end
-			puts "Scheduling shift notification with time: #{time} title: #{title} Content: #{content} netIDs: #{netids.join(', ')}"
+			puts "Scheduling shift notification with time: #{time} title: #{title} content: #{content} netIDs: #{netids.join(', ')}"
 			onesignal_id = create_notification(netids, recipient_type='netids',
 																				 title, content, time, test)
 			# Store notification record in db for each user
