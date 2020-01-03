@@ -12,6 +12,7 @@ module ApplicationHelper
 			if content.nil?
 				content = "Hey! Your tent shift in K-Ville starts in #{min_before} minutes!"
 			end
+			puts "Scheduling shift notification with time: #{time} title: #{title} Content: #{content} netIDs: #{netids.join(', ')}"
 			onesignal_id = create_notification(netids, recipient_type='netids',
 																				 title, content, time, test)
 			# Store notification record in db for each user
@@ -30,6 +31,7 @@ module ApplicationHelper
 		# be used for line monitor announcements.
 		def post_notification(title, content, test: false)
 			# Send to all members, immediately
+			puts "Scheduling post announcement notification to all users with title: #{title} content: #{content}"
 			onesignal_id = create_notification(['All'], recipient_type='all',
 																				 title, content, time=nil, test)
 			#puts @user.notifications.pluck(:start_time, :title, :content)
@@ -64,7 +66,7 @@ module ApplicationHelper
 									'included_segments' => ['Test Users']}
 			end
 			params['send_after'] = time if time
-			puts "Params:", params
+			puts "Sending POST request to OneSignal with parameters: #{params}"
 			return params.to_json if test
 			uri = URI.parse('https://onesignal.com/api/v1/notifications')
 			http = Net::HTTP.new(uri.host, uri.port)
@@ -81,8 +83,9 @@ module ApplicationHelper
 		# @return True on successful deletion of notification. False otherwise.
 		def cancel_notification(onesignal_id)
 			params = {'app_id' => 'b290fd9a-eedf-44b0-8bfd-6a37646957b6',
-								'id' => '0381a837-e811-495f-a745-88638e942572'}
+								'id' => onesignal_id}
 			uri = URI.parse("https://onesignal.com/api/v1/notifications/#{params['id']}?app_id=#{params['app_id']}")
+			puts "Sending DELETE request to OneSignal with parameters: #{params}"
 			request = Net::HTTP::Delete.new(uri)
 			request["Authorization"] = "Basic NDY3ZjU0NTktZTUwNy00ODQyLWFmNTMtN2IzYjAyZjI5MGYx"
 			req_options = {
@@ -100,7 +103,7 @@ end
     # Wrapper method that deletes notification on both OneSignal and the db.
 		# @param [String] notification_id OneSignal Notification ID.
 		def destroy_notification(notification_id)
-			puts "Cancelling Notification ID: #{notification_id}"
+			puts "Cancelling Notification with OneSignal ID: #{notification_id}"
 			if notification_id
 				# Destroy all notification with this OneSignal ID
 				Notification.where(notification_id: notification_id).destroy_all
