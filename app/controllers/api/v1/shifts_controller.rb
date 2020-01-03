@@ -65,8 +65,9 @@ class Api::V1::ShiftsController < ApiController
       }
       render json: { status: 'SUCCESS', message: 'Shift created.', data: data }, status: :ok
       # Shift notification
-      onesignal_id = helpers.shift_notification(@shift, send_now: true)
-      @shift.notification_id = onesignal_id if onesignal_id
+      onesignal_id = helpers.shift_notification(@shift)
+      @shift.notification_id = onesignal_id
+      @shift.save
       puts @shift.to_json
     else
       render json: { status: 'ERROR', message: 'Shift not created.', data: @shift.errors }, status: :unprocessable_entity
@@ -92,7 +93,7 @@ class Api::V1::ShiftsController < ApiController
       if shift.saved_change_to_start_time? or update_users
         helpers.destroy_notification(shift.notification_id)
         new_onesignal_id = helpers.shift_notification(shift, send_now: true)
-        shift.notification_id = new_onesignal_id if new_onesignal_id
+        shift.notification_id = new_onesignal_id
         shift.save
       end
       data = {
