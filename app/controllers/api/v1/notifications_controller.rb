@@ -5,12 +5,14 @@ class Api::V1::NotificationsController < ApiController
   def show
     if user = User.find(params[:id])
       @notifications = user.notifications
+      @posts = Post.all
         data = {
-            notifications: user.notifications
+            notifications: user.notifications,
+            announcements: @posts
         }
-        render json: { status: 'SUCCESS', message: 'User notifications found.', data: data } , status: :ok
+        render json: { status: 'SUCCESS', message: "Notifications for user with netid #{user.netid} found.", data: data } , status: :ok
       else
-        render json: { status: 'ERROR', message: 'ID not found.' }, status: :unprocessable_entity
+        render json: { status: 'ERROR', message: 'User not found.' }, status: :unprocessable_entity
       end
   end
 
@@ -19,11 +21,13 @@ class Api::V1::NotificationsController < ApiController
   def index
     if current_user
       @notifications = current_user.notifications
+      @posts = Post.all
       if @notifications
         data = {
-            notifications: current_user.notifications
+            notifications: current_user.notifications,
+            announcements: @posts
         }
-        render json: { status: 'SUCCESS', message: 'Notifications found.', data: data } , status: :ok
+        render json: { status: 'SUCCESS', message: "Notifications for user with netid #{current_user.netid} found.", data: data } , status: :ok
       else
         render json: { status: 'ERROR', message: 'Notifications not found.' }, status: :unprocessable_entity
       end

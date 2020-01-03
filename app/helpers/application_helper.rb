@@ -3,12 +3,7 @@ require 'uri'
 
 module ApplicationHelper
 
-		# Called with helpers.test
-    def test
-			puts "Test"
-    end
-
-    def shift_notification(shift, title: nil, content: nil, test: false, min_before: 30, send_now: false)
+    def shift_notification(shift, title: nil, content: nil, test: false, min_before: 10, send_now: false)
 			# Send to all shift members
 			netids = shift.users.collect(&:netid)
 			# Notification time is min_before minutes before shift, if not sending now
@@ -29,10 +24,14 @@ module ApplicationHelper
 			onesignal_id
 		end
 
+		# @note Helper method. Can delete if necessary but allows for additional
+		# logic for post notifications.
+		# Currently, post notifications send immediately to all users, meant to
+		# be used for line monitor announcements.
 		def post_notification(title, content, test: false)
-			# Send to all members
+			# Send to all members, immediately
 			onesignal_id = create_notification(['All'], recipient_type='all',
-																				 title, content, time, test)
+																				 title, content, time=nil, test)
 			#puts @user.notifications.pluck(:start_time, :title, :content)
 			onesignal_id
 		end
@@ -77,8 +76,6 @@ module ApplicationHelper
 			data.has_key?('id') ? data['id'] : nil
 		end
 
-
-
 		# @note Cancel a created notification using its OneSignal ID.
 		# @param onesignal_id
 		# @return True on successful deletion of notification. False otherwise.
@@ -97,7 +94,7 @@ module ApplicationHelper
 			data = JSON.parse(response.body)
 			result = data.has_key?('success') ? data['success'] : false
 			ActiveModel::Type::Boolean.new.cast(result)
-		end
+end
 
 		# @note Helper function to clear old notification on deletion or update.
     # Wrapper method that deletes notification on both OneSignal and the db.

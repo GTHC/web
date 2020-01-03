@@ -92,7 +92,7 @@ class Api::V1::ShiftsController < ApiController
       # If new start time or new users, cancel old notification and create new one
       if shift.saved_change_to_start_time? or update_users
         helpers.destroy_notification(shift.notification_id)
-        new_onesignal_id = helpers.shift_notification(shift, send_now: true)
+        new_onesignal_id = helpers.shift_notification(shift)
         shift.notification_id = new_onesignal_id
         shift.save
       end
