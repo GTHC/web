@@ -6,20 +6,27 @@
 
 ## Testing Notifications
 
-1. Run the console    
-```
-yarn dev:console
-```
+From Shamikh: 
+Implemented Push Notifications for Shifts and Posts
+1. Testing Notifications for Shifts
+- Run ```yarn flush``` and ```yarn dev:start``` and make your own team 
+- Enabling Notifications on Web: Navigate to http://localhost:5000/notif and click "Allow Notifications" in the browser pop up. 
+- Enabling Notifications on Mobile: Navigate to Notifications tab on app and select "Allow Notifications" in the pop up (waiting on updated build for mobile to be available). 
+- Go to [http://localhost:5000/app/calendar](http://localhost:5000/app/calendar) and make a shift for yourself on the current day at a close future time 
+- Verify that you receive a Notification about your shift 10 minutes before the shift occurs. 
+2. Testing Notifications for Posts (Line Monitor Announcements) 
+- Go to [http://localhost:5000/admin/posts](http://localhost:5000/admin/posts) and make a new post. 
+- All subscribed users should receive a notification (don't use this test more than once)
+3. Notifications Endpoint (Used to make our own Notifications History/Inbox)
+- Be logged into GTHC with Shibboleth
+- Navigate to [http://localhost:5000/api/v1/notifications/](http://localhost:5000/api/v1/notifications/) to get the notifications for the current logged on user. 
+- Use http://localhost:5000/api/v1/notifications/<user_id> to get the notifications user with that user_id. The shift notifications are under "shift_notifications" in the JSON, and Posts/Line Monitor announcements are under "announcements". 
+Let Shamikh know if you encounter any issues during testing or if you don't get a notification. Test consciously and please be wary of spamming the OneSignal API with requests. All requests are logged in the server logs. If you see anything suspicious in the logs, please let me know. Thanks so much! :) 
 
-2. Initialize a new notification   
-```
-notif = Notification.new
-```
-
-3. Send the notification   
-```
-notif.send_notification('Your K-Ville shift starts in 30 minutes!')
-```
+From Mike: 
+Added OneSignal integration 
+Upgraded all the dependencies to latest versions, removed unnecessary packages to improve compiling speed. 
+Migrated to rails webpacker native babel to solve conflicts.
 
 <!-- This README would normally document whatever steps are necessary to get the
 application up and running.
