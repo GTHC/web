@@ -9,7 +9,7 @@
       });
 
       let netid = '<%= current_user.netid %>';
-      // console.log(env.ONESIGNAL_APP_ID);
+      console.log(process.env.REACT_APP_ONESIGNAL_APP_ID);
       // console.log(netid);
       OneSignal.push(function() {
           OneSignal.setExternalUserId(netid);

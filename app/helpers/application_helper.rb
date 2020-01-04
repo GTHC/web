@@ -4,8 +4,11 @@ require 'uri'
 module ApplicationHelper
 
 	def shift_notification(shift, title: nil, content: nil, test: false, min_before: 10, send_now: false)
-		# Send to all shift members
-		netids = shift.users.collect(&:netid)
+		# Send to all shift members where enable_shift_notifications is true
+		users = shift.users.where(enable_shift_notifications: true)
+		netids = users.pluck(:netid)
+		# No one to send notification to -> exit
+		return nil if netids.empty?
 		# Notification time is min_before minutes before shift, if not sending now
 		time = send_now ? nil : shift.start_time - min_before*60
 		title = "Upcoming Shift Reminder" if title.nil?
@@ -29,11 +32,12 @@ module ApplicationHelper
 	# Currently, post notifications send immediately to all users, meant to
 	# be used for line monitor announcements.
 	def post_notification(title, content, test: false)
-		# Send to all members, immediately
+		# Send to all (enabled) members, immediately
 		puts "Scheduling post announcement notification to all users with title: #{title} content: #{content}"
-		onesignal_id = create_notification(['All'], recipient_type='all', title, content, time=nil, test)
+		recipients = User.where(enable_announcement_notifications: true).pluck(:netid)
+		return nil if netids.empty?
+		create_notification(recipients, recipient_type='netids', title, content, time=nil, test)
 		# puts @user.notifications.pluck(:start_time, :title, :content)
-		onesignal_id
 	end
 
 	# @note Function to create a scheduled notification for a list of users
@@ -47,19 +51,23 @@ module ApplicationHelper
 	def create_notification(recipients, recipient_type, title, content, time, test)
 		if recipient_type == 'netids'
 			params = {'app_id' => ENV['ONESIGNAL_APP_ID'],
-								'headings' => {'en' => title}, 'contents' => {'en' => content},
+								'headings' => {'en' => title},
+								'contents' => {'en' => content},
 								'include_external_user_ids' => recipients}
 		elsif recipient_type == 'all'
 			params = {'app_id' => ENV['ONESIGNAL_APP_ID'],
-								'headings' => {'en' => title}, 'contents' => {'en' => content},
-								'included_segments' => ['All']}
+								'headings' => {'en' => title},
+								'contents' => {'en' => content},
+								'included_segments' => ['Subscribed Users']}
 		elsif recipient_type == 'players'
 			params = {'app_id' => ENV['ONESIGNAL_APP_ID'],
-								'headings' => {'en' => title}, 'contents' => {'en' => content},
+								'headings' => {'en' => title},
+								'contents' => {'en' => content},
 								'include_player_ids' => recipients}
 		else # assume sending to test users
 			params = {'app_id' => ENV['ONESIGNAL_APP_ID'],
-								'headings' => {'en' => title}, 'contents' => {'en' => content},
+								'headings' => {'en' => title},
+								'contents' => {'en' => content},
 								'included_segments' => ['Test Users']}
 		end
 		params['send_after'] = time if time
