@@ -4,30 +4,6 @@
 
 # README
 
-## Testing Notifications
-
-From Shamikh: 
-Implemented Push Notifications for Shifts and Posts
-1. Testing Notifications for Shifts
-- Run ```yarn flush``` and ```yarn dev:start``` and make your own team 
-- Enabling Notifications on Web: Navigate to http://localhost:5000/notif and click "Allow Notifications" in the browser pop up. 
-- Enabling Notifications on Mobile: Navigate to Notifications tab on app and select "Allow Notifications" in the pop up (waiting on updated build for mobile to be available). 
-- Go to [http://localhost:5000/app/calendar](http://localhost:5000/app/calendar) and make a shift for yourself on the current day at a close future time 
-- Verify that you receive a Notification about your shift 10 minutes before the shift occurs. 
-2. Testing Notifications for Posts (Line Monitor Announcements) 
-- Go to [http://localhost:5000/admin/posts](http://localhost:5000/admin/posts) and make a new post. 
-- All subscribed users should receive a notification (don't use this test more than once)
-3. Notifications Endpoint (Used to make our own Notifications History/Inbox)
-- Be logged into GTHC with Shibboleth
-- Navigate to [http://localhost:5000/api/v1/notifications/](http://localhost:5000/api/v1/notifications/) to get the notifications for the current logged on user. 
-- Use http://localhost:5000/api/v1/notifications/<user_id> to get the notifications user with that user_id. The shift notifications are under "shift_notifications" in the JSON, and Posts/Line Monitor announcements are under "announcements". 
-Let Shamikh know if you encounter any issues during testing or if you don't get a notification. Test consciously and please be wary of spamming the OneSignal API with requests. All requests are logged in the server logs. If you see anything suspicious in the logs, please let me know. Thanks so much! :) 
-
-From Mike: 
-Added OneSignal integration 
-Upgraded all the dependencies to latest versions, removed unnecessary packages to improve compiling speed. 
-Migrated to rails webpacker native babel to solve conflicts.
-
 <!-- This README would normally document whatever steps are necessary to get the
 application up and running.
 
@@ -75,13 +51,21 @@ Things you may want to cover:
 
     a. [PostgreSQL](https://www.postgresql.org/download/)
 
+5. Make sure you the yarn package manager installed by running: `npm i -g yarn`
+
+   a. `yarn` is a great alternative to `npm` as a dependency manager for Node.js. Read more [here](https://yarnpkg.com/en/).
+
 ## Setup
 
 __Disclaimer:__ Windows users, it is highly recommended that the entire setup process should be done through the Windows Subsystem for Linux (WSL). Setting up WSL can be found [here](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
-1. Make sure you the yarn package manager installed by running: `npm i -g yarn`
+__Pre-req:__ As mentioned in [configuration](#Configuration), you must recieve the `.env` file from GTHC project leaders before beginning setup process.
 
-   a. `yarn` is a great alternative to `npm` as a dependency manager for Node.js. Read more [here](https://yarnpkg.com/en/).
+1. Install all packages/dependancies.
+    
+    a. Run `bundle install`
+    
+    b. Run `yarn install`
 
 2. `yarn run setup`
 
@@ -89,7 +73,9 @@ __Disclaimer:__ Windows users, it is highly recommended that the entire setup pr
 
 3. `yarn dev:start`
 
-    a. This will start a local developer server, by default that will be on port 5000. (`https://localhost:5000`)
+    a. This will start a local developer server, by default that will be on port 5000. (`http://localhost:5000`)
+    
+    b. Always run this command from here on out to start the local server.
 
 ### Local Software Versioning
 It is required that your system is running `Rails 5.0+` for the local development to function properly. It is recommended to use the most recent version of Node, but anything above `Node 8.x` shall work. 

@@ -11,20 +11,20 @@ class User < ApplicationRecord
   has_many :user_shifts, dependent: :destroy
   has_many :shifts, -> { distinct }, through: :user_shifts, dependent: :destroy
 
-  has_many :visits, class_name: 'Ahoy::Visit'
+  has_many :visits, class_name: "Ahoy::Visit"
   has_one_attached :avatar
 
   has_many :availabilities
   has_many :notifications
 
   def self.find_or_create_by_oauth(user_info)
-    netid = user_info['dukeNetID']
-    name = user_info['name']
-    email = user_info['email']
+    netid = user_info["dukeNetID"]
+    name = user_info["name"]
+    email = user_info["email"]
 
     # make sure User does not throw any index errors
-    if email == '' || email == nil
-      email = netid + '@duke.edu'
+    if email == "" || email == nil
+      email = netid + "@duke.edu"
     end
     user = find_by(netid: netid) || create!(netid: netid, name: name, email: email)
     user
