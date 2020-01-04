@@ -3,7 +3,7 @@ require 'uri'
 
 module ApplicationHelper
 
-  def shift_notification(shift, title: nil, content: nil, test: false, min_before: 10, send_now: false)
+	def shift_notification(shift, title: nil, content: nil, test: false, min_before: 10, send_now: false)
 		# Send to all shift members
 		netids = shift.users.collect(&:netid)
 		# Notification time is min_before minutes before shift, if not sending now
@@ -36,31 +36,31 @@ module ApplicationHelper
 		onesignal_id
 	end
 
-    # @note Function to create a scheduled notification for a list of users
-    # by netid, which is mapped to a OneSignal device by an external ID.
+	# @note Function to create a scheduled notification for a list of users
+	# by netid, which is mapped to a OneSignal device by an external ID.
 	# @param [Array] recipients
-    # @param [String] recipient_type, one of (netids, all, players)
+	# @param [String] recipient_type, one of (netids, all, players)
 	# @param [String] title of notification
 	# @param [String] content of notification
-    # @param [Boolean] test parameters without hitting OneSignal API.
+	# @param [Boolean] test parameters without hitting OneSignal API.
 	# @return [String] OneSignal ID of scheduled notification
 	def create_notification(recipients, recipient_type, title, content, time, test)
 		if recipient_type == 'netids'
 			params = {'app_id' => ENV['ONESIGNAL_APP_ID'],
-					  'headings' => {'en' => title}, 'contents' => {'en' => content},
-					  'include_external_user_ids' => recipients}
+								'headings' => {'en' => title}, 'contents' => {'en' => content},
+								'include_external_user_ids' => recipients}
 		elsif recipient_type == 'all'
 			params = {'app_id' => ENV['ONESIGNAL_APP_ID'],
-					  'headings' => {'en' => title}, 'contents' => {'en' => content},
-					  'included_segments' => ['All']}
+								'headings' => {'en' => title}, 'contents' => {'en' => content},
+								'included_segments' => ['All']}
 		elsif recipient_type == 'players'
 			params = {'app_id' => ENV['ONESIGNAL_APP_ID'],
-					  'headings' => {'en' => title}, 'contents' => {'en' => content},
-					  'include_player_ids' => recipients}
+								'headings' => {'en' => title}, 'contents' => {'en' => content},
+								'include_player_ids' => recipients}
 		else # assume sending to test users
 			params = {'app_id' => ENV['ONESIGNAL_APP_ID'],
-					  'headings' => {'en' => title}, 'contents' => {'en' => content},
-					  'included_segments' => ['Test Users']}
+								'headings' => {'en' => title}, 'contents' => {'en' => content},
+								'included_segments' => ['Test Users']}
 		end
 		params['send_after'] = time if time
 		puts "Sending POST request to OneSignal with parameters: #{params}"
@@ -80,7 +80,7 @@ module ApplicationHelper
 	# @return True on successful deletion of notification. False otherwise.
 	def cancel_notification(onesignal_id)
 		params = {'app_id' => ENV['ONESIGNAL_APP_ID'],
-				  'id' => onesignal_id}
+							'id' => onesignal_id}
 		uri = URI.parse("https://onesignal.com/api/v1/notifications/#{params['id']}?app_id=#{params['app_id']}")
 		puts "Sending DELETE request to OneSignal with parameters: #{params}"
 		request = Net::HTTP::Delete.new(uri)
