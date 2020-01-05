@@ -61,9 +61,6 @@ class Calendar extends Component {
         const nextDate = new Date(date.getTime() + (3600 * 1000 * 24))
         this.onOlsonClick(nextDate, phase, clear, numOfDays - 1)
       })
-      .catch(err => {
-        console.log('ERR: ', err);
-      })
     }
   }
 

@@ -33,7 +33,7 @@ export default class EditTeamPane extends Component {
       tent_type: tentType,
     };
     this.setState({ savePressed: true });
-    updateTeam(team.id, data);
+    updateTeam(team.data.id, data);
   };
 
   validInput = () => {
@@ -52,9 +52,9 @@ export default class EditTeamPane extends Component {
   );
 
   renderIsCaptain = () => {
-    const { user } = this.props;
+    const { user, team } = this.props;
     const { disabled, name, tentType, loading, savePressed } = this.state;
-    const error = user.error;
+    const error = user.error || team.error;
     return (
       <div>
         <Message positive attached>
@@ -125,7 +125,6 @@ export default class EditTeamPane extends Component {
 
   render () {
     const { team, user } = this.props;
-    console.log(team);
     const captain = team.data.captain
     return (
       <div>
