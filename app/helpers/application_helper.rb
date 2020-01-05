@@ -52,24 +52,24 @@ module ApplicationHelper
 		recipients = recipients.compact
 		if recipient_type == 'netids'
 			params = {'app_id' => ENV['ONESIGNAL_APP_ID'],
-								'headings' => {'en' => title},
-								'contents' => {'en' => content},
-								'include_external_user_ids' => recipients}
+				  'headings' => {'en' => title},
+				  'contents' => {'en' => content},
+				  'include_external_user_ids' => recipients}
 		elsif recipient_type == 'all'
 			params = {'app_id' => ENV['ONESIGNAL_APP_ID'],
-								'headings' => {'en' => title},
-								'contents' => {'en' => content},
-								'included_segments' => ['Subscribed Users']}
+				  'headings' => {'en' => title},
+				  'contents' => {'en' => content},
+				  'included_segments' => ['Subscribed Users']}
 		elsif recipient_type == 'players'
 			params = {'app_id' => ENV['ONESIGNAL_APP_ID'],
-								'headings' => {'en' => title},
-								'contents' => {'en' => content},
-								'include_player_ids' => recipients}
+				  'headings' => {'en' => title},
+				  'contents' => {'en' => content},
+				  'include_player_ids' => recipients}
 		else # assume sending to test users
 			params = {'app_id' => ENV['ONESIGNAL_APP_ID'],
-								'headings' => {'en' => title},
-								'contents' => {'en' => content},
-								'included_segments' => ['Test Users']}
+				  'headings' => {'en' => title},
+				  'contents' => {'en' => content},
+				  'included_segments' => ['Test Users']}
 		end
 		params['send_after'] = time if time
 		puts "Sending POST request to OneSignal with parameters: #{params}"
