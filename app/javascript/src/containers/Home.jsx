@@ -19,26 +19,17 @@ import SignUp from  './../components/signup';
 class Home extends Component {
 
   componentDidMount() {
-      console.log('here')
       const { netid } = this.props.user.data;
 
-      const script = document.createElement("script");
-      script.async = true;
-      script.src = "https://cdn.onesignal.com/sdks/OneSignalSDK.js";
-      this.div.appendChild(script);
-
+      // sets up OneSignal for the session
       const OneSignal = window.OneSignal || [];
       OneSignal.push(function() {
           OneSignal.init({
-              appId: "b290fd9a-eedf-44b0-8bfd-6a37646957b6",
+              appId: process.env.ONESIGNAL_APP_ID,
           });
       });
-
-      console.log(process.env.REACT_APP_ONESIGNAL_APP_ID);
-      console.log('TEST netid',netid);
       OneSignal.push(function() {
           OneSignal.setExternalUserId(netid);
-          // console.log('Set external User ID to netid.');
       });
   }
 
@@ -52,7 +43,6 @@ class Home extends Component {
 
     return (
         <div>
-            {this.renderOneSignal()}
           {
             user.data && user.data.team_id ?
             <div>
