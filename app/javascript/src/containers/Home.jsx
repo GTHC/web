@@ -22,6 +22,17 @@ import SignUp from  './../components/signup';
 class Home extends Component {
   componentDidMount() {
     this.props.checkSession();
+    const { netid } = this.props.user.data;
+    // sets up OneSignal for the session
+    const OneSignal = window.OneSignal || [];
+    OneSignal.push(function() {
+        OneSignal.init({
+          appId: process.env.ONESIGNAL_APP_ID,
+        });
+    });
+    OneSignal.push(function() {
+        OneSignal.setExternalUserId(netid);
+    });
   }
 
   render() {
