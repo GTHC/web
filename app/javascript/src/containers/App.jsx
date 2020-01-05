@@ -67,10 +67,10 @@ class App extends Component {
               <Redirect to="/app" /> :
               <Login />
             )} />
-            <Route path='/tenting101' component={Tenting101} />
             <Route exact path="/about" component={About} />
             <Route path="/about/gthc" component={About} />
             <Route path="/about/us" component={AboutUs} />
+            <Route path="/about/tenting" component={Tenting101} />
             <Route path='/privacy' component={Privacy} />
             <Route path='/logout' component={Logout} />
           </ConnectedSwitch>

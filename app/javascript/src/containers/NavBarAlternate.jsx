@@ -58,9 +58,9 @@ class NavBarAlternate extends Component {
               </Menu.Item>
             <Menu.Item
               id="tenting101"
-              onClick={() => this.navigateTo('/tenting101')}
+              onClick={() => this.navigateTo('/about/tenting')}
             >
-                Tenting 101
+                About Tenting
             </Menu.Item>
         </Menu>
       </div>
