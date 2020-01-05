@@ -38,8 +38,8 @@
     "redux-search": "^2.4.0",
     "redux-thunk": "^2.2.0",
     "semantic-ui-calendar-react": "^0.12.1",
-    "semantic-ui-css": "2.2.12",
-    "semantic-ui-react": "^0.77.2"
+    "semantic-ui-css": "^2.3",
+    "semantic-ui-react": "^0.81.2"
   },
   "devDependencies": {
     "babel-polyfill": "^6.26.0",
@@ -59,6 +59,7 @@
     "dev:console": "docker-compose run app rails c",
     "dev:db": "docker-compose run app rails db",
     "dev:db:migrate": "docker-compose run app rails db:migrate",
+    "dev:db:seed": "docker-compose run app rails db:seed",
     "prod:start": "./bin/prod-start.sh",
     "prod:build": "./bin/build-production.sh",
     "staging:build": "./bin/build-staging.sh"
