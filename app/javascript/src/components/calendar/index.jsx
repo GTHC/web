@@ -134,10 +134,18 @@ class BigCal extends Component {
 
   titleAccessor = (shift) => {
     const users = shift.users;
+    const peopleNeeded = shift.peopleNeeded || 0;
+    const peopleLeft = peopleNeeded - users.length;
     const names = users.map(e => e.name).sort()
     return (
       <div>
-        <p>{shift.title}</p>
+        {
+          peopleLeft > 0 &&
+          <div>
+            <Icon color="red" name="warning" />
+            This shift needs {peopleLeft} more {peopleLeft == 1 ? 'tenter' : 'tenters'}.
+          </div>
+        }
         { users.length > 0 &&
           <div>
             {
@@ -149,6 +157,7 @@ class BigCal extends Component {
             {names.join(", ")}
           </div>
         }
+        <p>{shift.title}</p>
       </div>
     )
   }
