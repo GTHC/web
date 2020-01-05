@@ -44,7 +44,7 @@ class PostsController < ApiController
   def create
     @post = Post.new(post_params)
     puts "Making new post notification"
-    helpers.post_notification(title=@post.title, content=@post.content)
+    helpers.post_notification(title=@post.title, content=@post.body)
     if @post.save
       render json: {
         status: 'SUCCESS',

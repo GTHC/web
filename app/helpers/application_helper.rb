@@ -35,7 +35,7 @@ module ApplicationHelper
 		# Send to all (enabled) members, immediately
 		puts "Scheduling post announcement notification to all users with title: #{title} content: #{content}"
 		recipients = User.where(enable_announcement_notifications: true).pluck(:netid)
-		return nil if netids.empty?
+		return nil if recipients.empty?
 		create_notification(recipients, recipient_type='netids', title, content, time=nil, test)
 		# puts @user.notifications.pluck(:start_time, :title, :content)
 	end
