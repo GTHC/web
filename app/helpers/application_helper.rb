@@ -34,7 +34,7 @@ module ApplicationHelper
 	def post_notification(title, content, test: false)
 		# Send to all (enabled) members, immediately
 		puts "Scheduling post announcement notification to all users with title: #{title} content: #{content}"
-		recipients = User.where(enable_announcement_notifications: true).pluck(:netid)
+		recipients = User.where(enable_announcement_notifications: true).pluck(:netid).compact
 		return nil if recipients.empty?
 		create_notification(recipients, recipient_type='netids', title, content, time=nil, test)
 		# puts @user.notifications.pluck(:start_time, :title, :content)
@@ -49,6 +49,7 @@ module ApplicationHelper
 	# @param [Boolean] test parameters without hitting OneSignal API.
 	# @return [String] OneSignal ID of scheduled notification
 	def create_notification(recipients, recipient_type, title, content, time, test)
+		recipients = recipients.compact
 		if recipient_type == 'netids'
 			params = {'app_id' => ENV['ONESIGNAL_APP_ID'],
 								'headings' => {'en' => title},
