@@ -5,9 +5,8 @@ module ApplicationHelper
 
   def shift_notification(shift, title: nil, content: nil, test: false, min_before: 10, send_now: false)
     # Send to all shift members where enable_shift_notifications is true
-    puts "Shift Users", shift.users
     users = shift.users.where(enable_shift_notifications: true)
-    netids = users.pluck(:netid)
+    netids = users.pluck(:netid).compact
     # No one to send notification to -> exit
     return nil if netids.empty?
     # Notification time is min_before minutes before shift, if not sending now
