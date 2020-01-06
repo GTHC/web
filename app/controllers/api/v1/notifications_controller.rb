@@ -36,4 +36,11 @@ class Api::V1::NotificationsController < ApiController
     end
   end
 
+  def keys
+    render json: {
+      appId: ENV['ONESIGNAL_APP_ID'],
+      key: ENV['ONESIGNAL_KEY']
+    }, status: :ok
+  end
+
 end

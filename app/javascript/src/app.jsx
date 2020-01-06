@@ -20,13 +20,14 @@ const { store, persistor } = configureStore();
 
 
 class Kville extends Component {
-    componentDidMount() {
-        // Adding OneSignal script for notifications
-        const script = document.createElement("script");
-        script.async = "";
-        script.src = "https://cdn.onesignal.com/sdks/OneSignalSDK.js";
-        document.body.appendChild(script);
-    }
+  componentDidMount() {
+      // Adding OneSignal script for notifications
+      const script = document.createElement("script");
+      script.async = "";
+      script.src = "https://cdn.onesignal.com/sdks/OneSignalSDK.js";
+      document.body.appendChild(script);
+  }
+
   render() {
     return (
       <Provider store={store}>

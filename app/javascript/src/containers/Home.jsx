@@ -18,21 +18,27 @@ import AvailMessage from './../components/availability/AvailMessage';
 import HomeBody from './../components/home/HomeBody';
 import SignUp from  './../components/signup';
 
+// utils
+import { getKeys } from './../utils/onesignal';
 
 class Home extends Component {
   componentDidMount() {
     this.props.checkSession();
-    const { netid } = this.props.user.data;
-    // sets up OneSignal for the session
-    const OneSignal = window.OneSignal || [];
-    OneSignal.push(function() {
-        OneSignal.init({
-          appId: process.env.ONESIGNAL_APP_ID,
-        });
-    });
-    OneSignal.push(function() {
-        OneSignal.setExternalUserId(netid);
-    });
+    getKeys()
+    .then(res => {
+      const { netid } = this.props.user.data;
+      const { appId } = res.data;
+      // sets up OneSignal for the session
+      const OneSignal = window.OneSignal || [];
+      OneSignal.push(function() {
+          OneSignal.init({
+            appId: appId,
+          });
+      });
+      OneSignal.push(function() {
+          OneSignal.setExternalUserId(netid);
+      });
+    })
   }
 
   render() {

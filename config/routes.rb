@@ -33,6 +33,9 @@ Rails.application.routes.draw do
       resources :shifts, :teams, :captains, :users, :notifications
       resources :sessions, only: [:index]
 
+      # notifications
+      get 'onesignal/keys', to: 'notifications#keys'
+
       # get user data by current_user
       get 'user', to: 'users#user'
 
