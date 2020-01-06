@@ -20,7 +20,7 @@ ActiveAdmin.register Team do
       link_to team.name, admin_team_path(team)
     end
     column :captain do |team|
-      if team.captain
+      if team.captain and team.captain.user
         link_to team.captain.user.name, admin_user_path(team.captain.user)
       else
         "No Captain"
@@ -33,7 +33,7 @@ ActiveAdmin.register Team do
   # filter
   filter :name
   filter :captain_id, as: :select, collection: -> {
-    Captain.all.map { |c| [c.user.name, c.id] }
+    Captain.all.map { |c| [c.user.name, c.id] if c.user }
   }
   filter :users
   filter :tent_type, as: :select
@@ -44,7 +44,7 @@ ActiveAdmin.register Team do
     attributes_table do
       row :name
       row :captain do |t|
-        if team.captain
+        if team.captain and team.captain.user
           link_to team.captain.user.name, admin_user_path(team.captain.user)
         else
           "No Captain"
