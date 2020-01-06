@@ -20,7 +20,11 @@ ActiveAdmin.register Team do
       link_to team.name, admin_team_path(team)
     end
     column :captain do |team|
-      link_to team.captain.user.name, admin_user_path(team.captain.user)
+      if team.captain
+        link_to team.captain.user.name, admin_user_path(team.captain.user)
+      else
+        "No Captain"
+      end
     end
     column :tent_type
     column :passcode
@@ -40,7 +44,11 @@ ActiveAdmin.register Team do
     attributes_table do
       row :name
       row :captain do |t|
-        link_to t.captain.user.name, admin_user_path(t.captain.user)
+        if team.captain
+          link_to team.captain.user.name, admin_user_path(team.captain.user)
+        else
+          "No Captain"
+        end
       end
       row :tent_type
       row :passcode
