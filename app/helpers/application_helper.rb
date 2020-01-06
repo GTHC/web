@@ -5,6 +5,7 @@ module ApplicationHelper
 
   def shift_notification(shift, title: nil, content: nil, test: false, min_before: 10, send_now: false)
     # Send to all shift members where enable_shift_notifications is true
+    puts "Shift Users", shift.users
     users = shift.users.where(enable_shift_notifications: true)
     netids = users.pluck(:netid)
     # No one to send notification to -> exit
@@ -72,8 +73,8 @@ module ApplicationHelper
                 'included_segments' => ['Test Users']}
     end
     params['send_after'] = time if time
-    puts "Sending POST request to OneSignal with parameters: #{params}"
     return params.to_json if test
+    puts "Sending POST request to OneSignal with parameters: #{params}"
     uri = URI.parse('https://onesignal.com/api/v1/notifications')
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true

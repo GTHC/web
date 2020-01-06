@@ -134,8 +134,15 @@ class Api::V1::ShiftsController < ApiController
         )
         # add shifts to user record
         slot[:ids].each do |id|
-          User.find(id).shifts << shift
+          user = User.find(id)
+          user.shifts << shift
+          #shift.users << user
         end
+        # Shift notification
+        onesignal_id = helpers.shift_notification(shift)
+        shift.notification_id = onesignal_id
+        shift.save
+        puts shift.to_json
       end
     end
     render json: {
