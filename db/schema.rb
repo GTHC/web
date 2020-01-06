@@ -201,6 +201,7 @@ ActiveRecord::Schema.define(version: 2020_01_06_003558) do
     t.datetime "end_time"
     t.string "title"
     t.string "notification_id"
+    t.integer "people_needed"
   end
 
   create_table "teams", force: :cascade do |t|

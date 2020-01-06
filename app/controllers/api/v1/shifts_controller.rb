@@ -129,7 +129,8 @@ class Api::V1::ShiftsController < ApiController
           note: 'Feel free to edit any of the shift data by clicking the update button.',
           start_time: slot[:startDate],
           end_time: slot[:endDate],
-          team_id: current_user.team.id
+          team_id: current_user.team.id,
+          people_needed: slot[:ids].length + slot[:peopleLeft],
         )
         # add shifts to user record
         slot[:ids].each do |id|
@@ -179,6 +180,7 @@ class Api::V1::ShiftsController < ApiController
         end: s.end_time,
         note: s.note,
         users: s.users,
+        peopleNeeded: s.people_needed
       })
     end
     data
