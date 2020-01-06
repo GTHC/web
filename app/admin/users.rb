@@ -39,21 +39,25 @@ ActiveAdmin.register User do
     attributes_table do
       row :name
       row :email
-      row :team_id do |user|
-        link_to user.team.name, admin_team_path(user.team)
+      if user.team
+        row :team_id do |user|
+          link_to user.team.name, admin_team_path(user.team)
+        end
       end
       row :sign_in_count
     end
     active_admin_comments
   end
-  sidebar "Team Details", only: :show do
-     attributes_table_for user.team do
-      row :name
-      row :captain do |t|
-        link_to t.captain.user.name, admin_user_path(t.captain.user)
+  if user.team
+    sidebar "Team Details", only: :show do
+       attributes_table_for user.team do
+        row :name
+        row :captain do |t|
+          link_to t.captain.user.name, admin_user_path(t.captain.user)
+        end
+        row :tent_type
+        row :passcode
       end
-      row :tent_type
-      row :passcode
     end
   end
 
