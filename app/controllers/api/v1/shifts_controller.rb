@@ -64,6 +64,11 @@ class Api::V1::ShiftsController < ApiController
           team_shifts: format_shifts(current_user.team.shifts),
         }
       render json: { status: 'SUCCESS', message: 'Shift created.', data: data }, status: :ok
+      # Shift notification
+      onesignal_id = helpers.shift_notification(@shift)
+      @shift.notification_id = onesignal_id
+      @shift.save
+      puts @shift.to_json
     else
       render json: { status: 'ERROR', message: 'Shift not created.', data: @shift.errors }, status: :unprocessable_entity
     end
@@ -87,6 +92,10 @@ class Api::V1::ShiftsController < ApiController
         user_shifts: format_shifts(current_user.shifts),
         team_shifts: format_shifts(current_user.team.shifts),
       }
+      helpers.destroy_notification(shift.notification_id)
+      new_onesignal_id = helpers.shift_notification(shift)
+      shift.notification_id = new_onesignal_id
+      shift.save
       render json: { status: 'SUCCESS', message: 'Shift updated.', data: data }, status: :ok
     else
       render json: { status: 'ERROR', message: 'Shift not found' }, status: :unprocessable_entity
@@ -96,6 +105,7 @@ class Api::V1::ShiftsController < ApiController
   # DELETE /api/v1/shifts/:id
   def destroy
     shift = Shift.find(params[:id])
+    helpers.destroy_notification(shift.notification_id)
     shift.destroy
     if shift.destroyed?
       data = {
