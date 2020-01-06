@@ -15,7 +15,6 @@ module ApplicationHelper
     if content.nil?
       content = "Hey! Your tent shift in K-Ville starts in #{min_before} minutes!"
     end
-    #puts "Scheduling shift notification with time: #{time} title: #{title} content: #{content} netIDs: #{netids.join(', ')}"
     onesignal_id = create_notification(netids, recipient_type='netids', title, content, time, test)
     # Store notification record in db for each user
     userids = shift.users.collect(&:id)
@@ -23,7 +22,6 @@ module ApplicationHelper
       @user = User.find(id)
       @user.notifications.create(notification_id: onesignal_id, start_time: time, title: title, content: content)
     end
-    #puts @user.notifications.pluck(:start_time, :title, :content)
     onesignal_id
   end
 
@@ -33,7 +31,6 @@ module ApplicationHelper
   # be used for line monitor announcements.
   def post_notification(title, content, test: false)
     # Send to all (enabled) members, immediately
-    #puts "Scheduling post announcement notification to all users with title: #{title} content: #{content}"
     recipients = User.where(enable_announcement_notifications: true).pluck(:netid).compact
     return nil if recipients.empty?
     create_notification(recipients, recipient_type='netids', title, content, time=nil, test)
@@ -106,7 +103,6 @@ module ApplicationHelper
   # Wrapper method that deletes notification on both OneSignal and the db.
   # @param [String] notification_id OneSignal Notification ID.
   def destroy_notification(notification_id)
-    #puts "Cancelling Notification with OneSignal ID: #{notification_id}"
     if notification_id
       # Destroy all notification with this OneSignal ID
       Notification.where(notification_id: notification_id).destroy_all

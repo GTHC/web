@@ -68,7 +68,6 @@ class Api::V1::ShiftsController < ApiController
       onesignal_id = helpers.shift_notification(@shift)
       @shift.notification_id = onesignal_id
       @shift.save
-      #puts @shift.to_json
     else
       render json: { status: 'ERROR', message: 'Shift not created.', data: @shift.errors }, status: :unprocessable_entity
     end
@@ -142,7 +141,6 @@ class Api::V1::ShiftsController < ApiController
         onesignal_id = helpers.shift_notification(shift)
         shift.notification_id = onesignal_id
         shift.save
-        #puts shift.to_json
       end
     end
     render json: {
