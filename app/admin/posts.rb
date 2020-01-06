@@ -12,8 +12,7 @@ ActiveAdmin.register Post do
     def create
       # Good
       @post = Post.new(permitted_params[:post])
-      puts @post.title, @post.body
-      puts "Making new post notification"
+      #puts "Making new post notification title: #{@post.title}, body: #{@post.body}"
       helpers.post_notification(title=@post.title, content=@post.body)
       if @post.save
         redirect_to '/admin/posts'
