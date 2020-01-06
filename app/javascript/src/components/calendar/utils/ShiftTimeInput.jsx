@@ -68,6 +68,7 @@ class ShiftTimeInput extends Component {
         <TimeInput
           id="value"
           timeFormat="ampm"
+          popupPosition="bottom left"
           value={value}
           onChange={this.onInputChange}
         />
