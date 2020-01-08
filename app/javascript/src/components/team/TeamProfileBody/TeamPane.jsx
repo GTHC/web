@@ -12,16 +12,16 @@ export default class TeamPane extends Component {
     const { tentType, tentTypeColor } = defineTentColors(data.tent_type);
     return (
       <div>
-        <Image
+        {/*<Image
           src={default_image}
           label={{
-            content: 'Team Picture',
+            content: 'Team Picturee',
             attached: 'bottom',
             size: 'small'
           }}
           size='small'
           floated='left'
-          />
+        />*/}
         <br />
         <strong>Team Name: </strong>
         <Label>{ data.name }</Label>

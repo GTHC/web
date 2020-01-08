@@ -97,7 +97,7 @@ class LineMonitorPosts extends Component {
     const rootPanels = [
       {
         key: 'panel-main',
-        title: 'Line Monitor Announcements',
+        title: 'LTESTING 123',
         content: {
           key: 'content',
           content: this.renderContent(renderedPosts),
