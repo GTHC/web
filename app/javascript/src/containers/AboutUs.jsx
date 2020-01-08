@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import "./../styles/Aboutus.css";
+
 
 // redux
 import { connect } from "react-redux";
@@ -40,7 +42,7 @@ class AboutUs extends Component {
                 textAlign="center"
                 style={{
                   fontSize: "4em",
-                  margin: 36
+                  margin: 36,
                 }}
               />
               <Card.Content textAlign="center">

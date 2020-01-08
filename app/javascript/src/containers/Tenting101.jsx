@@ -45,7 +45,9 @@ class Tenting101 extends Component {
                 />
 
                 <Card.Content>
-                <center>
+                  
+                <div className="tenting-graphic">
+                  
               <Segment circular inverted style={square}>
          <Header as='h2' inverted> Black Tenting
            <Header.Subheader> Best Seats - Longest Form of Tenting </Header.Subheader>
@@ -61,8 +63,9 @@ class Tenting101 extends Component {
            <Header.Subheader> Shortest Form of Tenting </Header.Subheader>
          </Header>
        </Segment>
-       </center>
-       <Table celled selectable unstackable>
+              </div>
+              <div className="tenting-table">
+              <Table celled selectable unstackable size="large">
          <Table.Header>
            <Table.Row>
              <Table.HeaderCell width={5}>Color</Table.HeaderCell>
@@ -86,12 +89,17 @@ class Tenting101 extends Component {
              <Table.Cell>White</Table.Cell>
              <Table.Cell>February 3rd, 2018 at 11PM </Table.Cell>
              <Table.Cell>February 14th, 2018 at 12PM</Table.Cell>
-             
            </Table.Row>
          </Table.Body>
        </Table>
-       <Essentials/>
+              </div>
+              <div className="tenting-essentials">
+              <Essentials/>
+              </div>
+       <div className="tenting-faq">
        <FAQ/>
+       </div>
+       
                 </Card.Content>
                 
                 

@@ -1,29 +1,25 @@
-.about {
+.about-tenting {
     text-align: center;
     padding-top: 1em;
     padding-bottom: 48px;
   }
   
-  .about-card {
-    background-color: blue;
-  }
-  
-  .mission {
-    padding-top: 30px;
-  }
-  
-  .origins {
-    padding-top: 60px;
-  }
-  
-  .mission p {
-    line-height: 200%;
-    font-size: 20px;
-    padding: 24px;
-  }
-  
-  .origins p {
-    line-height: 200%;
-    font-size: 20px;
-    padding: 24px;
-  }
+.tenting-graphic {
+  text-align: center;
+  display: inline-block;
+  padding: 30px;
+}
+
+.tenting-table {
+  text-align: center;
+  padding: 30px;
+}
+
+.tenting-essentials {
+  padding: 30px;
+}
+
+.tenting-faq {
+  padding: 30px;
+  text-align: left;
+}

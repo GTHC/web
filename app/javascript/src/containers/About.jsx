@@ -33,7 +33,7 @@ class About extends Component {
       <div>
         <NavBarAlternate />
         <div className="about">
-          <div className="mission" padding-top="48px">
+          <div className="mission">
             <Container textalign="center">
               <Card centered fluid color="blue" className="about-card">
                 <Card.Header
