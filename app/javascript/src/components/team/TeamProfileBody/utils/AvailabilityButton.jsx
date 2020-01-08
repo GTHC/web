@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Button, Modal } from 'semantic-ui-react';
 
 // components
-import Availability from '../../../availability';
+import AvailCal from '../../../availability';
 
 class AvailabilityButton extends Component {
   constructor(props) {
@@ -27,7 +27,7 @@ class AvailabilityButton extends Component {
         <Modal closeIcon open={open} onClose={this.close}>
           <Modal.Header>{user.name}'s Availability</Modal.Header>
           <Modal.Content scrolling>
-            <Availability
+            <AvailCal
               fixed
               availabilities={user.availabilities}
             />

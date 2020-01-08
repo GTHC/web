@@ -22,7 +22,11 @@ ActiveAdmin.register User do
     end
     column :email
     column :team do |user|
-      link_to user.team.name, admin_team_path(user.team)
+      if user.team
+        link_to user.team.name, admin_team_path(user.team)
+      else
+        "No Team"
+      end
     end
     column :sign_in_count
 

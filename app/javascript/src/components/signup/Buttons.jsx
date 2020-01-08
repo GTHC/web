@@ -14,7 +14,7 @@ class Buttons extends Component {
         return;
       }
       case 'next': {
-        if (activeStep < 5) {
+        if (activeStep < 4) {
           updateStep(activeStep + 1)
         }
         return;
@@ -44,7 +44,7 @@ class Buttons extends Component {
             />
           :
           <div>
-            { activeStep < 4 ?
+            { activeStep < 3 ?
               <Button.Group fluid>
                 <Button
                   id="back"

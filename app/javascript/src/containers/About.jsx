@@ -1,143 +1,129 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import "./../styles/About.css";
 
 // redux
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { push } from './../actions/router';
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { push } from "./../actions/router";
 
 // components
-import NavBarAlternate from './NavBarAlternate';
+import NavBarAlternate from "./NavBarAlternate";
 
 // semantic-ui
-import { Container, Menu, Card, Icon, Image, Message } from 'semantic-ui-react';
+import {
+  Container,
+  Menu,
+  Card,
+  Icon,
+  Image,
+  Message,
+  Header
+} from "semantic-ui-react";
 
 // logos
-import * as kvilleLogo from './../images/kville.png';
-import * as logo from './../images/gthc_verbose.png';
+import * as kvilleLogo from "./../images/kville.png";
+import * as logo from "./../images/gthc_verbose.png";
 
 class About extends Component {
-
   render() {
-    const { router, } = this.props;
+    const { router } = this.props;
     const path = router.location.pathname;
 
     return (
       <div>
         <NavBarAlternate />
         <div className="about">
-        <Container textalign="center" >
-          <Card centered fluid color="blue" className="about-card">
-            <Card.Content textAlign="center">
-              <Message size='massive'> Meet the Team </Message>
-              <Message
-                size = 'massive'
-                success
-                header='Our Mission'
-                content='Build a task management/scheduling application that can help support the K-Ville Tenters'
-              />
-              <Card.Group>
-                <Card centered>
-                  <Image src='https://avatars3.githubusercontent.com/u/13587407?s=400&v=4' />
-                  <Card.Content>
-                  <Card.Header>Aman Ibrahim</Card.Header>
-                  <Card.Meta>One of the Three Amigos</Card.Meta>
-                  <Card.Description> Aman Ibrahim, a North Carolina native, is a Duke student in the class of 2020. He is a Computer Science major, and is working towards an Islamic Studies Certificate and an Electrical and Computer Engineering minor. He is incredibly versed in web development and is a full stack engineer. </Card.Description>
-                </Card.Content>
-                <Card.Content extra>
-                <a>
-                  <Icon name='user' />
-                  Admin
-                </a>
-                </Card.Content>
-              </Card>
-
-              <Card centered>
-                <Image src='https://scontent-iad3-1.xx.fbcdn.net/v/t31.0-8/17390690_1287621711329761_1734721323901598994_o.jpg?_nc_cat=100&_nc_ht=scontent-iad3-1.xx&oh=9dcb42be2d19103f7e46cf93c25f37a7&oe=5C72FEED' />
-                <Card.Content>
-                  <Card.Header> Vinit Parekh </Card.Header>
-                  <Card.Meta> One of the Three Amigos </Card.Meta>
-                  <Card.Description> Vinit is part of the graduating class of 2020 studying a combination of Neuroscience, Computer Science, and Statistics. He is involved with many organizations on campus like Fix My Campus and Scale and Coin to name a few. This is his first web development project, and he thanks his teammates Aman, Anesu, and Rikki  for teaching and helping him about full stack web development.</Card.Description>
-                </Card.Content>
-                <Card.Content extra>
-                  <a>
-                    <Icon name='user' />
-                    Admin
-                  </a>
-                </Card.Content>
-              </Card>
-
-              <Card centered>
-                <Image src='https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/34142086_1929385717113887_2009316225124925440_o.jpg?_nc_cat=100&_nc_ht=scontent-iad3-1.xx&oh=bf70c8fdb9f2af69ac2ff6b874f8b591&oe=5C638327' />
-                <Card.Content>
-                  <Card.Header> Rikki Kendall </Card.Header>
-                  <Card.Meta> One of the Three Amigos </Card.Meta>
-                  <Card.Description> Rikki is part of the graduating class of 2020 studying Computer Science with an AMES Minor. He is a member of the Line Monitors, Air Force ROTC, and DEID Bolivia where he built two bridges the past two summers. Rikki intends to commission as a 2nd Lieutenant in the United States Air Force once he graduates. </Card.Description>
-                </Card.Content>
-                <Card.Content extra>
-                  <a>
-                    <Icon name='user' />
-                    Admin
-                  </a>
-                </Card.Content>
-              </Card>
-              </Card.Group>
-
-              <Card.Group centered>
-                <Card centered>
-                  <Image rounded src='https://scontent.fhkg3-2.fna.fbcdn.net/v/t1.0-9/21032580_465472987157268_6322993883696927594_n.jpg?_nc_cat=111&_nc_ht=scontent.fhkg3-2.fna&oh=8dc37534d0513c91c50260adf6e4503d&oe=5CD55854' />
-                  <Card.Content>
-                    <Card.Header> Anesu Mafuvadze </Card.Header>
-                    <Card.Description> Anesu is part of the graduating class of 2020 studying Computer Science with a minor in Education. He enjoys all things basketball. His favorite basketball team is the Los Angeles Lakers. When he is not in his dorm, he can be found in Wilson gym playing pickup basketball. </Card.Description>
-                  </Card.Content>
-                  <Card.Content extra>
-                    <a>
-                      <Icon name='user' />
-                      Admin
-                    </a>
-                  </Card.Content>
-                </Card>
-
-                <Card centered>
-                  <Image rounded src='https://scontent.fhkg3-1.fna.fbcdn.net/v/t1.0-1/c0.0.959.959a/18622265_1872884956299375_8395037700206320293_n.jpg?_nc_cat=107&_nc_ht=scontent.fhkg3-1.fna&oh=c89d12ecf280bc4b70be9da2893732d2&oe=5C93A475' />
-                  <Card.Content>
-                    <Card.Header> Abdulla Shahid </Card.Header>
-                    <Card.Description> Abdulla is a class of 2020 undergraduate majoring in Computer Science and Biology from Woodbridge, VA. He currently does research with Duke BME and Duke Neurology and is also involved with multiple clubs on campus such as Habitat for Humanity and Relay for Life. This is also Abdulla’s first web development project and he thanks all of his teammates for their guidance/coding wisdom. </Card.Description>
-                  </Card.Content>
-                  <Card.Content extra>
-                    <a>
-                      <Icon name='user' />
-                      Admin
-                    </a>
-                  </Card.Content>
-                </Card>
-                </Card.Group>
-
-                <Message
-                  size = 'massive'
-                  success
-                  header='Our Clients: K-Ville Tenters'
-                  content='Thank you to all of our incredible supporters, Professor Duval and the CS408 Course, and to Duke Basketball.'
+          <div className="mission" padding-top="48px">
+            <Container textalign="center">
+              <Card centered fluid color="blue" className="about-card">
+                <Card.Header
+                  size="huge"
+                  content="What is GTHC?"
+                  style={{
+                    fontSize: "4em",
+                    padding: 30,
+                    margin: 24
+                  }}
                 />
-                <Image centered src={kvilleLogo} size='massive'/>
-                <Card.Group>
-                <Card centered>
-                  <Image rounded src='http://image.cdnllnwnl.xosnetwork.com/pics24/400/KN/KNUUGURFURIRDPP.20070212204646.jpg' />
-                  <Card.Content>
-                    <Card.Header> Debbie Krzyzewski </Card.Header>
-                    <Card.Description> Debbie is one of our clients with Duke Basketball and has been incredible in supporting us throughout the process of building this application. Thank you so much for your help Debbie. </Card.Description>
-                  </Card.Content>
-                  <Card.Content extra>
-                    <a>
-                      <Icon name='user' />
-                      Client
-                    </a>
-                  </Card.Content>
-                </Card>
-                </Card.Group>
-                <Image src={logo} size="large"/>
-            </Card.Content>
-          </Card>
-        </Container>
+
+                <Card.Content textAlign="left">
+                  <p>
+                    GTHC is a web-based scheduling tool for Duke Krzyzewskiville
+                    tenters. This platform prioritizes ease of use,
+                    organization, optimization, and collaboration for each
+                    tenter. In a single glance, GTHC will tell you the important
+                    details of your team's shifts, and with a few clicks, your
+                    team will know who, when, and what about any and all of your
+                    shifts. GTHC will also bring you updates from your team, the
+                    line monitors, and any important K-Ville news. Our end goal
+                    is to make life as a tenter easier.
+                  </p>
+                </Card.Content>
+              </Card>
+            </Container>
+          </div>
+          <div className="origins">
+            <Container textalign="center">
+              <Card centered fluid color="blue" className="about-card">
+                <Card.Header
+                  size="huge"
+                  content="Origins of GTHC"
+                  style={{
+                    fontSize: "4em",
+                    padding: 30,
+                    margin: 24
+                  }}
+                />
+                <Card.Content textAlign="left">
+                  <p>
+                    The story of GTHC begins in February 2018 when Aman Ibrahim,
+                    then a Duke sophomore, experienced his first tenting season
+                    awaiting the Duke vs. UNC men's basketball game. Two weeks
+                    before the end of tenting, his Dirty Black tent was booted
+                    from Krzyzewskiville for missing two nightly tent checks.
+                    Aman felt this was due to the team's not-so-organized method
+                    of scheduling tent shifts over Google Sheets. Aman was
+                    surprised he couldn't find an alternative solution, so after
+                    being inspired by another peer, he decided it would be a
+                    cool, fun, but not serious side project building out a
+                    platform that would ease the difficulties of managing a
+                    K-Ville tent.
+                    <br></br>
+                    <br></br>
+                    By the summer of 2018, Aman was interning in San Francisco
+                    and was also a Code2040 Fellow. At this point Aman had the
+                    basic infrastructure of GTHC built, then called "Kville
+                    Scheduler", and decided it would be interesting enough to
+                    show his Fellowship mentor, a software engineer that was
+                    working at Stripe. His mentor encouraged him to make this
+                    project a real tool for other students to use, and with his
+                    encouragement, Aman went to meet his good friend, Anesu
+                    Mafuvadze, in Mountain View to propose the idea to him.
+                    Anesu joins the team.
+                    <br></br>
+                    <br></br>
+                    In Fall of 2018, Vinit Parekh, the founder of Fix My Campus
+                    at Duke, was given the opportunity to propose the idea of a
+                    Kville App to Duke Basketball with the help of Professor
+                    Duvall's Computer Science 408 course, which connected
+                    students to real-world clients to build software solutions.
+                    Vinit came to the class as a client and proposed to the
+                    group of students; among the group of students sat Aman, who
+                    that day had begun moving on from the project as no progress
+                    was made in months, and thought 408 would be a great way to
+                    find an excuse to build software. As if it was fate, through
+                    the 408 class, Vinit, Aman, Anesu, and Rikki Kendall began
+                    working together to build the first iteration of GTHC for
+                    the 2019 tenting season.
+                  </p>
+                  <br></br>
+                  <br></br>
+                </Card.Content>
+              </Card>
+            </Container>
+          </div>
+
+          <Image src={logo} size="large" centered />
         </div>
       </div>
     );
@@ -146,22 +132,21 @@ class About extends Component {
 
 // connecting to redux
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    router: state.router,
+    router: state.router
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      push: push,
+      push: push
     },
-    dispatch);
+    dispatch
+  );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(About);
 
-export {
-  About
-};
+export { About };

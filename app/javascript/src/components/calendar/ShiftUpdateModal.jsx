@@ -38,6 +38,7 @@ class ShiftUpdateModal extends Component {
     const { start, end } = this.props.shiftData;
     return (
       <Modal
+        closeOnDimmerClick={false}
         open={open}
         onOpen={this.open}
         onClose={this.close}

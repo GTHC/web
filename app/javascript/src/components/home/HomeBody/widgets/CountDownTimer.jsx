@@ -11,17 +11,19 @@ import Countdown from 'react-count-down';
 import count from './count.css';
 
 const CountDownTimer = () => {
-  const options = { endDate: '02/20/2019 9:00 PM' };
+  const options = { endDate: '03/07/2020 6:00 PM' };
 
   return (
-    <Card fluid>
+    <Card centered fluid>
       <Card.Content>
-        <div>
-          <div className="ui huge header">
-          <div className="center aligned header">
-          Count Down to Duke vs UNC:</div></div>
-          <Countdown options = {options}/>
-        </div>
+        <Card.Header
+          as="h1"
+          textAlign="center"
+          content="Countdown to Duke vs. UNC"
+        />
+      </Card.Content>
+      <Card.Content textAlign="center">
+        <Countdown options={options}/>
       </Card.Content>
     </Card>
   );

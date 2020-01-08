@@ -6,17 +6,13 @@ import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import moment from 'moment';
 
 // components
-import SelectAvailType from './SelectAvailType';
 import ModalUpdate from './ModalUpdate';
-
-// utils
-import { generate } from 'randomstring';
 
 const localizer = Calendar.momentLocalizer(moment);
 
 const DragDropCal = withDragAndDrop(Calendar);
 
-class Availability extends Component {
+class AvailCal extends Component {
 
   constructor(props) {
     super(props);
@@ -33,28 +29,27 @@ class Availability extends Component {
       return;
     }
 
-    const { availabilities, signup, putAvail, dragDropUpdate, updateAvailInfo } = this.props;
+    const { availabilities, putAvail, dragDropUpdate } = this.props;
 
-    if (signup) {
-      const newAvails = availabilities.map(avail => (
-        avail.tempID == event.tempID ? { ...event, start, end } : avail
-      ));
-      updateAvailInfo(newAvails);
-    } else {
-      const newAvails = availabilities.map(avail => (
-        avail.id == event.id ? { ...event, start, end } : avail
-      ));
-      dragDropUpdate(newAvails);
+    const newAvails = availabilities.map(avail => (
+      avail.id == event.id ? { ...event, start, end } : avail
+    ));
+    dragDropUpdate(newAvails);
 
-      putAvail(event.id, {
-        ...event,
-        start,
-        end,
-      });
-    }
+    putAvail(event.id, {
+      ...event,
+      start,
+      end,
+    });
   };
 
   handleSelectDrag = ({ start, end }) => {
+    const { fixed, postAvail } = this.props;
+    const { somewhat } = this.state;
+
+    if (fixed) {
+      return;
+    }
     // check if all day
     // oneDay = hours*minutes*seconds*milliseconds
     const oneDay = 24 * 60 * 60 * 1000;
@@ -65,28 +60,12 @@ class Availability extends Component {
       return;
     }
 
-    const { availabilities, signup, fixed, updateAvailInfo, postAvail } = this.props;
-    const { somewhat } = this.state;
 
-    if (fixed) {
-      return;
-    }
-
-    if (signup) {
-      const newAvails = availabilities;
-      newAvails.push({
-        tempID: generate(5),
-        start, end,
-        somewhat,
-      });
-      updateAvailInfo(newAvails);
-    } else {
-      postAvail({
-        start,
-        end,
-        somewhat,
-      });
-    }
+    postAvail({
+      start,
+      end,
+      somewhat,
+    });
   };
 
   handleSomewhatChange = () => {
@@ -96,29 +75,15 @@ class Availability extends Component {
   };
 
   onSelectEvent = event => {
-    const { fixed, signup } = this.props;
-    if (fixed) {
+    if (this.props.fixed) {
       return;
     }
-
-    if (signup) {
-      const { availabilities, updateAvailInfo } = this.props;
-      const newEvent = {
-        ...event,
-        somewhat: !event.somewhat,
-      };
-      const newAvails = availabilities.map(avail => (
-        avail.tempID == event.tempID ? newEvent : avail
-      ));
-      updateAvailInfo(newAvails);
-    } else {
-      this.setState({
-        availData: event,
-        open: true,
-      });
-    }
-
+    this.setState({
+      availData: event,
+      open: true,
+    });
   };
+
 
   eventPropGetter = ({ somewhat }) => ({
     style: {
@@ -133,10 +98,10 @@ class Availability extends Component {
   render() {
     const {
       availabilities,
-      fixed, signup,
+      fixed,
       deleteAvail, putAvail,
     } = this.props;
-    const { availData, open, somewhat } = this.state;
+    const { availData, open } = this.state;
 
     // events for Calendar component
     const events = availabilities.map(avail => ({
@@ -146,21 +111,10 @@ class Availability extends Component {
       end: new Date(avail.end),
     }));
 
-    const components = {
-      event: CustomEvent,
-    };
-
     return (
       <div>
         {
           !fixed &&
-          <SelectAvailType
-            value={somewhat}
-            handleChange={this.handleSomewhatChange}
-          />
-        }
-        {
-          !signup && !fixed &&
           <ModalUpdate
             open={open}
             event={availData}
@@ -195,4 +149,4 @@ class Availability extends Component {
 
 }
 
-export default Availability;
+export default AvailCal;
