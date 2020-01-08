@@ -1,24 +1,22 @@
 import React, { Component } from 'react';
 
 // semantic-ui
-import { Modal, Form, Grid, Divider } from 'semantic-ui-react';
+import { Modal, Divider } from 'semantic-ui-react';
 
 // components
 import CreateShiftForm from './create/CreateShiftForm';
 import ShiftTimeInput from './utils/ShiftTimeInput';
 
 // util functions
-import { genDateFormat, genDateFormatWithoutTime } from './utils/dateFormatting';
+import { genDateFormatWithoutTime } from './utils/dateFormatting';
 
 class ShiftCreateModal extends Component {
 
   constructor(props) {
     super(props);
-    const startDate = props.start.toDateString();
-    const startTime = props.start.toTimeString().substring(0, 5);
     this.state = {
       note: '',
-      title: `Shift on ${genDateFormat(props.start)}`,
+      title: `Shift on ${genDateFormatWithoutTime(props.start)}`,
       user_ids: [],
       start_time: props.start,
       end_time: props.end,

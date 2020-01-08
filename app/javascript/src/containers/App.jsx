@@ -1,29 +1,32 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 // redux
 import { connect } from "react-redux";
-import { bindActionCreators } from 'redux';
+import { bindActionCreators } from "redux";
 
 // redux actions
-import { checkSession } from '../actions/user';
+import { checkSession } from "../actions/user";
 
-import { Route, Redirect } from 'react-router-dom';
-import { ConnectedRouter } from 'react-router-redux';
-import ConnectedSwitch from './../components/utils/switch';
+import { Route, Redirect } from "react-router-dom";
+import { ConnectedRouter } from "react-router-redux";
+import ConnectedSwitch from "./../components/utils/switch";
 
 // containers
 import Home from './Home';
 import Login from './Login';
 import Dashboard from './Dashboard';
 import Calendar from './Calendar';
+import Availability from './Availability';
 import UserProfile from './UserProfile';
 import TeamProfile from './TeamProfile';
 import Tenting101 from './Tenting101';
 import About from './About';
+import AboutUs from "./AboutUs";
+import Privacy from './Privacy';
 import Logout from './Logout';
 
 // styles
-import './../styles';
+import "./../styles";
 
 // routes
 const AppRoutes = () => (
@@ -32,12 +35,12 @@ const AppRoutes = () => (
     <Route exact path="/app/" component={Home} />
     <Route exact path="/app/dashboard" component={Dashboard} />
     <Route exact path="/app/calendar" component={Calendar} />
+    <Route exact path="/app/availability" component={Availability} />
     <Route exact path="/app/user" component={UserProfile} />
     <Route exact path="/app/team" component={TeamProfile} />
     <Route exact path="/app/*" component={Home} />
   </ConnectedSwitch>
 );
-
 
 class App extends Component {
   componentDidMount() {
@@ -65,7 +68,10 @@ class App extends Component {
               <Login />
             )} />
             <Route path='/tenting101' component={Tenting101} />
-            <Route path='/about' component={About} />
+            <Route exact path="/about" component={About} />
+            <Route path="/about/gthc" component={About} />
+            <Route path="/about/us" component={AboutUs} />
+            <Route path='/privacy' component={Privacy} />
             <Route path='/logout' component={Logout} />
           </ConnectedSwitch>
         </ConnectedRouter>
@@ -75,22 +81,21 @@ class App extends Component {
 
 // connecting to redux
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    user: state.user,
-  }
+    user: state.user
+  };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      checkSession,
+      checkSession
     },
-    dispatch);
+    dispatch
+  );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
 
-export {
-  Login
-};
+export { Login };

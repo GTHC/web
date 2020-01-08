@@ -3,6 +3,7 @@ class Api::V1::SessionsController < ApiController
   # GET /api/v1/sessions
   def index
     if !session[:user_id].nil? && validate_token(session[:token])
+      #TODO: Check if user id exists in User Record
       user = User.find(session[:user_id])
       data = format_user_data({
         user: user.as_json,

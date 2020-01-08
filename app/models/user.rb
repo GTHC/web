@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   has_many :availabilities
+  has_many :notifications
 
   def self.find_or_create_by_oauth(user_info)
     netid = user_info["dukeNetID"]
@@ -27,6 +28,13 @@ class User < ApplicationRecord
     end
     user = find_by(netid: netid) || create!(netid: netid, name: name, email: email)
     user
+  end
+
+  def remove_shifts_by_date(date)
+    shifts_to_remove = shifts.where(start_time: date.beginning_of_day..date.end_of_day)
+    shifts_to_remove.each do |shift|
+      shift.destroy
+    end
   end
 
 end

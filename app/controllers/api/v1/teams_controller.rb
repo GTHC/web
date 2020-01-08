@@ -21,12 +21,17 @@ class Api::V1::TeamsController < ApiController
     end
   end
 
- # PUT/PATCH /api/v1/team/:id
+ # PUT/PATCH /api/v1/teams/:id
   def update
     validate_update_params
     if @team = Team.find(params[:id])
       @team.update(@prime_params)
-      render json: { status: 'SUCCESS', message: 'Team updated', data: @team }, status: :ok
+      data = format_user_data({
+        team: @team.as_json,
+        user: current_user.as_json,
+        captain: @team.captain,
+      })
+      render json: { status: 'SUCCESS', message: 'Team updated', data: data[:team] }, status: :ok
     else
       render json: { status: 'ERROR', message: 'Team not found' }, status: :not_found
     end

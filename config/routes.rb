@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   get 'app/*path', to: 'pages#index'
   get 'tenting101', to: 'pages#index'
   get 'about', to: 'pages#index'
+  get 'about/gthc', to: 'pages#index'
+  get 'about/us', to: 'pages#index'
+  get 'privacy', to: 'pages#index'
   # Login/Logout
   get 'login', to:'pages#index'
   get 'logout', to: 'pages#index'
@@ -27,9 +30,12 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
-      resources :shifts, :teams, :captains, :users
+      resources :shifts, :teams, :captains, :users, :notifications
       resources :sessions, only: [:index]
-      
+
+      # notifications
+      get 'onesignal/keys', to: 'notifications#keys'
+
       # get user data by current_user
       get 'user', to: 'users#user'
 
@@ -53,6 +59,8 @@ Rails.application.routes.draw do
       # team availabilities
       put 'team/availabilities', to: 'teams#show_availabilities'
 
+      # schedule automation
+      put 'olson', to: 'shifts#olson'
     end
   end
 end
