@@ -8,6 +8,8 @@ export default class UserPane extends Component {
       disabled: false,
       name: props.user.data.name,
       phone: props.user.data.phone,
+      enable_shift_notifications: props.user.data.enable_shift_notifications,
+      enable_announcement_notifications: props.user.data.enable_announcement_notifications,
       savePressed: false,
       loading: props.user.isLoading,
     };
@@ -22,7 +24,7 @@ export default class UserPane extends Component {
   };
 
   validInput = () => {
-    const { name, phone } = this.state;
+    const { name, phone, enable_shift_notifications } = this.state;
     if (name.trim() == '' || phone.trim() == '') {
       this.setState({ disabled: true });
     } else {
@@ -32,17 +34,18 @@ export default class UserPane extends Component {
 
   onSave = () => {
     const { user, updateUser } = this.props;
-    const { name, phone } = this.state;
+    const { name, phone, enable_shift_notifications } = this.state;
     const data = {
       name,
       phone,
+      enable_shift_notifications,
     };
     updateUser(user.data.id, data);
     this.setState({ savePressed: true });
   };
 
   render () {
-    const { disabled, name, phone, loading, savePressed } = this.state;
+    const { disabled, name, phone, enable_shift_notifications, loading, savePressed } = this.state;
     const { error } = this.props.user;
 
     return (
@@ -67,6 +70,12 @@ export default class UserPane extends Component {
             placeholder="Phone"
             value={phone}
             onChange={this.onInputChange}
+          />
+          <Form.Checkbox
+              toggle
+              label="Enable Shift Notifications"
+              defaultChecked={enable_shift_notifications}
+              onChange={this.onInputChange}
           />
           <Form.Button disabled={disabled} onClick={this.onSave}>Save</Form.Button>
       </Form>
