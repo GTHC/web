@@ -42,7 +42,8 @@ class AboutUs extends Component {
                 textAlign="center"
                 style={{
                   fontSize: "4em",
-                  margin: 36,
+                  padding: 24,
+                  margin: 36
                 }}
               />
               <Card.Content textAlign="center">
@@ -173,7 +174,7 @@ class AboutUs extends Component {
                   </Card>
 
                   <Card centered>
-                    <Image rounded src="https://i.imgur.com/GGQ2qx6.jpg" />
+                    <Image rounded src="https://i.imgur.com/eKHGF1p.jpg" />
                     <Card.Content>
                       <Card.Header> Ahmad Khan </Card.Header>
                       <Card.Meta>Class of 2022</Card.Meta>
@@ -221,7 +222,7 @@ class AboutUs extends Component {
                   </Card>
 
                   <Card centered>
-                    <Image rounded src="https://i.imgur.com/PiXEG0z.jpg" />
+                    <Image rounded src="https://i.imgur.com/FNdrXHm.jpg" />
                     <Card.Content>
                       <Card.Header> Amjad Syedibrahim </Card.Header>
                       <Card.Meta>Class of 2022</Card.Meta>
