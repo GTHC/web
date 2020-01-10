@@ -16,7 +16,7 @@ module Api::V1::UsersHelper
   end
 
   def validate_params_signup
-    params.require([:name, :phone, :teamData, :availabilities, :type])
+    params.require([:name, :phone])
   end
 
   def validate_avatar_params
