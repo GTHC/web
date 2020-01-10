@@ -15,6 +15,13 @@ export default class UserPane extends Component {
     };
   }
 
+  onCheckboxChange = (e, { id, checked }) => {
+    this.setState({
+      savePressed: false,
+      [id]: checked,
+    })
+  }
+
   onInputChange = (e, { id, value }) => {
     this.setState({
       savePressed: false,
@@ -24,7 +31,7 @@ export default class UserPane extends Component {
   };
 
   validInput = () => {
-    const { name, phone, enable_shift_notifications, enable_announcement_notifications } = this.state;
+    const { name, phone } = this.state;
     if (name.trim() == '' || phone.trim() == '') {
       this.setState({ disabled: true });
     } else {
@@ -73,16 +80,16 @@ export default class UserPane extends Component {
             onChange={this.onInputChange}
           />
           <Form.Checkbox
-              toggle
+              id="enable_shift_notifications"
               label="Enable Shift Notifications"
-              defaultChecked={enable_shift_notifications}
-              onChange={this.onInputChange}
+              checked={enable_shift_notifications}
+              onChange={this.onCheckboxChange}
           />
           <Form.Checkbox
-              toggle
+              id="enable_announcement_notifications"
               label="Enable Announcement Notifications"
-              defaultChecked={enable_announcement_notifications}
-              onChange={this.onInputChange}
+              checked={enable_announcement_notifications}
+              onChange={this.onCheckboxChange}
           />
           <Form.Button disabled={disabled} onClick={this.onSave}>Save</Form.Button>
       </Form>
