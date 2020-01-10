@@ -107,10 +107,14 @@ module ApplicationHelper
   def destroy_notification(notification_id)
     if !notification_id.blank?
       # Destroy all notification with this OneSignal ID
-      puts "Cancelling Notification with OneSignal ID: #{notification_id}"
-      Notification.where(notification_id: notification_id).destroy_all
-      # Cancel the OneSignal scheduled notification
-      cancel_notification(notification_id)
+      begin
+        puts "Attempting to cancel Notification with OneSignal ID: #{notification_id}"
+        Notification.where(notification_id: notification_id).destroy_all
+        # Cancel the OneSignal scheduled notification
+        cancel_notification(notification_id)
+      rescue
+        puts "Failed cancelling Notification with OneSignal ID: #{notification_id}"
+      end
     else
       false
     end
