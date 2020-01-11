@@ -20,7 +20,7 @@ class Api::V1::UsersController < ApiController
   # PUT/PATCH /api/v1/users/:id
   def update
     if user = User.find(params[:id])
-      helpers.validate_params_signup
+      helpers.validate_params_update
       name = params[:name]
       phone = params[:phone]
       enable_shift_notifications = params[:enable_shift_notifications]
@@ -41,7 +41,7 @@ class Api::V1::UsersController < ApiController
   # PUT /api/v1/users/signup/:id
   def signup
     if user = User.find(params[:id])
-      helpers.validate_params_update
+      helpers.validate_params_signup
       # user details
       user.name = params[:name]
       user.phone = params[:phone]

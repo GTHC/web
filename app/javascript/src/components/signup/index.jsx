@@ -39,7 +39,7 @@ class SignUp extends Component {
   render() {
     const { teams } = this.props;
     return (
-      <Modal open size="fullscreen">
+      <Modal open>
         <Modal.Header>
           Welcome to GTHC!
         </Modal.Header>
