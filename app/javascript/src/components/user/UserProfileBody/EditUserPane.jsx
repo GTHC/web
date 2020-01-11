@@ -8,9 +8,18 @@ export default class UserPane extends Component {
       disabled: false,
       name: props.user.data.name,
       phone: props.user.data.phone,
+      enable_shift_notifications: props.user.data.enable_shift_notifications,
+      enable_announcement_notifications: props.user.data.enable_announcement_notifications,
       savePressed: false,
       loading: props.user.isLoading,
     };
+  }
+
+  onCheckboxChange = (e, { id, checked }) => {
+    this.setState({
+      savePressed: false,
+      [id]: checked,
+    })
   }
 
   onInputChange = (e, { id, value }) => {
@@ -32,17 +41,19 @@ export default class UserPane extends Component {
 
   onSave = () => {
     const { user, updateUser } = this.props;
-    const { name, phone } = this.state;
+    const { name, phone, enable_shift_notifications, enable_announcement_notifications } = this.state;
     const data = {
       name,
       phone,
+      enable_shift_notifications,
+      enable_announcement_notifications,
     };
     updateUser(user.data.id, data);
     this.setState({ savePressed: true });
   };
 
   render () {
-    const { disabled, name, phone, loading, savePressed } = this.state;
+    const { disabled, name, phone, enable_shift_notifications, enable_announcement_notifications, loading, savePressed } = this.state;
     const { error } = this.props.user;
 
     return (
@@ -67,6 +78,18 @@ export default class UserPane extends Component {
             placeholder="Phone"
             value={phone}
             onChange={this.onInputChange}
+          />
+          <Form.Checkbox
+              id="enable_shift_notifications"
+              label="Enable Shift Notifications"
+              checked={enable_shift_notifications}
+              onChange={this.onCheckboxChange}
+          />
+          <Form.Checkbox
+              id="enable_announcement_notifications"
+              label="Enable Announcement Notifications"
+              checked={enable_announcement_notifications}
+              onChange={this.onCheckboxChange}
           />
           <Form.Button disabled={disabled} onClick={this.onSave}>Save</Form.Button>
       </Form>

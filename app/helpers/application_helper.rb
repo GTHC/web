@@ -12,9 +12,14 @@ module ApplicationHelper
     # Notification time is min_before minutes before shift, if not sending now
     time = send_now ? nil : shift.start_time - min_before*60
     title = "Upcoming Shift Reminder" if title.nil?
-    if content.nil?
-      content = "Hey! Your tent shift in K-Ville starts in #{min_before} minutes!"
+    greeting = ['Hey!', 'Just a heads up!', 'Hi!', 'Hey there!'].sample
+    if content.nil? and !time.nil?
+      start_time_str = shift.start_time.in_time_zone("EST").strftime("%I:%M %p")
+    content = "#{greeting} Your #{start_time_str} tent shift in K-Ville starts in #{min_before} minutes!"
+    elsif content.nil?
+      content = "#{greeting} Your tent shift in K-Ville starts in #{min_before} minutes!"
     end
+    puts "Scheduling shift notification with time: #{time} title: #{title} content: #{content} netIDs: #{netids.join(', ')}"
     onesignal_id = create_notification(netids, recipient_type='netids', title, content, time, test)
     # Store notification record in db for each user
     userids = shift.users.collect(&:id)
@@ -33,6 +38,7 @@ module ApplicationHelper
     # Send to all (enabled) members, immediately
     recipients = User.where(enable_announcement_notifications: true).pluck(:netid).compact
     return nil if recipients.empty?
+    puts "Scheduling post announcement notification to #{recipients.join(', ')} with title: #{title} content: #{content}"
     create_notification(recipients, recipient_type='netids', title, content, time=nil, test)
   end
 
@@ -69,7 +75,7 @@ module ApplicationHelper
     end
     params['send_after'] = time if time
     return params.to_json if test
-    #puts "Sending POST request to OneSignal with parameters: #{params}"
+    puts "Sending POST request to OneSignal with parameters: #{params}"
     uri = URI.parse('https://onesignal.com/api/v1/notifications')
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
@@ -87,7 +93,7 @@ module ApplicationHelper
     params = {'app_id' => ENV['ONESIGNAL_APP_ID'],
               'id' => onesignal_id}
     uri = URI.parse("https://onesignal.com/api/v1/notifications/#{params['id']}?app_id=#{params['app_id']}")
-    #puts "Sending DELETE request to OneSignal with parameters: #{params}"
+    puts "Sending DELETE request to OneSignal with parameters: #{params}"
     request = Net::HTTP::Delete.new(uri)
     request["Authorization"] = "Basic #{ENV['ONESIGNAL_KEY']}"
     req_options = {use_ssl: uri.scheme == "https"}
@@ -103,11 +109,18 @@ module ApplicationHelper
   # Wrapper method that deletes notification on both OneSignal and the db.
   # @param [String] notification_id OneSignal Notification ID.
   def destroy_notification(notification_id)
-    if notification_id
+    if !notification_id.blank?
       # Destroy all notification with this OneSignal ID
-      Notification.where(notification_id: notification_id).destroy_all
-      # Cancel the OneSignal scheduled notification
-      cancel_notification(notification_id)
+      begin
+        puts "Attempting to cancel Notification with OneSignal ID: #{notification_id}"
+        Notification.where(notification_id: notification_id).destroy_all
+        # Cancel the OneSignal scheduled notification
+        cancel_notification(notification_id)
+      rescue
+        puts "Failed cancelling Notification with OneSignal ID: #{notification_id}"
+      end
+    else
+      false
     end
   end
 end
