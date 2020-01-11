@@ -15,7 +15,7 @@ module ApplicationHelper
     greeting = ['Hey!', 'Just a heads up!', 'Hi!', 'Hey there!'].sample
     if content.nil? and !time.nil?
       start_time_str = shift.start_time.in_time_zone("EST").strftime("%I:%M %p")
-    content = "#{greeting} Your #{start_time_str} tent shift in K-Ville starts in #{min_before} minutes!"
+      content = "#{greeting} Your #{start_time_str} tent shift in K-Ville starts in #{min_before} minutes!"
     elsif content.nil?
       content = "#{greeting} Your tent shift in K-Ville starts in #{min_before} minutes!"
     end
