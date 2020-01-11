@@ -108,12 +108,18 @@ module ApplicationHelper
   # Wrapper method that deletes notification on both OneSignal and the db.
   # @param [String] notification_id OneSignal Notification ID.
   def destroy_notification(notification_id)
-    if notification_id
+    if !notification_id.blank?
       # Destroy all notification with this OneSignal ID
-      puts "Cancelling Notification with OneSignal ID: #{notification_id}"
-      Notification.where(notification_id: notification_id).destroy_all
-      # Cancel the OneSignal scheduled notification
-      cancel_notification(notification_id)
+      begin
+        puts "Attempting to cancel Notification with OneSignal ID: #{notification_id}"
+        Notification.where(notification_id: notification_id).destroy_all
+        # Cancel the OneSignal scheduled notification
+        cancel_notification(notification_id)
+      rescue
+        puts "Failed cancelling Notification with OneSignal ID: #{notification_id}"
+      end
+    else
+      false
     end
   end
 end
