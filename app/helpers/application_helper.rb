@@ -12,8 +12,12 @@ module ApplicationHelper
     # Notification time is min_before minutes before shift, if not sending now
     time = send_now ? nil : shift.start_time - min_before*60
     title = "Upcoming Shift Reminder" if title.nil?
-    if content.nil?
-      content = "Hey! Your tent shift in K-Ville starts in #{min_before} minutes!"
+    greeting = ['Hey!', 'Just a heads up!', 'Hi!', 'Hey there!'].sample
+    if content.nil? and !time.nil?
+      start_time_str = shift.start_time.in_time_zone("EST").strftime("%I:%M %p")
+    content = "#{greeting} Your #{start_time_str} tent shift in K-Ville starts in #{min_before} minutes!"
+    elsif content.nil?
+      content = "#{greeting} Your tent shift in K-Ville starts in #{min_before} minutes!"
     end
     puts "Scheduling shift notification with time: #{time} title: #{title} content: #{content} netIDs: #{netids.join(', ')}"
     onesignal_id = create_notification(netids, recipient_type='netids', title, content, time, test)
