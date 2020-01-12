@@ -7,17 +7,15 @@ import EditTeamPane from './EditTeamPane';
 
 export default class TeamProfileBody extends Component {
   render () {
-    const { user, team } = this.props;
-
     const panes = [
       { menuItem: 'Team Information', render: () => <Tab.Pane>
-        <TeamPane team={team}/>
+        <TeamPane {...this.props} />
       </Tab.Pane>, },
       { menuItem: 'Team Table', render: () => <Tab.Pane>
-        <TeamTablePane team={team} />
+        <TeamTablePane {...this.props}  />
       </Tab.Pane>, },
       { menuItem: 'Edit Team Information', render: () => <Tab.Pane>
-        <EditTeamPane user={user} team={team} />
+        <EditTeamPane {...this.props}  />
       </Tab.Pane>, },
     ];
 

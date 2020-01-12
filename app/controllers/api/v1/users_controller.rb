@@ -23,7 +23,14 @@ class Api::V1::UsersController < ApiController
       helpers.validate_params_update
       name = params[:name]
       phone = params[:phone]
-      user.update({ name: name, phone: phone })
+      enable_shift_notifications = params[:enable_shift_notifications]
+      enable_announcement_notifications = params[:enable_announcement_notifications]
+      user.update({
+        name: name,
+        phone: phone,
+        enable_shift_notifications: enable_shift_notifications,
+        enable_announcement_notifications: enable_announcement_notifications,
+      })
 
       render json: { status: 'SUCCESS', message: 'User successfully updated.', data: user }, staus: :ok
     else
@@ -34,7 +41,7 @@ class Api::V1::UsersController < ApiController
   # PUT /api/v1/users/signup/:id
   def signup
     if user = User.find(params[:id])
-      helpers.validate_params_update
+      helpers.validate_params_signup
       # user details
       user.name = params[:name]
       user.phone = params[:phone]

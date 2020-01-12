@@ -6,7 +6,7 @@ import {
   Checkbox,
   Divider,
   Form,
-  Header,
+  Icon,
   Message,
   Modal,
 } from 'semantic-ui-react';
@@ -124,16 +124,20 @@ class Automate extends Component {
         closeIcon
         closeOnDimmerClick={false}
         open={this.state.open}
-        trigger={<Button primary><h3>Generate Shifts</h3></Button>}
+        trigger={<Button color="orange"><h3>Generate Shifts</h3></Button>}
         onOpen={this.open}
         onClose={this.close}
       >
-        <Header icon="fire" content="Create shifts based on team availability!"/>
+        <Modal.Header>
+          <Icon color="orange" name="fire"/>
+          Create shifts based on team availability!
+        </Modal.Header>
         <Modal.Content>
           <Modal.Description>
             <b>GTHC's Schedule Automation works best when everyone has their availabilities up to date!</b>
+            <br />
             <p>
-              GTHC can automatically create shifts and assign them based on user availability, and tenting rules based on tenting type. Just fill in which date and tenting type you would like to automate scheduling for below.
+              GTHC can automatically create shifts and assign them based on comparing users' availability and total tenting hours, and tenting rules based on tenting type. Just fill in which date and tenting type you would like to automate scheduling for below.
             </p>
           </Modal.Description>
           <Divider />
@@ -183,7 +187,7 @@ class Automate extends Component {
           />
         </Modal.Content>
         <Modal.Actions>
-          <Button positive onClick={this.onClick}>Automate</Button>
+          <Button color="orange" onClick={this.onClick}>Automate</Button>
         </Modal.Actions>
       </Modal>
     );

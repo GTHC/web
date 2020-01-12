@@ -7,6 +7,7 @@ import {
   Header,
   Icon,
   Image,
+  Loader,
   Message
 } from 'semantic-ui-react';
 
@@ -189,11 +190,23 @@ class BreakdownHours extends Component {
           {this.renderDropDown()}
           <br/>
           <br/>
+          {
+            !loaded &&
+            <div>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <Loader active content='Loading' />
+            </div>
+          }
           <Card.Group>
             {
               loaded && data.map(userData => this.renderUserCard(userData))
+
             }
           </Card.Group>
+
           {
             error &&
             <div>

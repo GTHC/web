@@ -7,11 +7,16 @@ module Api::V1::UsersHelper
   end
 
   def validate_params_update
-    params.require([:name, :phone]);
+    params.require([
+      :name,
+      :phone,
+      :enable_shift_notifications,
+      :enable_announcement_notifications
+    ]);
   end
 
   def validate_params_signup
-    params.require([:name, :phone, :teamData, :availabilities, :type])
+    params.require([:name, :phone])
   end
 
   def validate_avatar_params

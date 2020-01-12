@@ -30,8 +30,11 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
-      resources :shifts, :teams, :captains, :users
+      resources :shifts, :teams, :captains, :users, :notifications
       resources :sessions, only: [:index]
+
+      # notifications
+      get 'onesignal/keys', to: 'notifications#keys'
 
       # get user data by current_user
       get 'user', to: 'users#user'

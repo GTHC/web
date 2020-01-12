@@ -1,24 +1,22 @@
 ActiveAdmin.register Post do
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-# permit_params :list, :of, :attributes, :on, :model
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if params[:action] == 'create' && current_user.admin?
-#   permitted
-# end
   permit_params :title, :body
-
   form do |f|
-    inputs do
-      input :title, required: true
-      input :body
+    f.inputs do
+      f.input :title, required: true
+      f.input :body
     end
-    actions
+    f.actions
   end
 
+  controller do
+    def create
+      # Good
+      @post = Post.new(permitted_params[:post])
+      puts "Making new post notification title: #{@post.title}, body: #{@post.body}"
+      helpers.post_notification(title=@post.title, content=@post.body)
+      if @post.save
+        redirect_to '/admin/posts'
+      end
+    end
+  end
 end

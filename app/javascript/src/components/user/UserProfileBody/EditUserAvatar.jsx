@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // semantic-ui
-import { Image, Form, Loader, Message } from 'semantic-ui-react';
+import { Dimmer, Image, Form, Loader, Message } from 'semantic-ui-react';
 
 // images
 import * as defaultSrc from '../../../images/default_image.png';
