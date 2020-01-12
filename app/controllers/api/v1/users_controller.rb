@@ -22,7 +22,12 @@ class Api::V1::UsersController < ApiController
     if user = User.find(params[:id])
       helpers.validate_params_update
       name = params[:name]
-      phone = params[:phone]
+      begin
+        phone_nums = params[:phone].delete('^0-9')
+        phone = ActionController::Base.helpers.number_to_phone(phone_nums)
+      rescue
+        phone = params[:phone]
+      end
       enable_shift_notifications = params[:enable_shift_notifications]
       enable_announcement_notifications = params[:enable_announcement_notifications]
       user.update({
@@ -44,7 +49,12 @@ class Api::V1::UsersController < ApiController
       helpers.validate_params_signup
       # user details
       user.name = params[:name]
-      user.phone = params[:phone]
+      begin
+        phone_nums = params[:phone].delete('^0-9')
+        user.phone = ActionController::Base.helpers.number_to_phone(phone_nums)
+      rescue
+        user.phone = params[:phone]
+      end
       # user's team
       if params[:type] == "create"
         captain = Captain.create!(user_id: user.id)
