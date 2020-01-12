@@ -17,7 +17,7 @@ class Essentials extends Component {
               </Grid.Column>
               <Grid.Column>
               <Segment.Group>
-                <Segment><h3> The following items: </h3></Segment>
+                <Segment><h3> Come to K-Ville Prepared With: </h3></Segment>
                 <Segment.Group>
                   <Segment as='h5' attached>1. Tent </Segment>
                   <Message attached='bottom'>

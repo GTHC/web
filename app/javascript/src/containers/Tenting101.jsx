@@ -1,130 +1,134 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import "./../styles/Tenting101.css";
 
 // semantic ui components
-import { Menu, Image, Button, Form, Step, Divider, Message, Header, Segment, Card, Grid, Table, Icon } from 'semantic-ui-react';
+import {
+  Menu,
+  Image,
+  Button,
+  Form,
+  Step,
+  Divider,
+  Message,
+  Header,
+  Segment,
+  Card,
+  Grid,
+  Table,
+  Icon,
+  Container
+} from "semantic-ui-react";
 
 // redux
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { push } from './../actions/router';
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { push } from "./../actions/router";
 
 // import components
-import NavBarAlternate from './NavBarAlternate';
-import Step1 from './../components/tenting/Step1';
-import Essentials from './../components/tenting/Essentials';
+import NavBarAlternate from "./NavBarAlternate";
+import Step1 from "./../components/tenting/Step1";
+import Essentials from "./../components/tenting/Essentials";
+import FAQ from "./../components/tenting/FAQ";
 
 // logos
-import * as kvilleLogo from './../images/kville.png';
-import * as logo from './../images/gthc.png';
+import * as kvilleLogo from "./../images/kville.png";
+import * as logo from "./../images/gthc_verbose.png";
 
 class Tenting101 extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeStep: 0,
-      activeItem: 'tenting101',
-    };
-    this.handleReset = this.handleReset.bind(this);
-  }
-
-  handleReset = () => {
-    this.setState({
-      activeStep: 0,
-    });
-  };
-
-  handleButtonClick = (e, data) => {
-      const { activeStep, } = this.state;
-      switch (data.id) {
-        case 'back': {
-          if (activeStep === 0) {
-            return;
-          }
-
-          this.setState({ activeStep: activeStep - 1 });
-          return;
-        }
-
-        case 'next': {
-          if (activeStep < 2) {
-            this.setState({ activeStep: activeStep + 1 });
-          }
-
-          return;
-        }
-      }
-    };
-
   render() {
-    const { activeItem, activeStep, value } = this.state;
-    const { router, } = this.props;
+    const { router } = this.props;
     const path = router.location.pathname;
-
-    const steps = [
-        {
-          key: 'step1',
-          icon: 'list',
-          title: 'Step 1',
-          description: 'Find your team',
-          active: (activeStep === 0),
-        },
-        {
-          key: 'step2',
-          active: true,
-          icon: 'users',
-          title: 'Step 2',
-          description: 'Register with the Line Monitors!',
-          active: (activeStep === 1),
-        }, {
-          key: 'step3',
-          icon: 'bed',
-          title: 'Step 3',
-          description: 'Get your tenting essentials!',
-          active: (activeStep === 2),
-          completed: (activeStep === 0),
-        },
-      ];
+    const square = { width: 175, height: 175 };
 
     return (
-      <div className="body">
+      <div>
         <NavBarAlternate />
-        <div>
-          <Step.Group stackable="tablet" fluid items={steps} />
-          <Form>
-            { activeStep === 0 &&
-            <div>
-              <Step1 />
-            </div>
-            }
-            { activeStep === 1 &&
-              <div>
-               <Message header='Step 2' content='Tent Captain - Register your tent with the Line Monitors using the form below.' size='large' />
-               <p align="middle">
-               <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfrLvNTtp1jxp4SMsTQz_eHUJMYIvE9Dlq4E_TTiZwo9FThbw/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0" align="middle">Loading...</iframe>
-               </p>
-              </div>
-            }
-            { activeStep === 2 &&
-              <div>
-                <Essentials />
-              </div>
-            }
-            </Form>
-          <br />
-          { activeStep < 2 ?
-            <Button.Group fluid>
-              <Button id="back" content='Back' icon='left arrow' labelPosition='left' color="red" onClick={this.handleButtonClick} />
-              <Button.Or />
-              <Button id="next" content='Next' icon='right arrow' labelPosition='right' color="green" onClick={this.handleButtonClick} />
-            </Button.Group> :
-            <Button.Group fluid>
-              <Button id="back" content='Back' icon='left arrow' labelPosition='left' color="red" onClick={this.handleButtonClick} />
-              <Button.Or />
-              <Button id="signup" content='Finish and Return' icon='sign in' labelPosition='right' color="green" onClick={this.handleReset} />
-            </Button.Group>
-          }
-          <br />
-          <br />
+        <div className="about-tenting">
+          <Container textalign="center">
+            <Card centered fluid color="blue" className="tenting101-card">
+              <Card.Header
+                size="huge"
+                content="Tenting 101"
+                textAlign="center"
+                style={{
+                  fontSize: "4em",
+                  padding: 30,
+                  margin: 24
+                }}
+              />
+
+              <Card.Content>
+                <div className="tenting-graphic">
+                  <Segment circular inverted style={square}>
+                    <Header as="h2" inverted>
+                      {" "}
+                      Black Tenting
+                      <Header.Subheader>
+                        {" "}
+                        Best Seats - Longest Form of Tenting{" "}
+                      </Header.Subheader>
+                    </Header>
+                  </Segment>
+                  <Segment circular color="blue" style={square}>
+                    <Header as="h2" color="blue">
+                      {" "}
+                      Blue Tenting
+                      <Header.Subheader>
+                        {" "}
+                        Only available if there is room in K-Ville{" "}
+                      </Header.Subheader>
+                    </Header>
+                  </Segment>
+                  <Segment circular style={square}>
+                    <Header as="h2">
+                      {" "}
+                      White Tenting
+                      <Header.Subheader>
+                        {" "}
+                        Shortest Form of Tenting{" "}
+                      </Header.Subheader>
+                    </Header>
+                  </Segment>
+                </div>
+                <div className="tenting-table">
+                  <Table celled selectable unstackable size="large">
+                    <Table.Header>
+                      <Table.Row>
+                        <Table.HeaderCell width={5}>Color</Table.HeaderCell>
+                        <Table.HeaderCell>Day Occupancy</Table.HeaderCell>
+                        <Table.HeaderCell>Night Occupancy</Table.HeaderCell>
+                      </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                      <Table.Row>
+                        <Table.Cell>Black</Table.Cell>
+                        <Table.Cell>2</Table.Cell>
+                        <Table.Cell>10</Table.Cell>
+                      </Table.Row>
+                      <Table.Row>
+                        <Table.Cell>Blue</Table.Cell>
+                        <Table.Cell>1</Table.Cell>
+                        <Table.Cell>6 </Table.Cell>
+                      </Table.Row>
+                      <Table.Row>
+                        <Table.Cell>White</Table.Cell>
+                        <Table.Cell>1 </Table.Cell>
+                        <Table.Cell>2</Table.Cell>
+                      </Table.Row>
+                    </Table.Body>
+                  </Table>
+                </div>
+                <div className="tenting-essentials">
+                  <Essentials />
+                </div>
+                <div className="tenting-faq">
+                  <FAQ />
+                </div>
+              </Card.Content>
+            </Card>
+
+            <Image src={logo} size="large" centered />
+          </Container>
         </div>
       </div>
     );
@@ -133,22 +137,21 @@ class Tenting101 extends Component {
 
 // connecting to redux
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    router: state.router,
+    router: state.router
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      push: push,
+      push: push
     },
-    dispatch);
+    dispatch
+  );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tenting101);
 
-export {
-  Tenting101
-};
+export { Tenting101 };

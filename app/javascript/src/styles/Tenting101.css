@@ -1,0 +1,25 @@
+.about-tenting {
+  text-align: center;
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+  
+.tenting-graphic {
+  text-align: center;
+  display: inline-block;
+  padding: 30px;
+}
+
+.tenting-table {
+  text-align: center;
+  padding: 30px;
+}
+
+.tenting-essentials {
+  padding: 30px;
+}
+
+.tenting-faq {
+  padding: 30px;
+  text-align: left;
+}

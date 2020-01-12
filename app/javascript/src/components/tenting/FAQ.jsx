@@ -6,11 +6,11 @@ const level1Panels = [
   title: 'What’s the difference between black, blue, and white tenting?',
   content: 'Tenting is split up into three periods of varying difficulty, black, blue and white. Requirements for each period can be found in the next question.' },
   { key: 'panel-ba1', title: 'How many people have to be in K-Ville?',
-  content: 'Black Tenting: 2 during the day, 10 at night, Blue Tenting: 1 during the day, 6 at night, White Tenting: 1 during the day, 2 at night' },
+  content: 'Black Tenting: 2 during the day, 10 at night, Blue Tenting: 1 during the day, 6 at night, White Tenting: 1 during the day, 2 at night.' },
   { key: 'panel-ba2', title: 'What does it mean to Dirty Black/Blue tent?',
   content: 'Tents that begin on the first day of either the Black or Blue tenting period are not ordered immediately. Order for these tents is based on attendance at other sporting events during tenting season as well as a Duke Basketball trivia test. Dirty Tenting means that your tent began tenting after the first day of a tenting period, so your order is based only on when your tent started.' },
   { key: 'panel-2a', title: 'When do we get grace?',
-  content: 'After every tent check for one hour. Two hours before and after a Men’s or Women’s home basketball game. One hour before and after a Men’s or Women’s away basketball game. Weather-related grace is given certain circumstances' },
+  content: 'After every tent check for one hour. Two hours before and after a Men’s or Women’s home basketball game. One hour before and after a Men’s or Women’s away basketball game. Weather-related grace is given under certain circumstances.' },
 ]
 
 const Level1Content = (
