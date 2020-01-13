@@ -22,12 +22,7 @@ class Api::V1::UsersController < ApiController
     if user = User.find(params[:id])
       helpers.validate_params_update
       name = params[:name]
-      begin
-        phone_nums = params[:phone].delete('^0-9')
-        phone = ActionController::Base.helpers.number_to_phone(phone_nums)
-      rescue
-        phone = params[:phone]
-      end
+      phone = params[:phone]
       enable_shift_notifications = params[:enable_shift_notifications]
       enable_announcement_notifications = params[:enable_announcement_notifications]
       user.update({
@@ -37,7 +32,7 @@ class Api::V1::UsersController < ApiController
         enable_announcement_notifications: enable_announcement_notifications,
       })
 
-      render json: { status: 'SUCCESS', message: 'User successfully updated.', data: user }, staus: :ok
+      render json: { status: 'SUCCESS', message: 'User successfully updated.', data: user }, status: :ok
     else
       render json: { status: 'ERROR', message: 'User not found' }, status: :not_found
     end
@@ -49,12 +44,7 @@ class Api::V1::UsersController < ApiController
       helpers.validate_params_signup
       # user details
       user.name = params[:name]
-      begin
-        phone_nums = params[:phone].delete('^0-9')
-        user.phone = ActionController::Base.helpers.number_to_phone(phone_nums)
-      rescue
-        user.phone = params[:phone]
-      end
+      user.phone = params[:phone]
       # user's team
       if params[:type] == "create"
         captain = Captain.create!(user_id: user.id)
