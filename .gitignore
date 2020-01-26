@@ -43,6 +43,8 @@ yarn-debug.log*
 /vendor/cache
 secrets.yml
 
+# lock files
 package-lock.json
+*.lock
 
 .idea
