@@ -7,11 +7,14 @@ volumes:
 services:
   db:
     image: postgres
+    env_file: .env
     volumes:
       - db-data:/var/lib/postgresql/db-data
 
   app:
     build: .
+    env_file:
+      - .env
     volumes:
       - .:/usr/src/app
     ports:

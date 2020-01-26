@@ -32,7 +32,7 @@ class Api::V1::UsersController < ApiController
         enable_announcement_notifications: enable_announcement_notifications,
       })
 
-      render json: { status: 'SUCCESS', message: 'User successfully updated.', data: user }, staus: :ok
+      render json: { status: 'SUCCESS', message: 'User successfully updated.', data: user }, status: :ok
     else
       render json: { status: 'ERROR', message: 'User not found' }, status: :not_found
     end

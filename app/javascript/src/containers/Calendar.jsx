@@ -81,6 +81,9 @@ class Calendar extends Component {
                 <BigCal {...this.props} />
               </div>
             </Card.Content>
+            <Card.Content as="h5" textAlign="center">
+                Tip! If you're trying to get a shift to end at 11:59 to the very bottom of the screen, just create the shift higher up and drag down!
+            </Card.Content>
           </Card>
         </div>
       </div>

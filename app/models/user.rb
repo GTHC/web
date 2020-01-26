@@ -5,6 +5,7 @@ class User < ApplicationRecord
   # devise :database_authenticatable, :registerable,
   #        :recoverable, :rememberable, :trackable, :validatable
   validates :email, :uniqueness => {:allow_blank => true}
+  before_save :normalize_phone_number
 
   belongs_to :team, optional: true
 
@@ -34,6 +35,13 @@ class User < ApplicationRecord
     shifts_to_remove = shifts.where(start_time: date.beginning_of_day..date.end_of_day)
     shifts_to_remove.each do |shift|
       shift.destroy
+    end
+  end
+
+  def normalize_phone_number
+    if attribute_present?("phone")
+      phone_nums = phone.delete('^0-9')
+      self.phone = ActionController::Base.helpers.number_to_phone(phone_nums)
     end
   end
 
