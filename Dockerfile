@@ -7,7 +7,7 @@ RUN apt-get update\
   postgresql-client\
   && curl -sL https://deb.nodesource.com/setup_10.x | bash -\
   && apt-get -y install\
-  nodejs npm\
+  nodejs\
   && npm install -g yarn\
   && rm -rf /var/cache/apk/*
 
