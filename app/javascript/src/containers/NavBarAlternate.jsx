@@ -41,6 +41,7 @@ class NavBarAlternate extends Component {
           </Menu.Item>
           <Menu.Item
             id="login"
+            active={path == '/' | path == '/login'}
             onClick={() => this.navigateTo('/login')}
           >
             <Icon name="sign in" />
@@ -48,15 +49,18 @@ class NavBarAlternate extends Component {
           </Menu.Item>
             <Menu.Item
               id="about"
+              active={path == '/about' | path == '/about/gthc'}
               onClick={() => this.navigateTo('/about/gthc')}>
               About GTHC
             </Menu.Item>
-            <Menu.Item 
-              id="aboutus" 
+            <Menu.Item
+              id="aboutus"
+              active={path == '/about/us'}
               onClick={() => this.navigateTo('/about/us')}>
                 About Us
               </Menu.Item>
             <Menu.Item
+              active={path == '/about/tenting'}
               id="tenting101"
               onClick={() => this.navigateTo('/about/tenting')}
             >
