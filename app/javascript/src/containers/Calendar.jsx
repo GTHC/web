@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 
 // components
 import NavBar from './NavBar';
-import { Card, Dimmer, Loader } from 'semantic-ui-react';
+import { Card, Dimmer, Icon, Image, Loader, Popup } from 'semantic-ui-react';
 
 // components
 import BigCal from '../components/calendar';
@@ -25,6 +25,9 @@ import { getTeam } from '../actions/team';
 
 // utils
 import runOlson from '../utils/olson';
+
+// images
+import * as calGIF from './../images/calendar_record.gif'
 
 class Calendar extends Component {
   constructor(props) {
@@ -67,6 +70,16 @@ class Calendar extends Component {
 
   render () {
     const { loader, loaderContent } = this.state;
+
+    const popupContent = (
+      <span>
+        <Image
+          size="medium"
+          src={calGIF}
+        />
+      </span>
+    );
+
     return (
       <div>
         <Dimmer active={loader}>
@@ -81,8 +94,15 @@ class Calendar extends Component {
                 <BigCal {...this.props} />
               </div>
             </Card.Content>
-            <Card.Content as="h5" textAlign="center">
-                Tip! If you're trying to get a shift to end at 11:59 to the very bottom of the screen, just create the shift higher up and drag down!
+            <Card.Content textAlign="center">
+                <b>Having Trobule?</b> If you're trying to get a shift to end at 11:59, just create the shift higher up and drag down!
+                <Popup
+                  flowing
+                  position="top center"
+                  style={{ textAlign: 'center' }}
+                  trigger={<Icon name="info circle" />}
+                  content={popupContent}
+                />
             </Card.Content>
           </Card>
         </div>

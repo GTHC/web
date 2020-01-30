@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import NavBar from './NavBar';
 
 // components
-import { Card, Icon, Label, Popup } from 'semantic-ui-react';
+import { Card, Image, Icon, Label, Popup } from 'semantic-ui-react';
 
 import AvailCal from './../components/availability';
 
@@ -20,6 +20,9 @@ import {
   deleteAvail,
   dragDropUpdate,
 } from '../actions/user';
+
+// images
+import * as availGIF from './../images/availability_record.gif'
 
 class Availability extends Component {
   componentDidMount() {
@@ -52,6 +55,15 @@ class Availability extends Component {
       </span>
     );
 
+    const bottomPopupContent = (
+      <span>
+        <Image
+          size="medium"
+          src={availGIF}
+        />
+      </span>
+    );
+
     return (
       <div>
         <NavBar />
@@ -79,8 +91,15 @@ class Availability extends Component {
                 />
               </div>
             </Card.Content>
-            <Card.Content as="h5" textAlign="center">
-                Tip! If you're trying to get a shift to end at 11:59 to the very bottom of the screen, just create the shift higher up and drag down!
+            <Card.Content textAlign="center">
+                <b>Having Trobule?</b> If you're trying to get a shift to end at 11:59, just create the shift higher up and drag down!
+                <Popup
+                  flowing
+                  position="top center"
+                  style={{ textAlign: 'center' }}
+                  trigger={<Icon name="info circle" />}
+                  content={bottomPopupContent}
+                />
             </Card.Content>
           </Card>
         </div>
