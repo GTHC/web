@@ -95,7 +95,7 @@ class Calendar extends Component {
               </div>
             </Card.Content>
             <Card.Content textAlign="center">
-                <b>Having Trobule?</b> If you're trying to get a shift to end at 11:59, just create the shift higher up and drag down!
+                <b>Having Trouble?</b> If you're trying to get a shift to end at 11:59, just create the shift higher up and drag down!
                 <Popup
                   flowing
                   position="top center"
