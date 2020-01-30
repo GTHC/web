@@ -145,7 +145,7 @@ class AboutUs extends Component {
                     </Card.Content>
                     <Card.Content extra>
                       <Icon name="user" />
-                      Marketing
+                      Marketing and Finance
                     </Card.Content>
                   </Card>
 
