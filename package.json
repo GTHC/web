@@ -62,6 +62,7 @@
     "dev:db:seed": "docker-compose run app rails db:seed",
     "prod:start": "./bin/prod-start.sh",
     "prod:build": "./bin/build-production.sh",
-    "staging:build": "./bin/build-staging.sh"
+    "staging:build": "./bin/build-staging.sh",
+    "dev:clean-start": "./bin/clean-start-server.sh"
   }
 }
