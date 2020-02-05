@@ -27,7 +27,7 @@ import { getTeam } from '../actions/team';
 import runOlson from '../utils/olson';
 
 // images
-import * as calGIF from './../images/calendar_record.gif'
+// import * as calGIF from './../images/calendar_record.gif'
 
 class Calendar extends Component {
   constructor(props) {
@@ -75,7 +75,7 @@ class Calendar extends Component {
       <span>
         <Image
           size="medium"
-          src={calGIF}
+          src={"https://i.imgur.com/5es8pVn.gif"}
         />
       </span>
     );
