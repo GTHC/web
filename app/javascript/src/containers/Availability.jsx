@@ -22,8 +22,9 @@ import {
 } from '../actions/user';
 
 // images
-import * as availGIF from './../images/availability_record.gif'
-
+// import * as availGIF from './../images/availability_record.gif'
+// calendar: https://i.imgur.com/5es8pVn.gif
+// avail: https://i.imgur.com/IxVpQHl.gif 
 class Availability extends Component {
   componentDidMount() {
     this.props.checkSession();
@@ -59,7 +60,7 @@ class Availability extends Component {
       <span>
         <Image
           size="medium"
-          src={availGIF}
+          src={"https://i.imgur.com/IxVpQHl.gif "}
         />
       </span>
     );
