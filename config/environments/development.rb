@@ -1,9 +1,4 @@
 Rails.application.configure do
-  # Verifies that versions and hashed value of the package contents in the project's package.json
-config.webpacker.check_yarn_integrity = true
-
-    config.webpacker.check_yarn_integrity = true  # Settings specified here will take precedence over those in config/application.rb.
-
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
@@ -14,6 +9,8 @@ config.webpacker.check_yarn_integrity = true
 
   # Show full error reports.
   config.consider_all_requests_local = true
+
+  config.public_file_server.enabled = true
 
   # Enable/disable caching. By default caching is disabled.
   if Rails.root.join('tmp/caching-dev.txt').exist?
@@ -28,7 +25,6 @@ config.webpacker.check_yarn_integrity = true
 
     config.cache_store = :null_store
   end
-
   config.action_mailer.perform_caching = false
 
   # Attempt to read encrypted secrets from `config/secrets.yml.enc`.
@@ -52,11 +48,6 @@ config.webpacker.check_yarn_integrity = true
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-
-  # Use an evented file watcher to asynchronously detect changes in source code,
-  # routes, locales, etc. This feature depends on the listen gem.
-  # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
-  config.webpacker.check_yarn_integrity = false
 
   config.action_mailer.default_url_options = { host: 'localhost:5000'}
   config.action_mailer.delivery_method = :smtp

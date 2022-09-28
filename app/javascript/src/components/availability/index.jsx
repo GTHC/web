@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
 // calendar components
-import Calendar from 'react-big-calendar';
+import { Calendar, momentLocalizer } from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import moment from 'moment';
 
 // components
 import ModalUpdate from './ModalUpdate';
 
-const localizer = Calendar.momentLocalizer(moment);
+const localizer = momentLocalizer(moment);
 
 const DragDropCal = withDragAndDrop(Calendar);
 

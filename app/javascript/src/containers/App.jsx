@@ -7,8 +7,8 @@ import { bindActionCreators } from "redux";
 // redux actions
 import { checkSession } from "../actions/user";
 
-import { Route, Redirect } from "react-router-dom";
-import { ConnectedRouter } from "react-router-redux";
+import { Route, Navigate  } from "react-router-dom";
+import { ConnectedRouter, BrowserRouter } from "connected-react-router";
 import ConnectedSwitch from "./../components/utils/switch";
 
 // containers
@@ -30,16 +30,18 @@ import "./../styles";
 
 // routes
 const AppRoutes = () => (
-  <ConnectedSwitch>
-    <Route exact path="/app" component={Home} />
-    <Route exact path="/app/" component={Home} />
-    <Route exact path="/app/dashboard" component={Dashboard} />
-    <Route exact path="/app/calendar" component={Calendar} />
-    <Route exact path="/app/availability" component={Availability} />
-    <Route exact path="/app/user" component={UserProfile} />
-    <Route exact path="/app/team" component={TeamProfile} />
-    <Route exact path="/app/*" component={Home} />
-  </ConnectedSwitch>
+  <BrowserRouter>
+    <ConnectedSwitch>
+      <Route exact path="/app" component={Home} />
+      <Route exact path="/app/" component={Home} />
+      <Route exact path="/app/dashboard" component={Dashboard} />
+      <Route exact path="/app/calendar" component={Calendar} />
+      <Route exact path="/app/availability" component={Availability} />
+      <Route exact path="/app/user" component={UserProfile} />
+      <Route exact path="/app/team" component={TeamProfile} />
+      <Route exact path="/app/*" component={Home} />
+    </ConnectedSwitch>
+  </BrowserRouter>
 );
 
 class App extends Component {
@@ -51,29 +53,31 @@ class App extends Component {
     const { history, user } = this.props;
     return (
         <ConnectedRouter history={history}>
-          <ConnectedSwitch>
-            <Route exact path="/" render={() => {
-              return (user.isLoggedIn ?
-                <Redirect to="/app" /> :
-                <Redirect to="/login" />)
-            }}/>
-            <Route path="/app" render={() => (
-              user.isLoggedIn ?
-              <AppRoutes /> :
-              <Redirect to="/login" />
-            )} />
-            <Route path="/login" render={() => (
-              user.isLoggedIn ?
-              <Redirect to="/app" /> :
-              <Login />
-            )} />
-            <Route exact path="/about" component={About} />
-            <Route path="/about/gthc" component={About} />
-            <Route path="/about/us" component={AboutUs} />
-            <Route path="/about/tenting" component={Tenting101} />
-            <Route path='/privacy' component={Privacy} />
-            <Route path='/logout' component={Logout} />
-          </ConnectedSwitch>
+          <BrowserRouter>
+            <ConnectedSwitch>
+              <Route exact path="/" render={() => {
+                return (user.isLoggedIn ?
+                  <Navigate  to="/app" /> :
+                  <Navigate  to="/login" />)
+              }}/>
+              <Route path="/app" render={() => (
+                user.isLoggedIn ?
+                <AppRoutes /> :
+                <Navigate  to="/login" />
+              )} />
+              <Route path="/login" render={() => (
+                user.isLoggedIn ?
+                <Navigate  to="/app" /> :
+                <Login />
+              )} />
+              <Route exact path="/about" component={About} />
+              <Route path="/about/gthc" component={About} />
+              <Route path="/about/us" component={AboutUs} />
+              <Route path="/about/tenting" component={Tenting101} />
+              <Route path='/privacy' component={Privacy} />
+              <Route path='/logout' component={Logout} />
+            </ConnectedSwitch>
+          </BrowserRouter>
         </ConnectedRouter>
     );
   }

@@ -1,4 +1,4 @@
-import { push as pushRedux } from 'react-router-redux';
+import { push as pushRedux } from 'connected-react-router';
 
 const push = route => (dispatch) => {
   dispatch(pushRedux(route));

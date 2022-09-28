@@ -1,11 +1,12 @@
-FROM ruby
+FROM ruby:latest
 
 RUN apt-get update\
   && apt-get -y install\
   build-essential libpq-dev\
   curl\
   postgresql-client\
-  && curl -sL https://deb.nodesource.com/setup_10.x | bash -\
+  python\
+  && curl -sL https://deb.nodesource.com/setup_16.x | bash -\
   && apt-get -y install\
   nodejs\
   && npm install -g yarn\
@@ -19,4 +20,5 @@ RUN yarn install
 COPY . .
 
 EXPOSE 5000 3035
-CMD rails db:migrate && yarn run prod
+CMD ["/bin/bash"]
+#CMD rails db:migrate && yarn run prod

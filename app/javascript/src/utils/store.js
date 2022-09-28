@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { createBrowserHistory } from 'history';
-import { routerReducer, routerMiddleware } from 'react-router-redux';
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { createDevTools } from 'redux-devtools';
 import { persistStore, persistCombineReducers } from 'redux-persist';
 import storage from 'redux-persist/es/storage';
@@ -18,15 +18,15 @@ const config = {
   storage,
 };
 
+const history = createBrowserHistory();
+const middleware = routerMiddleware(history);
+
 const reducer = {
   ...allReducers,
-  router: routerReducer,
+  router: connectRouter(history),
 }
 
 const reducers = persistCombineReducers(config, reducer);
-
-const history = createBrowserHistory();
-const middleware = routerMiddleware(history);
 
 const DevTools = createDevTools(
   <DockMonitor

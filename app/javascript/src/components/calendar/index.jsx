@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Calendar from 'react-big-calendar';
+import { Calendar, momentLocalizer } from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import moment from 'moment';
 
@@ -11,7 +11,7 @@ import ShiftViewModal from './ShiftViewModal';
 import ShiftCreateModal from './ShiftCreateModal';
 import ShiftUpdateModal from './ShiftUpdateModal';
 
-const localizer = Calendar.momentLocalizer(moment);
+const localizer = momentLocalizer(moment);
 
 const DragDropCal = withDragAndDrop(Calendar);
 

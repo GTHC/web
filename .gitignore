@@ -48,3 +48,6 @@ package-lock.json
 *.lock
 
 .idea
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

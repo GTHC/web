@@ -1,2 +1,1 @@
 puma-backend: bundle exec puma -p $PORT
-webpacker-frontend: ruby ./bin/webpack --watch --colors --progress
